@@ -1,5 +1,4 @@
-import {FetchWuXing} from 'lib/base/wuxing'
-
+import {FetchWuXing} from './wuxing'
 
 export class Gan{
     constructor(public index: number){

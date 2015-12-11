@@ -1,6 +1,5 @@
 class WuXing{
     constructor(public name: String){
-        
     }
 }
 
@@ -12,7 +11,7 @@ wuxings.push(new WuXing('火'));
 wuxings.push(new WuXing('土'));
 
 
-export function FetchWuXing(para){
+export function FetchWuXing(para: any){
     if(typeof para === 'number'){
         if(para >= 0 && para <= 4){
             return wuxings[para];
