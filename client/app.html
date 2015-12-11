@@ -1,0 +1,31 @@
+<!--<button type="button" class="btn btn-primary">Hallo</button>-->
+<div class="ui sidebar inverted labeled vertical menu">
+    <a class="active item" [router-link]="['/Desktop']">
+        主桌面
+    </a>
+    <a class="item" [router-link]="['/PaiLiuyao']">
+        排卦
+    </a>
+    <a class="item" [router-link]="['/PaiBazi']">
+        排八字
+    </a>
+    <a class="item" [router-link]="['/Calendar']">
+        万年历
+    </a>
+    <a class="item" [router-link]="['/Compass']">
+        罗盘
+    </a>
+</div>
+<div class="pusher" style="margin-left: 10px">
+    <!--<div class="container">
+        <div class="ui top attached menu">
+            <div class="ui icon item" (click)="showMenu()">
+                <i class="sidebar icon"></i>
+            </div>
+        </div>
+        <div class="ui bottom attached segment">
+            <p><H>hallo welt!</H></p>
+        </div>
+    </div>-->
+    <router-outlet></router-outlet>
+</div>
