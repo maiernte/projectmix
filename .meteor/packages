@@ -19,3 +19,4 @@ insecure                # Allow all DB writes from clients (for prototyping)
 urigo:angular2-meteor
 semantic:ui
 semantic:ui-css
+flemay:less-autoprefixer

@@ -3,8 +3,19 @@
         <div class="ui icon item" (click)="showMenu()">
             <i class="sidebar icon"></i>
         </div>
+        <div class="item">
+            <button class="ui button basic" (click)="addCalendar()">
+                万年历
+            </button>
+        </div>
     </div>
-    <div class="ui bottom attached segment">
-        <p><H>hallo Huahe!</H></p>
+    <div class="ui four column doubling stackable relaxed grid" style="margin-top:5px;">
+        <!--<div class="four wide column" style='background-color:gray'
+             *ng-for="#frame of frameList">
+            <ty-window></ty-window>
+        </div>-->
+
+        <ty-window *ng-for="#frame of frameList" class="four wide column"></ty-window>
+
     </div>
 </div>

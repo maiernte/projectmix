@@ -6,9 +6,16 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=no">
 
     <!--<base href="/pailiuyao">-->
+    <script>
+        $(document).ready(function(){
+            console.log('document ready....')
+            $('.ui.accordion').accordion();
+        });
+    </script>
 </head>
 <body>
     <app></app>
     <script>System.import('client/app');</script>
+
 </body>
 </html>

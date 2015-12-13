@@ -1,5 +1,4 @@
-<!--<button type="button" class="btn btn-primary">Hallo</button>-->
-<div class="ui sidebar inverted labeled vertical menu">
+<div class="ui sidebar inverted labeled vertical menu" id="mainsidebar">
     <a class="active item" [router-link]="['/Desktop']">
         主桌面
     </a>
@@ -17,15 +16,5 @@
     </a>
 </div>
 <div class="pusher" style="margin-left: 10px">
-    <!--<div class="container">
-        <div class="ui top attached menu">
-            <div class="ui icon item" (click)="showMenu()">
-                <i class="sidebar icon"></i>
-            </div>
-        </div>
-        <div class="ui bottom attached segment">
-            <p><H>hallo welt!</H></p>
-        </div>
-    </div>-->
     <router-outlet></router-outlet>
 </div>
