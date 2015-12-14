@@ -20,12 +20,11 @@ export class Desktop{
         //let s = new Gan(1);
         //console.log(s.Name, s.WuXing);
         this.router = _router;
-        console.log('router', this.router);
     }
     
     showMenu(){
-        console.log('showMenu...click')
         $('.ui.labeled.sidebar').sidebar('toggle');
+        //console.log('showMenu', document.find('.ui.labeled.sidebar')) 
     }
     
     addCalendar(){
@@ -37,10 +36,6 @@ export class Desktop{
         }
         
         this.frameList.push(frame);
-    }
-    
-    Log(){
-        console.log('window loaded')
     }
 
     onInit(){

@@ -38,11 +38,6 @@ class HuaheApp {
     constructor(@Inject(Router) router: Router, @Inject(Location) location: Location){
         this.router = router;
         this.location = location;
-
-        $(document).ready(function(){
-            console.log('document ready....after angular 2')
-            $('.ui.accordion').accordion();
-        });
     }
 }
 

@@ -1,6 +1,8 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 
-import {Component, } from 'angular2/angular2'
+import {Component, ElementRef} from 'angular2/angular2'
+
+declare var jQuery:any;
 
 @Component({
 	selector: 'ty-window',
@@ -8,12 +10,15 @@ import {Component, } from 'angular2/angular2'
 })
 
 export class TyWindow{
-	constructor(){
-		
+	elementRef: ElementRef;
+	
+	constructor(elementRef: ElementRef){
+		this.elementRef = elementRef;
 	}
 
 	onInit(){
-		console.log('init tyWindow')
-		$('.ui.accordion').accordion();
+		//$('.ui.accordion').accordion();
+		let v = jQuery(this.elementRef.nativeElement)
+		v.find('.ui.accordion').accordion();
 	}
 }
