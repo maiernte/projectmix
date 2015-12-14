@@ -14,5 +14,6 @@ export class TyWindow{
 
 	onInit(){
 		console.log('init tyWindow')
+		$('.ui.accordion').accordion();
 	}
 }

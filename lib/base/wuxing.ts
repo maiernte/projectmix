@@ -10,7 +10,6 @@ wuxings.push(new WuXing('木'));
 wuxings.push(new WuXing('火'));
 wuxings.push(new WuXing('土'));
 
-
 export function FetchWuXing(para: any){
     if(typeof para === 'number'){
         if(para >= 0 && para <= 4){

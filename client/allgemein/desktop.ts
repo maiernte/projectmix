@@ -30,7 +30,7 @@ export class Desktop{
     
     addCalendar(){
         //this.router.parent.navigate(['/PaiBazi'])
-
+        
         var frame = {
             type: "calendar",
             width: 4,
@@ -38,9 +38,14 @@ export class Desktop{
         
         this.frameList.push(frame);
     }
+    
+    Log(){
+        console.log('window loaded')
+    }
 
     onInit(){
         this.frameList = [{name: 'mai'}];
+        
         // var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
     }
 }
