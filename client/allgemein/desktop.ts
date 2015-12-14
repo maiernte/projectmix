@@ -38,6 +38,10 @@ export class Desktop{
         this.frameList.push(frame);
     }
 
+    oncloseWind(event){
+        this.frameList.pop();
+    }
+
     onInit(){
         this.frameList = [{name: 'mai'}];
         
