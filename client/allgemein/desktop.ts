@@ -39,6 +39,7 @@ export class Desktop{
     }
 
     oncloseWind(event){
+        console.log(event)
         this.frameList.pop();
     }
 

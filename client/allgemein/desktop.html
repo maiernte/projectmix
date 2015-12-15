@@ -1,17 +1,41 @@
-<div class="container">
+<div>
     <div class="ui top attached menu">
-        <div class="item" (click)="showMenu()">
-            <i class="sidebar icon"></i>
+        <div class="ui animated fade primary button item" (click)="showMenu()">
+            <div class="visible content">
+                <i class="sidebar icon"></i>
+            </div>
+            <div class="hidden content">
+                菜单
+            </div>
         </div>
-        <div class="item" (click)="addCalendar()">
-            万年历
+        <div class="ui animated fade primary button item" (click)="addCalendar()">
+            <div class="visible content">
+                <i class="calendar icon"></i>
+            </div>
+            <div class="hidden content">
+                万年历
+            </div>
+        </div>
+        <div class="ui animated fade primary button item">
+            <div class="visible content">
+                <i class="compass icon"></i>
+            </div>
+            <div class="hidden content">
+                罗盘
+            </div>
         </div>
     </div>
-    <div class="ui four column doubling stackable grid" style="margin-top:5px;">
+    <!--<div class="ui four column doubling stackable grid" style="margin:0">-->
+    <!--    <ty-window *ng-for="#frame of frameList"-->
+    <!--                class="sixteen wide mobile eight wide tablet four wide computer column column-addon"-->
+    <!--                (onclosing)="oncloseWind($event)"></ty-window>-->
+
+    <!--</div>-->
+    
+    <div class="row">
         <ty-window *ng-for="#frame of frameList"
-                   class="four wide column"
-                   (onclosing)="oncloseWind($event)"
-        ></ty-window>
+                    class="col-xs-12 col-sm-6 col-md-6 col-lg-4"
+                    (onclosing)="oncloseWind($event)"></ty-window>
+
     </div>
 </div>
-

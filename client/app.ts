@@ -38,6 +38,7 @@ class HuaheApp {
     constructor(@Inject(Router) router: Router, @Inject(Location) location: Location){
         this.router = router;
         this.location = location;
+        
     }
 }
 

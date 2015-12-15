@@ -15,7 +15,6 @@ export class TyWindow{
 	onclosing = new EventEmitter();
 	
 	constructor(elementRef: ElementRef){
-		console.log('TYWindow')
 		this.elementRef = elementRef;
 	}
 
@@ -24,8 +23,9 @@ export class TyWindow{
 	}
 
 	onInit(){
+		
 		let v = jQuery(this.elementRef.nativeElement)
-		//v.find('.ui.accordion').accordion();
+		v.find('.ui.accordion').accordion();
 		//v.find('.ui.element').popup({on:'click'})
 	}
 }
