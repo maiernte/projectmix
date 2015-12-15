@@ -33,8 +33,14 @@
     <!--</div>-->
     
     <div class="row">
-        <ty-window *ng-for="#frame of frameList"
-                   class="col-xs-12 col-sm-6 col-md-6 col-lg-4"
+        <ty-window *ng-for="#frame of frameList" #tywind
+                   class="col-xs-12"
+                   [class.col-lg-4]='tywind.wide === false'
+                   [class.col-lg-6]='tywind.wide === true'
+                   [class.col-sm-6]='tywind.wide === false'
+                   [class.col-sm-12]='tywind.wide === true'
+                   [class.col-md-6]='tywind.wide === false'
+                   [class.col-md-12]='tywind.wide === true'
                    [data]="frame"
                    (onclosing)="oncloseWind($event)"></ty-window>
 

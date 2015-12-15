@@ -27,10 +27,12 @@ export class TyWindow{
 	onclosing = new EventEmitter();
 	glsetting: GlobalSetting;
 	@Input() data: Object;
+	wide: boolean;
 	
 	constructor(elementRef: ElementRef, @Inject(GlobalSetting) glsetting: GlobalSetting){
 		this.elementRef = elementRef;
 		this.glsetting = glsetting;
+		this.wide = false;
 	}
 
 	close(){
@@ -38,6 +40,7 @@ export class TyWindow{
 	}
 
 	onInit(){
+		
 		let v = jQuery(this.elementRef.nativeElement)
 		v.find('.ui.accordion').accordion();
 		//v.find('.ui.element').popup({on:'click'})

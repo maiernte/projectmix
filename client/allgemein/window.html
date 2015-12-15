@@ -40,6 +40,7 @@
 
 <div class='box' style="margin-top:5px;">
     <div class="ui attached segment" style='padding-top:3px;'>
+        {{wide}}
         <div [ng-switch]="data.type">
             <template [ng-switch-when]="'calendar'">
                 <calendarview></calendarview>
@@ -66,6 +67,14 @@
                 </div>
                 <div class="hidden content">
                     {{'功能' | tran:glsetting.lang}}
+                </div>
+            </div>
+            <div class="ui animated vertical button item" (click)='wide = !wide'>
+                <div class="visible content">
+                    <i class="icon resize horizontal"></i>
+                </div>
+                <div class="hidden content">
+                    {{'宽度' | tran:glsetting.lang}}
                 </div>
             </div>
             <div class="ui animated vertical button item">

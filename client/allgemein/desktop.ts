@@ -50,6 +50,7 @@ export class Desktop{
         }
         
         this.frameList.push(frame);
+        
     }
 
     oncloseWind(windowID){
