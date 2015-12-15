@@ -1,25 +1,25 @@
 <div class="ui sidebar inverted labeled vertical menu" id="mainsidebar">
     <a class="active item" [router-link]="['/Desktop']">
         <i class="home icon"></i>
-        主桌面
+        {{'主桌面' | tran:glsetting.lang}}
     </a>
     <a class="item" [router-link]="['/PaiLiuyao']">
         <i class="ellipsis vertical icon"></i>
-        排卦
+        {{'排卦' | tran:glsetting.lang}}
     </a>
     <a class="item" [router-link]="['/PaiBazi']">
         <i class="icon child"></i>
-        排八字
+        {{'排八字' | tran:glsetting.lang}}
     </a>
     <a class="item" [router-link]="['/Calendar']">
         <i class="icon calendar"></i>
-        万年历
+        {{'万年历' | tran:glsetting.lang}}
     </a>
     <a class="item" [router-link]="['/Compass']">
         <i class="compass icon"></i>
-        罗盘
+        {{'罗盘' | tran:glsetting.lang}}
     </a>
 </div>
-<div class="dimmed pusher" style="margin-left: 10px">
+<div class="dimmed pusher" style="margin-left: 10px;margin-right: 3px">
     <router-outlet></router-outlet>
 </div>

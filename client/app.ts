@@ -19,10 +19,14 @@ import {PaiBazi} from 'client/bazi/paiBazi';
 import {CalendarView} from 'client/calendar/calendar'
 import {CompassView} from 'client/compass/compass'
 
+import {TranslatePipe} from 'client/allgemein/translatePipe'
+import {GlobalSetting} from  'client/globalsetting'
+
 @Component({
     selector: 'app',
     templateUrl: 'client/app.html',
-    directives: [ROUTER_DIRECTIVES]
+    directives: [ROUTER_DIRECTIVES],
+    pipes: [TranslatePipe],
 })
 @RouteConfig([
     {path: '/', as: 'Desktop', component: Desktop},
@@ -34,13 +38,16 @@ import {CompassView} from 'client/compass/compass'
 class HuaheApp {
     router: Router;
     location: Location;
+    glsetting: GlobalSetting;
     
-    constructor(@Inject(Router) router: Router, @Inject(Location) location: Location){
+    constructor(@Inject(Router) router: Router,
+                @Inject(Location) location: Location,
+                @Inject(GlobalSetting) glsetting: GlobalSetting){
         this.router = router;
         this.location = location;
-        
+        this.glsetting = glsetting;
     }
 }
 
 //bootstrap(HuaheApp)
-bootstrap(HuaheApp, [ROUTER_PROVIDERS, provide(LocationStrategy, { useClass: HashLocationStrategy })]);
+bootstrap(HuaheApp, [ROUTER_PROVIDERS, provide(LocationStrategy, { useClass: HashLocationStrategy }), GlobalSetting]);

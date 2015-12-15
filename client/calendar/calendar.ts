@@ -3,7 +3,7 @@ import {Component} from 'angular2/angular2'
 
 @Component({
     selector: 'calendarview',
-    template: `<p>Calendar</p>`
+    templateUrl: 'client/calendar/calendar.html'
 })
 
 export class CalendarView{

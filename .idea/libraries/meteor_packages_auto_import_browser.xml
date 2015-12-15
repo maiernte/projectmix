@@ -58,9 +58,11 @@
         <item url="file://$USER_HOME$/.meteor/packages/ddp-common/1.2.1/web.browser/utils.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ddp-common/1.2.1/web.browser/heartbeat.js" />
         <item url="file://$USER_HOME$/.meteor/packages/promise/0.5.0/web.browser/.npm/package/node_modules/meteor-promise/promise.bundle.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/shcherbin_flex-grid/1.0.5/web.browser/packages/shcherbin_flex-grid/vendor/dist/flex-grid.css" />
         <item url="file://$USER_HOME$/.meteor/packages/ddp-client/1.2.1/web.browser/sockjs-0.3.4.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ddp-client/1.2.1/web.browser/random_stream.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ddp-client/1.2.1/web.browser/stream_client_common.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/shcherbin_flex-grid/1.0.5/web.browser/packages/shcherbin_flex-grid.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ddp-client/1.2.1/web.browser/livedata_connection.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ddp-client/1.2.1/web.browser/stream_client_sockjs.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ddp-client/1.2.1/web.browser/namespace.js" />
@@ -164,9 +166,11 @@
       <root url="file://$USER_HOME$/.meteor/packages/ddp-common/1.2.1/web.browser/utils.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ddp-common/1.2.1/web.browser/heartbeat.js" />
       <root url="file://$USER_HOME$/.meteor/packages/promise/0.5.0/web.browser/.npm/package/node_modules/meteor-promise/promise.bundle.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/shcherbin_flex-grid/1.0.5/web.browser/packages/shcherbin_flex-grid/vendor/dist/flex-grid.css" />
       <root url="file://$USER_HOME$/.meteor/packages/ddp-client/1.2.1/web.browser/sockjs-0.3.4.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ddp-client/1.2.1/web.browser/random_stream.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ddp-client/1.2.1/web.browser/stream_client_common.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/shcherbin_flex-grid/1.0.5/web.browser/packages/shcherbin_flex-grid.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ddp-client/1.2.1/web.browser/livedata_connection.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ddp-client/1.2.1/web.browser/stream_client_sockjs.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ddp-client/1.2.1/web.browser/namespace.js" />
