@@ -16,7 +16,7 @@
                 {{'万年历' | tran:glsetting.lang}}
             </div>
         </div>
-        <div class="ui animated fade primary button item" (click)="addWindow('liuyao')">
+        <div class="ui animated fade primary button item" (click)="addWindow('gua')">
             <div class="visible content">
                 <i class="compass icon"></i>
             </div>
@@ -42,6 +42,10 @@
                    [class.col-md-6]='tywind.wide === false'
                    [class.col-md-12]='tywind.wide === true'
                    [data]="frame"
-                   (onclosing)="oncloseWind($event)"></ty-window>
+                   (onclosing)="oncloseWind($event)">
+            <calendarview class='calendarview' *ng-if='frame.type == "calendar"'></calendarview>
+            <guaview class='guaview' *ng-if='frame.type == "gua"'></guaview>
+            <div class='otherview'>some thing else</div>
+        </ty-window>
     </div>
 </div>

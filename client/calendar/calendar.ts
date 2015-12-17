@@ -40,7 +40,7 @@ import {LandMaps} from 'lib/lunar/landmaps';
     `]
 })
 
-export class CalendarView{
+export class CalendarView {
     glsetting: GlobalSetting;
     Weeks: Array<TYDate> = [];
     Month: number;
@@ -50,6 +50,7 @@ export class CalendarView{
     
     constructor(@Inject(GlobalSetting) glsetting: GlobalSetting){
         this.glsetting = glsetting;
+        console.log("calendar view init")
         // let city = LandMaps.FindCity('广东', '湛江')
         // console.log('JW test: ', city)
         // console.log(LandMaps.CalcTimeOff(city.Code))
@@ -71,8 +72,8 @@ export class CalendarView{
         }
     }
     
-    callMe(){
-        console.log('call from parent click')
+    showSetting(){
+        console.log('calendar view: call from parent click')
     }
     
     // 计算某月开始第一天是周几。月的下标从1开始。

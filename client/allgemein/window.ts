@@ -13,6 +13,8 @@ import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
 
 import {CalendarView} from "../calendar/calendar";
+import {GuaView} from '../liuyao/guaview'
+	
 
 declare var jQuery:any;
 
@@ -31,16 +33,27 @@ export class TyWindow implements AfterContentInit{
 	wide: boolean;
 	
 	@Input() data: Object;
-	@ContentChild(CalendarView) contentChild: CalendarView;
+	@ContentChild(CalendarView) calendarview: CalendarView;
+	@ContentChild(GuaView) guaview: GuaView;
+	
 	
 	constructor(elementRef: ElementRef, @Inject(GlobalSetting) glsetting: GlobalSetting){
 		this.elementRef = elementRef;
 		this.glsetting = glsetting;
-		this.wide = false;
+		this.wide = false; 
 	}
 
 	close(){
 		this.onclosing.next(this.data['id'])
+	}
+	
+	showSetting(){
+		try{
+			if(this.calendarview) this.calendarview.showSetting();
+			if(this.guaview) this.guaview.showSetting();
+		}catch(err){
+			console.log('showSetting Error', err)
+		} 
 	}
 
 	onInit(){
@@ -51,7 +64,6 @@ export class TyWindow implements AfterContentInit{
 	}
 	
 	 afterContentInit() {
-	    // contentChild is updated after the content has been checked
-	    console.log('AfterContentInit: ' + this.contentChild);
+	    //console.log(this.contentChild);
 	 }
 }

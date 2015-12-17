@@ -1,26 +1,18 @@
 <div class='box' style="margin-top:5px;">
     <div class="ui attached segment" style='padding:1px'>
-        <div [ng-switch]="data.type">
-            <template [ng-switch-when]="'calendar'">
-                <calendarview></calendarview>
-            </template>
-            <template [ng-switch-when]="'liuyao'">
-                <a class="ui teal ribbon label">
-                    解之师
-                </a>子月丁卯日 (旬空：子丑)
-                <div>
-                    other content
-                </div>
-
-                <div>
-                    content
-                </div>
-            </template>
-        </div>
+        <!--<div [ng-switch]="data.type">-->
+        <!--    <template [ng-switch-when]="'calendar'">-->
+        <!--        <ng-content select='.calendarview'></ng-content>-->
+        <!--    </template>-->
+        <!--    <template [ng-switch-when]="'liuyao'">-->
+        <!--        <ng-content select='.guaview'></ng-content>-->
+        <!--    </template>-->
+        <!--</div>-->
+        <ng-content></ng-content>
     </div>
     <div class="ui bottom attached small menu" style="background-color: #eee;">
         <div class="right menu">
-            <div class="ui animated vertical button item">
+            <div class="ui animated vertical button item" (click)='showSetting()'>
                 <div class="visible content">
                     <i class="icon setting"></i>
                 </div>

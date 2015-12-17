@@ -5,6 +5,8 @@ import {Router} from 'angular2/router'
 
 import {Gan} from 'lib/base/ganzhi'
 import {TyWindow} from 'client/allgemein/window'
+import {CalendarView} from "../calendar/calendar";
+import {GuaView} from '../liuyao/guaview'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
@@ -14,7 +16,7 @@ declare var jQuery:any;
 @Component({
     selector: 'desktop',
     templateUrl: 'client/allgemein/desktop.html',
-    directives: [TyWindow, NgFor],
+    directives: [TyWindow, NgFor, CalendarView, GuaView],
     pipes: [TranslatePipe],
 })
 
