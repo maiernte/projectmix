@@ -25,11 +25,11 @@
             </div>
         </div>
     </div>
+    
     <!--<div class="ui four column doubling stackable grid" style="margin:0">-->
     <!--    <ty-window *ng-for="#frame of frameList"-->
     <!--                class="sixteen wide mobile eight wide tablet four wide computer column column-addon"-->
     <!--                (onclosing)="oncloseWind($event)"></ty-window>-->
-
     <!--</div>-->
     
     <div class="row">
@@ -43,9 +43,12 @@
                    [class.col-md-12]='tywind.wide === true'
                    [data]="frame"
                    (onclosing)="oncloseWind($event)">
-            <calendarview class='calendarview' *ng-if='frame.type == "calendar"'></calendarview>
-            <guaview class='guaview' *ng-if='frame.type == "gua"'></guaview>
-            <div class='otherview'>some thing else</div>
+            <!--<calendarview class='calendarview' *ng-if='frame.type == "calendar"'></calendarview>-->
+            <!--<guaview class='guaview' *ng-if='frame.type == "gua"'></guaview>-->
+            <!--<div class='otherview' *ng-if='frame.type == "other"'>some thing else</div>-->
+            <calendarview *ng-if='frame.type == "calendar"'></calendarview>
+            <guaview *ng-if='frame.type == "gua"'></guaview>
+            <div *ng-if='frame.type == "other"'>some thing else</div>
         </ty-window>
     </div>
 </div>

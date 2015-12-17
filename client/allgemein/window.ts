@@ -57,9 +57,8 @@ export class TyWindow implements AfterContentInit{
 	}
 
 	onInit(){
-		
-		let v = jQuery(this.elementRef.nativeElement)
-		v.find('.ui.accordion').accordion();
+		//let v = jQuery(this.elementRef.nativeElement)
+		//v.find('.ui.accordion').accordion();
 		//v.find('.ui.element').popup({on:'click'})
 	}
 	
