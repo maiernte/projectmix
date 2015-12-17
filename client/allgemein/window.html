@@ -1,46 +1,5 @@
-<!--<div class='box'>-->
-<!--    <div class="ui top attached menu" style="margin:0;">-->
-<!--        <div class="item">-->
-<!--            <h5 class="ui header">解之师 </h5>-->
-<!--        </div>-->
-
-<!--        <div class="right menu" (click)="close()">-->
-<!--            <div class="item">-->
-<!--                <i class="icon remove"></i>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="ui attached segment">-->
-<!--        content-->
-<!--    </div>-->
-<!--</div>-->
-
-<!--<div class='box'>-->
-<!--    <div class="ui top attached segment" style="margin:0;padding:0;">-->
-<!--        <div class="ui small menu" style="background-color: #eee">-->
-<!--            <div class="item">-->
-<!--                <h5 class="ui header">解之师 </h5>-->
-<!--            </div>-->
-<!--            <div class="right menu" >-->
-<!--                <div class="item">-->
-<!--                    <i class="icon like"></i>-->
-<!--                </div>-->
-<!--                <div class="item" (click)="close()">-->
-<!--                    <i class="icon remove"></i>-->
-<!--                </div>-->
-                
-<!--            </div>-->
-<!--        </div>-->
-        
-<!--        <div>-->
-<!--            content-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
 <div class='box' style="margin-top:5px;">
-    <div class="ui attached segment" style='padding-top:3px;'>
-        {{wide}}
+    <div class="ui attached segment" style='padding:1px'>
         <div [ng-switch]="data.type">
             <template [ng-switch-when]="'calendar'">
                 <calendarview></calendarview>
@@ -74,7 +33,7 @@
                     <i class="icon resize horizontal"></i>
                 </div>
                 <div class="hidden content">
-                    {{'宽度' | tran:glsetting.lang}}
+                    {{'宽显' | tran:glsetting.lang}}
                 </div>
             </div>
             <div class="ui animated vertical button item">

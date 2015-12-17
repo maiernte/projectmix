@@ -26,9 +26,9 @@ export class TranslatePipe{
 
     transform(text, [lang]){
         if(lang === true){
-            return TranslatePipe.s2t(text);
+            return typeof text == 'string' ? TranslatePipe.s2t(text) : text.toString();
         }else{
-            return text;
+            return text.toString();
         }
     }
 }

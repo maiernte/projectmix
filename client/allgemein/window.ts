@@ -5,6 +5,8 @@ import {Component,
 		EventEmitter,
 		Inject,
 		Input,
+		AfterContentInit,
+		ContentChild,
 		FORM_DIRECTIVES} from 'angular2/angular2'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
@@ -22,12 +24,14 @@ declare var jQuery:any;
 	directives: [CalendarView]
 })
 
-export class TyWindow{
+export class TyWindow implements AfterContentInit{
 	elementRef: ElementRef;
 	onclosing = new EventEmitter();
 	glsetting: GlobalSetting;
-	@Input() data: Object;
 	wide: boolean;
+	
+	@Input() data: Object;
+	@ContentChild(CalendarView) contentChild: CalendarView;
 	
 	constructor(elementRef: ElementRef, @Inject(GlobalSetting) glsetting: GlobalSetting){
 		this.elementRef = elementRef;
@@ -45,4 +49,9 @@ export class TyWindow{
 		v.find('.ui.accordion').accordion();
 		//v.find('.ui.element').popup({on:'click'})
 	}
+	
+	 afterContentInit() {
+	    // contentChild is updated after the content has been checked
+	    console.log('AfterContentInit: ' + this.contentChild);
+	 }
 }
