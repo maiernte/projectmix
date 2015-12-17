@@ -1,36 +1,36 @@
 <div>
-
-    <div class="ui top attached blue large label">
-        {{'万年历' | tran:glsetting.lang}}:&nbsp;&nbsp;&nbsp;
-        {{Year}}&nbsp;年&nbsp;{{Month}}&nbsp;月&nbsp;{{Date}}&nbsp;日&nbsp;&nbsp;&nbsp;--&nbsp;&nbsp;&nbsp;
-        {{TyDate.GZyear | tran:glsetting.lang}}年&nbsp;
-        {{TyDate.GZmonth | tran:glsetting.lang}}月&nbsp;
-        {{TyDate.GZdate | tran:glsetting.lang}}日
+    <div class='ui attached top segment'>
+        <div class="ui top attached blue large label">
+            {{'万年历' | tran:glsetting.lang}}:&nbsp;&nbsp;&nbsp;
+            {{Year}}&nbsp;年&nbsp;{{Month}}&nbsp;月&nbsp;{{Date}}&nbsp;日&nbsp;&nbsp;&nbsp;--&nbsp;&nbsp;&nbsp;
+            {{TyDate.GZyear | tran:glsetting.lang}}年&nbsp;
+            {{TyDate.GZmonth | tran:glsetting.lang}}月&nbsp;
+            {{TyDate.GZdate | tran:glsetting.lang}}日
+        </div>
     </div>
-
-    <table class="ui single line table">
-        <thead>
-            <tr>
-                <th class="weekend th cell">{{'星期天' | tran:glsetting.lang}}</th>
-                <th class="weekday th cell">{{'星期一' | tran:glsetting.lang}}</th>
-                <th class="weekday th cell">{{'星期二' | tran:glsetting.lang}}</th>
-                <th class="weekday th cell">{{'星期三' | tran:glsetting.lang}}</th>
-                <th class="weekday th cell">{{'星期四' | tran:glsetting.lang}}</th>
-                <th class="weekday th cell">{{'星期五' | tran:glsetting.lang}}</th>
-                <th class="weekend th cell">{{'星期六' | tran:glsetting.lang}}</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ng-for="#week of Weeks">
-                <th *ng-for="#day of week.Dates" 
-                    class="th cell month"
-                    [class.xmonth]='day.Month != Month'
-                    [class.active]='day.Date == Date && day.Month == Month'
-                    (click)='changeDate(day)'>
-                    <div>{{day.Display | tran:glsetting.lang}}</div>
-                    <div>{{day.DisplayChi | tran:glsetting.lang}}</div>
-                </th>
-            </tr>
-        </tbody>
-    </table>
+    <div class='ui attached segment'>
+        <div class='ui equal width grid'>
+            <div class="weekend th cell column">{{'星期天' | tran:glsetting.lang}}</div>
+            <div class="weekday th cell column">{{'星期一' | tran:glsetting.lang}}</div>
+            <div class="weekday th cell column">{{'星期二' | tran:glsetting.lang}}</div>
+            <div class="weekday th cell column">{{'星期三' | tran:glsetting.lang}}</div>
+            <div class="weekday th cell column">{{'星期四' | tran:glsetting.lang}}</div>
+            <div class="weekday th cell column">{{'星期五' | tran:glsetting.lang}}</div>
+            <div class="weekend th cell column">{{'星期六' | tran:glsetting.lang}}</div>
+        </div>
+        
+    </div>
+    <div class="ui attached segment">
+        <div class='ui equal width grid' *ng-for="#week of Weeks">
+            <div *ng-for="#day of week.Dates" 
+                 class="cell column month td" 
+                 [class.xmonth]='day.Month != Month'
+                 [class.active]='day.Date == Date && day.Month == Month'
+                 (click)='changeDate(day)'>
+                <div>{{day.Display | tran:glsetting.lang}}</div>
+                <div>{{day.DisplayChi | tran:glsetting.lang}}</div>
+            </div>
+        </div>
+    </div>
+    
 </div>

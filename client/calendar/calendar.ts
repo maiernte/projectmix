@@ -13,27 +13,32 @@ import {LandMaps} from 'lib/lunar/landmaps';
     pipes: [TranslatePipe],
     directives: [NgFor],
     styles: [`
-        .th.cell{
+        .column.th.cell{
             text-align:center;
             padding-left:0;
             padding-right:0;
             border: 1px solid darkgrey;
         }
         .th.cell.weekday{
-            background-color:#cdc8b1
+            background-color:#cdc8b1;
         }
         .th.cell.weekend{
             background-color:chocolate
         }
-        .th.cell.month{
+        .month.column.cell.td{
+            text-align:center;
+            padding:0;
+            border: 1px solid darkgrey;
+        }
+        .column.cell.month{
             background-color:#eee9e9;
             color: black
         }
-        .th.cell.xmonth{
+        .column.cell.xmonth{
             background-color:#fffafa;
             color: gray
         }
-        .th.cell.active{
+        .column.cell.active{
             background-color:#6495ed;
             color: black
         }
