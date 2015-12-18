@@ -43,6 +43,7 @@ minifiers@1.1.7
 minimongo@1.0.10
 mobile-experience@1.0.1
 mobile-status-bar@1.0.6
+momentjs:moment@2.9.0
 mongo@1.1.2
 mongo-id@1.0.1
 npm-mongo@1.4.39_1
@@ -55,6 +56,7 @@ reactive-var@1.0.6
 reload@1.1.4
 retry@1.0.4
 routepolicy@1.0.6
+rzymek:moment-locale-zh-cn@2.9.0
 semantic:ui@2.1.6
 semantic:ui-css@2.1.2
 semantic:ui-data@2.1.6

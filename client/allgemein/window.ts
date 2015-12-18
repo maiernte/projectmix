@@ -42,6 +42,10 @@ export class TyWindow implements AfterContentInit{
 		this.glsetting = glsetting;
 		this.wide = false; 
 	}
+	
+	get CanSave(){
+		return this.data['type'] != 'calendar' && this.data['type'] != 'compass'
+	}
 
 	close(){
 		this.onclosing.next(this.data['id'])
@@ -55,6 +59,8 @@ export class TyWindow implements AfterContentInit{
 			console.log('showSetting Error', err)
 		} 
 	}
+	
+	
 
 	onInit(){
 		//let v = jQuery(this.elementRef.nativeElement)

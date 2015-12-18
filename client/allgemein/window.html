@@ -1,5 +1,5 @@
 <div class='box' style="margin-top:5px;">
-    <div class="ui attached segment" style='padding:1px'>
+    <div class="ui attached segment" style='padding:0'>
         <!--<div [ng-switch]="data.type">-->
         <!--    <template [ng-switch-when]="'calendar'">-->
         <!--        <ng-content select='.calendarview'></ng-content>-->
@@ -36,7 +36,7 @@
                     {{'快照' | tran:glsetting.lang}}
                 </div>
             </div>
-            <div class="ui animated vertical button item">
+            <div class="ui animated vertical button item" *ng-if='CanSave'>
                 <div class="visible content">
                     <i class="icon save"></i>
                 </div>

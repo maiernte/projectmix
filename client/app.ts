@@ -46,6 +46,8 @@ class HuaheApp {
         this.router = router;
         this.location = location;
         this.glsetting = glsetting;
+        
+        // var s = moment().format();
     }
 }
 

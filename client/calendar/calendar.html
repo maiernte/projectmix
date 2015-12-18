@@ -8,6 +8,7 @@
             {{TyDate.GZdate | tran:glsetting.lang}}日
         </div>
     </div>
+    
     <div class='ui attached segment'>
         <div class='ui equal width grid'>
             <div class="weekend th cell column">{{'星期天' | tran:glsetting.lang}}</div>
@@ -33,4 +34,62 @@
         </div>
     </div>
     
+    
+    <!--<div class="ui buttons" style='padding:0;margin:0'>-->
+    <!--    <div class="ui button">{{'黄历' | tran:glsetting.lang}}</div>-->
+    <!--    <div class="button ui animated vertical">-->
+    <!--        <div class="visible content">-->
+    <!--            <i class="icon search"></i>-->
+    <!--        </div>-->
+    <!--        <div class="hidden content">-->
+    <!--            {{'查找' | tran:glsetting.lang}}-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <!--    <div class="button ui animated vertical">-->
+    <!--        <div class="visible content">-->
+    <!--            <i class="icon angle double left"></i>-->
+    <!--        </div>-->
+    <!--        <div class="hidden content">-->
+    <!--            {{'前一月' | tran:glsetting.lang}}-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <!--    <div class="ui button">{{'年份' | tran:glsetting.lang}}</div>-->
+    <!--    <div class="ui button">{{'今日' | tran:glsetting.lang}}</div>-->
+    <!--    <div class="button ui animated vertical">-->
+    <!--        <div class="visible content">-->
+    <!--            <i class="icon angle double right"></i>-->
+    <!--        </div>-->
+    <!--        <div class="hidden content">-->
+    <!--            {{'后一月' | tran:glsetting.lang}}-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <!--</div>-->
+    <div class="ui attached compact menu">
+        <!--<input type="file" lang="en" class='ui item'>-->
+        <div class="ui button vertically fitted item">
+            {{'黄历' | tran:glsetting.lang}}
+        </div>
+        
+        <div class="ui animated vertical button vertically fitted item">
+            <div class="visible content">
+                <i class="icon search"></i>
+            </div>
+            <div class="hidden content">
+                {{'查找' | tran:glsetting.lang}}
+            </div>
+        </div>
+        
+        <div class="ui button vertically fitted item" (click)='changeDate()'>
+            {{'今日' | tran:glsetting.lang}}
+        </div>
+        
+        <div class="ui input fitted item">
+            <input type="date" 
+                    lang="zh" 
+                    [(ng-model)]='SelectedDate'
+                    id='calendar-datepicker'>
+        </div>
+    </div>
+    
+    sadgasgasgafgadfgadfg
 </div>
