@@ -1,7 +1,83 @@
 
 //System.import('lib/lunar/lunar.js')
 
+import {Gan, Zhi, GanZhi} from "../base/ganzhi";
+
 declare var Lunar:any;
+
+var TYJianChu = [];
+TYJianChu[0] = {
+    Titel: "建日",
+    Mean: "健旺之气。",
+    Good: "宜祭祀、参官、行军、外出、求财、谒贵、交友、上书。",
+    Bad: "忌动土、开仓祀灶、新船下水、兢渡。"
+};
+TYJianChu[1] = {
+    Titel: "除日",
+    Mean: "除旧布新之象。",
+    Good: "宜除服、疗病、避邪、拆卸、出行、嫁娶。",
+    Bad: "忌求官、上任、开张、搬家、探病。"
+};
+TYJianChu[2] = {
+    Titel: "满日",
+    Mean: "丰收圆满之意。",
+    Good: "宜祈福、祭祀、结亲、开市、交易。扫舍、修置产室、裁衣、出行、入仓、开库、店市、求财、出行、修饰舍宇。",
+    Bad: "忌服药、栽种、下葬、移徙、求医疗病、上官赴任。寅申巳亥四个月不宜经商。"
+};
+TYJianChu[3] = {
+    Titel: "平日",
+    Mean: "平常无吉凶之日。",
+    Good: "一般修屋、求福、外出、求财、嫁娶可用。",
+    Bad: "忌开渠、经络。"
+};
+TYJianChu[4] = {
+    Titel: "定日",
+    Mean: "定为不动，不动则为死气。",
+    Good: "只宜计划、谋定。入学、祈福、裁衣、祭祀、结婚姻、纳采问名、求嗣、纳畜、交易亦可",
+    Bad: "诸事不宜，尤忌官司、出行。"
+};
+TYJianChu[5] = {
+    Titel: "执日",
+    Mean: "固执之意，执持操守也。",
+    Good: "一般宜祈福、祭祀、求子、结婚、立约。司法警察执拿案犯。",
+    Bad: "忌搬家、远行、入宅、移居、出行、远回、开库、入仓、出纳货财、新船下水。"
+};
+TYJianChu[6] = {
+    Titel: "破日",
+    Mean: "刚旺破败之日。",
+    Good: "宜求医、治病、破屋坏垣、服药、破贼。",
+    Bad: "万事皆忘，婚姻不谐。不宜多管闲事。忌起工、动土、出行、远回、移徙、新船下水、嫁娶、进人口、祀灶、立契约、纳畜、修作。"
+};
+TYJianChu[7] = {
+    Titel: "危日",
+    Mean: "危险之意。",
+    Good: "宜祭祀、祈福、纳表进章、结婚、纳采问名、捕捉、安床、交易、立契。",
+    Bad: "忌登高、冒险、赌博。"
+};
+TYJianChu[8] = {
+    Titel: "成日",
+    Mean: "成功、成就、结果之意。",
+    Good: "凡事皆有成。宜祭祀、祈福、入学、裁衣、结婚、纳采、嫁娶、纳表章、交易、立契、求医、修产室、出行、远回、移徙、纳畜。",
+    Bad: "忌官司。"
+};
+TYJianChu[9] = {
+    Titel: "收日",
+    Mean: "收成之意。",
+    Good: "经商开市、外出求财，买屋签约、嫁娶订盟诸事吉利。",
+    Bad: "忌开市、安床、安葬、入宅、破土。"
+};
+TYJianChu[10] = {
+    Titel: "开日",
+    Mean: "开放、开心之意。",
+    Good: "凡事求财、求子、求缘、求职、求名。",
+    Bad: "埋葬主大凶。辰戌丑未四个月不宜经商。"
+};
+TYJianChu[11] = {
+    Titel: "毕日",
+    Mean: "坚固之意。",
+    Good: "最宜埋葬，代表能富贵大吉大利。宜祈福、祭祀、求嗣、交易、立契、修合、补牆塞穴、作厕、安床设帐。",
+    Bad: "忌看眼病、求医、问学、外出经商，上任就职。辰戌丑未四个月不宜远回、移徙、动土。"
+};
 
 export class TYLunar{
     static OneDay = 1000 * 60 * 60 * 24;
@@ -62,6 +138,43 @@ export class TYLunar{
 
         return res;
     };
+
+    static getJianChu(yueZhi, riZhi){
+        // 寅月以寅日为建日，卯月以卯日为建日，
+        // 當推算出「建日」後，以後跟隨的日支，便繼續配上 除、滿、平、定、執、破、危、成、收、開、閉等十二神
+        let yue = new GanZhi(yueZhi);
+        let ri = new GanZhi(riZhi);
+
+        var index = (ri.Zhi.Index - yue.Zhi.Index + 12) % 12;
+        return TYJianChu[index];
+    }
+
+    // m, d分别是月日的下标，从1开始。
+    static SearchNongli (y:number, m:number, d:number): Date {
+        var dateName = Lunar.rmc[d - 1];
+        var yueName = Lunar.ymc[(Math.abs(m) + 1) % 12];
+        var leap = m < 0 ? "闰" : "";
+
+        // 如果三个月内都找不到的话就是没有。
+        for (var i = 0; i < 3; i++) {
+            var month = Math.abs(m) + i;
+            var year = month >= 13 ? y + 1 : y;
+            month = month >= 13 ? month % 12 : month;
+
+            // 函数 Lunar.calc2() 月份的下标从1开始。
+            Lunar.calc2(year, month, true);
+            for (var d = 0; d < Lunar.lun.length; d++) {
+                var dateObj = Lunar.lun[d];
+                if (dateObj.Ldc == dateName &&
+                    dateObj.Lmc == yueName &&
+                    dateObj.Lleap == leap) {
+                    return new Date(dateObj.y, dateObj.m - 1, dateObj.d);
+                }
+            }
+        }
+
+        return null;
+    }
 };
 
 export class TYDate{
@@ -81,7 +194,9 @@ export class TYDate{
     
     private jqtime: string; //节气时间串
     private jqname: string; //节气名称
-    
+
+    private static shangshuoDef = ["癸亥", "己巳", "乙亥", "辛巳", "丁亥", "癸巳", "己亥", "乙巳", "辛亥", "丁巳"];
+    private static yanggong13Def = ["正月十三", "二月十一", "三月初九", "四月初七", "五月初五", "六月初三", "七月初一", "七月廿九", "八月廿七", "九月廿五", "十月廿三", "十一月廿一", "十二月十九"];
     
     constructor(public date: Date){
         
@@ -150,6 +265,38 @@ export class TYDate{
     }
     get JQtime(){
         return this.jqtime;
+    }
+
+    get JianChu(){
+        return TYLunar.getJianChu(this.GZmonth, this.GZdate);
+    }
+    get IsSuiPo(): boolean{
+        let year = new GanZhi(this.GZyear);
+        let date = new GanZhi(this.GZdate);
+        return Math.abs(year.Zhi.Index - date.Zhi.Index) === 6;
+    }
+    get IsYuePo(): boolean{
+        let month = new GanZhi(this.GZmonth);
+        let date = new GanZhi(this.GZdate);
+        return Math.abs(month.Zhi.Index - date.Zhi.Index) === 6;
+    }
+    get IsShangSuo() {
+        // 甲年癸亥日，乙年己巳日。。。。。。
+        // var arr = ["癸亥", "己巳", "乙亥", "辛巳", "丁亥", "癸巳", "己亥", "乙巳", "辛亥", "丁巳"];
+        let year = new GanZhi(this.GZyear);
+        return TYDate.shangshuoDef[year.Gan.Index] == this.GZdate;
+    }
+    get IsYangGong13() {
+        // var arr = ["正月十三", "二月十一", "三月初九", "四月初七", "五月初五", "六月初三", "七月初一", "七月廿九", "八月廿七", "九月廿五", "十月廿三", "十一月廿一", "十二月十九"];
+        let text = this.NLmonthFullName + this.NLdate
+
+        for(let yang of TYDate.yanggong13Def){
+            if(yang == text){
+                return true;
+            }
+        }
+
+        return false;
     }
 }
 

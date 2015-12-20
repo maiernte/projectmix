@@ -33,63 +33,109 @@
             </div>
         </div>
     </div>
-    
-    
-    <!--<div class="ui buttons" style='padding:0;margin:0'>-->
-    <!--    <div class="ui button">{{'黄历' | tran:glsetting.lang}}</div>-->
-    <!--    <div class="button ui animated vertical">-->
-    <!--        <div class="visible content">-->
-    <!--            <i class="icon search"></i>-->
-    <!--        </div>-->
-    <!--        <div class="hidden content">-->
-    <!--            {{'查找' | tran:glsetting.lang}}-->
-    <!--        </div>-->
-    <!--    </div>-->
-    <!--    <div class="button ui animated vertical">-->
-    <!--        <div class="visible content">-->
-    <!--            <i class="icon angle double left"></i>-->
-    <!--        </div>-->
-    <!--        <div class="hidden content">-->
-    <!--            {{'前一月' | tran:glsetting.lang}}-->
-    <!--        </div>-->
-    <!--    </div>-->
-    <!--    <div class="ui button">{{'年份' | tran:glsetting.lang}}</div>-->
-    <!--    <div class="ui button">{{'今日' | tran:glsetting.lang}}</div>-->
-    <!--    <div class="button ui animated vertical">-->
-    <!--        <div class="visible content">-->
-    <!--            <i class="icon angle double right"></i>-->
-    <!--        </div>-->
-    <!--        <div class="hidden content">-->
-    <!--            {{'后一月' | tran:glsetting.lang}}-->
-    <!--        </div>-->
-    <!--    </div>-->
-    <!--</div>-->
-    <div class="ui attached compact menu">
+
+    <div class="ui attached compact pointing menu">
         <!--<input type="file" lang="en" class='ui item'>-->
-        <div class="ui button vertically fitted item">
+        <div class="ui button vertically fitted item"
+             [class.active]="searchModel === false"
+             (click)="searchModel = !searchModel">
             {{'黄历' | tran:glsetting.lang}}
         </div>
         
-        <div class="ui animated vertical button vertically fitted item">
+        <div class="ui button vertical animated  vertically fitted item"
+             [class.active]="searchModel === true"
+             (click)="searchModel = !searchModel">
             <div class="visible content">
                 <i class="icon search"></i>
             </div>
             <div class="hidden content">
-                {{'查找' | tran:glsetting.lang}}
+                {{'农历反查' | tran:glsetting.lang}}
             </div>
         </div>
-        
-        <div class="ui button vertically fitted item" (click)='changeDate()'>
-            {{'今日' | tran:glsetting.lang}}
-        </div>
-        
-        <div class="ui input fitted item">
-            <input type="date" 
-                    lang="zh" 
-                    [(ng-model)]='SelectedDate'
-                    id='calendar-datepicker'>
+
+        <div class="right menu" >
+            <div class="ui button vertically fitted item" (click)='changeDate()'>
+                {{'今日' | tran:glsetting.lang}}
+            </div>
+
+            <div class="ui input fitted item">
+                <input type="date"
+                       lang="zh"
+                       [(ng-model)]='SelectedDate'
+                       id='calendar-datepicker'>
+            </div>
         </div>
     </div>
-    
-    sadgasgasgafgadfgadfg
+
+    <div class="ui attached segment">
+        <div class="ui divided items" [hidden]="searchModel === true">
+            <div class="item">
+                <div class="ui tiny image"
+                     style="color:darkgreen;text-align: center">
+                    <h1 style="padding-right: 0px">宜</h1>
+                </div>
+                <div class="middle aligned content" style="color: darkgreen">
+                    {{Good | tran:glsetting.lang}}
+                    <div class="extra">
+                        {{Jianchu | tran:glsetting.lang}}
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ui tiny image"
+                     style="color:firebrick;text-align: center">
+                    <h1 style="padding-right: 0px">忌</h1>
+                    <div class="floating ui red label"
+                         [class.hidden]="BadDay == ''">
+                        {{BadDay | tran:glsetting.lang}}
+                    </div>
+                </div>
+                <div class="middle aligned content" style="color: firebrick">
+                    {{Bad | tran:glsetting.lang}}
+                </div>
+            </div>
+        </div>
+
+        <div class="ui small form" [hidden]="searchModel === false">
+            <h5 class="ui dividing header">{{'选择农历时间' | tran:glsetting.lang}}</h5>
+            <div class="fields">
+                <div class="six wide field">
+                    <label>年</label>
+                    <input type="number" min="1640" max="2100" [(ng-model)]="NlSearch.Year">
+                </div>
+                <div class="three wide field">
+                    <label>月</label>
+                    <select class="ui fluid dropdown" [(ng-model)]="NlSearch.Month">
+                        <option *ng-for="#m of NlSearch.MonthOptions" [value]="m">{{m}}</option>
+                    </select>
+                </div>
+                <div class="three wide field">
+                    <label>日</label>
+                    <select class="ui fluid dropdown" [(ng-model)]="NlSearch.Date">
+                        <option *ng-for="#d of NlSearch.DateOptions" [value]="d">{{d}}</option>
+                    </select>
+                </div>
+                <div class="three wide field">
+                    <label>闰月</label>
+                    <input type="checkbox" [(ng-model)]="NlSearch.Leap">
+                </div>
+            </div>
+            <div class="ui items" style="margin-top: 0">
+                <div class="item">
+                    <div class="ui tiny image">
+                        <button class="ui primary small button"
+                                (click)="searchNL()" >
+                            {{'查找' | tran:glsetting.lang}}
+                        </button>
+                    </div>
+                    <div class="middle aligned content">
+                        <a (click)="SelectedDate = NlSearch.Result">
+                            {{NlSearch.ResultTX}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>

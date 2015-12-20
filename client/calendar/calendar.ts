@@ -54,8 +54,14 @@ export class CalendarView {
     Month: number;
     Date: number;
     Year: number;
-    TyDate: TYDate;
-    
+    Good:string = '';
+    Bad:string = '';
+    Jianchu: string = '';
+    BadDay:string = '';
+    NlSearch:Object;
+    searchModel = false;
+
+    private tyDate:TYDate;
     private selectedDate: string;
     private inited = false;
 
@@ -78,7 +84,7 @@ export class CalendarView {
     }
     
     set SelectedDate(value) {
-        if(this.inited == false){
+        if(this.inited == false || value == ''){
             return;
         }
     
@@ -87,6 +93,15 @@ export class CalendarView {
         if(d.year() != this.Year || d.month() + 1 != this.Month || d.date() != this.Date){
             this.initWeeks(d.year(), d.month() + 1, d.date());
         }
+    }
+
+    get TyDate(){
+        return this.tyDate;
+    }
+
+    set TyDate(value){
+        this.tyDate = value;
+        this.initDetail();
     }
 
     // 更改当前日期
@@ -109,6 +124,35 @@ export class CalendarView {
     // 显示设置窗口
     showSetting(){
         console.log('calendar view: call from parent click')
+    }
+
+    searchNL(){
+        var y = this.NlSearch['Year'];
+        var m = this.NlSearch['MonthOptions'].indexOf(this.NlSearch['Month']) + 1
+        var d = this.NlSearch['DateOptions'].indexOf(this.NlSearch['Date']) + 1
+        var leap = '';
+        if(this.NlSearch['Leap'] === true){
+            m = m * (-1);
+            leap = '闰'
+        }
+
+        let res = TYLunar.SearchNongli(y, m, d);
+        if(res != null){
+            let year = res.getFullYear();
+            let month = res.getMonth() + 1;
+            let date = res.getDate();
+
+            this.NlSearch['Result'] = moment(year + '-' + month + '-' + date).format('YYYY-MM-DD');;
+            this.NlSearch['ResultTX'] = year + '年 ' + month + '月 ' + date + '日'
+            console.log(this.NlSearch['Result'])
+        }else{
+            this.NlSearch['ResultTX'] = '找不到农历 '
+                + this.NlSearch['Year'] + '年 '
+                + this.NlSearch['Month'] + '月 '
+                + this.NlSearch['Date']
+
+            this.NlSearch['Result'] = '';
+        }
     }
 
     // 计算某月开始第一天是周几。月的下标从1开始。
@@ -148,8 +192,35 @@ export class CalendarView {
         let d = moment(year + '-' + month + '-' + _date)
         this.SelectedDate = d.format('YYYY-MM-DD');
     };
+
+    private initDetail(){
+        let jianchu = this.tyDate.JianChu;
+        this.Good = jianchu.Good;
+        this.Bad = jianchu.Bad;
+        this.Jianchu = jianchu.Titel + ': ' + jianchu.Mean;
+
+        let temp = ''
+
+        // 岁破, 月破
+        temp = temp + (this.tyDate.IsSuiPo == true ? " 岁破" : '');
+        temp = temp + (this.tyDate.IsYuePo == true ? " 月破" : '');
+        temp = temp + (this.tyDate.IsShangSuo == true ? ' 上朔' : '')
+        temp = temp + (this.tyDate.IsYangGong13 == true ? ' 杨公十三忌' : '')
+        this.BadDay = temp.trim();
+    }
     
     onInit(){
+        let date = new Date(Date.now());
         this.SelectedDate = moment().format('YYYY-MM-DD');
+        this.NlSearch={
+            Year: date.getFullYear(),
+            MonthOptions:TYLunar.M_ChineseMonthNames,
+            DateOptions: TYLunar.M_DayNames,
+            Month:TYLunar.M_ChineseMonthNames[0],
+            Date:TYLunar.M_DayNames[0],
+            Leap:false,
+            Result: null,
+            ResultTX: '',
+        }
     }
 }
