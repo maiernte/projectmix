@@ -1,0 +1,140 @@
+<div>
+    <div class="ui top attached pointing menu">
+        <div class="ui animated fade primary button item" (click)="showMenu()">
+            <div class="visible content">
+                <i class="sidebar icon"></i>
+            </div>
+            <div class="hidden content">
+                {{'菜单' | tran:glsetting.lang}}
+            </div>
+        </div>
+        <div class="item active"
+            [class.active]="InputModel == 'manuel'"
+            (click)="InputModel = 'manuel'">
+            {{'手动模式' | tran:glsetting.lang}}
+        </div>
+        <div class="item"
+             [class.active]="InputModel == 'auto'"
+             (click)="InputModel = 'auto'">
+            {{'自动模式' | tran:glsetting.lang}}
+        </div>
+        <div class="item"
+             [class.active]="InputModel == 'leading'"
+             (click)="InputModel = 'leading'">
+            {{'引导模式' | tran:glsetting.lang}}
+        </div>
+    </div>
+    <div class="ui attached segment">
+        <div class="ui small form">
+            <h5 class="ui dividing header">{{'起卦时间: ' | tran:glsetting.lang}}
+                <div class="ui toggle checkbox">
+                    <input type="checkbox" [(ng-model)]="GanZhiModel">
+                    <label>{{'公历/干支 - 模式' | tran:glsetting.lang}}</label>
+                </div>
+            </h5>
+            <div class="fields" [class.disabled]="GanZhiModel === true">
+                <div class="eight inline field">
+                    <label>{{'日期' | tran:glsetting.lang}}</label>
+                    <input type="date"
+                           lang="zh"
+                           [(ng-model)]='InputTime.Date'
+                           id='paigua-datepicker'>
+                </div>
+                <div class="eight inline field">
+                    <label>{{'时辰' | tran:glsetting.lang}}</label>
+                    <input type="time"
+                           lang="zh"
+                           [(ng-model)]='InputTime.Time'
+                           id='paigua-timepicker'>
+                </div>
+            </div>
+            <div class="fields" [class.disabled]="GanZhiModel === false">
+                <div class="eight inline field">
+                    <label>{{'月干支' | tran:glsetting.lang}}</label>
+                    <select class="ui fluid dropdown">
+                        <option *ng-for="#m of GanZhiNamesFull" [value]="m">{{m}}</option>
+                    </select>
+                </div>
+                <div class="eight inline field">
+                    <label>{{'日干支' | tran:glsetting.lang}}</label>
+                    <select class="ui fluid dropdown">
+                        <option *ng-for="#d of GanZhiNames" [value]="d">{{d}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui attached segment">
+        <div class="ui small form">
+            <h5 class="ui dividing header">{{'卦爻: ' | tran:glsetting.lang}}
+                <div class="ui toggle checkbox">
+                    <input type="checkbox" [(ng-model)]="GuayaoModel">
+                    <label>{{'卦词/卦爻 - 模式' | tran:glsetting.lang}}</label>
+                </div>
+            </h5>
+            <div class="fields" [class.disabled]="GuayaoModel === true">
+                <div class="five field">
+                    <label>{{'本卦' | tran:glsetting.lang}}</label>
+                    <select class="ui fluid dropdown">
+                        <option *ng-for="#g of GuaNameOptions"
+                                [value]="g"
+                                [disabled]="g.IsGua === false">
+                            {{g.Name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="five field">
+                    <label>{{'变卦' | tran:glsetting.lang}}</label>
+                    <select class="ui fluid dropdown">
+                        <option *ng-for="#g of GuaNameOptions"
+                                [value]="g"
+                                [disabled]="g.IsGua === false">
+                            {{g.Name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="five field">
+                    <label>{{GuaOrderText | tran:glsetting.lang}}</label>
+                    <input type="checkbox" [(ng-model)]="GuaGongOrder">
+                </div>
+            </div>
+            <div class="fields">
+                <div class="field">
+                    <div class="ui vertical compact pointing menu">
+                        <div class="item">上爻</div>
+                        <div class="item">五爻</div>
+                        <div class="item">四爻</div>
+                        <div class="item">三爻</div>
+                        <div class="item">二爻</div>
+                        <div class="item active">初爻</div>
+                    </div>
+                </div>
+                <div class="field">
+                    <!--<button class="ui primary small button">
+                        {{'重置爻值' | tran:glsetting.lang}}
+                    </button>-->
+                    <label class="ui primary button">{{'重置爻值' | tran:glsetting.lang}}</label>
+                    <div class="ui vertical buttons">
+                        <button class="ui button">
+                            老阳
+                            <object type="image/svg+xml" data="laoyan.svg">▅▅▅ O</object>
+                        </button>
+                        <button class="ui button">
+                            老阴
+                            <object type="image/svg+xml" data="laoyin.svg">▅&nbsp;&nbsp;&nbsp;&nbsp;▅ X</object>
+                        </button>
+                        <button class="ui button">
+                            少阳
+                            <object type="image/svg+xml" data="shaoyan.svg">▅▅▅ </object>
+                        </button>
+                        <button class="ui button">
+                            少阴
+                            <object type="image/svg+xml" data="shaoyin.svg">▅&nbsp;&nbsp;&nbsp;&nbsp;▅</object>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

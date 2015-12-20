@@ -98,6 +98,11 @@ export function Gan(para): tyGan{
     throw new Error('Parameter Error of Gan: ' + para  + ' is not valiad');
 }
 
+export function GanNames():Array<string>{
+    initGans();
+    return gans.map(g => g.Name);
+}
+
 export function Zhi(para): tyZhi{
     initZhis();
     if(typeof  para == 'string'){
@@ -112,6 +117,11 @@ export function Zhi(para): tyZhi{
     }
 
     throw new Error('Parameter Error of Gan: ' + para  + ' is not valiad');
+}
+
+export function ZhiNames(){
+    initZhis();
+    return zhis.map(z => z.Name);
 }
 
 export class GanZhi{
@@ -135,6 +145,22 @@ export class GanZhi{
         if(this.Zhi == null || this.Zhi === undefined){
             throw new Error('GanZhi Error: parameter ' + input + ' is not valid.')
         }
+    }
+
+    static get GanZhiNames(){
+        let gans = GanNames();
+        let zhis = ZhiNames();
+
+        var res = new Array<string>();
+        for(let g = 0; g < gans.length; g++){
+            for(let z = 0; z < zhis.length; z++){
+                if((g % 2) == (z % 2)){
+                    res.push(gans[g] + zhis[z])
+                }
+            }
+        }
+
+        return res;
     }
 
     get Name(){
