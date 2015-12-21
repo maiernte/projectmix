@@ -20,16 +20,18 @@ declare function moment();
 export class PaiLiuyao {
     glsetting:GlobalSetting;
     InputModel:string = 'manuel';
-    GanZhiModel:boolean = false;
-    GuayaoModel:boolean = false;
-
+    
     private guagongOrder:boolean = false;
+    private ganzhiModel = false;
+    private guayaoModel = false;
 
     InputTime: Object;
     GuaNameOptions: Array<Object>;
     GuaOrderText: string;
+    ActiveYao = 0;
 
-    Simboles = ['▅\u00A0\u00A0▅', "▅▅▅", "▅\u00A0\u00A0▅ X", "▅▅▅ O", "\u00A0...\u00A0"];
+    Symbols = ['shaoyin.svg', 'shaoyan.svg', 'laoyin.svg', 'laoyan.svg', 'empty.svg']
+    SetedYaos = [4, 4, 4, 4, 4, 4]
 
     private static guaNamesShang:Array<Object>;
     private static guaNamesGong:Array<Object>;
@@ -54,13 +56,49 @@ export class PaiLiuyao {
         this.guagongOrder = value;
         this.initGuaNames(value);
         this.GuaOrderText = value ? '按卦宫排序' : '按上卦排序';
+        this.showAnimate('paigua-guachi', 'paigua-guachi');
+    }
+    
+    get GanZhiModel(){
+        return this.ganzhiModel;
+    }
+    
+    set GanZhiModel(value){
+        this.ganzhiModel = value;
+        if(value == true){
+            this.showAnimate('paigua-time-gl', 'paigua-time-gz');
+        }else{
+            this.showAnimate('paigua-time-gz', 'paigua-time-gl');
+        }
+    }
+    
+    get GuayaoModel(){
+        return this.guayaoModel;
+    }
+    
+    set GuayaoModel(value){
+        this.guayaoModel = value;
+        if(value == true){
+            this.showAnimate('paigua-yao-name', 'paigua-yao-symb');
+        }else{
+            this.showAnimate('paigua-yao-symb', 'paigua-yao-name');
+        }
     }
 
     showMenu() {
         jQuery(document).find('.ui.labeled.sidebar').sidebar('toggle');
     }
+    
+    showAnimate(outId: string, inId: string){
+        //jQuery('.paigua.time').transition('fade down flip');
+        jQuery('#' + outId).transition('fade left', function(){
+            jQuery('#' + inId).transition('fade right');
+        });
+    }
 
     onInit() {
+        //this.Symbols = ['shaoyin.svg', 'shaoyan.svg', 'laoyin.svg', 'laoyan.svg', 'empty.svg']
+        
         let dateText = moment().format('YYYY-MM-DD');
         let timeText = moment().format('HH:mm')
 
@@ -72,6 +110,13 @@ export class PaiLiuyao {
         }
 
         this.GuaGongOrder = false;
+        this.ganzhiModel = false;
+        
+        jQuery('.paigua.help')
+            .popup({
+                on:'click',
+                position : 'bottom left'
+            });
     }
 
     initGuaNames(guagong:boolean) {
