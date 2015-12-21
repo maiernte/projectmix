@@ -1,0 +1,171 @@
+<div class="ui small form">
+    <h5 class="ui dividing header">{{'卦爻: ' | tran:glsetting.lang}}
+        <div class="ui toggle checkbox">
+            <input type="checkbox" [(ng-model)]="GuayaoModel">
+            <label>{{'卦词/卦爻 - 模式' | tran:glsetting.lang}}</label>
+        </div>
+    </h5>
+    <div id='paigua-yao-name' [class.guagong]='GuaGongOrder === true'>
+        <div class='fields'>
+            <div class='inline field'>
+                <label>{{'卦序：' | tran:glsetting.lang}}</label>
+                <!--<input type="checkbox" [(ng-model)]="GuaGongOrder">-->
+                <div class="ui toggle checkbox">
+                    <input type="checkbox" [(ng-model)]="GuaGongOrder">
+                    <label>{{GuaOrderText | tran:glsetting.lang}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="fields" id='paigua-guachi'>
+            <div class="inline field">
+                <label>{{'本卦' | tran:glsetting.lang}}</label>
+                <select class="ui fluid dropdown">
+                    <option *ng-for="#g of GuaNameOptions"
+                            [value]="g"
+                            [disabled]="g.IsGua === false">
+                        {{g.Name}}
+                    </option>
+                </select>
+            </div>
+            <div class="inline field">
+                <label>{{'变卦' | tran:glsetting.lang}}</label>
+                <select class="ui fluid dropdown">
+                    <option *ng-for="#g of GuaNameOptions"
+                            [value]="g"
+                            [disabled]="g.IsGua === false">
+                        {{g.Name}}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div id='paigua-yao-symb' class='transition hidden'>
+        <div class="fields">
+            <div class="field">
+                <div class="ui vertical compact pointing menu">
+                    <div class="item"
+                        [class.active]='ActiveYao == 5' 
+                        [class.red]='ActiveYao == 5'
+                        (click)='ActiveYao = 5'>
+                        <div>
+                            上爻
+                            <img [src]="Symbols[SetedYaos[5]]"></img>
+                        </div>
+                    </div>
+                    <div class="item"
+                        [class.active]='ActiveYao == 4' 
+                        [class.red]='ActiveYao == 4'
+                        (click)='ActiveYao = 4'>
+                        <div>
+                            五爻
+                            <img [src]="Symbols[SetedYaos[4]]"></img>
+                        </div>
+                    </div>
+                    <div class="item"
+                        [class.active]='ActiveYao == 3' 
+                        [class.red]='ActiveYao == 3'
+                        (click)='ActiveYao = 3'>
+                        <div>
+                            四爻
+                            <img [src]="Symbols[SetedYaos[3]]"></img>
+                        </div>
+                    </div>
+                    <div class="item"
+                        [class.active]='ActiveYao == 2' 
+                        [class.red]='ActiveYao == 2'
+                        (click)='ActiveYao = 2'>
+                        <div>
+                            三爻
+                            <img [src]="Symbols[SetedYaos[2]]"></img>
+                        </div>
+                    </div>
+                    <div class="item"
+                        [class.active]='ActiveYao == 1' 
+                        [class.red]='ActiveYao == 1'
+                        (click)='ActiveYao = 1'>
+                        <div>
+                            二爻
+                            <img [src]="Symbols[SetedYaos[1]]"></img>
+                        </div>
+                    </div>
+                    <div class="item" 
+                        [class.active]='ActiveYao == 0' 
+                        [class.red]='ActiveYao == 0'
+                        (click)='ActiveYao = 0'>
+                        <div>
+                            初爻
+                            <img [src]="Symbols[SetedYaos[0]]"></img>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <!--<button class="ui primary small button">
+                    {{'重置爻值' | tran:glsetting.lang}}
+                </button>-->
+                <label class="ui primary button"
+                        (click)='SetedYaos = [4, 4, 4, 4, 4, 4]; ActiveYao = 0'>
+                    {{'重置爻值' | tran:glsetting.lang}}
+                </label>
+                <div class="ui vertical buttons">
+                    <button class="ui vertical animated button"
+                            (click)='SetedYaos[ActiveYao] = 3'>
+                        <div class="hidden content">
+                            {{'三简' | tran:glsetting.lang}}
+                        </div>
+                        <div class="visible content">
+                            老阳
+                            <img [src]="Symbols[3]"></img>
+                         </div>
+                    </button>
+                    <button class="ui vertical animated button"
+                            (click)='SetedYaos[ActiveYao] = 2'>
+                        <div class="hidden content">
+                            {{'三繁' | tran:glsetting.lang}}
+                        </div>
+                        <div class="visible content">
+                            老阴
+                            <img [src]="Symbols[2]"></img>
+                         </div>
+                    </button>
+                    <button class="ui vertical animated button"
+                            (click)='SetedYaos[ActiveYao] = 1'>
+                        <div class="hidden content">
+                            {{'二繁一简' | tran:glsetting.lang}}
+                        </div>
+                        <div class="visible content">
+                            少阳
+                            <img [src]="Symbols[1]"></img>
+                         </div>
+                    </button>
+                    <button class="ui vertical animated button"
+                            (click)='SetedYaos[ActiveYao] = 0'>
+                        <div class="hidden content">
+                            {{'二简一繁' | tran:glsetting.lang}}
+                        </div>
+                        <div class="visible content">
+                            少阴
+                            <!--<object type="image/svg+xml" [data]="Symbols[0]"></object>-->
+                            <img [src]="Symbols[0]"></img>
+                         </div>
+                    </button>
+                </div>
+                
+                
+                <div style='margin-top:10px;margin-left:10px' 
+                     data-content="按从下往上的顺序，首先从左栏中选择爻位，然后在右栏赋予其爻值。"
+                     class='paigua help'>
+                    <i class="help circle icon"></i>
+                    {{'如何赋爻值' | tran:glsetting.lang}}
+                </div>
+                
+                <div style='margin-top:10px;margin-left:10px' 
+                     data-content="简为阳，繁为阴。钱币中图案或笔画多的一面为阴面，反之为阳面。"
+                     class='paigua help'>
+                    <i class="help circle icon"></i>
+                    {{'阴阳定义' | tran:glsetting.lang}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

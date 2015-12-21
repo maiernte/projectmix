@@ -16,8 +16,8 @@ import {
 import {Desktop} from 'client/allgemein/desktop';
 import {PaiLiuyao} from 'client/liuyao/paiLiuyao';
 import {PaiBazi} from 'client/bazi/paiBazi';
-import {CalendarView} from 'client/calendar/calendar'
-import {CompassView} from 'client/compass/compass'
+import {CalendarPage} from 'client/calendar/calendarPage'
+import {CompassPage} from 'client/compass/compassPage'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
@@ -32,8 +32,8 @@ import {GlobalSetting} from  'client/globalsetting'
     {path: '/', as: 'Desktop', component: Desktop},
     {path: '/paibazi', as: 'PaiBazi', component: PaiBazi},
     {path: '/pailiuyao', as: 'PaiLiuyao', component: PaiLiuyao},
-    {path: '/calendar', as: 'Calendar', component: CalendarView},
-    {path: '/compass', as: 'Compass', component: CompassView}
+    {path: '/calendar', as: 'Calendar', component: CalendarPage},
+    {path: '/compass', as: 'Compass', component: CompassPage}
 ])
 class HuaheApp {
     router: Router;

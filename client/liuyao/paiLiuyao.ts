@@ -1,10 +1,14 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
+
 import {Component, Inject, NgFor} from 'angular2/angular2'
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
 import {GanZhi, ZhiNames} from "../../lib/base/ganzhi";
 import {Gua64} from "../../lib/base/gua"
-import ObjectID = Mongo.ObjectID;
+
+
+import {PailiuyaoTime} from 'client/liuyao/paipan/pailiuyaotime';
+import {PaiLiuyaoGua} from 'client/liuyao/paipan/pailiuyaogua';
 
 
 declare var jQuery:any;
@@ -14,157 +18,43 @@ declare function moment();
     selector: 'pailiuyao',
     pipes: [TranslatePipe],
     templateUrl: 'client/liuyao/paiLiuyao.html',
-    directives: [NgFor]
+    directives: [NgFor, PailiuyaoTime, PaiLiuyaoGua]
 })
 
 export class PaiLiuyao {
+    inputModel:string = 'manuel';
+
     glsetting:GlobalSetting;
-    InputModel:string = 'manuel';
-    
-    private guagongOrder:boolean = false;
-    private ganzhiModel = false;
-    private guayaoModel = false;
-
-    InputTime: Object;
-    GuaNameOptions: Array<Object>;
-    GuaOrderText: string;
-    ActiveYao = 0;
-
-    Symbols = ['shaoyin.svg', 'shaoyan.svg', 'laoyin.svg', 'laoyan.svg', 'empty.svg']
-    SetedYaos = [4, 4, 4, 4, 4, 4]
-
-    private static guaNamesShang:Array<Object>;
-    private static guaNamesGong:Array<Object>;
-
     constructor(@Inject(GlobalSetting) glsetting:GlobalSetting) {
         this.glsetting = glsetting;
     }
-
-    get GanZhiNames() {
-        return GanZhi.GanZhiNames;
-    }
-
-    get GanZhiNamesFull() {
-        return ZhiNames().concat(GanZhi.GanZhiNames)
-    }
-
-    get GuaGongOrder() {
-        return this.guagongOrder;
-    }
-
-    set GuaGongOrder(value:boolean) {
-        this.guagongOrder = value;
-        this.initGuaNames(value);
-        this.GuaOrderText = value ? '按卦宫排序' : '按上卦排序';
-        this.showAnimate('paigua-guachi', 'paigua-guachi');
+    
+    get InputModel(){
+        return this.inputModel;
     }
     
-    get GanZhiModel(){
-        return this.ganzhiModel;
+    set InputModel(value){
+        this.inputModel  = value
     }
-    
-    set GanZhiModel(value){
-        this.ganzhiModel = value;
-        if(value == true){
-            this.showAnimate('paigua-time-gl', 'paigua-time-gz');
+
+    showMenu(hide) {
+        if(hide === true){
+            jQuery(document).find('.ui.labeled.sidebar').sidebar('hide')
         }else{
-            this.showAnimate('paigua-time-gz', 'paigua-time-gl');
+            jQuery(document).find('.ui.labeled.sidebar').sidebar('toggle');
         }
-    }
+    } 
     
-    get GuayaoModel(){
-        return this.guayaoModel;
-    }
-    
-    set GuayaoModel(value){
-        this.guayaoModel = value;
-        if(value == true){
-            this.showAnimate('paigua-yao-name', 'paigua-yao-symb');
-        }else{
-            this.showAnimate('paigua-yao-symb', 'paigua-yao-name');
-        }
-    }
-
-    showMenu() {
-        jQuery(document).find('.ui.labeled.sidebar').sidebar('toggle');
-    }
-    
-    showAnimate(outId: string, inId: string){
-        //jQuery('.paigua.time').transition('fade down flip');
-        jQuery('#' + outId).transition('fade left', function(){
-            jQuery('#' + inId).transition('fade right');
-        });
+    get isCordova(){
+        return 'cordova = ' + this.glsetting.IsCordova
     }
 
     onInit() {
-        //this.Symbols = ['shaoyin.svg', 'shaoyan.svg', 'laoyin.svg', 'laoyan.svg', 'empty.svg']
-        
-        let dateText = moment().format('YYYY-MM-DD');
-        let timeText = moment().format('HH:mm')
-
-        this.InputTime = {
-            Date: dateText,
-            Time: timeText,
-            Yue: this.GanZhiNamesFull[0],
-            Ri: this.GanZhiNamesFull[0]
-        }
-
-        this.GuaGongOrder = false;
-        this.ganzhiModel = false;
-        
-        jQuery('.paigua.help')
-            .popup({
-                on:'click',
-                position : 'bottom left'
-            });
+        let hideMenu = true;
+        this.showMenu(hideMenu);
     }
-
-    initGuaNames(guagong:boolean) {
-        if (guagong === false) {
-            if (!PaiLiuyao.guaNamesShang) {
-                PaiLiuyao.guaNamesShang = new Array<Object>();
-                this.initGuaNamesShang();
-            }
-
-            this.GuaNameOptions = PaiLiuyao.guaNamesShang;
-        } else {
-            if (!PaiLiuyao.guaNamesGong) {
-                PaiLiuyao.guaNamesGong = new Array<Object>();
-                this.initGuaNamesGong();
-            }
-
-            this.GuaNameOptions = PaiLiuyao.guaNamesGong;
-        }
+    
+    LogMe(event, gua){
+        console.log(event, gua)
     }
-
-    private initGuaNamesShang(){
-        for (let s = 0; s < 8; s++) {
-            let gua = Gua64(s * 8 + s);
-            PaiLiuyao.guaNamesShang.push({Name: '上卦 - ' + gua.Shang.Name, IsGua: false});
-
-            for (let x = 0; x < 8; x++) {
-                let gua = Gua64(s * 8 + x);
-                PaiLiuyao.guaNamesShang.push({Name: gua.Name, IsGua: true});
-            }
-        }
-    }
-
-    private initGuaNamesGong(){
-        var pattern = [1, 2, 4, 8, 16, 8, 7];
-
-        for (var idx = 0; idx < 8; idx++) {
-            var guaIndex = idx + idx * 8;
-            var mainGua = Gua64(guaIndex);
-
-            PaiLiuyao.guaNamesGong.push ({ Name: '卦宫 - ' + mainGua.Shang.Name, IsGua: false });
-            PaiLiuyao.guaNamesGong.push({Name: mainGua.Name, IsGua: true});
-
-            for (var p = 0; p < pattern.length; p++) {
-                guaIndex = guaIndex ^ pattern[p];
-                var gua = Gua64(guaIndex);
-                PaiLiuyao.guaNamesGong.push({Name: gua.Name, IsGua: true});
-            };
-        };
-    }
-
 }

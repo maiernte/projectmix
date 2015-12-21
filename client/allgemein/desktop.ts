@@ -32,10 +32,13 @@ export class Desktop{
         this.glsetting = glsetting;
     }
     
-    showMenu(){
-        jQuery(document).find('.ui.labeled.sidebar').sidebar('toggle');
-        //$('.ui.labeled.sidebar').sidebar('toggle');
-        //console.log('showMenu', document.find('.ui.labeled.sidebar')) 
+    showMenu(hide){
+        //jQuery(document).find('.ui.labeled.sidebar').sidebar('toggle');
+        if(hide === true){
+            jQuery(document).find('.ui.labeled.sidebar').sidebar('hide')
+        }else{
+            jQuery(document).find('.ui.labeled.sidebar').sidebar('toggle');
+        }
     }
     
     addWindow(type){
@@ -67,6 +70,8 @@ export class Desktop{
 
     onInit(){
         this.frameList = [];
+        let hideMenu = true;
+        this.showMenu(hideMenu);
         // var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
     }
 }
