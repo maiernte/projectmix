@@ -49,6 +49,10 @@ class HuaheApp {
         
         // var s = moment().format();
     }
+
+    Exit(){
+        this.glsetting.Exit();
+    }
 }
 
 //bootstrap(HuaheApp)

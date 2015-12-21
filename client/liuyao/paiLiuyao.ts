@@ -6,10 +6,9 @@ import {GlobalSetting} from  'client/globalsetting'
 import {GanZhi, ZhiNames} from "../../lib/base/ganzhi";
 import {Gua64} from "../../lib/base/gua"
 
-
-import {PailiuyaoTime} from 'client/liuyao/paipan/pailiuyaotime';
-import {PaiLiuyaoGua} from 'client/liuyao/paipan/pailiuyaogua';
-
+import {PailiuyaoTime} from './paipan/pailiuyaotime';
+import {PaiLiuyaoGua} from './paipan/pailiuyaogua';
+import {PailiuyaoLeading} from './paipan/leading'
 
 declare var jQuery:any;
 declare function moment();
@@ -18,7 +17,7 @@ declare function moment();
     selector: 'pailiuyao',
     pipes: [TranslatePipe],
     templateUrl: 'client/liuyao/paiLiuyao.html',
-    directives: [NgFor, PailiuyaoTime, PaiLiuyaoGua]
+    directives: [NgFor, PailiuyaoTime, PaiLiuyaoGua, PailiuyaoLeading]
 })
 
 export class PaiLiuyao {
@@ -43,10 +42,6 @@ export class PaiLiuyao {
         }else{
             jQuery(document).find('.ui.labeled.sidebar').sidebar('toggle');
         }
-    } 
-    
-    get isCordova(){
-        return 'cordova = ' + this.glsetting.IsCordova
     }
 
     onInit() {

@@ -11,4 +11,11 @@ export  class GlobalSetting{
         return Meteor.isCordova;
     }
 
+    Exit(){
+        if(this.IsCordova){
+            navigator['app'].exitApp();
+        }else {
+            console.log("Exit", navigator)
+        }
+    }
 }

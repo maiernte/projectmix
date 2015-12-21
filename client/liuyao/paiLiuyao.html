@@ -33,15 +33,48 @@
             <pailiuyao-gua #guayao></pailiuyao-gua>
         </div>
         <div class='ui attached segment'>
-            <button class='ui button' (click)='LogMe(guatime.Result, guayao.Result)'>img</button>
-            <img src="house158.png" class='house158 img transition hidden' id='house158'/>
+            <!--<button class='ui button' (click)='LogMe(guatime.Result, guayao.Result)'>img</button>-->
+            <div class="ui left action input">
+                <button class="compact ui teal labeled icon button">
+                    <i class="edit icon"></i>
+                    {{'排盘' | tran:glsetting.lang}}
+                </button>
+                <input type="text" placeholder="请输入起卦要问的事情...">
+            </div>
         </div>
     </div>
     <div [hidden]='InputModel != "auto"'>
-        auto model
-        {{isCordova}}
+        <!--<div class="ui attached segment">
+            <div class="ui labeled input">
+                <div class="ui label">
+                    {{'问念' | tran:glsetting.lang}}
+                </div>
+                <input type="text" placeholder="请输入起卦要问的事情...">
+            </div>
+            <br>
+            <div class="ui primary buttons">
+                <button class="ui button">One</button>
+                <button class="ui button">Two</button>
+                <button class="ui button">Three</button>
+            </div>
+        </div>-->
+        <div class="ui attached segment">
+            <form class="ui form">
+                <div class="inline field">
+                    <label>{{'问念' | tran:glsetting.lang}}</label>
+                    <input type="text" placeholder="请输入起卦要问的事情...">
+                </div>
+                <div class="ui primary buttons">
+                    <button class="ui button">{{'日月卦' | tran:glsetting.lang}}</button>
+                    <button class="ui button">{{'日时卦' | tran:glsetting.lang}}</button>
+                    <button class="ui button">{{'随机卦' | tran:glsetting.lang}}</button>
+                </div>
+            </form>
+        </div>
+
+
     </div>
     <div [hidden]='InputModel != "leading"'>
-        leading model
+        <pailiuyao-leading></pailiuyao-leading>
     </div>
 </div>

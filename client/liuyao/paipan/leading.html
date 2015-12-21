@@ -1,0 +1,69 @@
+<div>
+    <div class="ui four top attached small steps">
+        <div class="step"
+            [class.active]="CurrentStep.ID === 1"
+            [class.disabled]="CurrentStep.ID > 1">
+            <div class="content">
+                <div class="title">{{'卦材' | tran:glsetting.lang}}</div>
+                <div class="description">{{'准备起卦材料' | tran:glsetting.lang}}</div>
+            </div>
+        </div>
+        <div class="step"
+             [class.active]="CurrentStep.ID === 2"
+             [class.disabled]="CurrentStep.ID > 2">
+            <div class="content">
+                <div class="title">{{'问念' | tran:glsetting.lang}}</div>
+                <div class="description">{{'起卦要问的问题' | tran:glsetting.lang}}</div>
+            </div>
+        </div>
+        <div class="step"
+             [class.active]="CurrentStep.ID === 3"
+             [class.disabled]="CurrentStep.ID > 3">
+            <div class="content">
+                <div class="title">{{'装卦' | tran:glsetting.lang}}</div>
+                <div class="description">{{'装填六个爻位' | tran:glsetting.lang}}</div>
+            </div>
+        </div>
+        <div class="step"
+             [class.active]="CurrentStep.ID === 4"
+             [class.disabled]="CurrentStep.ID > 4">
+            <div class="content">
+                <div class="title">{{'发卦' | tran:glsetting.lang}}</div>
+                <div class="description">{{'保存或发布六爻卦' | tran:glsetting.lang}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="attached segment">
+        <div id="pagua-step-1">
+            first step
+            <button class="ui button" (click)="NextStep()">
+                下一步
+            </button>
+        </div>
+        <div id="pagua-step-2" class='transition hidden'>
+            second step
+            <button class="ui button" (click)="NextStep()">
+                下一步
+            </button>
+            <button class="ui button" (click)="GoBack()">
+                back
+            </button>
+        </div>
+        <div id="pagua-step-3" class='transition hidden'>
+            third step
+            <button class="ui button" (click)="NextStep()">
+                下一步
+            </button>
+            <button class="ui button" (click)="GoBack()">
+                back
+            </button>
+        </div>
+        <div id="pagua-step-4" class='transition hidden'>
+            four step
+            <button class="ui button" (click)="GoBack()">
+                back
+            </button>
+        </div>
+    </div>
+
+</div>
