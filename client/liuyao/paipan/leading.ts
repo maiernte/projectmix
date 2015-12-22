@@ -4,6 +4,7 @@ import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
 
 declare var jQuery:any;
+
 @Component({
     selector: 'pailiuyao-leading',
     pipes: [TranslatePipe],
@@ -11,8 +12,10 @@ declare var jQuery:any;
 })
 
 export class PailiuyaoLeading{
-    static activeView: string;
-    CurrentStep: Step;
+    CurrentStep: number;
+    ImgUrl: string;
+    DeskChecked: boolean;
+    Question: string;
 
     glsetting:GlobalSetting;
     constructor(@Inject(GlobalSetting) glsetting:GlobalSetting) {
@@ -20,59 +23,48 @@ export class PailiuyaoLeading{
     }
 
     NextStep(){
-        this.CurrentStep = this.CurrentStep.GoNext();
+        let stepOut = "pagua-step-" + this.CurrentStep;
+        let stepIn = "pagua-step-" + (this.CurrentStep + 1);
+        this.CurrentStep = this.CurrentStep + 1;
+        this.showAnimate(stepOut, stepIn)
     }
 
     GoBack(){
-        Step.showAnimate(PailiuyaoLeading.activeView, 'pagua-step-1');
-        this.onInit();
+        let stepOut = "pagua-step-" + this.CurrentStep;
+        this.CurrentStep = 1;
+        this.DeskChecked = false;
+        this.Question = '';
+        this.showAnimate(stepOut, 'pagua-step-1')
     }
 
     onInit(){
-        let step1 = new Step('pagua-step-1', 1);
-        let step2 = new Step('pagua-step-2', 2);
-        let step3 = new Step('pagua-step-3', 3);
-        let step4 = new Step('pagua-step-4', 4);
-
-        step1.NextStep = step2;
-        step2.NextStep = step3;
-        step3.NextStep = step4;
-
-        if(PailiuyaoLeading.activeView && PailiuyaoLeading.activeView != step1.ViewID){
-            this.CurrentStep = PailiuyaoLeading.activeView == step2.ViewID ? step2 : null;
-            this.CurrentStep = PailiuyaoLeading.activeView == step3.ViewID ? step3 : this.CurrentStep;
-            this.CurrentStep = PailiuyaoLeading.activeView == step4.ViewID ? step4 : this.CurrentStep;
-        }else{
-            this.CurrentStep = step1;
+        this.DeskChecked = false;
+        this.Question = '';
+        this.ImgUrl = 'QianYin.png';
+        this.CurrentStep = 1
+        for(let idx = 1; idx < 5; idx++){
+            let dom = jQuery('#pagua-step-' + idx);
+            if(dom.hasClass('visible')){
+                this.CurrentStep = idx;
+                break;
+            }
         }
-
-        //PailiuyaoLeading.activeView = this.CurrentStep.ViewID;
     }
-}
-
-class Step{
-    Completted = false;
-    NextStep: Step;
-
-    constructor(public ViewID: string, public ID: number){
-
+    
+    LogMe(even){
+        console.log(even)
     }
-
-    GoNext(): Step{
-        this.Completted = true;
-
-        if(this.NextStep != undefined){
-            Step.showAnimate(this.ViewID, this.NextStep.ViewID);
-            PailiuyaoLeading.activeView = this.NextStep.ViewID;
-            return this.NextStep;
-        }
-
-        return null;
-    }
-
-    static showAnimate(outId: string, inId: string){
-        jQuery('#' + outId).transition('fade left', function(){
-            jQuery('#' + inId).transition('fade right');
+    
+    showAnimate(outId: string, inId: string): Promise<boolean>{
+        
+        let promise = new Promise((resolve, reject) => {
+            jQuery('#' + outId).transition('fade left', function(){
+                jQuery('#' + inId).transition('fade right', function(){
+                    resolve(true);
+                });
+            });
         });
+        
+        return promise;
     }
 }
