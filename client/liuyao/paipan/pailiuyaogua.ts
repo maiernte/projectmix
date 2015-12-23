@@ -1,8 +1,9 @@
 /// <reference path="../../../typings/angular2-meteor.d.ts" />
-import {Component, Inject, NgFor} from 'angular2/angular2'
+import {Component, Inject, NgFor, ElementRef} from 'angular2/angular2'
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
 import {Gua64} from "../../../lib/base/gua"
+import ElementRef = ng.ElementRef;
 
 declare var jQuery:any;
 
@@ -14,6 +15,7 @@ declare var jQuery:any;
 })
 
 export class PaiLiuyaoGua{
+    private rootElement: ElementRef;
     private guagongOrder:boolean = false;
     private guayaoModel = false;
 
@@ -28,8 +30,9 @@ export class PaiLiuyaoGua{
     private static guaNamesGong:Array<Object>;
     
     glsetting:GlobalSetting;
-    constructor(@Inject(GlobalSetting) glsetting:GlobalSetting) {
+    constructor(@Inject(GlobalSetting) glsetting:GlobalSetting, elementRef: ElementRef) {
         this.glsetting = glsetting;
+        this.rootElement = elementRef;
     }
     
     get Result(){
@@ -68,8 +71,9 @@ export class PaiLiuyaoGua{
         let domGuaName = jQuery('#paigua-yao-name')
         this.GuaGongOrder = domGuaName.hasClass('guagong') ? true : false;
         this.guayaoModel = domGuaName.hasClass('hidden') ? true : false;
-        
-        jQuery('.paigua.help')
+
+        jQuery(this.rootElement.nativeElement)
+            .find('.paigua.help')
             .popup({
                 on:'click',
                 position : 'bottom left'

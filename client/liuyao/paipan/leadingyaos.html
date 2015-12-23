@@ -1,0 +1,84 @@
+<p style="margin-top:10px">
+    {{'将三个铜钱置于两手掌心，轻摇三下。然后轻掷于桌面。并对照下图，选择其一。 如此反复六遍。' | tran:glsetting.lang}}
+</p>
+<div class='ui form'>
+    <div class='fields'>
+        <!--<div class='field'>
+            <div class="ui borderless vertical compact menu">
+                <div class='item'>
+                    <img src="laoyin.svg" class='transition hidden'></img>
+                </div>
+                <div class='item'>
+                    <img src="laoyin.svg" class='transition hidden'></img>
+                </div>
+                <div class='item'>
+                    <img src="laoyin.svg" class='transition hidden'></img>
+                </div>
+                <div class='item'>
+                    <img src="laoyin.svg" class='transition hidden'></img>
+                </div>
+                <div class='item'>
+                    <img src="laoyin.svg" class='transition hidden'></img>
+                </div>
+                <div class='item'>
+                    <img src="laoyin.svg" class='transition hidden'></img>
+                </div>
+            </div>
+        </div>-->
+
+
+        <div class="field">
+            <div class="ui small buttons top attached ">
+                <button class="ui vertical animated button teal">
+                    <div class="visible content">{{'组合一' | tran:glsetting.lang}}</div>
+                    <div class="hidden content">{{'老阳' | tran:glsetting.lang}}</div>
+                </button>
+                <button class="ui vertical animated button">
+                    <div class="visible content">{{'组合二' | tran:glsetting.lang}}</div>
+                    <div class="hidden content">{{'老阴' | tran:glsetting.lang}}</div>
+                </button>
+                <button class="ui vertical animated button">
+                    <div class="visible content">{{'组合三' | tran:glsetting.lang}}</div>
+                    <div class="hidden content">{{'少阳' | tran:glsetting.lang}}</div>
+                </button>
+                <button class="ui vertical animated button">
+                    <div class="visible content">{{'组合四' | tran:glsetting.lang}}</div>
+                    <div class="hidden content">{{'少阴' | tran:glsetting.lang}}</div>
+                </button>
+            </div>
+
+            <div class="ui attached segment">
+                <ng-content></ng-content>
+            </div>
+
+            <div class="ui attached segment">
+                <div class="ui items">
+                    <div class="item">
+                        <div class="ui tiny image">
+                            <button class="ui primary button">{{'确定' | tran:glsetting.lang}}</button>
+                        </div>
+                        <div class="middle aligned content">
+                            <a class="header">第一次</a>
+                            <div class="description">
+                                {{'选取相应组合. 然后"确定".' | tran:glsetting.lang}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class='ui submit buttons' style="margin-top:10px">
+    <button class="ui button" (click)="GoBack()">
+        {{'重新开始' | tran:glsetting.lang}}
+    </button>
+    <div class="ui submit button"
+         [class.disabled]='Question == ""'
+         (click)="NextStep()">
+        {{'下一步' | tran:glsetting.lang}}
+    </div>
+</div>

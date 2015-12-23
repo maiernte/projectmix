@@ -7,14 +7,14 @@
     </h5>
     <div id='paigua-time-gl'>
         <div class="fields">
-            <div class="eight inline field">
+            <div class="eight field">
                 <label>{{'日期' | tran:glsetting.lang}}</label>
                 <input type="date"
                        lang="zh"
                        [(ng-model)]='InputTime.Date'
                        id='paigua-datepicker'>
             </div>
-            <div class="eight inline field">
+            <div class="eight field">
                 <label>{{'时辰' | tran:glsetting.lang}}</label>
                 <input type="time"
                        lang="zh"
@@ -25,13 +25,13 @@
     </div>
     <div id='paigua-time-gz' class='transition hidden'>
         <div class="fields">
-            <div class="eight inline field">
+            <div class="eight field">
                 <label>{{'月令' | tran:glsetting.lang}}</label>
                 <select class="ui fluid dropdown">
                     <option *ng-for="#m of GanZhiNamesFull" [value]="m">{{m}}</option>
                 </select>
             </div>
-            <div class="eight inline field">
+            <div class="eight field">
                 <label>{{'日令' | tran:glsetting.lang}}</label>
                 <select class="ui fluid dropdown">
                     <option *ng-for="#d of GanZhiNames" [value]="d">{{d}}</option>

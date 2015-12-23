@@ -9,6 +9,7 @@ import {Gua64} from "../../lib/base/gua"
 import {PailiuyaoTime} from './paipan/pailiuyaotime';
 import {PaiLiuyaoGua} from './paipan/pailiuyaogua';
 import {PailiuyaoLeading} from './paipan/leading'
+import {LeadingYao} from './paipan/leadingyaos'
 
 declare var jQuery:any;
 declare function moment();
@@ -17,7 +18,7 @@ declare function moment();
     selector: 'pailiuyao',
     pipes: [TranslatePipe],
     templateUrl: 'client/liuyao/paiLiuyao.html',
-    directives: [NgFor, PailiuyaoTime, PaiLiuyaoGua, PailiuyaoLeading]
+    directives: [NgFor, PailiuyaoTime, PaiLiuyaoGua, PailiuyaoLeading, LeadingYao]
 })
 
 export class PaiLiuyao {

@@ -1,5 +1,5 @@
 /// <reference path="../../../typings/angular2-meteor.d.ts" />
-import {Component, Inject, NgFor} from 'angular2/angular2'
+import {Component, Inject, NgFor, ElementRef} from 'angular2/angular2'
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
 import {GanZhi, ZhiNames} from "../../../lib/base/ganzhi";
@@ -15,13 +15,15 @@ declare function moment();
 })
 
 export class PailiuyaoTime{
+    private rootElement: ElementRef;
     private ganzhiModel = false;
     
     glsetting:GlobalSetting;
     InputTime: Object;
     
-    constructor(@Inject(GlobalSetting) glsetting:GlobalSetting) {
+    constructor(@Inject(GlobalSetting) glsetting:GlobalSetting, elementRef: ElementRef) {
         this.glsetting = glsetting;
+        this.rootElement = elementRef;
     }
     
     get Result(){
@@ -64,12 +66,13 @@ export class PailiuyaoTime{
             Ri: this.GanZhiNamesFull[0]
         }
         
-        let domTime = jQuery('#paigua-time-gl')
+        //let domTime = jQuery('#paigua-time-gl')
+        let domTime = jQuery(this.rootElement.nativeElement).find('#paigua-time-gl')
         this.ganzhiModel = domTime.hasClass('hidden') ? true : false;
     }
     
     private showAnimate(outId: string, inId: string){
-        jQuery('#' + outId).transition('fade left', function(){
+        jQuery(this.rootElement.nativeElement).find('#' + outId).transition('fade left', function(){
             jQuery('#' + inId).transition('fade right');
         });
     }
