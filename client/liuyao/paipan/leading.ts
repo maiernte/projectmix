@@ -1,7 +1,7 @@
 /// <reference path="../../../typings/angular2-meteor.d.ts" />
 import {Component, Inject, NgFor, ContentChild, AfterContentInit} from 'angular2/angular2'
-import {TranslatePipe} from 'client/allgemein/translatePipe'
-import {GlobalSetting} from  'client/globalsetting'
+import {TranslatePipe} from '../../allgemein/translatePipe'
+import {GlobalSetting} from  '../../globalsetting'
 
 import {LeadingYao} from "./leadingyaos";
 import {PailiuyaoCoins} from './coins'
@@ -40,27 +40,25 @@ export class PailiuyaoLeading{
         this.ImgUrl = value === 0 ? 'QianYin.png' : 'WumaoYan.png';
     }
 
-    NextStep(event){
-        if(event){
-            console.log('NextStep : ' , event)
-        }
-
+    NextStep(){
         let stepOut = "pagua-step-" + this.CurrentStep;
         let stepIn = "pagua-step-" + (this.CurrentStep + 1);
         this.CurrentStep = this.CurrentStep + 1;
         this.showAnimate(stepOut, stepIn)
     }
 
-    GoBack(event){
-        if(event){
-            console.log('GoBack : ' , event)
-        }
-
+    GoBack(){
         let stepOut = "pagua-step-" + this.CurrentStep;
         this.CurrentStep = 1;
         this.DeskChecked = false;
         this.Question = '';
         this.showAnimate(stepOut, 'pagua-step-1')
+    }
+
+    goStep4(yao){
+        console.log('goStep4', yao)
+        this.step4.Reinit(this.cointype, yao)
+        this.NextStep();
     }
 
     onInit(){
@@ -77,10 +75,6 @@ export class PailiuyaoLeading{
         }
     }
     
-    LogMe(even){
-        console.log(even)
-    }
-    
     showAnimate(outId: string, inId: string): any{
         
         let promise = new Promise((resolve, reject) => {
@@ -95,6 +89,6 @@ export class PailiuyaoLeading{
     }
 
     afterContentInit() {
-        
+
     }
 }

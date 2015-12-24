@@ -61,7 +61,7 @@
     <div [hidden]='InputModel != "leading"'>
         <pailiuyao-leading #leadingpage>
             <pailiuyao-leadingyao (onfinished)="leadingpage.NextStep()" (oncancel)="leadingpage.GoBack($event)">
-
+                <pailiuyao-coins [cointype]="0" [yao]="0"></pailiuyao-coins>
             </pailiuyao-leadingyao>
         </pailiuyao-leading>
     </div>

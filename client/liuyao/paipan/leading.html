@@ -112,7 +112,7 @@
             <div class="raised segment" style="margin-bottom: 10px; margin-top: 10px">
                 <div class="ui vertical buttons">
                     <div class="ui basic labeled button">
-                        <div class="ui vertical animated teal button" (click)="NextStep([0])">
+                        <div class="ui vertical animated teal button" (click)="goStep4(0)">
                             <div class="visible content">{{'第一组(少阴)' | tran:glsetting.lang}}</div>
                             <div class="hidden content"><img src="shaoyin.svg"/></div>
                         </div>
@@ -121,7 +121,7 @@
                         </a>
                     </div>
                     <div class="ui basic labeled button">
-                        <div class="ui vertical animated green button" (click)="NextStep([1])">
+                        <div class="ui vertical animated green button" (click)="goStep4(1)">
                             <div class="visible content">{{'第二组(少阳)' | tran:glsetting.lang}}</div>
                             <div class="hidden content"><img src="shaoyan.svg"/></div>
                         </div>
@@ -132,7 +132,7 @@
                 </div>
                 <div class="ui vertical buttons">
                     <div class="ui basic labeled button">
-                        <div class="ui vertical animated olive button" (click)="NextStep([2])">
+                        <div class="ui vertical animated olive button" (click)="goStep4(2)">
                             <div class="visible content">{{'第三组(老阴)' | tran:glsetting.lang}}</div>
                             <div class="hidden content"><img src="laoyin.svg"/></div>
                         </div>
@@ -141,7 +141,7 @@
                         </a>
                     </div>
                     <div class="ui basic labeled button">
-                        <div class="ui vertical animated brown button" (click)="NextStep([3])">
+                        <div class="ui vertical animated brown button" (click)="goStep4(3)">
                             <div class="visible content">{{'第四组(老阳)' | tran:glsetting.lang}}</div>
                             <div class="hidden content"><img src="laoyan.svg"/></div>
                         </div>

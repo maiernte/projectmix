@@ -3,7 +3,6 @@ import {Component, Inject, NgFor, ElementRef} from 'angular2/angular2'
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
 import {Gua64} from "../../../lib/base/gua"
-import ElementRef = ng.ElementRef;
 
 declare var jQuery:any;
 
