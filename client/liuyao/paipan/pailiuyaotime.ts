@@ -26,11 +26,16 @@ export class PailiuyaoTime{
         this.rootElement = elementRef;
     }
     
-    get Result(){
+    get Result(): any{
         if(this.GanZhiModel === true){
-            return 'ganzhi model';
+            return [this.InputTime['Yue'], this.InputTime['Ri']];
         }else{
-            return 'time model'
+            let date = new Date(this.InputTime['Date'])
+            let time = this.InputTime['Time'].split(':')
+            let houre = parseInt(time[0])
+            let minute = parseInt(time[1])
+            let res = new Date(date.getFullYear(), date.getMonth(), date.getDate(), houre, minute)
+            return res.toISOString()
         }
     }
     
@@ -63,7 +68,7 @@ export class PailiuyaoTime{
             Date: dateText,
             Time: timeText,
             Yue: this.GanZhiNamesFull[0],
-            Ri: this.GanZhiNamesFull[0]
+            Ri: this.GanZhiNames[0]
         }
         
         //let domTime = jQuery('#paigua-time-gl')

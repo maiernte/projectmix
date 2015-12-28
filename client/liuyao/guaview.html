@@ -1,13 +1,105 @@
 <div class='ui segment'>
-    
-    <a class="ui teal ribbon label">
-        {{'解之师' | tran:glsetting.lang}}
-    </a>{{'子月丁卯日 (旬空：子丑)' | tran:glsetting.lang}}
     <div>
-        other content
+        <a class="ui teal ribbon label">
+            {{title | tran:glsetting.lang}}
+        </a>
+        {{Yue.Name | tran:glsetting.lang}}月 {{Ri.Name | tran:glsetting.lang}}日
     </div>
-    
-    <div>
-        content
+
+    <div class="ui fluid accordion question" style="margin-bottom: 5px">
+        <div class="active title">
+            <i class="dropdown icon"></i>
+            <span style="font-weight: bolder">{{'卦问: ' | tran:glsetting.lang}}</span>
+            {{Info.question | tran:glsetting.lang}}
+        </div>
+        <div class="active content" style="padding: 0">
+            <p  style="margin: 0">
+                <span style="font-weight: bolder">{{'时间: ' | tran:glsetting.lang}}</span>
+                {{Info.time | tran:glsetting.lang}}
+            </p>
+            <p>
+                <span style="font-weight: bolder">{{'方式: ' | tran:glsetting.lang}}</span>
+                {{Info.type | tran:glsetting.lang}}
+            </p>
+        </div>
+    </div>
+
+    <div class="ui equal width grid" *ng-for="#sslist of ShenShas; #row=index"
+        style="margin-left: 5px;">
+        <div class="column" *ng-for="#ss of sslist"
+             [style.padding-top]="row > 0 ? 0 : null"
+             style="padding-left: 0px;padding-right: 0px;padding-bottom: 0px;">
+            {{ss | tran:glsetting.lang}}
+        </div>
+    </div>
+
+    <div class="ui grid" style="margin-left: 5px;">
+        <div class="four wide column" style="padding: 0"></div>
+        <div class="five wide column gua mean"
+             [attr.data-content]="Yue.NaYin"
+             style="padding-left: 0px;padding-right: 0px;padding-bottom: 0px;">
+            {{Yue.Name | tran:glsetting.lang}}月
+        </div>
+        <div class="two wide column"></div>
+        <div class="five wide column gua mean"
+             [attr.data-content]="Ri.NaYin"
+             style="padding-left: 0px;padding-right: 0px;padding-bottom: 0px;">
+            {{Ri.Name | tran:glsetting.lang}}日
+        </div>
+    </div>
+
+    <div class="ui grid" style="margin-left: 5px;margin-top: 10px;margin-bottom: 10px">
+        <div class="four wide column"
+             style="padding-left: 0px;padding-right: 0px;">
+            {{GuaGong | tran:glsetting.lang}}
+        </div>
+        <div class="five wide column gua mean"
+             style="padding-left: 0px;padding-right: 0px;"
+             [attr.data-title]="Bengua.title"
+             [attr.data-content]="Bengua.content">
+            {{Bengua.text | tran:glsetting.lang}}
+        </div>
+        <div class="two wide column"></div>
+        <div class="five wide column gua mean"
+             style="padding-left: 0px;padding-right: 0px;"
+             [attr.data-title]="Biangua.title"
+             [attr.data-content]="Biangua.content">
+            {{Biangua.text | tran:glsetting.lang}}
+        </div>
+    </div>
+
+    <div *ng-for="#i of [5,4,3,2,1,0]" class="ui grid">
+        <div class="four wide column">
+            <div class="ui grid">
+                <div class="six wide column"
+                     style="padding:0;">
+                    {{Shen6[i]| tran:glsetting.lang}}
+                </div>
+                <div class="ten wide column gua mean"
+                     [attr.data-content]="Fuyaos[i].info"
+                     style="padding:0;color: grey">
+                    {{Fuyaos[i].Text | tran:glsetting.lang}}
+                </div>
+            </div>
+        </div>
+
+        <div class="six wide column gua mean"
+             [attr.data-content]="Benyaos[i].info"
+             style="padding:0;">
+            {{Benyaos[i].Text | tran:glsetting.lang}}
+            <img [src]="Benyaos[i].Img">
+            {{Benyaos[i].ShiYing | tran:glsetting.lang}}
+        </div>
+        <div class="column"
+             style="padding:0;font-weight: bolder">
+            <!--{{ShiYing[i] | tran:glsetting.lang}}-->
+            <img [src]="ShiYing[i]">
+        </div>
+        <div class="five wide column gua mean"
+             [attr.data-content]="Bianyaos[i].info"
+             style="padding:0;">
+            {{Bianyaos[i].Text | tran:glsetting.lang}}
+            <img [src]="Bianyaos[i].Img">
+        </div>
     </div>
 </div>

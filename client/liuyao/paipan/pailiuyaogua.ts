@@ -22,6 +22,9 @@ export class PaiLiuyaoGua{
     GuaOrderText: string;
     ActiveYao = 0;
 
+    bengua: string;
+    biangua: string;
+
     Symbols = ['shaoyin.svg', 'shaoyan.svg', 'laoyin.svg', 'laoyan.svg', 'empty.svg']
     SetedYaos = [4, 4, 4, 4, 4, 4]
 
@@ -36,9 +39,9 @@ export class PaiLiuyaoGua{
     
     get Result(){
         if(this.GuayaoModel == true){
-            return 'guayao model';
+            return this.convertYaoToName();
         }else{
-            return 'guachi model'
+            return [this.bengua, this.biangua]
         }
     }
     
@@ -70,6 +73,13 @@ export class PaiLiuyaoGua{
         let domGuaName = jQuery('#paigua-yao-name')
         this.GuaGongOrder = domGuaName.hasClass('guagong') ? true : false;
         this.guayaoModel = domGuaName.hasClass('hidden') ? true : false;
+
+        if(this.GuayaoModel === true){
+
+        }else{
+            this.bengua = this.GuaNameOptions[1]['Name']
+            this.biangua = this.GuaNameOptions[1]['Name']
+        }
 
         jQuery(this.rootElement.nativeElement)
             .find('.paigua.help')
@@ -132,5 +142,22 @@ export class PaiLiuyaoGua{
         jQuery('#' + outId).transition('fade left', function(){
             jQuery('#' + inId).transition('fade right');
         });
+    }
+
+    private convertYaoToName(){
+        let benText = ''
+        let bianText = ''
+        for(let idx = 5; idx >= 0; idx--){
+            benText += (this.SetedYaos[idx] % 2);
+            bianText += this.SetedYaos[idx] > 1 ? ((this.SetedYaos[idx] + 1) % 2) : (this.SetedYaos[idx] % 2)
+        }
+
+        let beni = parseInt(benText, 2)
+        let biani = parseInt(bianText, 2)
+
+        let bengua = Gua64(beni);
+        let biangua = Gua64(biani);
+
+        return [bengua.Name, biangua.Name]
     }
 }

@@ -11,6 +11,16 @@ export  class GlobalSetting{
         return Meteor.isCordova;
     }
 
+    get GUID() {
+        function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1);
+        }
+
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    }
+
     Exit(){
         if(this.IsCordova){
             navigator['app'].exitApp();

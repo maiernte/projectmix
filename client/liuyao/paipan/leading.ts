@@ -89,6 +89,8 @@ export class PailiuyaoLeading{
     }
 
     afterContentInit() {
-
+       /* <rect x='0' y='7' width="35" height="2" style="fill: black"></rect>
+        <line x1="30" y1="4" x2="35" y2="7" style="stroke:black;stroke-width:2" />
+        <line x1="30" y1="12" x2="35" y2="8" style="stroke:black;stroke-width:2" />*/
     }
 }

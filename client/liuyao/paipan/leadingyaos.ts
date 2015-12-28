@@ -6,6 +6,7 @@ import {GlobalSetting} from  '../../globalsetting'
 import {PailiuyaoCoins} from  './coins'
 
 declare  var jQuery: any;
+declare var Promise: any;
 
 @Component({
     selector: 'pailiuyao-leadingyao',
@@ -83,8 +84,15 @@ export class LeadingYao{
             return;
         }
 
+        let viewID = 'step4-yao-' + this.yaoIndex;
+        this.showAnimate(viewID, 0)
         this.yao6[this.yaoIndex] = this.getYaoImg(this.yao);
         this.yaoIndex = this.yaoIndex + 1;
+        this.showAnimate(viewID, 1000)
+    }
+
+    private showAnimate(id: string, duration: number): any{
+        jQuery('#' + id).transition('fly down', duration);
     }
 
     private getYaoImg(num: number){

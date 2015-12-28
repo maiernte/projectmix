@@ -1,3 +1,10 @@
+
+import {TYDate, TYLunar} from "../lunar/tylunar";
+import {GanZhi} from "./ganzhi";
+import {ShenSha} from "./shensha";
+import {FetchWuXing} from './wuxing'
+import {WuXing} from "./wuxing";
+
 function int2str (num: number, length: number, base?: number): string {
     var radix = base == null || base == undefined ? 2 : base;
     var res = num.toString(radix);
@@ -87,7 +94,8 @@ class tyGua64{
     static CalcGuaGong(shang:number, xia:number){
         var iShiWei = -1;
         var iGuaGong = -1;
-        var tmp = parseInt(shang.toString(), 2) ^ parseInt(xia.toString(), 2);
+        //var tmp = parseInt(shang.toString(), 2) ^ parseInt(xia.toString(), 2);
+        var tmp = shang ^ xia;
         switch (tmp) {
             case 7:
                 iShiWei = 2;
@@ -155,9 +163,73 @@ class tyGua64{
         let res = tyGua64.GuaChiJie.filter(jie => jie.indexOf(this.Name) >= 0);
         return res[0];
     }
-    get GuaGong(){
+    get GuaGong(): string{
+        return gua8Collection[this.GuaGongI].Name + '宫';
+    }
+
+    get GuaGongI():number{
         let res = tyGua64.CalcGuaGong(this.Shang.Index, this.Xia.Index)
-        return gua8Collection[res.GuaGong].Name + '宫';
+        return res.GuaGong;
+    }
+
+    get Shiyao(){
+        let res = tyGua64.CalcGuaGong(this.Shang.Index, this.Xia.Index);
+        return res.ShiWei;
+    }
+
+    get Property(){
+        // 下卦的起支
+        var xiaQi = this.Xia.Zhis[0];
+        // 上卦的起支
+        var shangQi = this.Shang.Zhis[3];
+
+        var baseInfo = '';
+        if (xiaQi + shangQi == 13 || xiaQi + shangQi == 1) {
+            baseInfo += "六合";
+        } else if (Math.abs(xiaQi - shangQi) == 6) {
+            baseInfo += "六冲";
+        }
+
+        var tmp = parseInt(this.Shang.Value, 2) ^ parseInt(this.Xia.Value, 2);
+        if (tmp == 5) {
+            baseInfo += "游魂";
+        } else if (tmp == 2) {
+            baseInfo += "归魂";
+        }
+
+        return baseInfo;
+    }
+
+    get GanZhis(){
+        let res = new Array<GanZhi>();
+        let gan = this.Xia.NaGan[0];
+        for(let zhi of this.Xia.Zhis.slice(0, 3)){
+            let gz = new GanZhi([gan, zhi]);
+            res.push(gz)
+        }
+
+        gan = this.Shang.NaGan[1];
+        for(let zhi of this.Shang.Zhis.slice(3, 6)){
+            let gz = new GanZhi([gan, zhi]);
+            res.push(gz)
+        }
+
+        return res;
+    }
+
+    get WuXing(): WuXing{
+        let gua8 = gua8Collection[this.GuaGongI];
+        return FetchWuXing(gua8.wuxing);
+    }
+
+    ZhiIndex(idx:number){
+        if(idx >= 0 && idx < 3){
+            return this.Xia.Zhis[idx];
+        }else if(idx >= 3 && idx < 6){
+            return this.Shang.Zhis[idx];
+        }
+
+        return -1;
     }
 }
 
@@ -173,7 +245,126 @@ function initGua64Collection(){
     };
 }
 
+let tyShen6 = ['青龙', '朱雀', '勾陈', '腾蛇', '白虎', '玄武']
+
 export function Gua64(index: number){
     initGua64Collection();
     return gua64Collection[index];
+}
+
+export class Gua{
+    private guatime: Array<GanZhi>
+    private shenshas: Array<ShenSha>
+    private bengua: tyGua64;
+    private biangua: tyGua64;
+    private fugua: tyGua64;
+    private shen6: Array<string>;
+
+    constructor(time: Date, yue: string, ri: string, ben: string, bian: string){
+        initGua64Collection();
+
+        if(time){
+            let date = new TYDate(time);
+            this.guatime = [new GanZhi(date.GZmonth), new GanZhi(date.GZdate)]
+        }else{
+            let gzYue = new GanZhi(yue)
+            let gzRi = new GanZhi(ri)
+            this.guatime = [gzYue, gzRi]
+        }
+
+        this.bengua = gua64Collection.filter(g => g.Name == ben)[0];
+        this.biangua = gua64Collection.filter(g => g.Name == bian)[0];
+
+        let tmp = this.bengua.GuaGongI;
+        this.fugua = Gua64(tmp * 8 + tmp)
+
+        this.initShenSha();
+        this.initShen6();
+    }
+
+    get Yue(): GanZhi{
+        return this.guatime[0];
+    }
+
+    get Ri(): GanZhi{
+        return this.guatime[1];
+    }
+
+    get ShenShas(): Array<ShenSha>{
+        return this.shenshas;
+    }
+
+    get Ben(){
+        return this.bengua;
+    }
+
+    get Bian(){
+        return this.biangua;
+    }
+
+    get FuGua(){
+        return this.fugua;
+    }
+
+    get Shen6(){
+        return this.shen6;
+    }
+
+    get Benyaos(){
+        let v = this.Ben.Shang.Value + this.Ben.Xia.Value
+        let temp = v.split('');
+        let benyaos = [];
+        for(let i = 5; i >= 0; i--){
+            benyaos.push(parseInt(temp[i]));
+        }
+
+        let bianyaos = this.Bianyaos
+        for(let i = 5; i >= 0; i--){
+            if(benyaos[i] != bianyaos[i]){
+                benyaos[i] += 2;
+            }
+        }
+
+        return benyaos;
+    }
+
+    get Bianyaos(){
+        let v = this.Bian.Shang.Value + this.Bian.Xia.Value;
+        let items = v.split('');
+        let res = [];
+        for(let i = 5; i >= 0; i--){
+            res.push(parseInt(items[i]));
+        }
+
+        return res;
+    }
+
+    private initShenSha(){
+        this.shenshas = new Array<ShenSha>();
+        this.shenshas.push(new ShenSha('将星', [this.guatime[1].Index]))
+        this.shenshas.push(new ShenSha('华盖', [this.guatime[1].Index]))
+        this.shenshas.push(new ShenSha('驿马', [this.guatime[1].Index]))
+        this.shenshas.push(new ShenSha('谋星', [this.guatime[1].Index]))
+        this.shenshas.push(new ShenSha('桃花', [this.guatime[1].Index]))
+        this.shenshas.push(new ShenSha('灾煞', [this.guatime[1].Index]))
+        this.shenshas.push(new ShenSha('劫煞', [this.guatime[1].Index]))
+        this.shenshas.push(new ShenSha('禄神', [this.guatime[1].Index]))
+        this.shenshas.push(new ShenSha('羊刃', [this.guatime[1].Index]))
+        this.shenshas.push(new ShenSha('文昌', [this.guatime[1].Index]))
+        this.shenshas.push(new ShenSha('天喜', [this.guatime[0].Index]))
+        this.shenshas.push(new ShenSha('天医', [this.guatime[0].Index]))
+        this.shenshas.push(new ShenSha('贵人', [this.guatime[1].Index]))
+        this.shenshas.push(new ShenSha('旬空', [this.guatime[1].Index]))
+    }
+
+    private initShen6(){
+        this.shen6 = new Array<string>();
+
+        var start = this.guatime[1].Gan.Index;
+        start = start >= 5 ? Math.floor((start + 2) / 2) : Math.floor(start / 2);
+        for (var idx = 0; idx < 6; idx++) {
+            var index = (start + idx) % 6;
+            this.shen6.push(tyShen6[index].substring(0, 2));
+        }
+    }
 }

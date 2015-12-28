@@ -16,7 +16,7 @@
                 {{'万年历' | tran:glsetting.lang}}
             </div>
         </div>
-        <div class="ui animated fade primary button item" (click)="addWindow('gua')">
+        <div class="ui animated fade primary button item" (click)="addWindow('compass')">
             <div class="visible content">
                 <i class="compass icon"></i>
             </div>
@@ -47,7 +47,8 @@
             <!--<guaview class='guaview' *ng-if='frame.type == "gua"'></guaview>-->
             <!--<div class='otherview' *ng-if='frame.type == "other"'>some thing else</div>-->
             <calendarview *ng-if='frame.type == "calendar"'></calendarview>
-            <guaview *ng-if='frame.type == "gua"'></guaview>
+            <guaview *ng-if='frame.type == "gua"' [initdata]="frame.data"></guaview>
+            <compass-view *ng-if="frame.type == 'compass'"></compass-view>
             <div *ng-if='frame.type == "other"'>some thing else</div>
         </ty-window>
     </div>

@@ -35,7 +35,8 @@
         <div class='ui attached segment'>
             <!--<button class='ui button' (click)='LogMe(guatime.Result, guayao.Result)'>img</button>-->
             <div class="ui left action input">
-                <button class="compact ui teal labeled icon button">
+                <button class="compact ui teal labeled icon button"
+                        (click)="paiGua(guatime.Result, guayao.Result)">
                     <i class="edit icon"></i>
                     {{'排盘' | tran:glsetting.lang}}
                 </button>
@@ -51,9 +52,15 @@
                     <input type="text" placeholder="请输入起卦要问的事情...">
                 </div>
                 <div class="ui primary buttons">
-                    <button class="ui button">{{'日月卦' | tran:glsetting.lang}}</button>
-                    <button class="ui button">{{'日时卦' | tran:glsetting.lang}}</button>
-                    <button class="ui button">{{'随机卦' | tran:glsetting.lang}}</button>
+                    <button class="ui button" (click)="paiGua(null, 1)">
+                        {{'日月卦' | tran:glsetting.lang}}
+                    </button>
+                    <button class="ui button" (click)="paiGua(null, 2)">
+                        {{'日时卦' | tran:glsetting.lang}}
+                    </button>
+                    <button class="ui button" (click)="paiGua(null, 3)">
+                        {{'随机卦' | tran:glsetting.lang}}
+                    </button>
                 </div>
             </form>
         </div>

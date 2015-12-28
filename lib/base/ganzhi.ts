@@ -1,4 +1,5 @@
 import {FetchWuXing} from './wuxing'
+import {WuXing} from "./wuxing";
 
 class tyGan{
     name:string;
@@ -9,16 +10,18 @@ class tyGan{
         this.index = index;
     }
     
-    get Name(){
+    get Name(): string{
         return this.name;
     }
 
-    get Index(){
+    get Index(): number{
         return this.index;
     }
     
-    get WuXing(){
-        return FetchWuXing(0).name;
+    get WuXing(): WuXing{
+        let idx = Math.floor(this.Index / 2)
+        idx = (idx + 2) % 5
+        return FetchWuXing(idx);
     }
 }
 
@@ -49,16 +52,31 @@ class tyZhi{
         this.name = name;
     }
 
-    get Name(){
+    get Name(): string{
         return this.name;
     }
 
-    get Index(){
+    get Index(): number{
         return this.index;
     }
 
-    get WuXing(){
-        return FetchWuXing(0).name;
+    get WuXing(): WuXing{
+        switch(this.Index){
+            case 2:
+            case 3:
+                return FetchWuXing('木');
+            case 5:
+            case 6:
+                return FetchWuXing('火');
+            case 8:
+            case 9:
+                return FetchWuXing('金');
+            case 0:
+            case 11:
+                return FetchWuXing('水');
+            default:
+                return FetchWuXing('土');
+        }
     }
 }
 
@@ -68,18 +86,18 @@ function initZhis(){
         return;
     }
 
-    zhis.push(new tyGan(0, '子'));
-    zhis.push(new tyGan(1, '丑'));
-    zhis.push(new tyGan(2, '寅'));
-    zhis.push(new tyGan(3, '卯'));
-    zhis.push(new tyGan(4, '辰'));
-    zhis.push(new tyGan(5, '巳'));
-    zhis.push(new tyGan(6, '午'));
-    zhis.push(new tyGan(7, '未'));
-    zhis.push(new tyGan(8, '申'));
-    zhis.push(new tyGan(9, '酉'));
-    zhis.push(new tyGan(10, '戌'));
-    zhis.push(new tyGan(11, '亥'));
+    zhis.push(new tyZhi(0, '子'));
+    zhis.push(new tyZhi(1, '丑'));
+    zhis.push(new tyZhi(2, '寅'));
+    zhis.push(new tyZhi(3, '卯'));
+    zhis.push(new tyZhi(4, '辰'));
+    zhis.push(new tyZhi(5, '巳'));
+    zhis.push(new tyZhi(6, '午'));
+    zhis.push(new tyZhi(7, '未'));
+    zhis.push(new tyZhi(8, '申'));
+    zhis.push(new tyZhi(9, '酉'));
+    zhis.push(new tyZhi(10, '戌'));
+    zhis.push(new tyZhi(11, '亥'));
 }
 
 export function Gan(para): tyGan{
@@ -128,6 +146,13 @@ export class GanZhi{
     Gan:tyGan;
     Zhi:tyZhi;
 
+    public static NaYins = ["海中金", "炉中火", "大林木", "路旁土", "剑峰金",
+        "山头火", "涧下水", "城墙土", "白蜡金", "杨柳木",
+        "泉中水", "屋上土", "霹雳火", "松柏木", "长流水",
+        "沙中金", "山下火", "平地木", "壁上土", "金箔金",
+        "佛灯火", "天河水", "大驿土", "钗钏金", "桑松木",
+        "大溪水", "沙中土", "天上火", "石榴木", "大海水"];
+
     constructor(input:any){
         if(Array.isArray(input) && input.length == 2){
             this.Gan = Gan(input[0]);
@@ -163,12 +188,18 @@ export class GanZhi{
         return res;
     }
 
-    get Name(){
+    get Name(): string{
         return this.Gan ? this.Gan.Name + this.Zhi.Name : this.Zhi.Name;
     }
 
-    get Index(){
+    get Index(): number{
         return this.Gan ? this.calcIndex(this.Gan.Index, this.Zhi.Index) : this.Zhi.Index;
+    }
+
+    get NaYin(){
+        if(this.Gan == null) return '';
+
+        return GanZhi.NaYins[Math.floor(this.Index / 2)];
     }
 
     private calcIndex(gan:number, zhi:number):number{

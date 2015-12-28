@@ -37,19 +37,19 @@
     <div class="ui attached segment">
         <div class="ui two grid" style="margin-top: 5px;margin-bottom: 5px">
             <div class="item">
-                <div class='item'>
+                <div class='item' id="step4-yao-5">
                     <img [src]="yao6[5]" />
                 </div>
-                <div class='item'>
+                <div class='item' id="step4-yao-4">
                     <img [src]="yao6[4]" />
                 </div>
-                <div class='item'>
+                <div class='item' id="step4-yao-3">
                     <img [src]="yao6[3]" />
                 </div>
-                <div class='item'>
+                <div class='item' id="step4-yao-2">
                     <img [src]="yao6[2]" />
                 </div>
-                <div class='item'>
+                <div class='item' id="step4-yao-1">
                     <img [src]="yao6[1]" />
                 </div>
                 <div class='item'>
@@ -57,18 +57,25 @@
                 </div>
             </div>
             <div class="item">
-                <div class="middle aligned content">
-                    <p style="margin-top:10px">
-                        {{'第一爻已经排好. 再次摇掷铜钱, ' | tran:glsetting.lang}}
+                <div class="middle aligned content" *ng-if="yaoIndex < 6">
+                    <p>
+                        {{'请再次摇掷铜钱.' | tran:glsetting.lang}}
                     </p>
                     <p>
-                        {{'然后根据落币选择相应组别,' | tran:glsetting.lang}}
+                        {{'根据落币, 选择相应组别.' | tran:glsetting.lang}}
                     </p>
                     <p>
-                        {{'最后按"第二爻"按钮.' | tran:glsetting.lang}}
+                        {{'然后按 "' | tran:glsetting.lang}}
+                        <span style="font-weight: bolder">{{ButtonText | tran:glsetting.lang}}</span>
+                        {{'" 按钮.' | tran:glsetting.lang}}
+                    </p>
+                </div>
+                <div class="middle aligned content" *ng-if="yaoIndex === 6">
+                    <p>
+                        {{'六个爻都已完成.' | tran:glsetting.lang}}
                     </p>
                     <p>
-                        {{'如此反复五遍.' | tran:glsetting.lang}}
+                        {{'请按 "下一步" 按钮.' | tran:glsetting.lang}}
                     </p>
                 </div>
             </div>

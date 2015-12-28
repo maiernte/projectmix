@@ -57,3 +57,8 @@ class HuaheApp {
 
 //bootstrap(HuaheApp)
 bootstrap(HuaheApp, [ROUTER_PROVIDERS, provide(LocationStrategy, { useClass: HashLocationStrategy }), GlobalSetting]);
+
+/*
+Meteor.startup(function(){
+    console.log('meteor startup')
+})*/

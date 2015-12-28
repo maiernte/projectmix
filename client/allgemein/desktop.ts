@@ -1,12 +1,13 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 
 import {Component, NgFor, Inject} from 'angular2/angular2'
-import {Router} from 'angular2/router'
+import {Router, RouteParams} from 'angular2/router'
 
 import {Gan} from 'lib/base/ganzhi'
 import {TyWindow} from 'client/allgemein/window'
 import {CalendarView} from "../calendar/calendar";
 import {GuaView} from '../liuyao/guaview'
+import {CompassView} from '../compass/compass'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
@@ -16,19 +17,20 @@ declare var jQuery:any;
 @Component({
     selector: 'desktop',
     templateUrl: 'client/allgemein/desktop.html',
-    directives: [TyWindow, NgFor, CalendarView, GuaView],
+    directives: [TyWindow, NgFor, CalendarView, GuaView, CompassView],
     pipes: [TranslatePipe],
 })
 
 export class Desktop{
     frameList: Array<Object>;
-    private router: Router;
     glsetting: GlobalSetting;
     
-    constructor(_router: Router, @Inject(GlobalSetting) glsetting: GlobalSetting){
+    constructor(private router: Router,
+                private routeParams: RouteParams,
+                @Inject(GlobalSetting) glsetting: GlobalSetting){
         //let s = new Gan(1);
         //console.log(s.Name, s.WuXing);
-        this.router = _router;
+
         this.glsetting = glsetting;
     }
     
@@ -55,7 +57,6 @@ export class Desktop{
         }
         
         this.frameList.push(frame);
-        
     }
 
     oncloseWind(windowID){
@@ -73,5 +74,15 @@ export class Desktop{
         let hideMenu = true;
         this.showMenu(hideMenu);
         // var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+
+        if(this.routeParams.params['flag'] == 'gua'){
+            var frame = {
+                type: 'gua',
+                id: 'U' + this.glsetting.GUID,
+                data: JSON.stringify(this.routeParams.params)
+            }
+
+            this.frameList.push(frame);
+        }
     }
 }
