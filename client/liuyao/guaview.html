@@ -1,4 +1,4 @@
-<div class='ui segment'>
+<div class='ui attached segment'>
     <div>
         <a class="ui teal ribbon label">
             {{title | tran:glsetting.lang}}
@@ -72,7 +72,7 @@
         <div class="four wide column">
             <div class="ui grid">
                 <div class="six wide column"
-                     style="padding:0;">
+                     style="padding-left:3px;padding-top: 0;padding-right: 0;padding-bottom: 0">
                     {{Shen6[i]| tran:glsetting.lang}}
                 </div>
                 <div class="ten wide column gua mean"
@@ -100,6 +100,30 @@
              style="padding:0;">
             {{Bianyaos[i].Text | tran:glsetting.lang}}
             <img [src]="Bianyaos[i].Img">
+        </div>
+    </div>
+</div>
+<div class="ui attached segment transition hidden gua setting">
+    <div class="ui form">
+        <div class="two fields">
+            <div class="inline field">
+                <label>{{'每行显示神煞数:' | tran:glsetting.lang}}</label>
+                <select class="ui fluid dropdown"
+                        [(ng-model)]="shenshaColumnCount">
+                    <option value="4">四</option>
+                    <option value="5">五</option>
+                    <option value="6">六</option>
+                    <option value="7">七</option>
+                </select>
+            </div>
+            <div class="inline field">
+                <label>{{'卦爻显示方式:' | tran:glsetting.lang}}</label>
+                <select class="ui fluid dropdown"
+                        [(ng-model)]="simpleShow">
+                    <option value="f">{{'全排' | tran:glsetting.lang}}</option>
+                    <option value="s">{{'简排' | tran:glsetting.lang}}</option>
+                </select>
+            </div>
         </div>
     </div>
 </div>

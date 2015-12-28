@@ -28,6 +28,8 @@ export class PaiLiuyao {
     inputModel:string = 'manuel';
     private router: Router;
 
+    question: string;
+
     glsetting:GlobalSetting;
     constructor(@Inject(GlobalSetting) glsetting:GlobalSetting, router: Router) {
         this.glsetting = glsetting;
@@ -51,6 +53,7 @@ export class PaiLiuyao {
     }
 
     onInit() {
+        this.question = ''
         let hideMenu = true;
         this.showMenu(hideMenu);
     }
@@ -67,6 +70,7 @@ export class PaiLiuyao {
             params['time'] = time;
             params['gua'] = gua;
             params['type'] = 0;
+            params['question'] = this.question
         }else if(this.InputModel == 'auto'){
             let date = new Date(Date.now());
             params['time'] = date.toISOString();

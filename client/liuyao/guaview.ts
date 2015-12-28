@@ -29,6 +29,8 @@ export class GuaView{
         type: ''
     }
     Gua: Gua;
+    shenshaColumnCount = 5;
+    simpleShow = 'f';
 
     @Input() initdata:string
 
@@ -98,7 +100,7 @@ export class GuaView{
     }
 
     get ShenShas(){
-        let column = 5;
+        let column = this.shenshaColumnCount;
         let row = Math.ceil(14 / column)
 
         let res = [];
@@ -131,7 +133,9 @@ export class GuaView{
     }
 
     get Fuyaos(){
-        if(this.fuyaos) return this.fuyaos;
+        if(this.fuyaos && this.fuyaos[0]['simple'] == this.simpleShow) {
+            return this.fuyaos;
+        }
 
         this.fuyaos = new Array<Object>();
 
@@ -150,18 +154,21 @@ export class GuaView{
             let shen = gz[i].Zhi.WuXing.Ref(wxbase);
 
             let obj = {
-                Text: shen[0] + zhi + wx,
+                Text: this.simpleShow == 's' ? shen[1] + zhi : shen[0] + zhi + wx,
                 info: this.tran(gz[i].Name + ' —— ' + gz[i].NaYin)
             }
 
             this.fuyaos.push(obj)
         }
 
+        this.fuyaos[0]['simple'] = this.simpleShow
         return this.fuyaos;
     }
 
     get Benyaos(){
-        if(this.benyaos) return this.benyaos;
+        if(this.benyaos && this.benyaos[0]['simple'] == this.simpleShow) {
+            return this.benyaos;
+        }
 
         this.benyaos = new Array<Object>();
 
@@ -185,7 +192,7 @@ export class GuaView{
             }
 
             let obj = {
-                Text: shen[0] + zhi + wx,
+                Text: this.simpleShow == 's' ? shen[1] + zhi : shen[0] + zhi + wx,
                 Shen: shen[0],
                 Img: GuaView.imgs[yaos[i]],
                 ShiYing: txt,
@@ -195,11 +202,14 @@ export class GuaView{
             this.benyaos.push(obj)
         }
 
+        this.benyaos[0]['simple'] = this.simpleShow
         return this.benyaos;
     }
 
     get Bianyaos(){
-        if(this.bianyaos) return this.bianyaos;
+        if(this.bianyaos && this.bianyaos[0]['simple'] == this.simpleShow) {
+            return this.bianyaos;
+        }
 
         this.bianyaos = new Array<Object>();
 
@@ -214,7 +224,7 @@ export class GuaView{
             let shen = gz[i].Zhi.WuXing.Ref(wxbase);
 
             let obj = {
-                Text: shen[0] + zhi + wx,
+                Text: this.simpleShow == 's' ? shen[1] + zhi : shen[0] + zhi + wx,
                 Shen: shen[0],
                 Img: GuaView.imgs[yaos[i]],
                 info: this.tran(gz[i].Name + ' —— ' + gz[i].NaYin)
@@ -223,6 +233,7 @@ export class GuaView{
             this.bianyaos.push(obj)
         }
 
+        this.bianyaos[0]['simple'] = this.simpleShow
         return this.bianyaos;
     }
 
@@ -252,6 +263,9 @@ export class GuaView{
 
     showSetting() {
         console.log('guaview: call from parent click')
+        jQuery(this.rootElement.nativeElement)
+            .find('.gua.setting')
+            .transition('fade up', 1000)
     }
 
     onInit(){
@@ -313,7 +327,7 @@ export class GuaView{
         this.title = params['gua'][0] == params['gua'][1] ? params['gua'][0]
             : params['gua'][0] + ' 之 ' + params['gua'][1]
 
-        this.Info.question = "起卦时的心念"
+        this.Info.question = params['question'] ? params['question'] : ''
         this.Info.type = GuaView.types[parseInt(params['type'])]
     }
 }

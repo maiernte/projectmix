@@ -2,32 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd628d0f-b330-4283-9dbe-d11a93ac6559" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/compass/compass.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/base/shensha.ts" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mobile-config.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/arrow.svg" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/house158.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/house158.svg" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/allgemein/desktop.html" afterPath="$PROJECT_DIR$/client/allgemein/desktop.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/allgemein/desktop.ts" afterPath="$PROJECT_DIR$/client/allgemein/desktop.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app.ts" afterPath="$PROJECT_DIR$/client/app.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/compass/compass.ts" afterPath="$PROJECT_DIR$/client/compass/compass.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/globalsetting.ts" afterPath="$PROJECT_DIR$/client/globalsetting.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/liuyao/guaview.html" afterPath="$PROJECT_DIR$/client/liuyao/guaview.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/liuyao/guaview.ts" afterPath="$PROJECT_DIR$/client/liuyao/guaview.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/liuyao/paiLiuyao.html" afterPath="$PROJECT_DIR$/client/liuyao/paiLiuyao.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/liuyao/paiLiuyao.ts" afterPath="$PROJECT_DIR$/client/liuyao/paiLiuyao.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/liuyao/paipan/leading.ts" afterPath="$PROJECT_DIR$/client/liuyao/paipan/leading.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/liuyao/paipan/leadingyaos.html" afterPath="$PROJECT_DIR$/client/liuyao/paipan/leadingyaos.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/liuyao/paipan/leadingyaos.ts" afterPath="$PROJECT_DIR$/client/liuyao/paipan/leadingyaos.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/liuyao/paipan/pailiuyaogua.html" afterPath="$PROJECT_DIR$/client/liuyao/paipan/pailiuyaogua.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/liuyao/paipan/pailiuyaogua.ts" afterPath="$PROJECT_DIR$/client/liuyao/paipan/pailiuyaogua.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/liuyao/paipan/pailiuyaotime.html" afterPath="$PROJECT_DIR$/client/liuyao/paipan/pailiuyaotime.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/liuyao/paipan/pailiuyaotime.ts" afterPath="$PROJECT_DIR$/client/liuyao/paipan/pailiuyaotime.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/base/ganzhi.ts" afterPath="$PROJECT_DIR$/lib/base/ganzhi.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/base/gua.ts" afterPath="$PROJECT_DIR$/lib/base/gua.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/base/wuxing.ts" afterPath="$PROJECT_DIR$/lib/base/wuxing.ts" />
     </list>
     <ignored path="HuaheC9.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -47,7 +25,7 @@
     <favorites_list name="HuaheC9" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.53116345">
+    <splitter split-orientation="horizontal" split-proportion="0.4570637">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="shensha.ts" pinned="false" current-in-tab="false">
@@ -88,11 +66,14 @@
           <file leaf-file-name="guaview.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/liuyao/guaview.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-24.958334">
-                  <caret line="97" column="45" selection-start-line="97" selection-start-column="45" selection-end-line="97" selection-end-column="45" />
+                <state vertical-scroll-proportion="-11.25">
+                  <caret line="122" column="35" selection-start-line="122" selection-start-column="35" selection-end-line="122" selection-end-column="35" />
                   <folding>
+                    <element signature="n#div#0;n#!!top" expanded="false" />
+                    <element signature="n#div#3;n#div#0;n#!!top" expanded="false" />
                     <element signature="n#style#0;n#div#1;n#div#3;n#div#0;n#!!top" expanded="true" />
                     <element signature="n#style#0;n#div#4;n#div#0;n#!!top" expanded="true" />
+                    <element signature="n#div#4;n#div#0;n#!!top" expanded="false" />
                     <element signature="n#style#0;n#div#0;n#div#4;n#div#0;n#!!top" expanded="true" />
                     <element signature="n#style#0;n#div#1;n#div#4;n#div#0;n#!!top" expanded="true" />
                     <element signature="n#style#0;n#div#3;n#div#4;n#div#0;n#!!top" expanded="true" />
@@ -109,8 +90,8 @@
           <file leaf-file-name="guaview.ts" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/client/liuyao/guaview.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-1.867305">
-                  <caret line="91" column="50" selection-start-line="91" selection-start-column="50" selection-end-line="91" selection-end-column="50" />
+                <state vertical-scroll-proportion="0.94391245">
+                  <caret line="157" column="66" selection-start-line="157" selection-start-column="66" selection-end-line="157" selection-end-column="66" />
                   <folding>
                     <element signature="n#!!block;n#Shen6#0;n#GuaView#0" expanded="false" />
                     <element signature="n#!!block;n#ShiYing#0;n#GuaView#0" expanded="false" />
@@ -143,11 +124,11 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="leading.ts" pinned="false" current-in-tab="true">
+          <file leaf-file-name="leading.ts" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/liuyao/paipan/leading.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.1997264">
-                  <caret line="61" column="5" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
+                <state vertical-scroll-proportion="-4.296296">
+                  <caret line="59" column="45" selection-start-line="59" selection-start-column="45" selection-end-line="59" selection-end-column="45" />
                   <folding />
                 </state>
               </provider>
@@ -168,8 +149,18 @@
           <file leaf-file-name="paiLiuyao.ts" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/liuyao/paiLiuyao.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="62" column="22" selection-start-line="62" selection-start-column="22" selection-end-line="62" selection-end-column="22" />
+                <state vertical-scroll-proportion="-4.4444447">
+                  <caret line="54" column="14" selection-start-line="54" selection-start-column="14" selection-end-line="54" selection-end-column="14" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="paiLiuyao.html" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/client/liuyao/paiLiuyao.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.010899182">
+                  <caret line="7" column="46" selection-start-line="7" selection-start-column="46" selection-end-line="7" selection-end-column="46" />
                   <folding />
                 </state>
               </provider>
@@ -230,7 +221,6 @@
         <option value="$PROJECT_DIR$/client/liuyao/paipan/leadingyaos.ts" />
         <option value="$PROJECT_DIR$/client/liuyao/paipan/coins.ts" />
         <option value="$PROJECT_DIR$/client/liuyao/paipan/pailiuyaogua.ts" />
-        <option value="$PROJECT_DIR$/client/liuyao/paiLiuyao.html" />
         <option value="$PROJECT_DIR$/client/compass/compass.html" />
         <option value="$PROJECT_DIR$/client/compass/compass.ts" />
         <option value="$PROJECT_DIR$/client/globalsetting.ts" />
@@ -238,7 +228,6 @@
         <option value="$PROJECT_DIR$/lib/base/shensha.ts" />
         <option value="$PROJECT_DIR$/client/allgemein/desktop.ts" />
         <option value="$PROJECT_DIR$/client/liuyao/paipan/pailiuyaotime.ts" />
-        <option value="$PROJECT_DIR$/client/liuyao/paiLiuyao.ts" />
         <option value="$PROJECT_DIR$/client/allgemein/window.html" />
         <option value="$PROJECT_DIR$/lib/base/wuxing.ts" />
         <option value="$PROJECT_DIR$/server/server.js" />
@@ -248,9 +237,11 @@
         <option value="$PROJECT_DIR$/public/arrow.html" />
         <option value="$PROJECT_DIR$/lib/base/ganzhi.ts" />
         <option value="$PROJECT_DIR$/lib/base/gua.ts" />
-        <option value="$PROJECT_DIR$/client/liuyao/guaview.html" />
         <option value="$PROJECT_DIR$/client/liuyao/paipan/leading.ts" />
         <option value="$PROJECT_DIR$/public/arrow.svg" />
+        <option value="$PROJECT_DIR$/client/liuyao/paiLiuyao.html" />
+        <option value="$PROJECT_DIR$/client/liuyao/paiLiuyao.ts" />
+        <option value="$PROJECT_DIR$/client/liuyao/guaview.html" />
         <option value="$PROJECT_DIR$/client/liuyao/guaview.ts" />
       </list>
     </option>
@@ -261,8 +252,8 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="132" />
-    <option name="y" value="74" />
+    <option name="x" value="47" />
+    <option name="y" value="89" />
     <option name="width" value="1793" />
     <option name="height" value="977" />
   </component>
@@ -562,7 +553,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="132" y="74" width="1793" height="977" extended-state="0" />
+    <frame x="47" y="89" width="1793" height="977" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19464585" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -765,14 +756,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/liuyao/paiLiuyao.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-21.916666">
-          <caret line="60" column="69" selection-start-line="60" selection-start-column="69" selection-end-line="60" selection-end-column="69" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/compass/compass.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.875">
@@ -840,14 +823,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.625">
           <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/liuyao/paiLiuyao.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="62" column="22" selection-start-line="62" selection-start-column="22" selection-end-line="62" selection-end-column="22" />
           <folding />
         </state>
       </provider>
@@ -963,13 +938,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/allgemein/translatePipe.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-17.222221">
+          <caret line="31" column="9" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/liuyao/paiLiuyao.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.4444447">
+          <caret line="54" column="14" selection-start-line="54" selection-start-column="14" selection-end-line="54" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/liuyao/paipan/leading.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.296296">
+          <caret line="59" column="45" selection-start-line="59" selection-start-column="45" selection-end-line="59" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/liuyao/guaview.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-24.958334">
-          <caret line="97" column="45" selection-start-line="97" selection-start-column="45" selection-end-line="97" selection-end-column="45" />
+        <state vertical-scroll-proportion="-11.25">
+          <caret line="122" column="35" selection-start-line="122" selection-start-column="35" selection-end-line="122" selection-end-column="35" />
           <folding>
+            <element signature="n#div#0;n#!!top" expanded="false" />
+            <element signature="n#div#3;n#div#0;n#!!top" expanded="false" />
             <element signature="n#style#0;n#div#1;n#div#3;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#4;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#div#4;n#div#0;n#!!top" expanded="false" />
             <element signature="n#style#0;n#div#0;n#div#4;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#div#4;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#3;n#div#4;n#div#0;n#!!top" expanded="true" />
@@ -982,30 +984,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/allgemein/translatePipe.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.222221">
-          <caret line="31" column="9" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/liuyao/paipan/leading.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1997264">
-          <caret line="61" column="5" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/liuyao/guaview.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.867305">
-          <caret line="91" column="50" selection-start-line="91" selection-start-column="50" selection-end-line="91" selection-end-column="50" />
+        <state vertical-scroll-proportion="0.94391245">
+          <caret line="157" column="66" selection-start-line="157" selection-start-column="66" selection-end-line="157" selection-end-column="66" />
           <folding>
             <element signature="n#!!block;n#Shen6#0;n#GuaView#0" expanded="false" />
             <element signature="n#!!block;n#ShiYing#0;n#GuaView#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/liuyao/paiLiuyao.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.010899182">
+          <caret line="7" column="46" selection-start-line="7" selection-start-column="46" selection-end-line="7" selection-end-column="46" />
+          <folding />
         </state>
       </provider>
     </entry>
