@@ -5,7 +5,6 @@ import {Component,
 		EventEmitter,
 		Inject,
 		Input,
-		AfterContentInit,
 		ContentChild,
 		FORM_DIRECTIVES} from 'angular2/angular2'
 
@@ -14,6 +13,7 @@ import {GlobalSetting} from  'client/globalsetting'
 
 import {CalendarView} from "../calendar/calendar";
 import {GuaView} from '../liuyao/guaview'
+import {BaziView} from '../bazi/baziview'
 	
 
 declare var jQuery:any;
@@ -26,7 +26,7 @@ declare var jQuery:any;
 	directives: [CalendarView]
 })
 
-export class TyWindow implements AfterContentInit{
+export class TyWindow {
 	elementRef: ElementRef;
 	onclosing = new EventEmitter();
 	glsetting: GlobalSetting;
@@ -35,6 +35,7 @@ export class TyWindow implements AfterContentInit{
 	@Input() data: Object;
 	@ContentChild(CalendarView) calendarview: CalendarView;
 	@ContentChild(GuaView) guaview: GuaView;
+	@ContentChild(BaziView) baziview: BaziView;
 	
 	
 	constructor(elementRef: ElementRef, @Inject(GlobalSetting) glsetting: GlobalSetting){
@@ -59,16 +60,10 @@ export class TyWindow implements AfterContentInit{
 			console.log('showSetting Error', err)
 		} 
 	}
-	
-	
 
 	onInit(){
 		//let v = jQuery(this.elementRef.nativeElement)
 		//v.find('.ui.accordion').accordion();
 		//v.find('.ui.element').popup({on:'click'})
 	}
-	
-	 afterContentInit() {
-	    //console.log(this.contentChild);
-	 }
 }

@@ -7,6 +7,7 @@ import {Gan} from 'lib/base/ganzhi'
 import {TyWindow} from 'client/allgemein/window'
 import {CalendarView} from "../calendar/calendar";
 import {GuaView} from '../liuyao/guaview'
+import {BaziView} from '../bazi/baziview'
 import {CompassView} from '../compass/compass'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
@@ -17,7 +18,7 @@ declare var jQuery:any;
 @Component({
     selector: 'desktop',
     templateUrl: 'client/allgemein/desktop.html',
-    directives: [TyWindow, NgFor, CalendarView, GuaView, CompassView],
+    directives: [TyWindow, NgFor, CalendarView, GuaView, CompassView, BaziView],
     pipes: [TranslatePipe],
 })
 
@@ -78,6 +79,14 @@ export class Desktop{
         if(this.routeParams.params['flag'] == 'gua'){
             var frame = {
                 type: 'gua',
+                id: 'U' + this.glsetting.GUID,
+                data: JSON.stringify(this.routeParams.params)
+            }
+
+            this.frameList.push(frame);
+        }else if(this.routeParams.params['flag'] == 'bazi'){
+            var frame = {
+                type: 'bazi',
                 id: 'U' + this.glsetting.GUID,
                 data: JSON.stringify(this.routeParams.params)
             }

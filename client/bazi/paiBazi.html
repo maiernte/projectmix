@@ -1,0 +1,170 @@
+<div>
+    <div class="ui top attached pointing menu">
+        <div class="ui animated fade primary button item" (click)="showMenu()">
+            <div class="visible content">
+                <i class="sidebar icon"></i>
+            </div>
+            <div class="hidden content">
+                {{'菜单' | tran:glsetting.lang}}
+            </div>
+        </div>
+        <div class="item active"
+             [class.active]="Panel == 'paipan'"
+             (click)="Panel = 'paipan'">
+            {{'排八字' | tran:glsetting.lang}}
+        </div>
+        <div class="item"
+             [class.active]="Panel == 'calc'"
+             (click)="Panel = 'calc'">
+            {{'八字反推' | tran:glsetting.lang}}
+        </div>
+    </div>
+
+    <div [hidden]="Panel != 'paipan'">
+        <div class="ui form" style="margin-top: 10px">
+            <div class="inline field">
+                <label>{{'姓名: ' | tran:glsetting.lang}}</label>
+                <input type="text" placeholder="请输入命主姓名"
+                        [(ng-model)]="Input.Name">
+            </div>
+            <div class="inline fields">
+                <label>{{'性别: ' | tran:glsetting.lang}}</label>
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" name="paibazi-gender"
+                               value="m" #male
+                               (click)="Input.Gender = male.value"
+                               checked="checked">
+                        <label>男</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" name="paibazi-gender"
+                                value="f" #female
+                               (click)="Input.Gender = female.value">
+                        <label>女</label>
+                    </div>
+                </div>
+            </div>
+            <div class="inline fields">
+                <label>出生地: </label>
+                <div class="field">
+                    <select class="ui fluid dropdown"
+                            [(ng-model)]="Land">
+                        <option *ng-for="#land of maps"
+                                [value]="land.Name">
+                            {{land.Name | tran:glsetting.lang}}
+                        </option>
+                    </select>
+                    <label>省</label>
+                </div>
+                <div class="field">
+                    <select class="ui fluid dropdown"
+                            [(ng-model)]="City">
+                        <option *ng-for="#city of cities"
+                                [value]="city.Name">
+                            {{city.Name | tran:glsetting.lang}}
+                        </option>
+                    </select>
+                    <label>市/县</label>
+                </div>
+            </div>
+
+            <div class="inline fields">
+                <div class="field">
+                    <label>{{'日期' | tran:glsetting.lang}}</label>
+                    <input type="date" lang="zh" [(ng-model)]='Input.Date'>
+                </div>
+                <div class="field">
+                    <label>{{'时辰' | tran:glsetting.lang}}</label>
+                    <input type="time" lang="zh" [(ng-model)]='Input.Time'>
+                </div>
+            </div>
+
+            <div class="field">
+
+                <div class="ui checkbox">
+                    <input type="checkbox" [(ng-model)]="Solar">
+                    <label>
+                        {{'使用真太阳时' | tran:glsetting.lang}}
+                        {{solarinfo | tran:glsetting.lang}}
+                    </label>
+                </div>
+            </div>
+
+            <div class="ui submit primary button"
+                (click)="paiBazi()">
+                {{'排算命盘' | tran:glsetting.lang}}
+            </div>
+        </div>
+
+    </div>
+    <div [hidden]="Panel != 'calc'">
+        <div class="ui form" style="margin-top: 10px">
+            <div class="fields">
+                <div class="field">
+                    <label>年</label>
+                    <select class="ui fluid dropdown"
+                            [(ng-model)]="CalcSet.Y">
+                        <option *ng-for="#y of GanZhiNames"
+                                [value]="y">
+                            {{y}}
+                        </option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>月</label>
+                    <select class="ui fluid dropdown"
+                            [(ng-model)]="CalcSet.M">
+                        <option *ng-for="#m of GanZhiNamesM"
+                                [value]="m">
+                            {{m}}
+                        </option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>日</label>
+                    <select class="ui fluid dropdown"
+                            [(ng-model)]="CalcSet.D">
+                        <option *ng-for="#d of GanZhiNames"
+                                [value]="d">
+                            {{d}}
+                        </option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>时</label>
+                    <select class="ui fluid dropdown"
+                            [(ng-model)]="CalcSet.T">
+                        <option *ng-for="#t of GanZhiNamesT"
+                                [value]="t">
+                            {{t}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="ui buttons">
+                <button class="ui button" (click)="calcNextTime(-1)">
+                    {{'向前' | tran:glsetting.lang}}
+                </button>
+                <div class="or" data-text="推"></div>
+                <button class="ui positive button" (click)="calcNextTime(1)">
+                    {{'向后' | tran:glsetting.lang}}
+                </button>
+            </div>
+
+            <div class="ui form" style="margin-top: 15px"
+                 *ng-if="CalcSet.Result != null">
+                <div class="field">
+                    <label>{{'结果: ' | tran:glsetting.lang}}</label>
+                    <a (click)="setBaziTime()">
+                        {{CalcSet.ResultTx}}
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

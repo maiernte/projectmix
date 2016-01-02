@@ -116,7 +116,8 @@ export class TYLunar{
         var d2 = new Date(second.getFullYear(), second.getMonth(), second.getDate());
         return Math.round((d2.getTime() - d1.getTime()) / TYLunar.OneDay);
     };
-    
+
+    // month 下标从1开始
     static getSolarTerms (year: number, month: number): Array<Date>{
         // [0,'小寒'],[1,'大寒'],[2,'立春'],[3,'雨水'],[4,'惊蛰'],[5,'春分'],[6,'清明'],[7,'谷雨'],[8,'立夏']
         // [9,'小满'],[10,'芒种'],[11,'夏至'],[12,'小暑'],[13,'大暑'],[14,'立秋'],[15,'处暑'],[16,'白露'],
@@ -174,6 +175,69 @@ export class TYLunar{
         }
 
         return null;
+    }
+
+    // month 的下标从1开始
+    static calcBazi(year: number,
+                    month: number,
+                    day:number,
+                    hour: number,
+                    minute: number): Object{
+        if (minute == undefined || minute == null) minute = 0;
+        if (hour == undefined || hour == null) hour = 0;
+
+        var date = new Date(year, month - 1, day, hour, minute, 0, 0);
+        var jiqi = TYLunar.getSolarTerms(year, month)[0];
+        var lunarday = TYLunar.getLunarObject(date);
+
+        var bazi = {
+            Y: null,
+            M: null,
+            D: null,
+            T: null,
+            Jieqi: null
+        };
+        bazi.Y = new GanZhi(lunarday.Lyear2);
+        bazi.M = new GanZhi(lunarday.Lmonth2);
+        bazi.D = new GanZhi(lunarday.Lday2);
+
+        if (month == 2 && day >= jiqi.getDate()) {
+            bazi.Y = new GanZhi(Lunar.lun.Ly);
+        }
+
+        // 23 点以后干支往后推一位。
+        if (hour == 23) {
+            bazi.D = new GanZhi([(bazi.D.Gan.Index + 1) % 10, (bazi.D.Zhi.Index + 1) % 12]);
+        }
+
+        //=========时干支=================================
+        var zhi = Math.ceil((hour % 23) / 2.0);
+        var gan = (bazi.D.Gan.Index % 5) * 2;
+        gan = (gan + zhi) % 10;
+        bazi.T = new GanZhi([gan, zhi]);
+
+        if (jiqi.getDate() == day) {
+            bazi.Jieqi = new Date(jiqi.getTime());
+        }
+
+        return bazi;
+    }
+
+    static findNextJieQi(date: Date, direction): Date{
+        var year = date.getFullYear();
+        var month = date.getMonth();
+        var jieqi = TYLunar.getSolarTerms(year, month + 1)[0];
+        if (date <= jieqi && direction > 0) {
+            return jieqi;
+        } else if (date >= jieqi && direction < 0) {
+            return jieqi;
+        } else {
+            var daysOff = direction == 1 ? 40 : -10;
+            var nextdate = TYLunar.addDays(daysOff, jieqi);
+            year = nextdate.getFullYear();
+            month = nextdate.getMonth();
+            return TYLunar.getSolarTerms(year, month + 1)[0];
+        }
     }
 };
 

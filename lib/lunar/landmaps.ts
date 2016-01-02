@@ -41,6 +41,8 @@ export class LandMaps{
     private static initMaps(){
         if (LandMaps.maps) return;
         LandMaps.maps = new Array<Object>();
+
+        LandMaps.maps.push({Name: '未知', Cities: [{Name: '未知', Code: null}]});
         
         try{
             for (let id = 0; id < LandMaps.JWv.length; id++) {

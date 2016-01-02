@@ -13,9 +13,7 @@ declare var jQuery:any;
     selector: 'guaview',
     templateUrl: 'client/liuyao/guaview.html',
     pipes: [TranslatePipe],
-    directives: [NgFor],
-    styles: [`
-    `]
+    directives: [NgFor]
 })
 
 export class GuaView{
@@ -109,11 +107,11 @@ export class GuaView{
             res.push(rowCollection)
 
             for(let c = 0; c < column; c++){
-                if(r * column + c >= this.Gua.ShenShas.length){
+                if(r * column + c >= this.Gua.ShenShas.length - 1){
                     rowCollection.push('')
                 }else{
                     let ss = this.Gua.ShenShas[r * column + c];
-                    rowCollection.push('[' + ss.Name + ' - ' + ss.Result + ']')
+                    rowCollection.push('[' + ss.Name + ' - ' + ss.Result.join('') + ']')
                 }
             }
         }
@@ -259,6 +257,15 @@ export class GuaView{
         }
 
         return this.shiying;
+    }
+
+    GetShenSha(name: string): string{
+        let xk = this.Gua.ShenShas.filter(ss => ss.Name == name)
+        if(xk.length > 0){
+            return xk[0].Result.join('')
+        }else{
+            return '';
+        }
     }
 
     showSetting() {

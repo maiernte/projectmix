@@ -48,6 +48,7 @@
             <!--<div class='otherview' *ng-if='frame.type == "other"'>some thing else</div>-->
             <calendarview *ng-if='frame.type == "calendar"'></calendarview>
             <guaview *ng-if='frame.type == "gua"' [initdata]="frame.data"></guaview>
+            <baziview *ng-if='frame.type == "bazi"' [initdata]="frame.data"></baziview>
             <compass-view *ng-if="frame.type == 'compass'"></compass-view>
             <div *ng-if='frame.type == "other"'>some thing else</div>
         </ty-window>

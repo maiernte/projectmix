@@ -26,10 +26,9 @@ declare function moment();
 
 export class PaiLiuyao {
     inputModel:string = 'manuel';
-    private router: Router;
-
     question: string;
 
+    private router: Router;
     glsetting:GlobalSetting;
     constructor(@Inject(GlobalSetting) glsetting:GlobalSetting, router: Router) {
         this.glsetting = glsetting;

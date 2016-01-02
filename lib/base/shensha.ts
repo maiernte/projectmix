@@ -63,6 +63,9 @@ function initBaseShenShas(){
 export class ShenSha{
     private pattern: Array<number>;
     private fetchName: string;
+    private result: Array<string>;
+
+    Gender: string;
 
     constructor(private name: string, private ganzhi: Array<number>){
         initBaseShenShas();
@@ -77,24 +80,24 @@ export class ShenSha{
     }
 
     get Result(): Array<string>{
-        // 求算支下标
-        let numbers = new Array<number>()
-        for(let gz of this.ganzhi){
-            if(this.fetchName){
-                numbers = numbers.concat(this.normalFetch(gz));
-            }else{
+        if(this.result) return this.result;
 
-            }
+        if(this.Name == '魁罡'){
+            this.result = this.getKuiGang();
+        }else if(this.Name == '四废'){
+            let yue = this.ganzhi[1]
+            this.result = this.getSiFei(yue);
+        }else if(this.Name == '孤辰寡宿'){
+            this.result = this.getGuChengGuaShu(this.ganzhi[0])
+        }else if(this.Name == '阴差阳错'){
+            this.result = this.getYinChaYangCuo();
+        }else if(this.Name == '天罗地网'){
+            this.result = this.getTianLuoDiWang(this.Gender == 'm')
+        }else{
+            this.result = this.getNormalResult();
         }
 
-        // 将支下标换算成支文字
-        let result = new Array<string>();
-        for(let num of numbers){
-            let zhi = Zhi(num);
-            result.push(zhi.Name);
-        }
-
-        return result;
+        return this.result;
     }
 
     private normalFetch(gz: number): Array<number>{
@@ -112,5 +115,154 @@ export class ShenSha{
             let res = this.pattern[fetchGan(gz)];
             return [res[0], res[1]];
         }
+    }
+
+    private getNormalResult(){
+        // 求算支下标
+        let numbers = new Array<number>()
+        for(let gz of this.ganzhi){
+            if(this.fetchName){
+                numbers = numbers.concat(this.normalFetch(gz));
+            }
+        }
+
+        // 将支下标换算成支文字
+        let result = new Array<string>();
+        for(let num of numbers){
+            let zhi = Zhi(num);
+            result.push(zhi.Name);
+        }
+
+        if(result.length == 2 && result[0] == result[1]){
+            return [result[0]]
+        }
+
+        return result;
+    }
+
+    // 计算魁罡
+    private getKuiGang(){
+        let tmp = [new GanZhi('庚戌'),
+                        new GanZhi('庚辰'),
+                        new GanZhi('戊戌'),
+                        new GanZhi('壬辰')];
+
+        this.pattern = tmp.map(gz => {return gz.Index})
+        for(let gz of this.ganzhi){
+            for(let p of this.pattern){
+                if(gz == p){
+                    return ['√']
+                }
+            }
+        }
+
+        return []
+    }
+
+    //  计算四废
+    private getSiFei(yue: number){
+        let tmp = [];
+        switch (yue % 12) {
+            case 2:
+            case 3:
+                tmp = [new GanZhi('庚申'), new GanZhi('辛酉')];
+                break;
+            case 5:
+            case 6:
+                tmp = [new GanZhi('壬子'), new GanZhi('癸亥')];
+                break;
+            case 8:
+            case 9:
+                tmp = [new GanZhi('甲寅'), new GanZhi('乙卯')];
+                break;
+            case 0:
+            case 11:
+                tmp = [new GanZhi('丙午'), new GanZhi('丁巳')];
+                break;
+        }
+
+        this.pattern = tmp.map(p => {return p.Index})
+        // 寅卯月见庚申、辛酉
+        // 春庚申，辛酉，夏壬子，癸亥，秋甲寅，乙卯，冬丙午，丁巳
+        for(let gz of this.ganzhi){
+            for(let p of this.pattern){
+                if(gz == p){
+                    return ['√']
+                }
+            }
+        }
+
+        return []
+    }
+
+    // 计算孤辰寡宿
+    private getGuChengGuaShu(year: number){
+        // 亥子丑年生人，柱中见寅为孤见戌为寡
+        // 寅卯辰年生人，柱中见巳为孤见丑为寡
+        // 巳午未年生人，柱中见申为孤见辰为寡
+        // 申酉戌年生人，柱中见亥为孤见未为寡
+        let flag = Math.floor(((year + 1) % 12) / 3)
+        switch (flag) {
+            case 0:
+                this.pattern = [2, 10];
+                break;
+            case 1:
+                this.pattern = [5, 1];
+                break;
+            case 2:
+                this.pattern = [8, 4];
+                break;
+            case 3:
+                this.pattern = [11, 7];
+                break;
+        }
+
+        for(let gz of this.ganzhi){
+            for(let p of this.pattern){
+                if(gz % 12 == p){
+                    return ['√']
+                }
+            }
+        }
+
+        return []
+    }
+
+    // 计算阴差阳错
+    private  getYinChaYangCuo(){
+        let tmp = ["丙子", "丙午", "丁丑", "丁未", "辛卯", "辛酉", "壬辰", "壬戌", "癸巳", "癸亥", "戊寅", "戊申"];
+        this.pattern = tmp.map(n => {
+            let gz = new GanZhi(n);
+            return gz.Index
+        })
+
+        for(let gz of this.ganzhi){
+            for(let p of this.pattern){
+                if(gz == p){
+                    return ['√']
+                }
+            }
+        }
+
+        return []
+    }
+
+    //  计算天罗地网
+    private getTianLuoDiWang(male: boolean){
+        // 男命柱中辰、巳并见，谓之天罗；女命柱中戌、亥并见，谓之地网
+
+        let res = 0;
+        this.pattern = male ? [4, 5] : [10, 11]
+
+        for(let gz of this.ganzhi){
+            let z = gz % 12;
+            for(let idx = 0; idx < 2; idx++){
+                if(this.pattern[idx] == z){
+                    res = res |  (1 << idx)
+                }
+            }
+        }
+
+        return res === 3 ? ['√'] : []
     }
 }

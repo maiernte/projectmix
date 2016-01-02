@@ -2,12 +2,10 @@ import {FetchWuXing} from './wuxing'
 import {WuXing} from "./wuxing";
 
 class tyGan{
-    name:string;
-    index:number;
+    private static changshengIndexes = [11, 2, 8, 5, 8];
 
-    constructor( index: number, name:string){
-        this.name = name
-        this.index = index;
+    constructor(private index: number,
+                private name:string){
     }
     
     get Name(): string{
@@ -23,6 +21,47 @@ class tyGan{
         idx = (idx + 2) % 5
         return FetchWuXing(idx);
     }
+
+    get ChangSheng(): number{
+        if(this.Index % 2 === 0){
+            let idx = Math.floor(this.Index / 2)
+            return tyGan.changshengIndexes[idx];
+        }else {
+            let idx = Math.floor((this.Index - 1) / 2)
+            return (tyGan.changshengIndexes[idx] + 7) % 12
+        }
+    }
+
+    get QiYueGan(): number {
+        var start = (this.Index % 5) * 2;
+        start = (start + 2) % 10;
+        return start;
+    };
+
+    get QiShiGan(): number {
+        var start = (this.Index % 5) * 2;
+        return start;
+    };
+
+    Ref(gan: tyGan): Array<string>{
+        let real = (this.Index % 2) == (gan.Index % 2)
+        let wx = this.WuXing
+        let base = gan.WuXing
+        if(wx.Ke == base.Index){
+            return real ? ['七杀', '杀'] : ['正官', '官']
+        }else if(wx.Sheng == base.Index){
+            return real ? ['枭印', '枭'] : ['正印', '印']
+        }else if(base.Ke == wx.Index){
+            return real ? ['正财', '财'] : ['偏财', '才']
+        }else if(base.Sheng == wx.Index){
+            return real ? ['食神', '食'] : ['伤官', '伤']
+        }else{
+            return real ? ['比肩', '比'] : ['劫财', '劫']
+        }
+    }
+
+
+
 }
 
 var gans = new Array<tyGan>();
@@ -44,12 +83,11 @@ function initGans(){
 }
 
 class tyZhi{
-    name:string;
-    index:number;
+    private  static changShengDefs = ["长生", "沐浴", "冠带", "临官", "帝旺", "衰", "病", "死", "墓", "绝", "胎", "养"];
 
-    constructor(index: number, name:string){
-        this.index = index;
-        this.name = name;
+    constructor(private index: number,
+                private name:string,
+                private gans: Array<number>){
     }
 
     get Name(): string{
@@ -78,6 +116,45 @@ class tyZhi{
                 return FetchWuXing('土');
         }
     }
+
+    get CGan(){
+        let res = new Array<tyGan>();
+        for(let i of this.gans){
+            res.push(Gan(i))
+        }
+
+        return res;
+    }
+
+    ChangSheng(gan: tyGan): string{
+        var index = gan.ChangSheng;
+        var direction = (gan.Index % 2 === 0) ? 1 : -1;
+        for (var i = 0; i < 12; i++) {
+            var izhi = (index + i * direction + 12) % 12;
+            if (izhi === this.Index) {
+                return tyZhi.changShengDefs[i];
+            }
+        }
+
+        return 'Error';
+    }
+
+    Ref(gan: tyGan): Array<string>{
+        let real = (this.Index % 2) == (gan.Index % 2)
+        let wx = this.WuXing
+        let base = gan.WuXing
+        if(wx.Ke == base.Index){
+            return real ? ['七杀', '杀'] : ['正官', '官']
+        }else if(wx.Sheng == base.Index){
+            return real ? ['正印', '印'] : ['枭印', '枭']
+        }else if(base.Ke == wx.Index){
+            return real ? ['正财', '财'] : ['偏财', '才']
+        }else if(base.Sheng == wx.Index){
+            return real ? ['伤官', '伤'] : ['食神', '食']
+        }else{
+            return real ? ['比肩', '比'] : ['劫财', '劫']
+        }
+    }
 }
 
 var zhis = new Array<tyZhi>();
@@ -86,18 +163,18 @@ function initZhis(){
         return;
     }
 
-    zhis.push(new tyZhi(0, '子'));
-    zhis.push(new tyZhi(1, '丑'));
-    zhis.push(new tyZhi(2, '寅'));
-    zhis.push(new tyZhi(3, '卯'));
-    zhis.push(new tyZhi(4, '辰'));
-    zhis.push(new tyZhi(5, '巳'));
-    zhis.push(new tyZhi(6, '午'));
-    zhis.push(new tyZhi(7, '未'));
-    zhis.push(new tyZhi(8, '申'));
-    zhis.push(new tyZhi(9, '酉'));
-    zhis.push(new tyZhi(10, '戌'));
-    zhis.push(new tyZhi(11, '亥'));
+    zhis.push(new tyZhi(0, '子', [9]));
+    zhis.push(new tyZhi(1, '丑', [9, 7, 5]));
+    zhis.push(new tyZhi(2, '寅', [0, 2, 4]));
+    zhis.push(new tyZhi(3, '卯', [1]));
+    zhis.push(new tyZhi(4, '辰', [1, 4, 9]));
+    zhis.push(new tyZhi(5, '巳', [2, 4, 6]));
+    zhis.push(new tyZhi(6, '午', [3, 5]));
+    zhis.push(new tyZhi(7, '未', [1, 3, 5]));
+    zhis.push(new tyZhi(8, '申', [4, 6, 8]));
+    zhis.push(new tyZhi(9, '酉', [7]));
+    zhis.push(new tyZhi(10, '戌',[3, 4, 7]));
+    zhis.push(new tyZhi(11, '亥',[0, 8]));
 }
 
 export function Gan(para): tyGan{
@@ -124,6 +201,8 @@ export function GanNames():Array<string>{
 export function Zhi(para): tyZhi{
     initZhis();
     if(typeof  para == 'string'){
+        if(para == '戍') para = '戌'
+
         let res = zhis.filter(z => z.Name == para);
         if(res.length === 1){
             return res[0];
@@ -145,6 +224,7 @@ export function ZhiNames(){
 export class GanZhi{
     Gan:tyGan;
     Zhi:tyZhi;
+    Base: GanZhi;
 
     public static NaYins = ["海中金", "炉中火", "大林木", "路旁土", "剑峰金",
         "山头火", "涧下水", "城墙土", "白蜡金", "杨柳木",
@@ -196,10 +276,34 @@ export class GanZhi{
         return this.Gan ? this.calcIndex(this.Gan.Index, this.Zhi.Index) : this.Zhi.Index;
     }
 
-    get NaYin(){
+    get NaYin(): string{
         if(this.Gan == null) return '';
 
         return GanZhi.NaYins[Math.floor(this.Index / 2)];
+    }
+
+    get Shen10Gan(): Array<string>{
+        if(!this.Base) throw new Error('BaseGan is not defined.')
+
+        if(this === this.Base){
+            return ['日主', '日']
+        }
+
+        return this.Gan.Ref(this.Base.Gan);
+    }
+
+    get Shen10Zhi(): Array<string>{
+        if(!this.Base) throw new Error('BaseGan is not defined.')
+
+        return this.Zhi.Ref(this.Base.Gan)
+    }
+
+    get ChangSheng(){
+        if(this.Base){
+            return this.Zhi.ChangSheng(this.Base.Gan);
+        }else{
+            return '';
+        }
     }
 
     private calcIndex(gan:number, zhi:number):number{

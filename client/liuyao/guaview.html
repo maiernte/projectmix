@@ -40,11 +40,11 @@
              style="padding-left: 0px;padding-right: 0px;padding-bottom: 0px;">
             {{Yue.Name | tran:glsetting.lang}}月
         </div>
-        <div class="two wide column"></div>
-        <div class="five wide column gua mean"
+        <div class="seven wide column gua mean"
              [attr.data-content]="Ri.NaYin"
              style="padding-left: 0px;padding-right: 0px;padding-bottom: 0px;">
-            {{Ri.Name | tran:glsetting.lang}}日
+            {{Ri.Name | tran:glsetting.lang}}日&nbsp;
+            (旬空: {{GetShenSha('旬空') | tran:glsetting.lang}})
         </div>
     </div>
 

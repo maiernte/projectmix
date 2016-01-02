@@ -1,0 +1,130 @@
+<div class="ui attached segment">
+    <div>
+        <a class="ui blue ribbon label">
+            {{Info.Title | tran:glsetting.lang}}
+        </a>
+    </div>
+
+    <div class="ui fluid accordion bazi">
+        <div class="active title">
+            <i class="dropdown icon"></i>
+            <span style="font-weight: bolder">{{'命主: ' | tran:glsetting.lang}}</span>
+            {{Info.Name | tran:glsetting.lang}}
+        </div>
+        <div class="active content" style="padding: 0">
+            <p  style="margin: 0">
+                <span style="font-weight: bolder">{{'出生时间: ' | tran:glsetting.lang}}</span>
+                {{Info.Birthday | tran:glsetting.lang}}
+            </p>
+            <p  style="margin: 0">
+                <span style="font-weight: bolder">{{'出生地点: ' | tran:glsetting.lang}}</span>
+                {{Info.Place | tran:glsetting.lang}}
+            </p>
+            <p  style="margin: 0">
+                <span style="font-weight: bolder">{{'真太阳时: ' | tran:glsetting.lang}}</span>
+                {{Info.SolarTime | tran:glsetting.lang}}
+            </p>
+        </div>
+    </div>
+
+    <div class="ui grid">
+        <div class="two wide column">
+            <div>&nbsp;</div>
+            <h4 style="padding: 0;margin: 0;font-weight: bold">{{Info.Gender | tran:glsetting.lang}}</h4>
+        </div>
+        <div *ng-for="#zhu of Main" class="three wide column bazi mean"
+             [attr.data-title]="zhu.NaYin"
+             style="text-align: center;">
+            <div style="color: gray">{{zhu.Shen10Gan[0] | tran:glsetting.lang}}</div>
+            <h4 style="padding: 0;margin: 0;font-weight: bold">{{zhu.Gan.Name | tran:glsetting.lang}}</h4>
+            <h4 style="padding: 0;margin: 0;font-weight: bold">{{zhu.Zhi.Name | tran:glsetting.lang}}</h4>
+            <div style="color: gray">{{zhu.Shen10Zhi[0] | tran:glsetting.lang}}</div>
+        </div>
+    </div>
+
+    <div class="ui fluid accordion bazi">
+        <div class="active title">
+            <i class="dropdown icon"></i>
+            【{{'命宫 - ' + Bazi.MingGong.Name | tran:glsetting.lang}}】
+            【{{'胎元 - ' + Bazi.TaiYuan.Name | tran:glsetting.lang}}】
+        </div>
+        <div class="active content" style="padding: 0">
+            <div class="ui grid">
+                <div class="two wide column"
+                     style="font-weight: bold;text-align: center;padding-bottom: 0;padding-left: 0;padding-right: 0">
+                    <div>{{'藏干' | tran:glsetting.lang}}</div>
+                    <div>&nbsp;</div>
+                    <div>{{'宫位' | tran:glsetting.lang}}</div>
+                    <div>{{'纳音' | tran:glsetting.lang}}</div>
+                </div>
+                <div *ng-for="#mj of MingJu"
+                     class="three wide column"
+                    style="text-align: center;padding-bottom: 0">
+                    <div>{{mj.CGan | tran:glsetting.lang}}</div>
+                    <div style="color: gray">{{mj.Shen10 | tran:glsetting.lang}}</div>
+                    <div>{{mj.ChangSheng | tran:glsetting.lang}}</div>
+                    <div>{{mj.NaYin | tran:glsetting.lang}}</div>
+                </div>
+            </div>
+
+            <div class="ui grid">
+                <div class="two wide column"
+                     style="font-weight: bold;text-align: center;padding-top: 0;padding-left: 0;padding-right: 0">
+                    <div>{{'五行' | tran:glsetting.lang}}</div>
+                </div>
+                <div *ng-for="#wx of Bazi.WuXings"
+                     class="two wide column"
+                     style="text-align: center;padding: 0">
+                    [{{wx.Name}} - {{wx.Num}}]
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui fluid accordion bazi">
+        <div class="active title">
+            <i class="dropdown icon"></i>
+            {{'神煞' | tran:glsetting.lang}}
+        </div>
+        <div class="active content" style="padding: 0">
+            <div class="ui equal width grid" *ng-for="#ssbazi of ShenShas; #row=index"
+                style="margin-left: 3px">
+                <div class="column" *ng-for="#ss of ssbazi"
+                     [style.padding-top]="ss.First ? null : 0"
+                     [style.padding-bottom]="ss.Last ? null : 0"
+                     style="padding-left: 0px;padding-right: 0px;">
+                    <span *ng-if="ss.Empty == false">{{ss.Text | tran:glsetting.lang}}</span>
+                    <s *ng-if="ss.Empty">{{ss.Text | tran:glsetting.lang}}</s>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui fluid accordion bazi">
+        <div class="active title">
+            <i class="dropdown icon"></i>
+            {{'简略大运' | tran:glsetting.lang}}
+        </div>
+        <div class="active content" style="padding: 0">
+            <div class="ui equal width grid">
+                <div *ng-for="#dy of DaYun" class="column"
+                    style="padding-left: 0;padding-right: 0;text-align: center">
+                    <div style="color: gray">{{dy.GZ.Shen10Gan[1] | tran:glsetting.lang}}</div>
+                    <div style="margin-top: 3px">{{dy.GZ.Gan.Name | tran:glsetting.lang}}</div>
+                    <div style="margin-bottom: 3px">{{dy.GZ.Zhi.Name | tran:glsetting.lang}}</div>
+                    <div style="color: gray">{{dy.GZ.Shen10Zhi[1] | tran:glsetting.lang}}</div>
+                    <div>{{dy.GZ.ChangSheng | tran:glsetting.lang}}</div>
+                    <div>{{dy.Old}}</div>
+                </div>
+            </div>
+        </div>
+
+        <div *ng-for="#ln of LiuNian">
+            <div class="title">
+                <i class="dropdown icon"></i>
+                {{ln.Title | tran:glsetting.lang}}
+            </div>
+            <div class="content" style="padding: 0">
+                {{ln.Liunian}}
+            </div>
+        </div>
+    </div>
+</div>
