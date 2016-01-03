@@ -4,10 +4,15 @@ import {ShenSha} from "./shensha";
 
 enum YunType {DaYun, LiuNian, XiaoYun}
 
+declare var Promise: any;
+
 export class BaziYun{
     private static oneday = 1000 * 60 * 60 * 24;
     private static oneyear = BaziYun.oneday * 365.25;
     private static tenyear = 10 * BaziYun.oneyear;
+
+    ShenSha: string;
+    GZ2: GanZhi;
 
     constructor(public Start: Date,
                 public GZ: GanZhi,
@@ -27,6 +32,10 @@ export class BaziYun{
         }else{
             return null
         }
+    }
+
+    get Year(){
+        return this.Start.getFullYear();
     }
 }
 
@@ -65,6 +74,10 @@ export class Bazi{
     }
     get T(): GanZhi{
         return this.bazi['T']
+    }
+
+    get Direction(): number{
+        return (this.Gender == 'm' ? 1 : -1) * (this.Y.Zhi.Index % 2 == 0 ? 1 : -1);
     }
 
     get MingGong(): GanZhi{
@@ -120,6 +133,50 @@ export class Bazi{
         return this.dayun;
     }
 
+    CalcShenSha(gz: GanZhi): string{
+        let res = new Array<string>();
+        for(let ss of this.ShenSha){
+            if(ss.Is(gz) == true){
+                res.push(ss.Name)
+            }
+        }
+
+        return res.join(', ')
+    }
+
+    CalcLiuNian(start: number, end: number): Array<BaziYun>{
+        let res = new Array<BaziYun>();
+
+        var gzIndex = start - 1984;
+        while (gzIndex < 0) {
+            gzIndex += 60;
+        }
+
+        gzIndex = (gzIndex % 60);
+        let xiaoyun = this.T.Index + (start - this.Birthday.getFullYear() + 1) * this.Direction
+        xiaoyun = (xiaoyun + 600) % 60
+
+        for(let idx = start; idx <= end; idx++){
+            let gz = new GanZhi(gzIndex)
+            gz.Base = this.D;
+
+            let gz2 = new GanZhi(xiaoyun)
+            gz2.Base = this.D;
+
+            let lichun = TYLunar.getSolarTerms(idx, 2)[0]
+            let obj = new BaziYun(lichun, gz, this.Birthday.getFullYear(), YunType.LiuNian)
+            obj.GZ2 = gz2
+
+            res.push(obj);
+            gzIndex += 1;
+            gzIndex = gzIndex % 60;
+            xiaoyun += 1 * this.Direction;
+            xiaoyun = (xiaoyun + 60) % 60;
+        }
+
+        return res;
+    }
+
     // 初始化神煞
     private initShenSha(){
         this.shenshas = new Array<ShenSha>();
@@ -159,7 +216,7 @@ export class Bazi{
         this.dayun = new Array<BaziYun>();
 
         let dayunTime = this.qiDaYun();
-        let direction = (this.Gender == 'm' ? 1 : -1) * (this.Y.Zhi.Index % 2 == 0 ? 1 : -1);
+        let direction = this.Direction
         let old = dayunTime.getFullYear() - this.Birthday.getFullYear();
 
         let oneday = 1000 * 60 * 60 * 24;
@@ -173,6 +230,7 @@ export class Bazi{
 
             let date = new Date(dayunTime.getTime() + tenyear * idx)
             let dayun = new BaziYun(date, gz, this.Birthday.getFullYear(), YunType.DaYun)
+
             this.dayun.push(dayun)
         }
     }

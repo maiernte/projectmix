@@ -225,6 +225,7 @@ export class GanZhi{
     Gan:tyGan;
     Zhi:tyZhi;
     Base: GanZhi;
+    ShenSha: string;
 
     public static NaYins = ["海中金", "炉中火", "大林木", "路旁土", "剑峰金",
         "山头火", "涧下水", "城墙土", "白蜡金", "杨柳木",

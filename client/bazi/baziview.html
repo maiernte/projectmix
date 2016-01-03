@@ -34,6 +34,7 @@
         </div>
         <div *ng-for="#zhu of Main" class="three wide column bazi mean"
              [attr.data-title]="zhu.NaYin"
+             [attr.data-content]="CalcShenSha(zhu)"
              style="text-align: center;">
             <div style="color: gray">{{zhu.Shen10Gan[0] | tran:glsetting.lang}}</div>
             <h4 style="padding: 0;margin: 0;font-weight: bold">{{zhu.Gan.Name | tran:glsetting.lang}}</h4>
@@ -108,11 +109,29 @@
                 <div *ng-for="#dy of DaYun" class="column"
                     style="padding-left: 0;padding-right: 0;text-align: center">
                     <div style="color: gray">{{dy.GZ.Shen10Gan[1] | tran:glsetting.lang}}</div>
-                    <div style="margin-top: 3px">{{dy.GZ.Gan.Name | tran:glsetting.lang}}</div>
-                    <div style="margin-bottom: 3px">{{dy.GZ.Zhi.Name | tran:glsetting.lang}}</div>
+                    <div [style.background-color]="SelectedDaYun === dy ? 'skyblue' : 'white'"
+                        (click)="ChangeDaYun(dy)">
+                        <div style="margin-top: 3px;font-weight: bold">{{dy.GZ.Gan.Name | tran:glsetting.lang}}</div>
+                        <div style="margin-bottom: 3px;font-weight: bold">{{dy.GZ.Zhi.Name | tran:glsetting.lang}}</div>
+                    </div>
                     <div style="color: gray">{{dy.GZ.Shen10Zhi[1] | tran:glsetting.lang}}</div>
                     <div>{{dy.GZ.ChangSheng | tran:glsetting.lang}}</div>
                     <div>{{dy.Old}}</div>
+                </div>
+            </div>
+            <div>
+                <div>
+                    {{'起始: ' | tran:glsetting.lang}}
+                    {{DaYunDetail.Time | tran:glsetting.lang}}
+
+                </div>
+                <div>
+                    {{'纳音: ' | tran:glsetting.lang}}
+                    {{DaYunDetail.NaYin | tran:glsetting.lang}}
+                </div>
+                <div>
+                    {{'神煞: ' | tran:glsetting.lang}}
+                    {{DaYunDetail.ShenSha | tran:glsetting.lang}}
                 </div>
             </div>
         </div>
@@ -123,7 +142,39 @@
                 {{ln.Title | tran:glsetting.lang}}
             </div>
             <div class="content" style="padding: 0">
-                {{ln.Liunian}}
+                <div class="ui grid">
+                    <div class="two wide column">
+                        {{'年份' | tran:glsetting.lang}}
+                    </div>
+                    <div class="column" style="padding-left: 0;padding-right: 0;text-align: center">
+                        {{'岁数' | tran:glsetting.lang}}
+                    </div>
+                    <div class="six wide column" style="text-align: center">
+                        {{'流年' | tran:glsetting.lang}}
+                    </div>
+                    <div class="six wide column" style="text-align: center">
+                        {{'小运' | tran:glsetting.lang}}
+                    </div>
+                </div>
+
+                <div class="ui grid" *ng-for="#y of ln.Liunian">
+                    <div class="two wide column" style="padding-top: 0">
+                        {{y.Year}}
+                    </div>
+                    <div class="column" style="padding-top: 0">
+                        {{y.Old}}
+                    </div>
+                    <div class="six wide column" style="padding-top: 0;text-align: center">
+                        ({{y.GZ.Shen10Gan[1]}})
+                        {{y.GZ.Name | tran:glsetting.lang}}
+                        ({{y.GZ.Shen10Zhi[1]}})
+                    </div>
+                    <div class="six wide column" style="padding-top: 0;text-align: center">
+                        ({{y.GZ2.Shen10Gan[1]}})
+                        {{y.GZ2.Name | tran:glsetting.lang}}
+                        ({{y.GZ2.Shen10Zhi[1]}})
+                    </div>
+                </div>
             </div>
         </div>
     </div>

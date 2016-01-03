@@ -100,6 +100,29 @@ export class ShenSha{
         return this.result;
     }
 
+    Is(gz: GanZhi): boolean{
+        if(this.Result.length > 0){
+            for(let item of this.result){
+                if(item == gz.Zhi.Name){
+                    return true;
+                }
+            }
+        }else{
+            if(this.Name == '天罗地网'){
+                return this.IsTianLuoDiWang(gz.Index);
+            }else{
+                let index = this.Name == '孤辰寡宿' ? gz.Index % 12 : gz.Index
+                for(let p of this.pattern){
+                    if(p == index){
+                        return true
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
     private normalFetch(gz: number): Array<number>{
         if(this.fetchName == '三合'){
             return [this.pattern[fetchSanhe(gz)]];
@@ -264,5 +287,24 @@ export class ShenSha{
         }
 
         return res === 3 ? ['√'] : []
+    }
+
+    private IsTianLuoDiWang(para: number): boolean{
+        para = para % 12
+        let res = 0;
+        for(let gz of this.ganzhi){
+            let z = gz % 12;
+            for(let idx = 0; idx < 2; idx++){
+                if(this.pattern[idx] == z){
+                    res = res |  (1 << idx)
+                }
+
+                if(this.pattern[idx] == para){
+                    res = res |  (1 << idx)
+                }
+            }
+        }
+
+        return res === 3;
     }
 }

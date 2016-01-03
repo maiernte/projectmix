@@ -6,7 +6,7 @@ import {GlobalSetting} from  'client/globalsetting'
 
 import {TYLunar} from '../../lib/lunar/tylunar'
 import {LandMaps} from "../../lib/lunar/landmaps";
-import {Bazi} from '../../lib/base/bazi'
+import {Bazi, BaziYun} from '../../lib/base/bazi'
 import {GanZhi} from "../../lib/base/ganzhi";
 
 declare var jQuery:any;
@@ -23,6 +23,7 @@ export class BaziView{
     Bazi: Bazi;
     Main: Array<GanZhi>
     MingJu: Array<Object>
+    SelectedDaYun: BaziYun = null
 
     shenshaColumnCount = 5
     private shenshas: Array<Object>;
@@ -36,6 +37,12 @@ export class BaziView{
         SolarTime: '',
         Title: '',
         Gender: ''
+    }
+
+    DaYunDetail = {
+        Time: '',
+        NaYin: '',
+        ShenSha: ''
     }
 
     glsetting: GlobalSetting;
@@ -94,20 +101,47 @@ export class BaziView{
 
         let endDate = this.Bazi.DaYun[0].Start;
 
-        let befor = {Title: '起运前 ', Liunian: "AA"}
+        let befor = {Title: '起运前 ', Liunian: null}
+        befor.Liunian = this.Bazi.CalcLiuNian(this.Bazi.Birthday.getFullYear(), endDate.getFullYear())
         this.liunian.push(befor);
 
         for(let dy of this.Bazi.DaYun){
             let timeInfo = dy.Start.toChinaString();
+
             let obj = {
                 Title: dy.GZ.Name + '运 (' + timeInfo + ')',
-                Liunian: "asdadg"
+                Liunian: this.Bazi.CalcLiuNian(dy.Start.getFullYear(), dy.End.getFullYear())
             }
 
             this.liunian.push(obj)
         }
 
         return this.liunian;
+    }
+
+    ChangeDaYun(dy: BaziYun){
+        this.SelectedDaYun = dy;
+        let d1 = dy.Start
+        let d2 = dy.End
+        let time1 = `${d1.getFullYear()}年${d1.getMonth() + 1}月`
+        let time2 = `${d2.getFullYear()}年${d2.getMonth() + 1}月`
+        this.DaYunDetail.Time = time1 + ' ~ ' + time2;
+        this.DaYunDetail.NaYin = dy.GZ.NaYin
+
+        if(!dy.ShenSha){
+            let ss = this.Bazi.CalcShenSha(dy.GZ)
+            dy.ShenSha = ss == '' ? '无' : ss;
+        }
+
+        this.DaYunDetail.ShenSha = dy.ShenSha;
+    }
+
+    CalcShenSha(gz: GanZhi){
+        if(!gz.ShenSha){
+            gz.ShenSha = this.Bazi.CalcShenSha(gz)
+        }
+
+        return gz.ShenSha;
     }
 
     onInit(){
@@ -141,6 +175,7 @@ export class BaziView{
         this.Main.push(this.Bazi.T)
 
         this.initMingJu();
+        this.ChangeDaYun(this.Bazi.DaYun[0])
     }
 
     afterViewInit(){
