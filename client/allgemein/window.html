@@ -1,13 +1,5 @@
 <div class='box' style="margin-top:5px;">
-    <div class="ui attached segment" style='padding:0'>
-        <!--<div [ng-switch]="data.type">-->
-        <!--    <template [ng-switch-when]="'calendar'">-->
-        <!--        <ng-content select='.calendarview'></ng-content>-->
-        <!--    </template>-->
-        <!--    <template [ng-switch-when]="'liuyao'">-->
-        <!--        <ng-content select='.guaview'></ng-content>-->
-        <!--    </template>-->
-        <!--</div>-->
+    <div class="ui attached segment" style='padding:0' #domtosave>
         <ng-content></ng-content>
     </div>
     <div class="ui bottom attached small menu" style="background-color: #eee;">
@@ -28,7 +20,7 @@
                     {{'宽显' | tran:glsetting.lang}}
                 </div>
             </div>
-            <div class="ui animated vertical button item">
+            <div class="ui animated vertical button item" (click)="saveAsPng(domtosave)">
                 <div class="visible content">
                     <i class="icon photo"></i>
                 </div>

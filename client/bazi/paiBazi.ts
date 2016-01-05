@@ -1,5 +1,6 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 /// <reference path="../../typings/moment-node.d.ts" />
+/// <reference path="../../typings/global.d.ts" />
 
 import {Component, Inject, NgFor} from 'angular2/angular2'
 import {Router} from 'angular2/router'

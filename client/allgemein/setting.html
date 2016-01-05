@@ -1,0 +1,70 @@
+<div>
+    <div class="ui top attached menu">
+        <div class="ui animated fade primary button item" (click)="showMenu()">
+            <div class="visible content">
+                <i class="sidebar icon"></i>
+            </div>
+            <div class="hidden content">
+                {{'菜单' | tran:glsetting.lang}}
+            </div>
+        </div>
+    </div>
+
+    <div class="ui form" style="margin-top: 10px">
+        <div class="inline fields">
+            <label>{{'语言: ' | tran:glsetting.lang}}</label>
+            <div class="field">
+                <div class="ui radio checkbox">
+                    <input type="radio" name="appset-gender"
+                           value="zh" #zhlang
+                           (click)="TwLang = zhlang.value"
+                           [checked]="TwLang == 'zh'">
+                    <label>{{'简体' | tran:glsetting.lang}}</label>
+                </div>
+            </div>
+            <div class="field">
+                <div class="ui radio checkbox">
+                    <input type="radio" name="appset-gender"
+                           value="tw" #twlang
+                           (click)="TwLang = twlang.value"
+                           [checked]="TwLang == 'tw'">
+                    <label>{{'正体' | tran:glsetting.lang}}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="fields">
+            <div class="inline field">
+                <label>{{'六爻盘每行神煞数:' | tran:glsetting.lang}}</label>
+                <select class="ui fluid dropdown"
+                        [(ng-model)]="GuaShenSha">
+                    <option value="4">四</option>
+                    <option value="5">五</option>
+                    <option value="6">六</option>
+                    <option value="7">七</option>
+                </select>
+            </div>
+            <div class="inline field">
+                <label>{{'卦爻显示方式:' | tran:glsetting.lang}}</label>
+                <select class="ui fluid dropdown"
+                        [(ng-model)]="GuaSimple">
+                    <option value="0">{{'全排' | tran:glsetting.lang}}</option>
+                    <option value="1">{{'简排' | tran:glsetting.lang}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="fields">
+            <div class="inline field">
+                <label>{{'八字盘每行神煞数:' | tran:glsetting.lang}}</label>
+                <select class="ui fluid dropdown"
+                        [(ng-model)]="BaziShenSha">
+                    <option value="4">四</option>
+                    <option value="5">五</option>
+                    <option value="6">六</option>
+                    <option value="7">七</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

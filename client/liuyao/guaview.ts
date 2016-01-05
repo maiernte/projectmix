@@ -269,7 +269,6 @@ export class GuaView{
     }
 
     showSetting() {
-        console.log('guaview: call from parent click')
         jQuery(this.rootElement.nativeElement)
             .find('.gua.setting')
             .transition('fade up', 1000)
@@ -296,6 +295,8 @@ export class GuaView{
                                ${time.getMinutes()}分`
             this.Gua = new Gua(time, null, null, ben, bian)
         }
+
+        this.shenshaColumnCount = this.glsetting.GetSetting('gua-shensha')
     }
 
     afterViewInit(){

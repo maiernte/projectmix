@@ -1,4 +1,6 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
+/// <reference path="../../typings/global.d.ts" />
+
 import {Component, Inject, Input, NgFor, ElementRef, AfterViewInit} from 'angular2/angular2'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
@@ -25,7 +27,7 @@ export class BaziView{
     MingJu: Array<Object>
     SelectedDaYun: BaziYun = null
 
-    shenshaColumnCount = 5
+    shenshaColumnCount = 4
     private shenshas: Array<Object>;
     private liunian: Array<Object>;
 
@@ -57,7 +59,10 @@ export class BaziView{
     }
 
     get ShenShas(){
-        if(this.shenshas) return this.shenshas
+        if(this.shenshas &&
+            this.shenshas[0]['length'] == this.shenshaColumnCount) {
+            return this.shenshas
+        }
 
         let column = this.shenshaColumnCount;
         let row = Math.ceil(this.Bazi.ShenSha.length / column)
@@ -106,7 +111,7 @@ export class BaziView{
         this.liunian.push(befor);
 
         for(let dy of this.Bazi.DaYun){
-            let timeInfo = dy.Start.toChinaString();
+            let timeInfo = dy.Start.toChinaString(false);
 
             let obj = {
                 Title: dy.GZ.Name + '运 (' + timeInfo + ')',
@@ -144,6 +149,12 @@ export class BaziView{
         return gz.ShenSha;
     }
 
+    showSetting() {
+        jQuery(this.rootElement.nativeElement)
+            .find('.bazi.setting')
+            .transition('fade up', 1000)
+    }
+
     onInit(){
         let params = JSON.parse(this.initdata)
 
@@ -176,6 +187,7 @@ export class BaziView{
 
         this.initMingJu();
         this.ChangeDaYun(this.Bazi.DaYun[0])
+        this.shenshaColumnCount = this.glsetting.GetSetting('bazi-shensha')
     }
 
     afterViewInit(){

@@ -6,7 +6,8 @@ import {Component,
 		Inject,
 		Input,
 		ContentChild,
-		FORM_DIRECTIVES} from 'angular2/angular2'
+		FORM_DIRECTIVES,
+		AfterViewInit} from 'angular2/angular2'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
@@ -36,7 +37,8 @@ export class TyWindow {
 	@ContentChild(CalendarView) calendarview: CalendarView;
 	@ContentChild(GuaView) guaview: GuaView;
 	@ContentChild(BaziView) baziview: BaziView;
-	
+
+	IsReady: boolean;
 	
 	constructor(elementRef: ElementRef, @Inject(GlobalSetting) glsetting: GlobalSetting){
 		this.elementRef = elementRef;
@@ -56,14 +58,33 @@ export class TyWindow {
 		try{
 			if(this.calendarview) this.calendarview.showSetting();
 			if(this.guaview) this.guaview.showSetting();
+			if(this.baziview) this.baziview.showSetting();
 		}catch(err){
 			console.log('showSetting Error', err)
 		} 
+	}
+
+	saveAsPng(dom){
+		let filename = '图片'
+		if(this.baziview) filename = this.baziview.Info.Title
+		if(this.guaview) filename = this.guaview.title
+		if(this.calendarview) filename = '万年历'
+
+		this.glsetting.Html2Canva(dom, -1, -1)
+			.then(canva => {
+				//console.log('canva', canva)
+				this.glsetting.SaveCanva2Disk(canva, filename)
+			})
 	}
 
 	onInit(){
 		//let v = jQuery(this.elementRef.nativeElement)
 		//v.find('.ui.accordion').accordion();
 		//v.find('.ui.element').popup({on:'click'})
+		this.IsReady = false;
+	}
+
+	afterViewInit(){
+		this.IsReady = true;
 	}
 }

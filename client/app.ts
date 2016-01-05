@@ -19,8 +19,11 @@ import {PaiBazi} from 'client/bazi/paiBazi';
 import {CalendarPage} from 'client/calendar/calendarPage'
 import {CompassPage} from 'client/compass/compassPage'
 
-import {TranslatePipe} from 'client/allgemein/translatePipe'
-import {GlobalSetting} from  'client/globalsetting'
+import {TranslatePipe} from './allgemein/translatePipe'
+import {GlobalSetting} from  './globalsetting'
+import {AppSetting} from './allgemein/setting'
+
+declare var jQuery;
 
 @Component({
     selector: 'app',
@@ -33,7 +36,8 @@ import {GlobalSetting} from  'client/globalsetting'
     {path: '/paibazi', as: 'PaiBazi', component: PaiBazi},
     {path: '/pailiuyao', as: 'PaiLiuyao', component: PaiLiuyao},
     {path: '/calendar', as: 'Calendar', component: CalendarPage},
-    {path: '/compass', as: 'Compass', component: CompassPage}
+    {path: '/compass', as: 'Compass', component: CompassPage},
+    {path: '/setting', as: 'Setting', component: AppSetting},
 ])
 class HuaheApp {
     router: Router;
@@ -46,8 +50,9 @@ class HuaheApp {
         this.router = router;
         this.location = location;
         this.glsetting = glsetting;
-        
-        // var s = moment().format();
+
+        //console.log('jquery window', jQuery(window))
+        //console.log('jquery window', window)
     }
 
     Exit(){

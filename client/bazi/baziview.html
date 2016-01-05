@@ -60,7 +60,7 @@
                 </div>
                 <div *ng-for="#mj of MingJu"
                      class="three wide column"
-                    style="text-align: center;padding-bottom: 0">
+                    style="text-align: center;padding-bottom: 0;padding-left: 0;padding-right: 0">
                     <div>{{mj.CGan | tran:glsetting.lang}}</div>
                     <div style="color: gray">{{mj.Shen10 | tran:glsetting.lang}}</div>
                     <div>{{mj.ChangSheng | tran:glsetting.lang}}</div>
@@ -143,38 +143,68 @@
             </div>
             <div class="content" style="padding: 0">
                 <div class="ui grid">
-                    <div class="two wide column">
+                    <div class="two wide column" style="padding-left: 0;padding-right: 0;text-align: center">
                         {{'年份' | tran:glsetting.lang}}
                     </div>
-                    <div class="column" style="padding-left: 0;padding-right: 0;text-align: center">
+                    <div class="two wide column" style="padding-left: 0;padding-right: 0;text-align: center">
                         {{'岁数' | tran:glsetting.lang}}
                     </div>
-                    <div class="six wide column" style="text-align: center">
+                    <div class="six wide column">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {{'流年' | tran:glsetting.lang}}
                     </div>
-                    <div class="six wide column" style="text-align: center">
+                    <div class="six wide column">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         {{'小运' | tran:glsetting.lang}}
                     </div>
                 </div>
 
                 <div class="ui grid" *ng-for="#y of ln.Liunian">
-                    <div class="two wide column" style="padding-top: 0">
+                    <div class="two wide column" style="padding-top: 0;padding-left: 0;padding-right: 0;text-align: center">
                         {{y.Year}}
                     </div>
-                    <div class="column" style="padding-top: 0">
+                    <div class="two wide column" style="padding-top: 0;padding-left: 0;padding-right: 0;text-align: center">
                         {{y.Old}}
                     </div>
-                    <div class="six wide column" style="padding-top: 0;text-align: center">
+                    <div class="six wide column bazi mean"
+                         style="padding-top: 0;color: gray;padding-left: 0;padding-right: 0"
+                         [attr.data-title]="y.GZ.NaYin"
+                         [attr.data-content]="y.GZ.ShenSha">
                         ({{y.GZ.Shen10Gan[1]}})
-                        {{y.GZ.Name | tran:glsetting.lang}}
+                        <span style="color: black; font-weight: bold">
+                            {{y.GZ.Name | tran:glsetting.lang}}
+                        </span>
                         ({{y.GZ.Shen10Zhi[1]}})
+                        |{{y.GZ.ChangSheng}}
                     </div>
-                    <div class="six wide column" style="padding-top: 0;text-align: center">
+                    <div class="six wide column bazi mean"
+                         style="padding-top: 0;color: gray;padding-left: 0;padding-right: 0"
+                         [attr.data-title]="y.GZ2.NaYin"
+                         [attr.data-content]="y.GZ2.ShenSha">
                         ({{y.GZ2.Shen10Gan[1]}})
-                        {{y.GZ2.Name | tran:glsetting.lang}}
+                        <span style="color: black; font-weight: bold">
+                            {{y.GZ2.Name | tran:glsetting.lang}}
+                        </span>
                         ({{y.GZ2.Shen10Zhi[1]}})
+                        |{{y.GZ2.ChangSheng}}
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ui attached segment transition hidden bazi setting">
+    <div class="ui form">
+        <div class="two fields">
+            <div class="inline field">
+                <label>{{'每行显示神煞数:' | tran:glsetting.lang}}</label>
+                <select class="ui fluid dropdown"
+                        [(ng-model)]="shenshaColumnCount">
+                    <option value="4">四</option>
+                    <option value="5">五</option>
+                    <option value="6">六</option>
+                    <option value="7">七</option>
+                </select>
             </div>
         </div>
     </div>

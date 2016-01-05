@@ -159,9 +159,11 @@ export class Bazi{
         for(let idx = start; idx <= end; idx++){
             let gz = new GanZhi(gzIndex)
             gz.Base = this.D;
+            gz.ShenSha = this.CalcShenSha(gz);
 
             let gz2 = new GanZhi(xiaoyun)
             gz2.Base = this.D;
+            gz2.ShenSha = this.CalcShenSha(gz2);
 
             let lichun = TYLunar.getSolarTerms(idx, 2)[0]
             let obj = new BaziYun(lichun, gz, this.Birthday.getFullYear(), YunType.LiuNian)
