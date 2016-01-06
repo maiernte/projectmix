@@ -35,7 +35,6 @@ export class PailiuyaoTime{
             let houre = parseInt(time[0])
             let minute = parseInt(time[1])
             let res = new Date(date.getFullYear(), date.getMonth(), date.getDate(), houre, minute)
-            console.log('paigua time', res)
             return res.toISOString()
         }
     }

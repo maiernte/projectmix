@@ -15,7 +15,7 @@ import {GlobalSetting} from  'client/globalsetting'
 import {CalendarView} from "../calendar/calendar";
 import {GuaView} from '../liuyao/guaview'
 import {BaziView} from '../bazi/baziview'
-	
+import {CompassView} from '../compass/compass'
 
 declare var jQuery:any;
 
@@ -37,6 +37,7 @@ export class TyWindow {
 	@ContentChild(CalendarView) calendarview: CalendarView;
 	@ContentChild(GuaView) guaview: GuaView;
 	@ContentChild(BaziView) baziview: BaziView;
+	@ContentChild(CompassView) compassview: CompassView;
 
 	IsReady: boolean;
 	
@@ -51,6 +52,10 @@ export class TyWindow {
 	}
 
 	close(){
+		if(this.compassview){
+			this.compassview.CloseCompass();
+		}
+
 		this.onclosing.next(this.data['id'])
 	}
 	

@@ -1,7 +1,308 @@
 <div>
-    <div class='ui attached top segment'>
-        <div class="ui top attached blue large label">
-            {{'罗盘' | tran:glsetting.lang}}
+    <div class="ui top attached pointing menu">
+        <a class="active item"
+            [class.active]="PanType == 'z'"
+            (click)="PanType = 'z'">
+            {{'干支罗盘' | tran:glsetting.lang}}
+        </a>
+        <a class="item"
+           [class.active]="PanType == 't'"
+           (click)="PanType = 't'">
+            {{'二十四山' | tran:glsetting.lang}}
+        </a>
+        <a class="item"
+           [class.active]="PanType == 'f'"
+           (click)="PanType = 'f'">
+            {{'九宫飞星' | tran:glsetting.lang}}
+        </a>
+
+
+        <div class="right menu">
+            <a class="item"
+               [class.active]="RotateType == 'n'"
+               (click)="RotateType = 'n'">
+                {{'勘测' | tran:glsetting.lang}}
+            </a>
+            <a class="item"
+               [class.active]="RotateType == 'r'"
+               (click)="RotateType = 'r'">
+                {{'配图' | tran:glsetting.lang}}
+            </a>
         </div>
+    </div>
+
+    <div class="ui attached segment">
+        <div class="ui fluid accordion compass">
+            <div class="title">
+                <i class="dropdown icon"></i>
+                旋转罗盘
+            </div>
+            <div class="content">
+                <div class="ui tiny teal progress"
+                     id="compassRotation">
+                    <div class="bar"></div>
+                    <div class="label">
+                        {{'角度: ' | tran:glsetting.lang}}
+                        {{Rotation}}°
+                    </div>
+                </div>
+                <div class="ui buttons">
+                    <div class="ui button" (click)="changeRotation(-1)"
+                        [class.disabled]="Rotation == -179">
+                        {{'逆时针旋转' | tran:glsetting.lang}}
+                    </div>
+                    <div class="ui button" (click)="changeRotation(1)"
+                         [class.disabled]="Rotation == 180">
+                        {{'顺时针旋转' | tran:glsetting.lang}}
+                    </div>
+                </div>
+            </div>
+            <div class="title">
+                <i class="dropdown icon"></i>
+                加载图片
+            </div>
+            <div class="content">
+                <div class="ui tiny olive progress"
+                     id="compassOpacity">
+                    <div class="bar"></div>
+                    <div class="label">
+                        {{'透明度' | tran:glsetting.lang}}
+                        {{OpacityDisplay}} %
+                    </div>
+                </div>
+                <div class="ui buttons">
+                    <div class="ui button" (click)="changeOpacity(-0.01)">
+                        {{'减少' | tran:glsetting.lang}}
+                    </div>
+                    <div class="ui button" (click)="changeOpacity(0.01)"
+                         [class.disabled]="OpacityDisplay == 80">
+                        {{'增加' | tran:glsetting.lang}}
+                    </div>
+                    <div class="ui button" (click)="UnloadImage()">
+                        {{'清除' | tran:glsetting.lang}}
+                    </div>
+                    <div class="ui button" *ng-if="IsCordova"
+                        (click)="LoadImage()">
+                        {{'图片' | tran:glsetting.lang}}
+                    </div>
+                </div>
+                <input type="file" accept="image/*"
+                       *ng-if="!IsCordova"
+                       (change)="LoadImage($event)"
+                        style="padding-left: 0;padding-right: 0"/>
+            </div>
+        </div>
+    </div>
+
+    <div class='ui attached segment'>
+
+        <svg id="compass-svg" style="padding:3px;margin:0;"
+             preserveAspectRatio="xMinYMin meet"
+             viewBox="0,0,1000,1000">
+            <image x="0" y="0" width="1000" height="1000" xlink:href="" id="compass-image"></image>
+
+            <!--0刻度那条线-->
+            <line x1="500" y1="10" x2="500" y2="45" style="stroke-width:2;stroke:black" />
+
+            <!--外圈-->
+            <circle cx="500" cy="500" r="475" style="padding:0;margin:0;stroke:#000000;fill:#FFFFFF;fill-opacity:0" />
+
+            <!--细刻度-->
+            <g *ng-for="#i of Degreed" [style.opacity]="1 - Opacity">
+                <line x1="500" y1="25" x2="500" y2="40"
+                      style="stroke-width:1;stroke:gray"
+                      [attr.transform]="'rotate(' + i + ', 500,500)'" />
+            </g>
+
+            <!--大刻度-->
+            <g *ng-for="#i of DegreedX" [style.opacity]="1 - Opacity">
+                <line x1="500" y1="25" x2="500" y2="45"
+                      style="stroke-width:2;stroke:black"
+                      [attr.transform]="'rotate(' + i + ', 500,500)'" />
+                <text x="490" y="15" style="font-size:20px;"
+                      [attr.transform]="'rotate(' + i + ', 500,500)'">{{i}}</text>
+            </g>
+
+            <!--内圈----罗盘圈-->
+            <circle cx="500" cy="500" r="450"
+                    style="padding:0;margin:0;stroke:#006600;fill:#FFFFFF;fill-opacity:0"/>
+
+            <g [ng-switch]="PanType"
+                [attr.transform]="'rotate(' + Rotation + ' 500 500)'"
+               [style.opacity]="1 - Opacity">
+                <!--干支罗盘-->
+                <g *ng-switch-when="'z'">
+                    <path d="M500 500 L889.711 275.000 A 450 450 0 0 1 950.000 500.000 L500 500" style="stroke:gray;fill:lightgray" id="sector-360"></path>
+                    <path d="M500 500 L950.000 500.000 A 450 450 0 0 1 889.711 725.000 L500 500" style="stroke:gray;fill:Gainsboro" id="sector-30"></path>
+                    <path d="M500 500 L889.711 725.000 A 450 450 0 0 1 725.000 889.711 L500 500" style="stroke:gray;fill:Moccasin" id="sector-60"></path>
+                    <path d="M500 500 L725.000 889.711 A 450 450 0 0 1 500.000 950.000 L500 500" style="stroke:gray;fill:lightgray" id="sector-90"></path>
+                    <path d="M500 500 L500.000 950.000 A 450 450 0 0 1 275.000 889.711 L500 500" style="stroke:gray;fill:Gainsboro" id="sector-120"></path>
+                    <path d="M500 500 L275.000 889.711 A 450 450 0 0 1 110.288 725.000 L500 500" style="stroke:gray;fill:Moccasin" id="sector-150"></path>
+                    <path d="M500 500 L110.288 725.000 A 450 450 0 0 1 50.0000 500.000 L500 500" style="stroke:gray;fill:lightgray" id="sector-180"></path>
+                    <path d="M500 500 L50.0000 500.000 A 450 450 0 0 1 110.288 275.000 L500 500" style="stroke:gray;fill:Gainsboro" id="sector-210"></path>
+                    <path d="M500 500 L110.288 275.000 A 450 450 0 0 1 275.000 110.288 L500 500" style="stroke:gray;fill:Moccasin" id="sector-240"></path>
+                    <path d="M500 500 L275.000 110.288 A 450 450 0 0 1 500.000 50.0000 L500 500" style="stroke:gray;fill:lightgray" id="sector-270"></path>
+                    <path d="M500 500 L500.000 50.0000 A 450 450 0 0 1 725.000 110.288 L500 500" style="stroke:gray;fill:Gainsboro" id="sector-300"></path>
+                    <path d="M500 500 L725.000 110.288 A 450 450 0 0 1 889.711 275.000 L500 500" style="stroke:gray;fill:Moccasin" id="sector-330"></path>
+
+
+                    <text x="480" y="100" style="font-weight:bold;font-size:40px;" transform="rotate(15 500,500)">壬</text>
+                    <text x="480" y="150" style="font-weight:bold;font-size:40px;" transform="rotate(15 500,500)">子</text>
+
+                    <text x="480" y="100" style="font-weight:bold;font-size:40px;" transform="rotate(45 500,500)">己</text>
+                    <text x="480" y="150" style="font-weight:bold;font-size:40px;" transform="rotate(45 500,500)">{{'丑' | tran:glsetting.lang}}</text>
+
+                    <text x="480" y="100" style="font-weight:bold;font-size:40px;" transform="rotate(75 500,500)">甲</text>
+                    <text x="480" y="150" style="font-weight:bold;font-size:40px;" transform="rotate(75 500,500)">寅</text>
+
+                    <text x="480" y="100" style="font-weight:bold;font-size:40px;" transform="rotate(105 500,500)">乙</text>
+                    <text x="480" y="150" style="font-weight:bold;font-size:40px;" transform="rotate(105 500,500)">卯</text>
+
+                    <text x="480" y="100" style="font-weight:bold;font-size:40px;" transform="rotate(135 500,500)">戊</text>
+                    <text x="480" y="150" style="font-weight:bold;font-size:40px;" transform="rotate(135 500,500)">辰</text>
+
+                    <text x="480" y="100" style="font-weight:bold;font-size:40px;" transform="rotate(165 500,500)">丁</text>
+                    <text x="480" y="150" style="font-weight:bold;font-size:40px;" transform="rotate(165 500,500)">巳</text>
+
+                    <text x="480" y="100" style="font-weight:bold;font-size:40px;" transform="rotate(195 500,500)">丙</text>
+                    <text x="480" y="150" style="font-weight:bold;font-size:40px;" transform="rotate(195 500,500)">午</text>
+
+                    <text x="480" y="100" style="font-weight:bold;font-size:40px;" transform="rotate(225 500,500)">己</text>
+                    <text x="480" y="150" style="font-weight:bold;font-size:40px;" transform="rotate(225 500,500)">未</text>
+
+                    <text x="480" y="100" style="font-weight:bold;font-size:40px;" transform="rotate(255 500,500)">庚</text>
+                    <text x="480" y="150" style="font-weight:bold;font-size:40px;" transform="rotate(255 500,500)">申</text>
+
+                    <text x="480" y="100" style="font-weight:bold;font-size:40px;" transform="rotate(285 500,500)">辛</text>
+                    <text x="480" y="150" style="font-weight:bold;font-size:40px;" transform="rotate(285 500,500)">酉</text>
+
+                    <text x="480" y="100" style="font-weight:bold;font-size:40px;" transform="rotate(315 500,500)">戊</text>
+                    <text x="480" y="150" style="font-weight:bold;font-size:40px;" transform="rotate(315 500,500)">戌</text>
+
+                    <text x="480" y="100" style="font-weight:bold;font-size:40px;" transform="rotate(345 500,500)">癸</text>
+                    <text x="480" y="150" style="font-weight:bold;font-size:40px;" transform="rotate(345 500,500)">亥</text>
+                </g>
+
+                <!--二十四山-->
+                <g *ng-switch-when="'t'">
+                    <circle cx="500" cy="500" r="350" style="padding:0;margin:0;stroke:gray;fill:#FFFFFF" />
+                    <circle cx="500" cy="500" r="250" style="padding:0;margin:0;stroke:gray;fill:#FFFFFF" />
+
+                    <line x1="915.745" y1="327.792" x2="84.254" y2="672.207" style="stroke-width:2;stroke:black" />
+                    <line x1="915.745" y1="672.207" x2="84.254" y2="327.792" style="stroke-width:2;stroke:black" />
+                    <line x1="672.207" y1="915.745" x2="327.792" y2="84.254" style="stroke-width:2;stroke:black" />
+                    <line x1="327.792" y1="915.745" x2="672.207" y2="84.254" style="stroke-width:2;stroke:black" />
+
+                    <line x1="500" y1="50" x2="500" y2="150" style="stroke-width:1;stroke:black" transform="rotate(7.5 500,500)" />
+                    <line x1="500" y1="50" x2="500" y2="150" style="stroke-width:1;stroke:black" transform="rotate(37.5 500,500)" />
+                    <line x1="500" y1="50" x2="500" y2="150" style="stroke-width:1;stroke:black" transform="rotate(52.5 500,500)" />
+                    <line x1="500" y1="50" x2="500" y2="150" style="stroke-width:1;stroke:black" transform="rotate(82.5 500,500)" />
+                    <line x1="500" y1="50" x2="500" y2="150" style="stroke-width:1;stroke:black" transform="rotate(97.5 500,500)" />
+                    <line x1="500" y1="50" x2="500" y2="150" style="stroke-width:1;stroke:black" transform="rotate(127.5 500,500)" />
+                    <line x1="500" y1="50" x2="500" y2="150" style="stroke-width:1;stroke:black" transform="rotate(142.5 500,500)" />
+                    <line x1="500" y1="50" x2="500" y2="150" style="stroke-width:1;stroke:black" transform="rotate(172.5 500,500)" />
+                    <line x1="500" y1="50" x2="500" y2="150" style="stroke-width:1;stroke:black" transform="rotate(187.5 500,500)" />
+                    <line x1="500" y1="50" x2="500" y2="150" style="stroke-width:1;stroke:black" transform="rotate(217.5 500,500)" />
+                    <line x1="500" y1="50" x2="500" y2="150" style="stroke-width:1;stroke:black" transform="rotate(232.5 500,500)" />
+                    <line x1="500" y1="50" x2="500" y2="150" style="stroke-width:1;stroke:black" transform="rotate(262.5 500,500)" />
+                    <line x1="500" y1="50" x2="500" y2="150" style="stroke-width:1;stroke:black" transform="rotate(277.5 500,500)" />
+                    <line x1="500" y1="50" x2="500" y2="150" style="stroke-width:1;stroke:black" transform="rotate(307.5 500,500)" />
+                    <line x1="500" y1="50" x2="500" y2="150" style="stroke-width:1;stroke:black" transform="rotate(322.5 500,500)" />
+                    <line x1="500" y1="50" x2="500" y2="150" style="stroke-width:1;stroke:black" transform="rotate(352.5 500,500)" />
+
+                    <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(0 500,500)">{{'子' | tran:glsetting.lang}}</text>
+                    <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(15 500,500)">{{'癸' | tran:glsetting.lang}}</text>
+                    <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(30 500,500)">{{'丑' | tran:glsetting.lang}}</text>
+                    <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(45 500,500)">{{'艮' | tran:glsetting.lang}}</text>
+                    <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(60 500,500)">{{'寅' | tran:glsetting.lang}}</text>
+                    <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(75 500,500)">{{'甲' | tran:glsetting.lang}}</text>
+                    <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(90 500,500)">{{'卯' | tran:glsetting.lang}}</text>
+                    <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(105 500,500)">{{'乙' | tran:glsetting.lang}}</text>
+                    <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(120 500,500)">{{'辰' | tran:glsetting.lang}}</text>
+                    <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(135 500,500)">{{'巽' | tran:glsetting.lang}}</text>
+                    <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(150 500,500)">{{'巳' | tran:glsetting.lang}}</text>
+                    <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(165 500,500)">{{'丙' | tran:glsetting.lang}}</text>
+                    <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(180 500,500)">{{'午' | tran:glsetting.lang}}</text>
+                    <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(195 500,500)">{{'丁' | tran:glsetting.lang}}</text>
+                    <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(210 500,500)">{{'未' | tran:glsetting.lang}}</text>
+                    <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(225 500,500)">{{'坤' | tran:glsetting.lang}}</text>
+                    <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(240 500,500)">{{'申' | tran:glsetting.lang}}</text>
+                    <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(255 500,500)">{{'庚' | tran:glsetting.lang}}</text>
+                    <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(270 500,500)">{{'酉' | tran:glsetting.lang}}</text>
+                    <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(285 500,500)">{{'辛' | tran:glsetting.lang}}</text>
+                    <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(300 500,500)">{{'戌' | tran:glsetting.lang}}</text>
+                    <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(315 500,500)">{{'乾' | tran:glsetting.lang}}</text>
+                    <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(330 500,500)">{{'亥' | tran:glsetting.lang}}</text>
+                    <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(345 500,500)">{{'壬' | tran:glsetting.lang}}</text>
+
+                    <text x="470" y="220" style="font-weight:bold;font-size:60px;" transform="rotate(0 500,500)">{{'坎' | tran:glsetting.lang}}</text>
+                    <text x="470" y="220" style="font-weight:bold;font-size:60px;" transform="rotate(45 500,500)">{{'艮' | tran:glsetting.lang}}</text>
+                    <text x="470" y="220" style="font-weight:bold;font-size:60px;" transform="rotate(90 500,500)">{{'震' | tran:glsetting.lang}}</text>
+                    <text x="470" y="220" style="font-weight:bold;font-size:60px;" transform="rotate(135 500,500)">{{'巽' | tran:glsetting.lang}}</text>
+                    <text x="470" y="220" style="font-weight:bold;font-size:60px;" transform="rotate(180 500,500)">{{'离' | tran:glsetting.lang}}</text>
+                    <text x="470" y="220" style="font-weight:bold;font-size:60px;" transform="rotate(225 500,500)">{{'坤' | tran:glsetting.lang}}</text>
+                    <text x="470" y="220" style="font-weight:bold;font-size:60px;" transform="rotate(270 500,500)">{{'兑' | tran:glsetting.lang}}</text>
+                    <text x="470" y="220" style="font-weight:bold;font-size:60px;" transform="rotate(315 500,500)">{{'乾' | tran:glsetting.lang}}</text>
+
+                    <text x="470" y="320" style="font-weight:bold;font-size:60px;" fill="gray" transform="rotate(0 500,500)">{{'坤' | tran:glsetting.lang}}</text>
+                    <text x="470" y="320" style="font-weight:bold;font-size:60px;" fill="gray" transform="rotate(45 500,500)">{{'震' | tran:glsetting.lang}}</text>
+                    <text x="470" y="320" style="font-weight:bold;font-size:60px;" fill="gray" transform="rotate(90 500,500)">{{'离' | tran:glsetting.lang}}</text>
+                    <text x="470" y="320" style="font-weight:bold;font-size:60px;" fill="gray" transform="rotate(135 500,500)">{{'兑' | tran:glsetting.lang}}</text>
+                    <text x="470" y="320" style="font-weight:bold;font-size:60px;" fill="gray" transform="rotate(180 500,500)">{{'乾' | tran:glsetting.lang}}</text>
+                    <text x="470" y="320" style="font-weight:bold;font-size:60px;" fill="gray" transform="rotate(225 500,500)">{{'巽' | tran:glsetting.lang}}</text>
+                    <text x="470" y="320" style="font-weight:bold;font-size:60px;" fill="gray" transform="rotate(270 500,500)">{{'坎' | tran:glsetting.lang}}</text>
+                    <text x="470" y="320" style="font-weight:bold;font-size:60px;" fill="gray" transform="rotate(315 500,500)">{{'艮' | tran:glsetting.lang}}</text>
+                </g>
+
+                <!--九宫飞星-->
+                <g *ng-switch-when="'f'">
+                    <line x1="182" y1="182" x2="818" y2="182" style="stroke-width:2;stroke:black"></line>
+                    <line x1="182" y1="394" x2="818" y2="394" style="stroke-width:2;stroke:black"></line>
+                    <line x1="182" y1="606" x2="818" y2="606" style="stroke-width:2;stroke:black"></line>
+                    <line x1="182" y1="818" x2="818" y2="818" style="stroke-width:2;stroke:black"></line>
+
+                    <line x1="182" y1="182" x2="182" y2="818" style="stroke-width:2;stroke:black"></line>
+                    <line x1="394" y1="182" x2="394" y2="818" style="stroke-width:2;stroke:black"></line>
+                    <line x1="606" y1="182" x2="606" y2="818" style="stroke-width:2;stroke:black"></line>
+                    <line x1="818" y1="182" x2="818" y2="818" style="stroke-width:2;stroke:black"></line>
+
+                    <text x="202" y="222" style="font-weight:bold;font-size:40px;">{{'乾' | tran:glsetting.lang}}</text>
+                    <text x="414" y="222" style="font-weight:bold;font-size:40px;">{{'坎' | tran:glsetting.lang}}</text>
+                    <text x="626" y="222" style="font-weight:bold;font-size:40px;">{{'艮' | tran:glsetting.lang}}</text>
+                    <text x="626" y="434" style="font-weight:bold;font-size:40px;">{{'震' | tran:glsetting.lang}}</text>
+                    <text x="202" y="434" style="font-weight:bold;font-size:40px;">{{'兑' | tran:glsetting.lang}}</text>
+                    <text x="202" y="646" style="font-weight:bold;font-size:40px;">{{'坤' | tran:glsetting.lang}}</text>
+                    <text x="414" y="646" style="font-weight:bold;font-size:40px;">{{'离' | tran:glsetting.lang}}</text>
+                    <text x="626" y="646" style="font-weight:bold;font-size:40px;">{{'巽' | tran:glsetting.lang}}</text>
+
+                    <text x="202" y="272" fill="gray" style="font-weight:bold;font-size:40px;">{{'艮' | tran:glsetting.lang}}</text>
+                    <text x="414" y="272" fill="gray" style="font-weight:bold;font-size:40px;">{{'坤' | tran:glsetting.lang}}</text>
+                    <text x="626" y="272" fill="gray" style="font-weight:bold;font-size:40px;">{{'震' | tran:glsetting.lang}}</text>
+                    <text x="202" y="484" fill="gray" style="font-weight:bold;font-size:40px;">{{'坎' | tran:glsetting.lang}}</text>
+                    <text x="626" y="484" fill="gray" style="font-weight:bold;font-size:40px;">{{'离' | tran:glsetting.lang}}</text>
+                    <text x="202" y="696" fill="gray" style="font-weight:bold;font-size:40px;">{{'巽' | tran:glsetting.lang}}</text>
+                    <text x="414" y="696" fill="gray" style="font-weight:bold;font-size:40px;">{{'乾' | tran:glsetting.lang}}</text>
+                    <text x="626" y="696" fill="gray" style="font-weight:bold;font-size:40px;">{{'兑' | tran:glsetting.lang}}</text>
+
+                    <text x="232" y="322" style="font-weight:bold;font-size:30px;">{{FeiXing.Startes[5] | tran:glsetting.lang}}</text>
+                    <text x="444" y="322" style="font-weight:bold;font-size:30px;">{{FeiXing.Startes[0] | tran:glsetting.lang}}</text>
+                    <text x="666" y="322" style="font-weight:bold;font-size:30px;">{{FeiXing.Startes[7] | tran:glsetting.lang}}</text>
+                    <text x="232" y="534" style="font-weight:bold;font-size:30px;">{{FeiXing.Startes[6] | tran:glsetting.lang}}</text>
+                    <text x="444" y="534" style="font-weight:bold;font-size:30px;">{{FeiXing.Startes[4] | tran:glsetting.lang}}</text>
+                    <text x="666" y="534" style="font-weight:bold;font-size:30px;">{{FeiXing.Startes[2] | tran:glsetting.lang}}</text>
+                    <text x="232" y="746" style="font-weight:bold;font-size:30px;">{{FeiXing.Startes[1] | tran:glsetting.lang}}</text>
+                    <text x="444" y="746" style="font-weight:bold;font-size:30px;">{{FeiXing.Startes[8] | tran:glsetting.lang}}</text>
+                    <text x="656" y="746" style="font-weight:bold;font-size:30px;">{{FeiXing.Startes[3] | tran:glsetting.lang}}</text>
+
+                </g>
+            </g>
+
+            <!--指南针-->
+            <g *ng-if="RotateType == 'n'"
+               [attr.transform]="'rotate(' + Needle.Angle + ' 500 500)'">
+                <path d="M498 500 L498 75 L485 85 L500 50 L515 85 L502 75 L502 500 L489 500" style="stroke:darkred;fill:darkred"></path>
+                <path d="M498 500 L498 925 L485 915 L500 950 L515 915 L502 925 L502 500 L489 500" style="stroke:GoldenRod;fill:GoldenRod"></path>
+            </g>
+        </svg>
     </div>
 </div>

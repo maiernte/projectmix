@@ -96,6 +96,7 @@
             <img [src]="ShiYing[i]">
         </div>
         <div class="five wide column gua mean"
+             *ng-if="HasBianGua"
              [attr.data-content]="Bianyaos[i].info"
              style="padding:0;">
             {{Bianyaos[i].Text | tran:glsetting.lang}}
