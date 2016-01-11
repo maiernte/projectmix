@@ -26,6 +26,7 @@ export class CompassView{
     Degreed = [];
     DegreedX = []
 
+    private imageData;
     private years: Array<number>;
     private rotation: number;
     private opacity = 0.2
@@ -65,6 +66,9 @@ export class CompassView{
         this.rotateType = value;
 
         if(value == 'n'){
+            this.UnloadImage();
+            this.Rotation = 0;
+
             // 启动指南针
             this.startCompass();
         }else{
@@ -167,11 +171,11 @@ export class CompassView{
 
     LoadImage(event){
         if(this.IsCordova && navigator['camera']){
-            navigator['camera'].getPicture(function (imageURI) {
-                console.log('callback getPicture')
-                    console.log(imageURI)
+            navigator['camera'].getPicture((data) => {
                 var img = jQuery('#compass-image');
-                img.attr('xlink:href', imageURI);
+                img.attr('xlink:href', 'data:image/jpeg;base64,' + data);
+                this.Opacity = 0.5;
+                this.changeOpacity(0.0)
             }, function (err) {
                 if (err != "Selection cancelled.") {
                     alert('加载图片错: ' + err);
@@ -179,26 +183,24 @@ export class CompassView{
             },
             {
                 quality: 50,
-                destinationType: Camera.DestinationType.FILE_URI,
-                sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM
+                destinationType: Camera.DestinationType.DATA_URL,
+                sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
             });
+        }else{
+            var f = event.srcElement.files[0];
+            var r = new FileReader();
+            r.onload = () => {
+                //compass - image
+                console.log('file loaded' , r.result)
+                var img = jQuery('#compass-image');
+                img.attr('xlink:href', r.result);
 
-            return;
+                this.Opacity = 0.5;
+                this.changeOpacity(0.0)
+            }
+
+            r.readAsDataURL(f);
         }
-
-        var f = event.srcElement.files[0];
-        var r = new FileReader();
-        r.onload = () => {
-            //compass - image
-            console.log('file loaded' , r.result)
-            var img = jQuery('#compass-image');
-            img.attr('xlink:href', r.result);
-
-            this.Opacity = 0.5;
-            this.changeOpacity(0.0)
-        }
-
-        r.readAsDataURL(f);
     }
 
     UnloadImage(){

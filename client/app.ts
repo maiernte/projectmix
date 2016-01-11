@@ -1,7 +1,11 @@
 /// <reference path="../typings/angular2-meteor.d.ts" />
 /// <reference path="../typings/angular2/router.d.ts" />
 
-import {Component, View, FORM_PROVIDERS, provide, Inject} from 'angular2/angular2';
+import {Component,
+        FORM_PROVIDERS,
+        Inject,
+        provide,
+        AfterViewInit} from 'angular2/angular2';
 import {bootstrap} from 'angular2-meteor';
 import {
         Router,
@@ -50,9 +54,6 @@ class HuaheApp {
         this.router = router;
         this.location = location;
         this.glsetting = glsetting;
-
-        //console.log('jquery window', jQuery(window))
-        //console.log('jquery window', window)
     }
 
     Exit(){

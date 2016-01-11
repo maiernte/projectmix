@@ -31,7 +31,13 @@
         </div>
     </div>
 
-    <div class="ui attached segment">
+    <div class="ui attached segment"
+        [hidden]="RotateType == 'r'">
+        {{'提示: 请将红色指针与罗盘中的"北"箭头对其.' | tran:glsetting.lang}}
+    </div>
+
+    <div class="ui attached segment"
+         [hidden]="RotateType == 'n'">
         <div class="ui fluid accordion compass">
             <div class="title">
                 <i class="dropdown icon"></i>
@@ -210,7 +216,7 @@
                     <line x1="500" y1="50" x2="500" y2="150" style="stroke-width:1;stroke:black" transform="rotate(322.5 500,500)" />
                     <line x1="500" y1="50" x2="500" y2="150" style="stroke-width:1;stroke:black" transform="rotate(352.5 500,500)" />
 
-                    <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(0 500,500)">{{'子' | tran:glsetting.lang}}</text>
+                    <text x="480" y="160" style="font-weight:bold;font-size:40px;" transform="rotate(0 500,500)">{{'子' | tran:glsetting.lang}}</text>
                     <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(15 500,500)">{{'癸' | tran:glsetting.lang}}</text>
                     <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(30 500,500)">{{'丑' | tran:glsetting.lang}}</text>
                     <text x="480" y="120" style="font-weight:bold;font-size:40px;" transform="rotate(45 500,500)">{{'艮' | tran:glsetting.lang}}</text>
@@ -294,6 +300,13 @@
                     <text x="444" y="746" style="font-weight:bold;font-size:30px;">{{FeiXing.Startes[8] | tran:glsetting.lang}}</text>
                     <text x="656" y="746" style="font-weight:bold;font-size:30px;">{{FeiXing.Startes[3] | tran:glsetting.lang}}</text>
 
+                </g>
+
+                <g>
+                    <line x1="500" y1="50" x2="500" y2="90" style="stroke-width:2;stroke:black" />
+                    <line x1="490" y1="75" x2="500" y2="50" style="stroke-width:2;stroke:black" />
+                    <line x1="510" y1="75" x2="500" y2="50" style="stroke-width:2;stroke:black" />
+                    <text x="485" y="120" style="font-weight:bold;font-size:30px;">北</text>
                 </g>
             </g>
 
