@@ -43,7 +43,7 @@
         </div>
     </div>
 
-    <div class="ui fluid accordion bazi">
+    <div class="ui fluid accordion bazi" *ng-if="!Brief">
         <div class="active title">
             <i class="dropdown icon"></i>
             【{{'命宫 - ' + Bazi.MingGong.Name | tran:glsetting.lang}}】
@@ -81,7 +81,7 @@
             </div>
         </div>
     </div>
-    <div class="ui fluid accordion bazi">
+    <div class="ui fluid accordion bazi" *ng-if="!Brief">
         <div class="active title">
             <i class="dropdown icon"></i>
             {{'神煞' | tran:glsetting.lang}}
@@ -99,7 +99,7 @@
             </div>
         </div>
     </div>
-    <div class="ui fluid accordion bazi">
+    <div class="ui fluid accordion bazi" *ng-if="!Brief">
         <div class="active title">
             <i class="dropdown icon"></i>
             {{'简略大运' | tran:glsetting.lang}}
@@ -205,6 +205,23 @@
                     <option value="6">六</option>
                     <option value="7">七</option>
                 </select>
+            </div>
+            
+            <div class="inline field">
+                <div class="ui checkbox">
+                  <input type="checkbox" [(ng-model)]="Brief">
+                  <label>{{'最简模式' | tran:glsetting.lang}}</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="inline field">
+            <label>{{'快速排八字：' | tran:glsetting.lang}}</label>
+            <div class="ui compact buttons">
+              <button class="ui compact button" (click)="Recalc(-2)">{{'前一时辰' | tran:glsetting.lang}}</button>
+              <button class="ui compact button" (click)="Recalc(2)">{{'后一时辰' | tran:glsetting.lang}}</button>
+              <button class="ui compact button" (click)="Recalc(-24)">{{'前一天' | tran:glsetting.lang}}</button>
+              <button class="ui compact button" (click)="Recalc(24)">{{'后一天' | tran:glsetting.lang}}</button>
             </div>
         </div>
     </div>

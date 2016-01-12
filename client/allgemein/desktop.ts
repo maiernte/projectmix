@@ -26,6 +26,8 @@ export class Desktop{
     frameList: Array<Object>;
     glsetting: GlobalSetting;
     
+    private static showTips: boolean;
+    
     constructor(private router: Router,
                 private routeParams: RouteParams,
                 @Inject(GlobalSetting) glsetting: GlobalSetting){
@@ -33,6 +35,19 @@ export class Desktop{
         //console.log(s.Name, s.WuXing);
 
         this.glsetting = glsetting;
+    }
+    
+    get ShowTips(){
+        if(Desktop.showTips == undefined){
+            Desktop.showTips = this.glsetting.GetSetting('desktop-tip');
+        }
+        
+        return !Desktop.showTips
+    }
+    
+    set ShowTips(value){
+        Desktop.showTips = !value;
+        this.glsetting.SetValue('desktop-tip', !value)
     }
     
     showMenu(hide){
@@ -74,7 +89,24 @@ export class Desktop{
         this.frameList = [];
         let hideMenu = true;
         this.showMenu(hideMenu);
-        // var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+        
+        jQuery('.message .close')
+          .on('click', function() {
+            jQuery(this)
+              .closest('.message')
+              .transition('fade')
+            ;
+          });
+          
+        if(Desktop.showTips == undefined){
+            Desktop.showTips = this.glsetting.GetSetting('desktop-tip');
+            if(Desktop.showTips == false){
+                console.log("message should not showed")
+                jQuery('.message .close')
+                    .closest('.message')
+                    .transition('fade')
+            }
+        }
 
         if(this.routeParams.params['flag'] == 'gua'){
             var frame = {

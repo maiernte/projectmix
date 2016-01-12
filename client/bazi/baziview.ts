@@ -26,10 +26,12 @@ export class BaziView{
     Main: Array<GanZhi>
     MingJu: Array<Object>
     SelectedDaYun: BaziYun = null
+    Brief = false
 
     shenshaColumnCount = 4
     private shenshas: Array<Object>;
     private liunian: Array<Object>;
+    private initParams: Object;
 
     @Input() initdata:string
     Info = {
@@ -156,7 +158,30 @@ export class BaziView{
     }
 
     onInit(){
-        let params = JSON.parse(this.initdata)
+        this.initParams = JSON.parse(this.initdata)
+        this.paiBazi(this.initParams);
+    }
+    
+    Recalc(hours: number){
+        if(typeof this.initParams['birthday'] == 'string'){
+            let text = this.initParams['birthday']
+            this.initParams['birthday'] = new Date(text);
+        }
+        
+        let milisecondes = hours * 60 * 60 * 1000;
+        let datetime = this.initParams['birthday'].getTime() + milisecondes
+        this.initParams['birthday'] = new Date(datetime)
+        
+        this.paiBazi(this.initParams);
+    }
+
+    afterViewInit(){
+        jQuery(this.rootElement.nativeElement).find('.accordion.bazi').accordion()
+        jQuery(this.rootElement.nativeElement).find('.bazi.mean').popup({on: 'click'})
+    }
+    
+    private paiBazi(params){
+        //let params = JSON.parse(this.initdata)
 
         var date = params['birthday']
         if(typeof params['birthday'] == 'string'){
@@ -188,11 +213,6 @@ export class BaziView{
         this.initMingJu();
         this.ChangeDaYun(this.Bazi.DaYun[0])
         this.shenshaColumnCount = this.glsetting.GetSetting('bazi-shensha')
-    }
-
-    afterViewInit(){
-        jQuery(this.rootElement.nativeElement).find('.accordion.bazi').accordion()
-        jQuery(this.rootElement.nativeElement).find('.bazi.mean').popup({on: 'click'})
     }
 
     private initMingJu(){
