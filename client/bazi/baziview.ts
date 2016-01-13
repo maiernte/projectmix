@@ -26,12 +26,13 @@ export class BaziView{
     Main: Array<GanZhi>
     MingJu: Array<Object>
     SelectedDaYun: BaziYun = null
-    Brief = false
+    
 
     shenshaColumnCount = 4
     private shenshas: Array<Object>;
     private liunian: Array<Object>;
     private initParams: Object;
+    private showModel = 3
 
     @Input() initdata:string
     Info = {
@@ -58,6 +59,14 @@ export class BaziView{
     calcTitle(gz: GanZhi): string{
         console.log('calcTitle')
         return gz.NaYin;
+    }
+    
+    get ShowModel(){
+        return this.showModel;
+    }
+    
+    set ShowModel(value){
+        this.showModel = parseInt(value.toString());
     }
 
     get ShenShas(){

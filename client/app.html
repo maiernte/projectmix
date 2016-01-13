@@ -19,9 +19,17 @@
         <i class="compass icon"></i>
         {{'罗盘' | tran:glsetting.lang}}
     </a>
+    <a class="item" [router-link]="['/Books', 'List']">
+        <i class="file text icon"></i>
+        {{'书集' | tran:glsetting.lang}}
+    </a>
     <a class="item" [router-link]="['/Setting']">
         <i class="setting icon"></i>
         {{'设置' | tran:glsetting.lang}}
+    </a>
+    <a class="item" [router-link]="['/User']">
+        <i class="user icon"></i>
+        {{'用户' | tran:glsetting.lang}}
     </a>
     <a class="item" (click)="Exit()">
         <i class="power icon"></i>

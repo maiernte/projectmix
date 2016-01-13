@@ -1,0 +1,74 @@
+<di>
+    <div class="ui top attached menu">
+        <div class="ui animated fade primary button item" (click)="showMenu()">
+            <div class="visible content">
+                <i class="sidebar icon"></i>
+            </div>
+            <div class="hidden content">
+                {{'菜单' | tran:glsetting.lang}}
+            </div>
+        </div>
+        
+        <div class="ui basic button item">
+            {{'创建新书' | tran:glsetting.lang}}
+        </div>
+    </div>
+    
+    <div class="ui cards" style="padding-top:5px">
+        <div class="card" *ng-for="#book of Books">
+            <a class="ui basic right corner label">
+                <i class="cloud icon" *ng-if="book.IsCloud"></i>
+                <i class="inbox icon" *ng-if="!book.IsCloud"></i>
+            </a>
+            <div class="content">
+                <div class="header">{{book.Name | tran:glsetting.lang}}</div>
+                <div class="meta">
+                  <p>
+                      {{'创建日期：'  | tran:glsetting.lang}}
+                      {{book.Created}}
+                  </p>
+                  <p>
+                      {{'修改日期：'  | tran:glsetting.lang}}
+                      {{book.Modified}}
+                  </p>
+                </div>
+                <div class="description">
+                {{book.Desc | tran:glsetting.lang}}
+                </div>
+            </div>
+            <div class="ui bottom attached menu">
+                <div class="compact ui blue basic button item"
+                    style="padding-top:0;padding-bottom:0;margin-left:2px">
+                    <i class="folder open outline icon"></i>
+                    {{'打开' | tran:glsetting.lang}}
+                </div>
+                <div class="compact ui blue basic button item"
+                    style="padding-top:0;padding-bottom:0;"
+                    *ng-if="book.Editable"
+                    (click)="editBook(book)">
+                    <i class="write icon"></i>
+                    {{'编辑' | tran:glsetting.lang}}
+                </div>
+                <div class="compact ui blue basic button item"
+                    style="padding-top:0;padding-bottom:0"
+                    *ng-if="book.Editable"
+                    (click)="deleteBook(book)">
+                    <i class="trash outline icon"></i>
+                    {{'删除' | tran:glsetting.lang}}
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="ui delete book modal">
+        <div class="header">{{'删除书集' | tran:glsetting.lang}}</div>
+        <div class="content">
+        <p>{{'这本书将被永久性删除，所有内容将不可恢复。您确认要删除此书吗？' | tran:glsetting.lang}}</p>
+        </div>
+        <div class="actions">
+            <div class="ui approve button">{{'是的' | tran:glsetting.lang}}</div>
+            <div class="ui cancel button">{{'再说' | tran:glsetting.lang}}</div>
+        </div>
+    </div>
+</div>

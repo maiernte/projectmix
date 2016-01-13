@@ -13,6 +13,8 @@ export  class GlobalSetting{
         {Name: 'gua-simple', Value: false},
         {Name: 'bazi-shensha', Value: 5},
         {Name: 'desktop-tip', Value: true},
+        {Name: 'created', Value: Date.now()},
+        {Name: 'modified', Value: Date.now()},
     ]
 
     private language: boolean; // 是否使用繁体字

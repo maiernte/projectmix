@@ -150,16 +150,16 @@ export class CompassView{
         };
 
         this.FeiXing.Startes = this.calcFeiXing(year);
-    }
-
-    afterViewInit(){
-        jQuery(this.rootElement.nativeElement).find('.accordion.compass').accordion()
-
+        
         this.Rotation = 0
         this.changeRotation(0)
 
         this.Opacity = 0.0;
         this.changeOpacity(0.0)
+    }
+
+    afterViewInit(){
+        jQuery(this.rootElement.nativeElement).find('.accordion.compass').accordion()
     }
 
     CloseCompass(){

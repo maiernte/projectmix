@@ -22,6 +22,8 @@ import {PaiLiuyao} from 'client/liuyao/paiLiuyao';
 import {PaiBazi} from 'client/bazi/paiBazi';
 import {CalendarPage} from 'client/calendar/calendarPage'
 import {CompassPage} from 'client/compass/compassPage'
+import {BookMarket} from 'client/books/bookmarket'
+import {BookComponent} from 'client/books/bookcomponent'
 
 import {TranslatePipe} from './allgemein/translatePipe'
 import {GlobalSetting} from  './globalsetting'
@@ -42,6 +44,8 @@ declare var jQuery;
     {path: '/calendar', as: 'Calendar', component: CalendarPage},
     {path: '/compass', as: 'Compass', component: CompassPage},
     {path: '/setting', as: 'Setting', component: AppSetting},
+    {path: '/books/...', as: 'Books', component: BookComponent},
+    {path: '/user', as: 'User', component: AppSetting},
 ])
 class HuaheApp {
     router: Router;

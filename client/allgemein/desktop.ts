@@ -31,8 +31,6 @@ export class Desktop{
     constructor(private router: Router,
                 private routeParams: RouteParams,
                 @Inject(GlobalSetting) glsetting: GlobalSetting){
-        //let s = new Gan(1);
-        //console.log(s.Name, s.WuXing);
 
         this.glsetting = glsetting;
     }
