@@ -7,6 +7,8 @@ import {Router, RouteParams} from 'angular2/router'
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from 'client/globalsetting'
 
+import {Books} from 'collections/books'
+
 @Component({
     selector: "book-edit",
     pipes:[TranslatePipe],
@@ -15,12 +17,21 @@ import {GlobalSetting} from 'client/globalsetting'
 })
 
 export class BookEditor{
+    private book: Book;
+
     constructor(private router: Router,
                 private routeParams: RouteParams,
                 @Inject(GlobalSetting) public glsetting:GlobalSetting) {
     }
     
     onInit(){
-        console.log('BookEditor', this.routeParams)
+        console.log('BookEditor', this.routeParams.params['id'])
+        let id = this.routeParams.params['id']
+        this.book = Books.findOne({_id: id})
+        console.log(this.book)
+    }
+
+    goBack(){
+        this.router.parent.navigate(['./List']);
     }
 }
