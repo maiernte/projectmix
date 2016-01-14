@@ -318,7 +318,7 @@ export class GuaView{
         }
         
         let params = JSON.parse(this.initdata)
-        
+
         return {
             gua: {
                 time: new Date(params['time']),

@@ -13,16 +13,17 @@ declare type Book = {
 
 declare type YiGua = {
     time?: Date,
-    yueri: Array<number>,
-    ben: number,
-    bian: number
+    yueri: Array<string>,
+    ben: string,
+    bian: string
 };
 
 declare type YiBazi = {
     time: Date,
     gender: string,
     place?: string,
-    solartime?: string
+    solartime?: string,
+    bazi: string
 };
 
 // flag = 0 Gua; flag = 1 Bazi

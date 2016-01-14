@@ -6,19 +6,55 @@
         {{'返回' | tran:glsetting.lang}}
     </a>
     {{BookName | tran:glsetting.lang}}
+    <a class="ui basic top right attached large label"
+       style="margin-bottom: 0"
+       (click)="deleteRecords()">
+        <i class="trash outline icon"></i>
+        {{'删除' | tran:glsetting.lang}}
+    </a>
 </div>
 <div class="ui attached segment">
+    <div class="ui accordion">
+        <div class="title">
+            <i class="dropdown icon"></i>
+            {{'筛选过滤' | tran:glsetting.lang}}
+        </div>
+        <div class="content">
+            <p>A dog is a type of domesticated animal.
+                Known for its loyalty and faithfulness,
+                it can be found as a welcome guest in
+                many households across the world.</p>
+        </div>
+    </div>
     <div class="ui items">
-        <div class="middle aligned item" *ng-for="#rd of records">
+        <div class="middle aligned item" *ng-for="#rd of Records">
             <div class="content">
                 <div class="meta">
-                    {{'创建时间：' | tran:glsetting.lang}}
-                    {{rd.modified}}
+                    <input type="checkbox" [(ng-model)]="rd.Checked">
+                    {{rd.Detail}}
                 </div>
                 <div class="description">
-                    {{rd.question}}
+                    <a class="ui mini teal circular label" *ng-if="rd.IsGua">六爻</a>
+                    <a class="ui mini blue circular label" *ng-if="!rd.IsGua">八字</a>
+                    {{rd.Question}}
+                </div>
+                <div class="extra">
+                    {{'创建时间：' | tran:glsetting.lang}}
+                    {{rd.Created}}
+                    <div class="ui divider"></div>
                 </div>
             </div>
         </div>
+
+    </div>
+</div>
+<div class="ui delete record modal">
+    <div class="header">{{'删除记录' | tran:glsetting.lang}}</div>
+    <div class="content">
+        <p>{{'打勾的记录将被永久性删除，所有内容不可恢复。您确认要删除这些记录吗？' | tran:glsetting.lang}}</p>
+    </div>
+    <div class="actions">
+        <div class="ui approve button">{{'是的' | tran:glsetting.lang}}</div>
+        <div class="ui cancel button">{{'再说' | tran:glsetting.lang}}</div>
     </div>
 </div>

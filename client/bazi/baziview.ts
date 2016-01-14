@@ -33,7 +33,6 @@ export class BaziView{
     private shenshas: Array<Object>;
     private liunian: Array<Object>;
     private initParams: Object;
-    private showModel = 3
 
     @Input() initdata:string
     Info = {
@@ -43,6 +42,13 @@ export class BaziView{
         SolarTime: '',
         Title: '',
         Gender: ''
+    }
+
+    ShowItem = {
+        MingJu: true,
+        ShenSha: true,
+        DaYun: true,
+        LiuNian: true
     }
 
     DaYunDetail = {
@@ -60,14 +66,6 @@ export class BaziView{
     calcTitle(gz: GanZhi): string{
         console.log('calcTitle')
         return gz.NaYin;
-    }
-    
-    get ShowModel(){
-        return this.showModel;
-    }
-    
-    set ShowModel(value){
-        this.showModel = parseInt(value.toString());
     }
 
     get ShenShas(){
@@ -174,6 +172,7 @@ export class BaziView{
     
     afterViewInit(){
         jQuery(this.rootElement.nativeElement).find('.accordion.bazi').accordion()
+        jQuery(this.rootElement.nativeElement).find('.accordion.liunian').accordion()
         jQuery(this.rootElement.nativeElement).find('.bazi.mean').popup({on: 'click'})
     }
     
@@ -195,13 +194,19 @@ export class BaziView{
         if(!ques || ques == ''){
             ques = '姓名'
         }
-        
+
+        let bazi = this.Bazi.Y.Name + ' '
+            + this.Bazi.M.Name + ' '
+            + this.Bazi.D.Name + ' '
+            + this.Bazi.T.Name
+
         return {
             bazi: {
                 time: this.initParams['birthday'],
                 gender: this.initParams['gender'],
                 place: this.Info.Place,
-                solartime: this.initParams['code']
+                solartime: this.initParams['code'],
+                bazi: bazi
             },
             question: ques,
             description: '',
