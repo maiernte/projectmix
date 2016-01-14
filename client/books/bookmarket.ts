@@ -42,7 +42,6 @@ export class BookMarket{
     onInit() {
         let hideMenu = true;
         this.showMenu(hideMenu);
-        
         this.loadBooks();
     }
     
@@ -61,7 +60,16 @@ export class BookMarket{
     }
     
     editBook(book: BookView){
-        this.router.parent.navigate(['./EditBook', {id: book.Id}])
+        if(book){
+            this.router.parent.navigate(['./EditBook', {id: book.Id}])
+        }else{
+            this.router.parent.navigate(['./EditBook', {id: null}])
+        }
+    }
+    
+    openBook(book: BookView){
+        let bookid = book.Id ? book.Id : ''
+        this.router.parent.navigate(['./BookContent', {id: bookid}])
     }
     
     private loadBooks(){
@@ -105,6 +113,12 @@ class BookView{
         return this.book.description;
     }
     
+    get Author(){
+        let res = this.book.author ? this.book.author : '';
+        res = res.trim();
+        return res == '' ? '当前用户' : res;
+    }
+    
     get IsCloud(){
         return this.book._id != null;
     }
@@ -121,27 +135,6 @@ class BookView{
     get Modified(){
         let date = this.book.modified ? new Date(this.book.modified) : new Date(Date.now())
         return this.toChina(date);
-    }
-    
-    createNewBook(){
-        //     declare type Book = {
-        //     _id?: string,
-        //     name: string,
-        //     description?: string,
-        //     icon?: string,
-        //     owner?: string,
-        //     readpermission: number,
-        //     writepermission: number,
-        //     author?: string,
-        //     created: number,
-        //     modified: number,
-        // }
-        
-        // Parties.insert({
-        //     name: party.name,
-        //     description: party.description,
-        //     location: party.location
-        // });
     }
     
     private toChina(d: Date): string{

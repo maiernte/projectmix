@@ -28,7 +28,9 @@
                     {{'快照' | tran:glsetting.lang}}
                 </div>
             </div>
-            <div class="ui animated vertical button item" *ng-if='CanSave'>
+            <div class="ui animated vertical button item" 
+                *ng-if='CanSave'
+                (click)="showSaveModal()">
                 <div class="visible content">
                     <i class="icon save"></i>
                 </div>
@@ -45,6 +47,19 @@
                 </div>
             </div>
             
+        </div>
+    </div>
+    
+    <div class="ui modal save pan">
+        <div class="header">{{'保存记录' | tran:glsetting.lang}}</div>
+        <div class="content">
+            <p>{{'点击“本地记录”按钮，可直接将此卦例/八字保存到“本地记录”书籍中。' | tran:glsetting.lang}}</p>
+            <p>{{'如需保存到其它书集，请先点击相应按钮，然后从主菜单中转到“书集”页面，打开书籍，最后添加到相应章节中去。' | tran:glsetting.lang}}</p>
+        </div>
+        <div class="actions">
+            <div class="ui approve button" (click)='saveTo(0)'>{{'本地记录' | tran:glsetting.lang}}</div>
+            <div class="ui approve button" (click)='saveTo(1)'>{{'其它书集' | tran:glsetting.lang}}</div>
+            <div class="ui cancel button">{{'取消操作' | tran:glsetting.lang}}</div>
         </div>
     </div>
 </div>

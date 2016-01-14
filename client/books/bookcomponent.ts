@@ -6,6 +6,7 @@ import {RouterOutlet, RouteConfig} from 'angular2/router'
 
 import {BookMarket} from './bookmarket'
 import {BookEditor} from './editbook'
+import {BookContent} from './bookcontent'
 
 @Component({
     template: `<router-outlet></router-outlet>`,
@@ -14,6 +15,7 @@ import {BookEditor} from './editbook'
 @RouteConfig([
     {path: '/', as: 'List', component: BookMarket},
     {path: '/editbook:id', as: 'EditBook', component: BookEditor},
+    {path: '/book:id', as: 'BookContent', component: BookContent},
 ])
 export class BookComponent{
     

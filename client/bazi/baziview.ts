@@ -1,5 +1,6 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 /// <reference path="../../typings/global.d.ts" />
+/// <reference path="../../typings/book.d.ts" />
 
 import {Component, Inject, Input, NgFor, ElementRef, AfterViewInit} from 'angular2/angular2'
 
@@ -171,6 +172,11 @@ export class BaziView{
         this.paiBazi(this.initParams);
     }
     
+    afterViewInit(){
+        jQuery(this.rootElement.nativeElement).find('.accordion.bazi').accordion()
+        jQuery(this.rootElement.nativeElement).find('.bazi.mean').popup({on: 'click'})
+    }
+    
     Recalc(hours: number){
         if(typeof this.initParams['birthday'] == 'string'){
             let text = this.initParams['birthday']
@@ -183,12 +189,29 @@ export class BaziView{
         
         this.paiBazi(this.initParams);
     }
-
-    afterViewInit(){
-        jQuery(this.rootElement.nativeElement).find('.accordion.bazi').accordion()
-        jQuery(this.rootElement.nativeElement).find('.bazi.mean').popup({on: 'click'})
-    }
     
+    exportAsRecord(): YiRecord{
+        let ques = this.Info.Name;
+        if(!ques || ques == ''){
+            ques = '姓名'
+        }
+        
+        return {
+            bazi: {
+                time: this.initParams['birthday'],
+                gender: this.initParams['gender'],
+                place: this.Info.Place,
+                solartime: this.initParams['code']
+            },
+            question: ques,
+            description: '',
+            owner: null,
+            feedback: false,
+            created: Date.now(),
+            modified: Date.now(),
+        }
+    }
+
     private paiBazi(params){
         //let params = JSON.parse(this.initdata)
 

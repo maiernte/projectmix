@@ -1,4 +1,6 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
+/// <reference path="../../typings/book.d.ts" />
+
 import {Component, Inject, Input, NgFor, ElementRef, AfterViewInit} from 'angular2/angular2'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
@@ -307,6 +309,30 @@ export class GuaView{
         setTimeout(function(){
             dom.find('.gua.mean').popup({on: 'click'})
         }, 2000);*/
+    }
+    
+    exportAsRecord(): YiRecord{
+        let ques = this.Info.question;
+        if(!ques || ques == ''){
+            ques = '问念'
+        }
+        
+        let params = JSON.parse(this.initdata)
+        
+        return {
+            gua: {
+                time: new Date(params['time']),
+                yueri: [this.Gua.Yue.Name, this.Gua.Ri.Name],
+                ben: this.Gua.Ben.Name,
+                bian: this.Gua.Bian.Name
+            },
+            question: ques,
+            description: '',
+            owner: null,
+            feedback: false,
+            created: Date.now(),
+            modified: Date.now(),
+        }
     }
 
     private tran(txt): string{

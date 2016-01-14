@@ -1,0 +1,24 @@
+<div class="ui top attached segment"
+     style="text-align: center" >
+    <a class="ui basic top left attached large label" style="margin-bottom: 0"
+       (click)="goBack()">
+        <i class="angle left icon"></i>
+        {{'返回' | tran:glsetting.lang}}
+    </a>
+    {{BookName | tran:glsetting.lang}}
+</div>
+<div class="ui attached segment">
+    <div class="ui items">
+        <div class="middle aligned item" *ng-for="#rd of records">
+            <div class="content">
+                <div class="meta">
+                    {{'创建时间：' | tran:glsetting.lang}}
+                    {{rd.modified}}
+                </div>
+                <div class="description">
+                    {{rd.question}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

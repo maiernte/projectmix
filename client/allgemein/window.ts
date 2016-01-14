@@ -17,6 +17,8 @@ import {GuaView} from '../liuyao/guaview'
 import {BaziView} from '../bazi/baziview'
 import {CompassView} from '../compass/compass'
 
+import {LocalRecords} from 'collections/books'
+
 declare var jQuery:any;
 
 @Component({
@@ -81,11 +83,35 @@ export class TyWindow {
 				this.glsetting.SaveCanva2Disk(canva, filename)
 			})
 	}
+	
+	showSaveModal(){
+		jQuery('.modal.save.pan')
+        .modal({
+            closable  : false,
+            onDeny    : function(){
+            },
+            onApprove : (ele) => {
+            }
+        })
+        .modal('show')
+	}
+	
+	saveTo(flag){
+		let record: YiRecord;
+		if(this.guaview) record = this.guaview.exportAsRecord()
+		if(this.baziview) record = this.baziview.exportAsRecord()
+		
+		if(record && flag == 0){
+			console.log('saveTo local record', record)
+			LocalRecords.insert(record, (err, id) => {
+				console.log("insert callback", err, id)
+			})
+		}else{
+			console.log('copy to clipbord')
+		}
+	}
 
 	onInit(){
-		//let v = jQuery(this.elementRef.nativeElement)
-		//v.find('.ui.accordion').accordion();
-		//v.find('.ui.element').popup({on:'click'})
 		this.IsReady = false;
 	}
 

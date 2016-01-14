@@ -1,8 +1,11 @@
-import {Books} from 'collections/books'
+import {Books, LocalRecords} from 'collections/books'
 
 export function loadBooks() {
-    if (Books.find().count() === 0) {
- 
+    Books.find();
+    LocalRecords.find();
+    
+    /*if (Books.find().count() === 0) {
+    
     var books = [
         {
             'name': '六爻卦集',
@@ -28,5 +31,5 @@ export function loadBooks() {
     }catch(err){
         console.log('Fehler bei loadBooks', err)
     }
-  }
+    }*/
 };

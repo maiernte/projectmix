@@ -9,7 +9,7 @@
             </div>
         </div>
         
-        <div class="ui basic button item">
+        <div class="ui basic button item" (click)="editBook()">
             {{'创建新书' | tran:glsetting.lang}}
         </div>
     </div>
@@ -33,12 +33,17 @@
                   </p>
                 </div>
                 <div class="description">
-                {{book.Desc | tran:glsetting.lang}}
+                    {{book.Desc | tran:glsetting.lang}}
                 </div>
+                
+            </div>
+            <div class="extra content">
+               作者：{{book.Author | tran:glsetting.lang}}
             </div>
             <div class="ui bottom attached menu">
                 <div class="compact ui blue basic button item"
-                    style="padding-top:0;padding-bottom:0;margin-left:2px">
+                    style="padding-top:0;padding-bottom:0;margin-left:2px"
+                    (click)="openBook(book)">
                     <i class="folder open outline icon"></i>
                     {{'打开' | tran:glsetting.lang}}
                 </div>
@@ -56,7 +61,6 @@
                     <i class="trash outline icon"></i>
                     {{'删除' | tran:glsetting.lang}}
                 </div>
-                
             </div>
         </div>
     </div>
