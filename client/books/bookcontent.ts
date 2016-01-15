@@ -109,15 +109,23 @@ class RecordView{
     get Question(){
         return this.rd.question;
     }
+    
+    get Feed(){
+        return this.rd.feed;
+    }
 
     get Detail(){
-        if(this.rd.gua){
-            let g = this.rd.gua;
-            let name = g.ben == g.bian ? g.ben : g.ben + '之' + g.bian
-            return g.yueri[0] + '月' + g.yueri[1] + '日 / ' + name
-        }else if(this.rd.bazi){
-            let items = this.rd.bazi.bazi.split(' ')
-            return items.join(' / ')
+        try{
+            if(this.rd.gua){
+                let g = this.rd.gua;
+                let name = g.ben == g.bian ? g.ben : g.ben + '之' + g.bian
+                return g.yueri[0] + '月' + g.yueri[1] + '日 / ' + name
+            }else if(this.rd.bazi){
+                let items = this.rd.bazi.bazi.split(' ')
+                return items.join(' / ')
+            }
+        }catch(err){
+            return ''
         }
     }
 

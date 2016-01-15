@@ -211,7 +211,7 @@ export class BaziView{
             question: ques,
             description: '',
             owner: null,
-            feedback: false,
+            feed: false,
             created: Date.now(),
             modified: Date.now(),
         }
@@ -235,9 +235,9 @@ export class BaziView{
 
         this.Info.SolarTime = date.toChinaString(true);
         this.Bazi = new Bazi(date, params['gender'])
-        this.Info.Title = this.Bazi.Y.Name + ' ' +
-                            this.Bazi.M.Name + ' ' +
-                            this.Bazi.D.Name + ' ' +
+        this.Info.Title = this.Bazi.Y.Name + ' / ' +
+                            this.Bazi.M.Name + ' / ' +
+                            this.Bazi.D.Name + ' / ' +
                             this.Bazi.T.Name
 
         this.Info.Gender = params['gender'] == 'm' ? '乾造' : '坤造'

@@ -141,7 +141,7 @@ export class Bazi{
             }
         }
 
-        return res.join(', ')
+        return res.join('、')
     }
 
     CalcLiuNian(start: number, end: number): Array<BaziYun>{

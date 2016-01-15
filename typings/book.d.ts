@@ -15,7 +15,8 @@ declare type YiGua = {
     time?: Date,
     yueri: Array<string>,
     ben: string,
-    bian: string
+    bian: string,
+    type: string
 };
 
 declare type YiBazi = {
@@ -35,7 +36,7 @@ declare type YiRecord = {
     question: string,
     description?: string,
     owner?: string,
-    feedback: boolean,
+    feed: boolean,
     created: number,
     modified: number,
 }

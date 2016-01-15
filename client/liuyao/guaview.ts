@@ -304,11 +304,6 @@ export class GuaView{
     afterViewInit(){
         jQuery(this.rootElement.nativeElement).find('.accordion.question').accordion()
         jQuery(this.rootElement.nativeElement).find('.gua.mean').popup({on: 'click'})
-
-        /*let dom = jQuery(this.rootElement.nativeElement)
-        setTimeout(function(){
-            dom.find('.gua.mean').popup({on: 'click'})
-        }, 2000);*/
     }
     
     exportAsRecord(): YiRecord{
@@ -324,12 +319,13 @@ export class GuaView{
                 time: new Date(params['time']),
                 yueri: [this.Gua.Yue.Name, this.Gua.Ri.Name],
                 ben: this.Gua.Ben.Name,
-                bian: this.Gua.Bian.Name
+                bian: this.Gua.Bian.Name,
+                type: params['type']
             },
             question: ques,
             description: '',
             owner: null,
-            feedback: false,
+            feed: false,
             created: Date.now(),
             modified: Date.now(),
         }

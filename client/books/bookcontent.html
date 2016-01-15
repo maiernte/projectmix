@@ -20,12 +20,10 @@
             {{'筛选过滤' | tran:glsetting.lang}}
         </div>
         <div class="content">
-            <p>A dog is a type of domesticated animal.
-                Known for its loyalty and faithfulness,
-                it can be found as a welcome guest in
-                many households across the world.</p>
+            <p></p>
         </div>
     </div>
+    
     <div class="ui items">
         <div class="middle aligned item" *ng-for="#rd of Records">
             <div class="content">
@@ -41,11 +39,11 @@
                 <div class="extra">
                     {{'创建时间：' | tran:glsetting.lang}}
                     {{rd.Created}}
+                    <i class="bookmark icon" [class.green]="rd.Feed"></i>
                     <div class="ui divider"></div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 <div class="ui delete record modal">

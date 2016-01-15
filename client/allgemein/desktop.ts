@@ -23,16 +23,12 @@ declare var jQuery:any;
 })
 
 export class Desktop{
-    frameList: Array<Object>;
-    glsetting: GlobalSetting;
-    
+    private static frameList: Array<Object>;
     private static showTips: boolean;
     
     constructor(private router: Router,
                 private routeParams: RouteParams,
-                @Inject(GlobalSetting) glsetting: GlobalSetting){
-
-        this.glsetting = glsetting;
+                @Inject(GlobalSetting) public glsetting: GlobalSetting){
     }
     
     get ShowTips(){
@@ -48,6 +44,10 @@ export class Desktop{
         this.glsetting.SetValue('desktop-tip', !value)
     }
     
+    get FrameList(){
+        return Desktop.frameList;
+    }
+    
     showMenu(hide){
         //jQuery(document).find('.ui.labeled.sidebar').sidebar('toggle');
         if(hide === true){
@@ -59,8 +59,9 @@ export class Desktop{
     
     addWindow(type){
         //this.router.parent.navigate(['/PaiBazi'])
-        for(let f of this.frameList){
-            if(f['type'] == type){
+        for(let f of Desktop.frameList){
+            let singletone = f['type'] == 'compass' || f['type'] == 'calendar'
+            if(f['type'] == type && singletone){
                 return;
             }
         }
@@ -70,24 +71,32 @@ export class Desktop{
             id: type,
         }
         
-        this.frameList.push(frame);
+        Desktop.frameList.push(frame);
     }
 
     oncloseWind(windowID){
-        for(let idx = 0; idx < this.frameList.length; idx++){
-            let frame = this.frameList[idx];
+        for(let idx = 0; idx < Desktop.frameList.length; idx++){
+            let frame = Desktop.frameList[idx];
             if(frame['id'] == windowID){
-                this.frameList.splice(idx, 1);
+                Desktop.frameList.splice(idx, 1);
                 return;
             }
         }
     }
 
     onInit(){
-        this.frameList = [];
+        if(!Desktop.frameList){
+            Desktop.frameList = new Array<Object>();
+        }
+        
         let hideMenu = true;
         this.showMenu(hideMenu);
         
+        this.initMessage();
+        this.buildChildWindows(this.routeParams.params)
+    }
+    
+    private initMessage(){
         jQuery('.message .close')
           .on('click', function() {
             jQuery(this)
@@ -99,29 +108,30 @@ export class Desktop{
         if(Desktop.showTips == undefined){
             Desktop.showTips = this.glsetting.GetSetting('desktop-tip');
             if(Desktop.showTips == false){
-                console.log("message should not showed")
                 jQuery('.message .close')
                     .closest('.message')
                     .transition('fade')
             }
         }
-
-        if(this.routeParams.params['flag'] == 'gua'){
+    }
+    
+    private buildChildWindows(params){
+        if(params['flag'] == 'gua'){
             var frame = {
                 type: 'gua',
                 id: 'U' + this.glsetting.GUID,
-                data: JSON.stringify(this.routeParams.params)
+                data: JSON.stringify(params)
             }
 
-            this.frameList.push(frame);
-        }else if(this.routeParams.params['flag'] == 'bazi'){
+            Desktop.frameList.push(frame);
+        }else if(params['flag'] == 'bazi'){
             var frame = {
                 type: 'bazi',
                 id: 'U' + this.glsetting.GUID,
-                data: JSON.stringify(this.routeParams.params)
+                data: JSON.stringify(params)
             }
 
-            this.frameList.push(frame);
+            Desktop.frameList.push(frame);
         }
     }
 }
