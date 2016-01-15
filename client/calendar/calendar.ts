@@ -1,5 +1,6 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
-import {Component, Inject, NgFor} from 'angular2/angular2'
+import {Component, Inject} from 'angular2/core'
+import {NgFor} from 'angular2/common'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
@@ -209,7 +210,7 @@ export class CalendarView {
         this.BadDay = temp.trim();
     }
     
-    onInit(){
+    ngOnInit(){
         let date = new Date(Date.now());
         this.SelectedDate = moment().format('YYYY-MM-DD');
         this.NlSearch={

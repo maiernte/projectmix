@@ -60,7 +60,7 @@
                 <div class="ui items">
                     <div class='item'>
                         <div class="ui tiny image">
-                            <img [src]="ImgUrl"></img>
+                            <img [src]="ImgUrl"/>
                         </div>
                         <div class="content">
                             {{'三个铜钱或者五角硬币。也可以用别的圆形硬币代替，要求硬币的两面，其花纹的大小区别明显。花纹大且复杂的一面为阴面，小且简单的为阳面。' | tran:glsetting.lang}}
@@ -70,7 +70,7 @@
                  </div>
                 <div class="required field">
                     <div class="ui checkbox">
-                        <input type="checkbox" [(ng-model)]='DeskChecked'>
+                        <input type="checkbox" [(ngModel)]='DeskChecked'>
                         <label>{{'一个平整的硬质桌面' | tran:glsetting.lang}}</label>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
                     <label>{{'问念' | tran:glsetting.lang}}</label>
                     <div class="ui fluid input">
                       <input type="text" 
-                            [(ng-model)]='Question'
+                            [(ngModel)]='Question'
                             placeholder="心中默念所问之事。然后填入此处。">
                     </div>
                 </div>

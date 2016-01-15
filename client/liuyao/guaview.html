@@ -24,9 +24,9 @@
         </div>
     </div>
 
-    <div class="ui equal width grid" *ng-for="#sslist of ShenShas; #row=index"
+    <div class="ui equal width grid" *ngFor="#sslist of ShenShas; #row=index"
         style="margin-left: 5px;">
-        <div class="column" *ng-for="#ss of sslist"
+        <div class="column" *ngFor="#ss of sslist"
              [style.padding-top]="row > 0 ? 0 : null"
              style="padding-left: 0px;padding-right: 0px;padding-bottom: 0px;">
             {{ss | tran:glsetting.lang}}
@@ -68,7 +68,7 @@
         </div>
     </div>
 
-    <div *ng-for="#i of [5,4,3,2,1,0]" class="ui grid">
+    <div *ngFor="#i of [5,4,3,2,1,0]" class="ui grid">
         <div class="four wide column">
             <div class="ui grid">
                 <div class="six wide column"
@@ -96,7 +96,7 @@
             <img [src]="ShiYing[i]">
         </div>
         <div class="five wide column gua mean"
-             *ng-if="HasBianGua"
+             *ngIf="HasBianGua"
              [attr.data-content]="Bianyaos[i].info"
              style="padding:0;">
             {{Bianyaos[i].Text | tran:glsetting.lang}}
@@ -110,7 +110,7 @@
             <div class="inline field">
                 <label>{{'每行显示神煞数:' | tran:glsetting.lang}}</label>
                 <select class="ui fluid dropdown"
-                        [(ng-model)]="shenshaColumnCount">
+                        [(ngModel)]="shenshaColumnCount">
                     <option value="4">四</option>
                     <option value="5">五</option>
                     <option value="6">六</option>
@@ -120,7 +120,7 @@
             <div class="inline field">
                 <label>{{'卦爻显示方式:' | tran:glsetting.lang}}</label>
                 <select class="ui fluid dropdown"
-                        [(ng-model)]="simpleShow">
+                        [(ngModel)]="simpleShow">
                     <option value="f">{{'全排' | tran:glsetting.lang}}</option>
                     <option value="s">{{'简排' | tran:glsetting.lang}}</option>
                 </select>

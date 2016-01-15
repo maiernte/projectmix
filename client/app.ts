@@ -1,11 +1,11 @@
 /// <reference path="../typings/angular2-meteor.d.ts" />
-/// <reference path="../typings/angular2/router.d.ts" />
+/// <reference path="../typings/angular2.d.ts" />
 
 import {Component,
-        FORM_PROVIDERS,
         Inject,
         provide,
-        AfterViewInit} from 'angular2/angular2';
+        AfterViewInit} from 'angular2/core';
+import {FORM_DIRECTIVES} from  'angular2/common'
 import {bootstrap} from 'angular2-meteor';
 import {
         Router,
@@ -55,6 +55,8 @@ class HuaheApp {
     constructor(@Inject(Router) router: Router,
                 @Inject(Location) location: Location,
                 @Inject(GlobalSetting) glsetting: GlobalSetting){
+        console.log('App constructor')
+
         this.router = router;
         this.location = location;
         this.glsetting = glsetting;
@@ -67,8 +69,3 @@ class HuaheApp {
 
 //bootstrap(HuaheApp)
 bootstrap(HuaheApp, [ROUTER_PROVIDERS, provide(LocationStrategy, { useClass: HashLocationStrategy }), GlobalSetting]);
-
-/*
-Meteor.startup(function(){
-    console.log('meteor startup')
-})*/

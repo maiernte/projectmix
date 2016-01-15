@@ -1,7 +1,7 @@
 <div class="ui small form">
     <h5 class="ui dividing header">{{'起卦时间: ' | tran:glsetting.lang}}
         <div class="ui toggle checkbox">
-            <input type="checkbox" [(ng-model)]="GanZhiModel">
+            <input type="checkbox" [(ngModel)]="GanZhiModel">
             <label>{{'公历/干支 - 模式' | tran:glsetting.lang}}</label>
         </div>
     </h5>
@@ -11,14 +11,14 @@
                 <label>{{'日期' | tran:glsetting.lang}}</label>
                 <input type="date"
                        lang="zh"
-                       [(ng-model)]='InputTime.Date'
+                       [(ngModel)]='InputTime.Date'
                        id='paigua-datepicker'>
             </div>
             <div class="eight field">
                 <label>{{'时辰' | tran:glsetting.lang}}</label>
                 <input type="time"
                        lang="zh"
-                       [(ng-model)]='InputTime.Time'
+                       [(ngModel)]='InputTime.Time'
                        id='paigua-timepicker'>
             </div>
         </div>
@@ -27,14 +27,14 @@
         <div class="fields">
             <div class="eight field">
                 <label>{{'月令' | tran:glsetting.lang}}</label>
-                <select class="ui fluid dropdown" [(ng-model)]='InputTime.Yue'>
-                    <option *ng-for="#m of GanZhiNamesFull" [value]="m">{{m}}</option>
+                <select class="ui fluid dropdown" [(ngModel)]='InputTime.Yue'>
+                    <option *ngFor="#m of GanZhiNamesFull" [value]="m">{{m}}</option>
                 </select>
             </div>
             <div class="eight field">
                 <label>{{'日令' | tran:glsetting.lang}}</label>
-                <select class="ui fluid dropdown"  [(ng-model)]='InputTime.Ri'>
-                    <option *ng-for="#d of GanZhiNames" [value]="d">{{d}}</option>
+                <select class="ui fluid dropdown"  [(ngModel)]='InputTime.Ri'>
+                    <option *ngFor="#d of GanZhiNames" [value]="d">{{d}}</option>
                 </select>
             </div>
         </div>

@@ -15,10 +15,10 @@
     </div>
     
     <div class="ui cards" style="padding-top:5px">
-        <div class="card" *ng-for="#book of Books">
+        <div class="card" *ngFor="#book of Books">
             <a class="ui basic right corner label">
-                <i class="cloud icon" *ng-if="book.IsCloud"></i>
-                <i class="inbox icon" *ng-if="!book.IsCloud"></i>
+                <i class="cloud icon" *ngIf="book.IsCloud"></i>
+                <i class="inbox icon" *ngIf="!book.IsCloud"></i>
             </a>
             <div class="content">
                 <div class="header">{{book.Name | tran:glsetting.lang}}</div>
@@ -49,14 +49,14 @@
                 </div>
                 <div class="compact ui blue basic button item"
                     style="padding-top:0;padding-bottom:0;"
-                    *ng-if="book.Editable"
+                    *ngIf="book.Editable"
                     (click)="editBook(book)">
                     <i class="write icon"></i>
                     {{'编辑' | tran:glsetting.lang}}
                 </div>
                 <div class="compact ui blue basic button item"
                     style="padding-top:0;padding-bottom:0"
-                    *ng-if="book.Editable"
+                    *ngIf="book.Editable"
                     (click)="deleteBook(book)">
                     <i class="trash outline icon"></i>
                     {{'删除' | tran:glsetting.lang}}

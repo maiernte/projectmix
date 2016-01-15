@@ -1,5 +1,6 @@
 /// <reference path="../../../typings/angular2-meteor.d.ts" />
-import {Component, Input, FORM_DIRECTIVES} from 'angular2/angular2'
+import {Component, Input} from 'angular2/core'
+import {FORM_DIRECTIVES} from 'angular2/common'
 
 @Component({
     selector: 'pailiuyao-coins',
@@ -50,6 +51,6 @@ export class PailiuyaoCoins{
         return this.Coin2;
     }
 
-    onInit(){
+    ngOnInit(){
     }
 }

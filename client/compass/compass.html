@@ -87,13 +87,13 @@
                     <div class="ui button" (click)="UnloadImage()">
                         {{'清除' | tran:glsetting.lang}}
                     </div>
-                    <div class="ui button" *ng-if="IsCordova"
+                    <div class="ui button" *ngIf="IsCordova"
                         (click)="LoadImage()">
                         {{'图片' | tran:glsetting.lang}}
                     </div>
                 </div>
                 <input type="file" accept="image/*"
-                       *ng-if="!IsCordova"
+                       *ngIf="!IsCordova"
                        (change)="LoadImage($event)"
                         style="padding-left: 0;padding-right: 0"/>
             </div>
@@ -114,14 +114,14 @@
             <circle cx="500" cy="500" r="475" style="padding:0;margin:0;stroke:#000000;fill:#FFFFFF;fill-opacity:0" />
 
             <!--细刻度-->
-            <g *ng-for="#i of Degreed" [style.opacity]="1 - Opacity">
+            <g *ngFor="#i of Degreed" [style.opacity]="1 - Opacity">
                 <line x1="500" y1="25" x2="500" y2="40"
                       style="stroke-width:1;stroke:gray"
                       [attr.transform]="'rotate(' + i + ', 500,500)'" />
             </g>
 
             <!--大刻度-->
-            <g *ng-for="#i of DegreedX" [style.opacity]="1 - Opacity">
+            <g *ngFor="#i of DegreedX" [style.opacity]="1 - Opacity">
                 <line x1="500" y1="25" x2="500" y2="45"
                       style="stroke-width:2;stroke:black"
                       [attr.transform]="'rotate(' + i + ', 500,500)'" />
@@ -133,11 +133,10 @@
             <circle cx="500" cy="500" r="450"
                     style="padding:0;margin:0;stroke:#006600;fill:#FFFFFF;fill-opacity:0"/>
 
-            <g [ng-switch]="PanType"
-                [attr.transform]="'rotate(' + Rotation + ' 500 500)'"
+            <g [attr.transform]="'rotate(' + Rotation + ' 500 500)'"
                [style.opacity]="1 - Opacity">
                 <!--干支罗盘-->
-                <g *ng-switch-when="'z'">
+                <g *ngIf="PanType == 'z'">
                     <path d="M500 500 L889.711 275.000 A 450 450 0 0 1 950.000 500.000 L500 500" style="stroke:gray;fill:lightgray" id="sector-360"></path>
                     <path d="M500 500 L950.000 500.000 A 450 450 0 0 1 889.711 725.000 L500 500" style="stroke:gray;fill:Gainsboro" id="sector-30"></path>
                     <path d="M500 500 L889.711 725.000 A 450 450 0 0 1 725.000 889.711 L500 500" style="stroke:gray;fill:Moccasin" id="sector-60"></path>
@@ -190,7 +189,7 @@
                 </g>
 
                 <!--二十四山-->
-                <g *ng-switch-when="'t'">
+                <g *ngIf="PanType == 't'">
                     <circle cx="500" cy="500" r="350" style="padding:0;margin:0;stroke:gray;fill:#FFFFFF" />
                     <circle cx="500" cy="500" r="250" style="padding:0;margin:0;stroke:gray;fill:#FFFFFF" />
 
@@ -261,7 +260,7 @@
                 </g>
 
                 <!--九宫飞星-->
-                <g *ng-switch-when="'f'">
+                <g *ngIf="PanType == 'f'">
                     <line x1="182" y1="182" x2="818" y2="182" style="stroke-width:2;stroke:black"></line>
                     <line x1="182" y1="394" x2="818" y2="394" style="stroke-width:2;stroke:black"></line>
                     <line x1="182" y1="606" x2="818" y2="606" style="stroke-width:2;stroke:black"></line>
@@ -272,22 +271,22 @@
                     <line x1="606" y1="182" x2="606" y2="818" style="stroke-width:2;stroke:black"></line>
                     <line x1="818" y1="182" x2="818" y2="818" style="stroke-width:2;stroke:black"></line>
 
-                    <text x="202" y="222" style="font-weight:bold;font-size:40px;">{{'乾' | tran:glsetting.lang}}</text>
-                    <text x="414" y="222" style="font-weight:bold;font-size:40px;">{{'坎' | tran:glsetting.lang}}</text>
-                    <text x="626" y="222" style="font-weight:bold;font-size:40px;">{{'艮' | tran:glsetting.lang}}</text>
-                    <text x="626" y="434" style="font-weight:bold;font-size:40px;">{{'震' | tran:glsetting.lang}}</text>
+                    <text x="202" y="222" style="font-weight:bold;font-size:40px;">乾</text>
+                    <text x="414" y="222" style="font-weight:bold;font-size:40px;">坎</text>
+                    <text x="626" y="222" style="font-weight:bold;font-size:40px;">艮</text>
+                    <text x="626" y="434" style="font-weight:bold;font-size:40px;">震</text>
                     <text x="202" y="434" style="font-weight:bold;font-size:40px;">{{'兑' | tran:glsetting.lang}}</text>
-                    <text x="202" y="646" style="font-weight:bold;font-size:40px;">{{'坤' | tran:glsetting.lang}}</text>
+                    <text x="202" y="646" style="font-weight:bold;font-size:40px;">坤</text>
                     <text x="414" y="646" style="font-weight:bold;font-size:40px;">{{'离' | tran:glsetting.lang}}</text>
-                    <text x="626" y="646" style="font-weight:bold;font-size:40px;">{{'巽' | tran:glsetting.lang}}</text>
+                    <text x="626" y="646" style="font-weight:bold;font-size:40px;">巽</text>
 
-                    <text x="202" y="272" fill="gray" style="font-weight:bold;font-size:40px;">{{'艮' | tran:glsetting.lang}}</text>
-                    <text x="414" y="272" fill="gray" style="font-weight:bold;font-size:40px;">{{'坤' | tran:glsetting.lang}}</text>
-                    <text x="626" y="272" fill="gray" style="font-weight:bold;font-size:40px;">{{'震' | tran:glsetting.lang}}</text>
-                    <text x="202" y="484" fill="gray" style="font-weight:bold;font-size:40px;">{{'坎' | tran:glsetting.lang}}</text>
+                    <text x="202" y="272" fill="gray" style="font-weight:bold;font-size:40px;">艮</text>
+                    <text x="414" y="272" fill="gray" style="font-weight:bold;font-size:40px;">坤</text>
+                    <text x="626" y="272" fill="gray" style="font-weight:bold;font-size:40px;">震</text>
+                    <text x="202" y="484" fill="gray" style="font-weight:bold;font-size:40px;">坎</text>
                     <text x="626" y="484" fill="gray" style="font-weight:bold;font-size:40px;">{{'离' | tran:glsetting.lang}}</text>
-                    <text x="202" y="696" fill="gray" style="font-weight:bold;font-size:40px;">{{'巽' | tran:glsetting.lang}}</text>
-                    <text x="414" y="696" fill="gray" style="font-weight:bold;font-size:40px;">{{'乾' | tran:glsetting.lang}}</text>
+                    <text x="202" y="696" fill="gray" style="font-weight:bold;font-size:40px;">巽</text>
+                    <text x="414" y="696" fill="gray" style="font-weight:bold;font-size:40px;">乾</text>
                     <text x="626" y="696" fill="gray" style="font-weight:bold;font-size:40px;">{{'兑' | tran:glsetting.lang}}</text>
 
                     <text x="232" y="322" style="font-weight:bold;font-size:30px;">{{FeiXing.Startes[5] | tran:glsetting.lang}}</text>
@@ -311,7 +310,7 @@
             </g>
 
             <!--指南针-->
-            <g *ng-if="RotateType == 'n'"
+            <g *ngIf="RotateType == 'n'"
                [attr.transform]="'rotate(' + Needle.Angle + ' 500 500)'">
                 <path d="M498 500 L498 75 L485 85 L500 50 L515 85 L502 75 L502 500 L489 500" style="stroke:darkred;fill:darkred"></path>
                 <path d="M498 500 L498 925 L485 915 L500 950 L515 915 L502 925 L502 500 L489 500" style="stroke:GoldenRod;fill:GoldenRod"></path>

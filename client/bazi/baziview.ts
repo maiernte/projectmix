@@ -2,7 +2,8 @@
 /// <reference path="../../typings/global.d.ts" />
 /// <reference path="../../typings/book.d.ts" />
 
-import {Component, Inject, Input, NgFor, ElementRef, AfterViewInit} from 'angular2/angular2'
+import {Component, Inject, Input, ElementRef, AfterViewInit} from 'angular2/core'
+import {NgFor} from 'angular2/common'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
@@ -112,7 +113,7 @@ export class BaziView{
     get LiuNian(){
         if(this.liunian) return this.liunian;
 
-        this.liunian = new Array<Object>();
+        this.liunian = [];
 
         let endDate = this.Bazi.DaYun[0].Start;
 
@@ -165,12 +166,12 @@ export class BaziView{
             .transition('fade up', 1000)
     }
 
-    onInit(){
+    ngOnInit(){
         this.initParams = JSON.parse(this.initdata)
         this.paiBazi(this.initParams);
     }
     
-    afterViewInit(){
+    ngAfterViewInit(){
         jQuery(this.rootElement.nativeElement).find('.accordion.bazi').accordion()
         jQuery(this.rootElement.nativeElement).find('.accordion.liunian').accordion()
         jQuery(this.rootElement.nativeElement).find('.bazi.mean').popup({on: 'click'})
@@ -241,7 +242,7 @@ export class BaziView{
                             this.Bazi.T.Name
 
         this.Info.Gender = params['gender'] == 'm' ? '乾造' : '坤造'
-        this.Main = new Array<GanZhi>();
+        this.Main = [];
         this.Main.push(this.Bazi.Y)
         this.Main.push(this.Bazi.M)
         this.Main.push(this.Bazi.D)
@@ -254,7 +255,7 @@ export class BaziView{
 
     private initMingJu(){
         let gan = this.Bazi.D.Gan;
-        this.MingJu = new Array<Object>();
+        this.MingJu = [];
         for(let gz of this.Main){
             let canggan = gz.Zhi.CGan.map(g => {return g.Name}).join('');
             let shen10 = gz.Zhi.CGan.map(g => {return g.Ref(gan)[1]}).join('');

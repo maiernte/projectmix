@@ -1,5 +1,6 @@
 /// <reference path="../../../typings/angular2-meteor.d.ts" />
-import {Component, Inject, NgFor, ContentChild, AfterContentInit} from 'angular2/angular2'
+import {Component, Inject, ContentChild, AfterContentInit} from 'angular2/core'
+import {NgFor} from 'angular2/common'
 import {TranslatePipe} from '../../allgemein/translatePipe'
 import {GlobalSetting} from  '../../globalsetting'
 
@@ -61,7 +62,7 @@ export class PailiuyaoLeading{
         this.NextStep();
     }
 
-    onInit(){
+    ngOnInit(){
         this.CoinType = 0;
         this.DeskChecked = false;
         this.Question = '';

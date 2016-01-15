@@ -1,7 +1,8 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 /// <reference path="../../typings/book.d.ts" />
 
-import {Component, Inject, NgFor, ElementRef} from 'angular2/angular2'
+import {Component, Inject, ElementRef} from 'angular2/core'
+import {NgFor} from 'angular2/common'
 import {Router, RouteParams} from 'angular2/router'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
@@ -38,7 +39,7 @@ export class BookContent{
         return this.rdviews;
     }
     
-    onInit(){
+    ngOnInit(){
         this.bookid = this.routeParams.params['id']
         if(this.bookid && this.bookid != ''){
             let book = Books.findOne({_id: this.bookid})
@@ -47,7 +48,7 @@ export class BookContent{
             this.bookname = '本地记录'
             this.records = LocalRecords.find({}).fetch().reverse();
 
-            this.rdviews = new Array<RecordView>();
+            this.rdviews = [];
             for(let rd of this.records){
                 let view  = new RecordView(rd);
                 this.rdviews.push(view);

@@ -1,5 +1,6 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
-import {Component, NgFor, Inject} from 'angular2/angular2'
+import {Component, Inject} from 'angular2/core'
+import {NgFor} from 'angular2/common'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
@@ -70,7 +71,7 @@ export class AppSetting{
         }
     }
 
-    onInit(){
+    ngOnInit(){
         this.twlang = this.glsetting.lang ? 'tw' : 'zh';
         this.guaShenSha = this.glsetting.GetSetting('gua-shensha').toString();
         this.guaSimple = this.glsetting.GetSetting('gua-simple') == true ? '1' : '0';

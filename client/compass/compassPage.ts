@@ -1,6 +1,6 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 
-import {Component, Inject} from 'angular2/angular2'
+import {Component, Inject} from 'angular2/core'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
@@ -13,7 +13,7 @@ declare var jQuery:any;
     selector: "compass-page",
     directives: [CompassView],
     pipes:[TranslatePipe],
-    template: `<di>
+    template: `<div>
                 <div class="ui top attached menu">
                     <div class="ui animated fade primary button item" (click)="showMenu()">
                         <div class="visible content">
@@ -42,7 +42,7 @@ export class CompassPage{
         }
     } 
     
-    onInit() {
+    ngOnInit() {
         let hideMenu = true;
         this.showMenu(hideMenu);
     }

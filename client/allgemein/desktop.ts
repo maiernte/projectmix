@@ -1,6 +1,7 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 
-import {Component, NgFor, Inject} from 'angular2/angular2'
+import {Component, Inject} from 'angular2/core'
+import {NgFor} from 'angular2/common'
 import {Router, RouteParams} from 'angular2/router'
 
 import {Gan} from 'lib/base/ganzhi'
@@ -84,9 +85,9 @@ export class Desktop{
         }
     }
 
-    onInit(){
+    ngOnInit(){
         if(!Desktop.frameList){
-            Desktop.frameList = new Array<Object>();
+            Desktop.frameList = [];
         }
         
         let hideMenu = true;

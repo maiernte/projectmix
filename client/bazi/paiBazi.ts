@@ -2,7 +2,8 @@
 /// <reference path="../../typings/moment-node.d.ts" />
 /// <reference path="../../typings/global.d.ts" />
 
-import {Component, Inject, NgFor} from 'angular2/angular2'
+import {Component, Inject} from 'angular2/core'
+import {NgFor} from 'angular2/common'
 import {Router} from 'angular2/router'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
@@ -23,6 +24,7 @@ declare var moment;
 })
 
 export class PaiBazi{
+    private ganzhinames: Array<string>;
     Panel = 'paipan';
 
     solarinfo = '';
@@ -40,9 +42,9 @@ export class PaiBazi{
     }
     CalcSet = {
         Y: '',
-        M: '',
+        M: '丙寅',
         D: '',
-        T: '',
+        T: '甲子',
         y: '',
         d: '',
         currentYear: 2015,
@@ -100,14 +102,20 @@ export class PaiBazi{
     }
 
     get GanZhiNames() {
-        return GanZhi.GanZhiNames;
+        if(!this.ganzhinames){
+            this.ganzhinames = [].concat(GanZhi.GanZhiNames);
+        }
+
+        return this.ganzhinames
     }
 
     get GanZhiNamesM(){
         if(this.CalcSet.y != this.CalcSet.Y || !this.monthCollection){
             this.monthCollection = this.qiganzhi(this.CalcSet.Y, true);
             this.CalcSet.y = this.CalcSet.Y;
-            this.CalcSet.M = this.monthCollection[0]
+            setTimeout(() => {
+                this.CalcSet.M = this.monthCollection[0]
+            }, 500)
         }
 
         return this.monthCollection;
@@ -117,13 +125,19 @@ export class PaiBazi{
         if(this.CalcSet.d != this.CalcSet.D || !this.timeCollection){
             this.timeCollection = this.qiganzhi(this.CalcSet.D, false);
             this.CalcSet.d = this.CalcSet.D;
-            this.CalcSet.T = this.timeCollection[0]
+            setTimeout(() => {
+                this.CalcSet.T = this.timeCollection[0]
+            }, 500)
         }
 
         return this.timeCollection;
     }
+
+    monthcollectionchanged(){
+        console.log("monthcollectionchanged")
+    }
     
-    onInit(){
+    ngOnInit(){
         let hideMenu = true;
         this.showMenu(hideMenu);
 
@@ -137,6 +151,12 @@ export class PaiBazi{
         this.CalcSet.Y = this.GanZhiNames[0];
         this.CalcSet.D = this.GanZhiNames[0];
         this.CalcSet.currentYear = (new Date(Date.now())).getFullYear();
+    }
+
+    ngAfterViewInit(){
+
+        /*this.CalcSet.M = '丙寅'
+        this.CalcSet.T = '甲子'*/
     }
 
     calcNextTime(direction: number){

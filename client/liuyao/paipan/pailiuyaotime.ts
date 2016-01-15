@@ -1,5 +1,6 @@
 /// <reference path="../../../typings/angular2-meteor.d.ts" />
-import {Component, Inject, NgFor, ElementRef} from 'angular2/angular2'
+import {Component, Inject, ElementRef} from 'angular2/core'
+import {NgFor} from 'angular2/common'
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
 import {GanZhi, ZhiNames} from "../../../lib/base/ganzhi";
@@ -17,6 +18,8 @@ declare function moment();
 export class PailiuyaoTime{
     private rootElement: ElementRef;
     private ganzhiModel = false;
+    private ganzhinames: Array<string>;
+    private ganzhinamesfull: Array<string>;
     
     glsetting:GlobalSetting;
     InputTime: Object;
@@ -51,16 +54,23 @@ export class PailiuyaoTime{
             this.showAnimate('paigua-time-gz', 'paigua-time-gl');
         }
     }
-    
+
     get GanZhiNames() {
-        return GanZhi.GanZhiNames;
+        if(!this.ganzhinames){
+            this.ganzhinames = [].concat(GanZhi.GanZhiNames);
+        }
+        return this.ganzhinames;
     }
 
     get GanZhiNamesFull() {
-        return ZhiNames().concat(GanZhi.GanZhiNames)
+        if(!this.ganzhinamesfull){
+            this.ganzhinamesfull = ZhiNames().concat(GanZhi.GanZhiNames);
+        }
+
+        return this.ganzhinamesfull
     }
-    
-    onInit(){
+
+    ngOnInit(){
         let dateText = moment().format('YYYY-MM-DD');
         let timeText = moment().format('HH:mm')
 
@@ -74,6 +84,10 @@ export class PailiuyaoTime{
         //let domTime = jQuery('#paigua-time-gl')
         let domTime = jQuery(this.rootElement.nativeElement).find('#paigua-time-gl')
         this.ganzhiModel = domTime.hasClass('hidden') ? true : false;
+    }
+
+    ngAfterViewInit(){
+        console.log('After pailiuyao time view init')
     }
     
     private showAnimate(outId: string, inId: string){

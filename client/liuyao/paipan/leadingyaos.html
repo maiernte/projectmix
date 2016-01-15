@@ -57,7 +57,7 @@
                 </div>
             </div>
             <div class="item">
-                <div class="middle aligned content" *ng-if="yaoIndex < 6">
+                <div class="middle aligned content" *ngIf="yaoIndex < 6">
                     <p>
                         {{'请再次摇掷铜钱.' | tran:glsetting.lang}}
                     </p>
@@ -70,7 +70,7 @@
                         {{'" 按钮.' | tran:glsetting.lang}}
                     </p>
                 </div>
-                <div class="middle aligned content" *ng-if="yaoIndex === 6">
+                <div class="middle aligned content" *ngIf="yaoIndex === 6">
                     <p>
                         {{'六个爻都已完成.' | tran:glsetting.lang}}
                     </p>

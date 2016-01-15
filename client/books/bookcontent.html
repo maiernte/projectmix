@@ -25,15 +25,15 @@
     </div>
     
     <div class="ui items">
-        <div class="middle aligned item" *ng-for="#rd of Records">
+        <div class="middle aligned item" *ngFor="#rd of Records">
             <div class="content">
                 <div class="meta">
-                    <input type="checkbox" [(ng-model)]="rd.Checked">
+                    <input type="checkbox" [(ngModel)]="rd.Checked">
                     {{rd.Detail}}
                 </div>
                 <div class="description">
-                    <a class="ui mini teal circular label" *ng-if="rd.IsGua">六爻</a>
-                    <a class="ui mini blue circular label" *ng-if="!rd.IsGua">八字</a>
+                    <a class="ui mini teal circular label" *ngIf="rd.IsGua">六爻</a>
+                    <a class="ui mini blue circular label" *ngIf="!rd.IsGua">八字</a>
                     {{rd.Question}}
                 </div>
                 <div class="extra">

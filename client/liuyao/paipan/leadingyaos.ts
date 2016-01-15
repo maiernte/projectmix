@@ -1,5 +1,5 @@
 /// <reference path="../../../typings/angular2-meteor.d.ts" />
-import {Component, Inject, EventEmitter, Output, ContentChild} from 'angular2/angular2'
+import {Component, Inject, EventEmitter, Output, ContentChild} from 'angular2/core'
 import {TranslatePipe} from '../../allgemein/translatePipe'
 import {GlobalSetting} from  '../../globalsetting'
 
@@ -40,8 +40,8 @@ export class LeadingYao{
         return this.buttonText[this.yaoIndex];
     }
 
-    onInit(){
-        this.yao6 = new Array<string>();
+    ngOnInit(){
+        this.yao6 = [];
         this.yao6.push('empty.svg')
         this.yao6.push('empty.svg')
         this.yao6.push('empty.svg')

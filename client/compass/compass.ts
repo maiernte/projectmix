@@ -1,12 +1,12 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 import {Component,
         Inject,
-        NgFor,
-        NgSwitch,
-        NgSwitchWhen,
-        NgSwitchDefault,
         ElementRef,
-        AfterViewInit} from 'angular2/angular2'
+        AfterViewInit} from 'angular2/core'
+import {NgFor,
+    NgSwitch,
+    NgSwitchWhen,
+    NgSwitchDefault,} from 'angular2/common'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
@@ -126,7 +126,7 @@ export class CompassView{
         this.Opacity = opa;
     }
 
-    onInit(){
+    ngOnInit(){
         for (var i = 0; i < 360; i++) {
             this.Degreed.push(i);
             if (i % 10 === 0) {
@@ -135,7 +135,7 @@ export class CompassView{
         };
 
         // 只有前后三十年
-        this.years = new Array<number>();
+        this.years = [];
         var year = (new Date(Date.now())).getFullYear();
         for (var i = -30; i <= 30; i++) {
             this.years.push(year + i);
@@ -158,7 +158,7 @@ export class CompassView{
         this.changeOpacity(0.0)
     }
 
-    afterViewInit(){
+    ngAfterViewInit(){
         jQuery(this.rootElement.nativeElement).find('.accordion.compass').accordion()
     }
 

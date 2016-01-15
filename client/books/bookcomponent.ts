@@ -1,7 +1,8 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 /// <reference path="../../typings/book.d.ts" />
 
-import {Component, Inject, NgFor} from 'angular2/angular2'
+import {Component, Inject} from 'angular2/core'
+import {NgFor} from 'angular2/common'
 import {RouterOutlet, RouteConfig} from 'angular2/router'
 
 import {BookMarket} from './bookmarket'

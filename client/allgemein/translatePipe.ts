@@ -1,6 +1,6 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 
-import {Pipe} from 'angular2/angular2'
+import {Pipe} from 'angular2/core'
 
 @Pipe({
     name: 'tran',

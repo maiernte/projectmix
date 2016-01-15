@@ -1,6 +1,7 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 
-import {Component, Inject, NgFor} from 'angular2/angular2'
+import {Component, Inject} from 'angular2/core'
+import {NgFor} from 'angular2/common'
 import {Router} from 'angular2/router'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
@@ -51,7 +52,7 @@ export class PaiLiuyao {
         }
     }
 
-    onInit() {
+    ngOnInit() {
         this.question = ''
         let hideMenu = true;
         this.showMenu(hideMenu);

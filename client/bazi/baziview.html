@@ -32,7 +32,7 @@
             <div>&nbsp;</div>
             <h4 style="padding: 0;margin: 0;font-weight: bold">{{Info.Gender | tran:glsetting.lang}}</h4>
         </div>
-        <div *ng-for="#zhu of Main" class="three wide column bazi mean"
+        <div *ngFor="#zhu of Main" class="three wide column bazi mean"
              [attr.data-title]="zhu.NaYin"
              [attr.data-content]="CalcShenSha(zhu)"
              style="text-align: center;">
@@ -43,7 +43,7 @@
         </div>
     </div>
 
-    <div class="ui fluid accordion bazi" *ng-if="ShowItem.MingJu">
+    <div class="ui fluid accordion bazi" *ngIf="ShowItem.MingJu">
         <div class="title">
             <i class="dropdown icon"></i>
             【{{'命宫 - ' + Bazi.MingGong.Name | tran:glsetting.lang}}】
@@ -58,7 +58,7 @@
                     <div>{{'宫位' | tran:glsetting.lang}}</div>
                     <div>{{'纳音' | tran:glsetting.lang}}</div>
                 </div>
-                <div *ng-for="#mj of MingJu"
+                <div *ngFor="#mj of MingJu"
                      class="three wide column"
                     style="text-align: center;padding-bottom: 0;padding-left: 0;padding-right: 0">
                     <div>{{mj.CGan | tran:glsetting.lang}}</div>
@@ -73,7 +73,7 @@
                      style="font-weight: bold;text-align: center;padding-top: 0;padding-left: 0;padding-right: 0">
                     <div>{{'五行' | tran:glsetting.lang}}</div>
                 </div>
-                <div *ng-for="#wx of Bazi.WuXings"
+                <div *ngFor="#wx of Bazi.WuXings"
                      class="two wide column"
                      style="text-align: center;padding: 0">
                     [{{wx.Name}} - {{wx.Num}}]
@@ -81,32 +81,32 @@
             </div>
         </div>
     </div>
-    <div class="ui fluid accordion bazi" *ng-if="ShowItem.ShenSha">
+    <div class="ui fluid accordion bazi" *ngIf="ShowItem.ShenSha">
         <div class="title">
             <i class="dropdown icon"></i>
             {{'神煞' | tran:glsetting.lang}}
         </div>
         <div class="content" style="padding: 0">
-            <div class="ui equal width grid" *ng-for="#ssbazi of ShenShas; #row=index"
+            <div class="ui equal width grid" *ngFor="#ssbazi of ShenShas; #row=index"
                 style="margin-left: 3px">
-                <div class="column" *ng-for="#ss of ssbazi"
+                <div class="column" *ngFor="#ss of ssbazi"
                      [style.padding-top]="ss.First ? null : 0"
                      [style.padding-bottom]="ss.Last ? null : 0"
                      style="padding-left: 0px;padding-right: 0px;">
-                    <span *ng-if="ss.Empty == false">{{ss.Text | tran:glsetting.lang}}</span>
-                    <s *ng-if="ss.Empty">{{ss.Text | tran:glsetting.lang}}</s>
+                    <span *ngIf="ss.Empty == false">{{ss.Text | tran:glsetting.lang}}</span>
+                    <s *ngIf="ss.Empty">{{ss.Text | tran:glsetting.lang}}</s>
                 </div>
             </div>
         </div>
     </div>
-    <div class="ui fluid accordion bazi" *ng-if="ShowItem.DaYun">
+    <div class="ui fluid accordion bazi" *ngIf="ShowItem.DaYun">
         <div class="title">
             <i class="dropdown icon"></i>
             {{'大运' | tran:glsetting.lang}}
         </div>
         <div class="content" style="padding: 0">
             <div class="ui equal width grid">
-                <div *ng-for="#dy of DaYun" class="column"
+                <div *ngFor="#dy of DaYun" class="column"
                     style="padding-left: 0;padding-right: 0;text-align: center">
                     <div style="color: gray">{{dy.GZ.Shen10Gan[1] | tran:glsetting.lang}}</div>
                     <div [style.background-color]="SelectedDaYun === dy ? 'skyblue' : 'white'"
@@ -135,14 +135,14 @@
             </div>
         </div>
     </div>
-    <div class="ui fluid accordion bazi" *ng-if="ShowItem.LiuNian">
+    <div class="ui fluid accordion bazi" *ngIf="ShowItem.LiuNian">
         <div class="title">
             <i class="dropdown icon"></i>
             {{'流年小运' | tran:glsetting.lang}}
         </div>
         <div class="content">
             <div class="accordion" style="margin-left: 10px">
-                <div *ng-for="#ln of LiuNian">
+                <div *ngFor="#ln of LiuNian">
                     <div class="title">
                         <i class="dropdown icon"></i>
                         {{ln.Title | tran:glsetting.lang}}
@@ -165,7 +165,7 @@
                             </div>
                         </div>
 
-                        <div class="ui grid" *ng-for="#y of ln.Liunian">
+                        <div class="ui grid" *ngFor="#y of ln.Liunian">
                             <div class="two wide column" style="padding-top: 0;padding-left: 0;padding-right: 0;text-align: center">
                                 {{y.Year}}
                             </div>
@@ -207,7 +207,7 @@
             <div class="inline field">
                 <label>{{'每行显示神煞数:' | tran:glsetting.lang}}</label>
                 <select class="ui fluid dropdown"
-                        [(ng-model)]="shenshaColumnCount">
+                        [(ngModel)]="shenshaColumnCount">
                     <option value="4">四</option>
                     <option value="5">五</option>
                     <option value="6">六</option>
@@ -218,7 +218,7 @@
             <!--<div class="inline field">
                 <label>{{'显示:' | tran:glsetting.lang}}</label>
                 <select class="ui fluid dropdown"
-                        [(ng-model)]="ShowModel">
+                        [(ngModel)]="ShowModel">
                     <option value="0">{{'最简模式' | tran:glsetting.lang}}</option>
                     <option value="1">{{'命局+神煞' | tran:glsetting.lang}}</option>
                     <option value="2">{{'命局+大运' | tran:glsetting.lang}}</option>
@@ -230,25 +230,25 @@
         <div class="four fields">
             <div class="field">
                 <div class="ui checkbox">
-                    <input type="checkbox" [(ng-model)]="ShowItem.MingJu">
+                    <input type="checkbox" [(ngModel)]="ShowItem.MingJu">
                     <label>{{'命局' | tran:glsetting.lang}}</label>
                 </div>
             </div>
             <div class="field">
                 <div class="ui checkbox">
-                    <input type="checkbox" [(ng-model)]="ShowItem.ShenSha">
+                    <input type="checkbox" [(ngModel)]="ShowItem.ShenSha">
                     <label>{{'神煞' | tran:glsetting.lang}}</label>
                 </div>
             </div>
             <div class="field">
                 <div class="ui checkbox">
-                    <input type="checkbox" [(ng-model)]="ShowItem.DaYun">
+                    <input type="checkbox" [(ngModel)]="ShowItem.DaYun">
                     <label>{{'大运' | tran:glsetting.lang}}</label>
                 </div>
             </div>
             <div class="field">
                 <div class="ui checkbox">
-                    <input type="checkbox" [(ng-model)]="ShowItem.LiuNian">
+                    <input type="checkbox" [(ngModel)]="ShowItem.LiuNian">
                     <label>{{'流年' | tran:glsetting.lang}}</label>
                 </div>
             </div>

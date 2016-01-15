@@ -12,7 +12,7 @@
 
 /*! @source http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js */
 
-
+declare var saveAs;
 export var saveAs = saveAs || (function(view) {
 	"use strict";
 	// IE <10 is explicitly unsupported
@@ -92,7 +92,7 @@ export var saveAs = saveAs || (function(view) {
 				, object_url
 				, target_view
 				, dispatch_all = function() {
-					dispatch(filesaver, "writestart progress write writeend".split(" "));
+					dispatch(filesaver, "writestart progress write writeend".split(" "), null);
 				}
 				// on any filesys errors revert to saving with object URLs
 				, fs_error = function() {
@@ -237,7 +237,7 @@ export var saveAs = saveAs || (function(view) {
 	FS_proto.abort = function() {
 		var filesaver = this;
 		filesaver.readyState = filesaver.DONE;
-		dispatch(filesaver, "abort");
+		dispatch(filesaver, "abort", null);
 	};
 	FS_proto.readyState = FS_proto.INIT = 0;
 	FS_proto.WRITING = 1;

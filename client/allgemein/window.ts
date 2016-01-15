@@ -6,8 +6,8 @@ import {Component,
 		Inject,
 		Input,
 		ContentChild,
-		FORM_DIRECTIVES,
-		AfterViewInit} from 'angular2/angular2'
+		AfterViewInit} from 'angular2/core'
+import {FORM_DIRECTIVES} from 'angular2/common'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
@@ -111,11 +111,11 @@ export class TyWindow {
 		}
 	}
 
-	onInit(){
+	ngOnInit(){
 		this.IsReady = false;
 	}
 
-	afterViewInit(){
+	ngAfterViewInit(){
 		this.IsReady = true;
 	}
 }

@@ -1,8 +1,8 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 /// <reference path="../../typings/book.d.ts" />
 
-import {Component, Inject, ElementRef} from 'angular2/angular2'
-import {FormBuilder, ControlGroup, Validators, FORM_DIRECTIVES} from 'angular2/angular2';
+import {Component, Inject, ElementRef} from 'angular2/core'
+import {FormBuilder, ControlGroup, Validators, FORM_DIRECTIVES} from 'angular2/common';
 import {Router, RouteParams} from 'angular2/router'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
@@ -31,7 +31,7 @@ export class BookEditor{
                 @Inject(GlobalSetting) public glsetting:GlobalSetting) {
     }
     
-    onInit(){
+    ngOnInit(){
         let id = this.routeParams.params['id']
         if(id){
             this.book = Books.findOne({_id: id})

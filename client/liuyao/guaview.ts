@@ -1,7 +1,8 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 /// <reference path="../../typings/book.d.ts" />
 
-import {Component, Inject, Input, NgFor, ElementRef, AfterViewInit} from 'angular2/angular2'
+import {Component, Inject, Input, ElementRef, AfterViewInit} from 'angular2/core'
+import {NgFor} from 'angular2/common'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
@@ -38,6 +39,7 @@ export class GuaView{
     private benyaos: Array<Object>;
     private bianyaos: Array<Object>;
     private shiying: Array<string>;
+    private shenshas: Array<Object>;
 
     private translate = new TranslatePipe();
 
@@ -100,6 +102,11 @@ export class GuaView{
     }
 
     get ShenShas(){
+        if(this.shenshas &&
+            this.shenshas[0]['length'] == this.shenshaColumnCount) {
+            return this.shenshas
+        }
+
         let column = this.shenshaColumnCount;
         let row = Math.ceil(14 / column)
 
@@ -118,7 +125,8 @@ export class GuaView{
             }
         }
 
-        return res;
+        this.shenshas = res;
+        return this.shenshas;
     }
 
     get Shen6(){
@@ -137,7 +145,7 @@ export class GuaView{
             return this.fuyaos;
         }
 
-        this.fuyaos = new Array<Object>();
+        this.fuyaos = [];
 
         let wxbase = this.Gua.Ben.WuXing;
         let gz = this.Gua.FuGua.GanZhis;
@@ -170,7 +178,7 @@ export class GuaView{
             return this.benyaos;
         }
 
-        this.benyaos = new Array<Object>();
+        this.benyaos = [];
 
         let wxbase = this.Gua.Ben.WuXing;
         let gz = this.Gua.Ben.GanZhis;
@@ -211,7 +219,7 @@ export class GuaView{
             return this.bianyaos;
         }
 
-        this.bianyaos = new Array<Object>();
+        this.bianyaos = [];
 
         let wxbase = this.Gua.Bian.WuXing;
         let gz = this.Gua.Bian.GanZhis;
@@ -240,7 +248,7 @@ export class GuaView{
     get ShiYing(){
         if(this.shiying) return this.shiying;
 
-        this.shiying = new Array<string>();
+        this.shiying = [];
         let shiyao = this.Gua.Ben.Shiyao
         let yinyao = (shiyao + 3) % 6
 
@@ -276,7 +284,7 @@ export class GuaView{
             .transition('fade up', 1000)
     }
 
-    onInit(){
+    ngOnInit(){
         let params = JSON.parse(this.initdata)
 
         this.onInitParse(params);
@@ -301,7 +309,7 @@ export class GuaView{
         this.shenshaColumnCount = this.glsetting.GetSetting('gua-shensha')
     }
 
-    afterViewInit(){
+    ngAfterViewInit(){
         jQuery(this.rootElement.nativeElement).find('.accordion.question').accordion()
         jQuery(this.rootElement.nativeElement).find('.gua.mean').popup({on: 'click'})
     }

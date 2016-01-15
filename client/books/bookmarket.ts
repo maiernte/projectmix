@@ -1,7 +1,8 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 /// <reference path="../../typings/book.d.ts" />
 
-import {Component, Inject, NgFor} from 'angular2/angular2'
+import {Component, Inject} from 'angular2/core'
+import {NgFor} from 'angular2/common'
 import {Router, RouteParams} from 'angular2/router'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
@@ -39,7 +40,7 @@ export class BookMarket{
         }
     } 
     
-    onInit() {
+    ngOnInit() {
         let hideMenu = true;
         this.showMenu(hideMenu);
         this.loadBooks();
@@ -75,7 +76,7 @@ export class BookMarket{
     private loadBooks(){
         let tmp = Books.find().fetch()
         
-        this.books = new Array<BookView>();
+        this.books = [];
         let localbook = {
             _id: null,
             name: '本地记录',

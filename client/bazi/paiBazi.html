@@ -25,7 +25,7 @@
             <div class="inline field">
                 <label>{{'姓名: ' | tran:glsetting.lang}}</label>
                 <input type="text" placeholder="请输入命主姓名"
-                        [(ng-model)]="Input.Name">
+                        [(ngModel)]="Input.Name">
             </div>
             <div class="inline fields">
                 <label>{{'性别: ' | tran:glsetting.lang}}</label>
@@ -51,8 +51,8 @@
                 <label>出生地: </label>
                 <div class="field">
                     <select class="ui fluid dropdown"
-                            [(ng-model)]="Land">
-                        <option *ng-for="#land of maps"
+                            [(ngModel)]="Land">
+                        <option *ngFor="#land of maps"
                                 [value]="land.Name">
                             {{land.Name | tran:glsetting.lang}}
                         </option>
@@ -61,8 +61,8 @@
                 </div>
                 <div class="field">
                     <select class="ui fluid dropdown"
-                            [(ng-model)]="City">
-                        <option *ng-for="#city of cities"
+                            [(ngModel)]="City">
+                        <option *ngFor="#city of cities"
                                 [value]="city.Name">
                             {{city.Name | tran:glsetting.lang}}
                         </option>
@@ -74,18 +74,18 @@
             <div class="fields">
                 <div class="field">
                     <label>{{'日期' | tran:glsetting.lang}}</label>
-                    <input type="date" lang="zh" [(ng-model)]='Input.Date'>
+                    <input type="date" lang="zh" [(ngModel)]='Input.Date'>
                 </div>
                 <div class="field">
                     <label>{{'时辰' | tran:glsetting.lang}}</label>
-                    <input type="time" lang="zh" [(ng-model)]='Input.Time'>
+                    <input type="time" lang="zh" [(ngModel)]='Input.Time'>
                 </div>
             </div>
 
             <div class="field">
 
                 <div class="ui checkbox">
-                    <input type="checkbox" [(ng-model)]="Solar">
+                    <input type="checkbox" [(ngModel)]="Solar">
                     <label>
                         {{'使用真太阳时' | tran:glsetting.lang}}
                         {{solarinfo | tran:glsetting.lang}}
@@ -106,8 +106,8 @@
                 <div class="field">
                     <label>年</label>
                     <select class="ui fluid dropdown"
-                            [(ng-model)]="CalcSet.Y">
-                        <option *ng-for="#y of GanZhiNames"
+                            [(ngModel)]="CalcSet.Y">
+                        <option *ngFor="#y of GanZhiNames"
                                 [value]="y">
                             {{y}}
                         </option>
@@ -116,8 +116,8 @@
                 <div class="field">
                     <label>月</label>
                     <select class="ui fluid dropdown"
-                            [(ng-model)]="CalcSet.M">
-                        <option *ng-for="#m of GanZhiNamesM"
+                            [(ngModel)]="CalcSet.M">
+                        <option *ngFor="#m of GanZhiNamesM"
                                 [value]="m">
                             {{m}}
                         </option>
@@ -126,8 +126,8 @@
                 <div class="field">
                     <label>日</label>
                     <select class="ui fluid dropdown"
-                            [(ng-model)]="CalcSet.D">
-                        <option *ng-for="#d of GanZhiNames"
+                            [(ngModel)]="CalcSet.D">
+                        <option *ngFor="#d of GanZhiNames"
                                 [value]="d">
                             {{d}}
                         </option>
@@ -136,8 +136,8 @@
                 <div class="field">
                     <label>时</label>
                     <select class="ui fluid dropdown"
-                            [(ng-model)]="CalcSet.T">
-                        <option *ng-for="#t of GanZhiNamesT"
+                            [(ngModel)]="CalcSet.T">
+                        <option *ngFor="#t of GanZhiNamesT"
                                 [value]="t">
                             {{t}}
                         </option>
@@ -156,7 +156,7 @@
             </div>
 
             <div class="ui form" style="margin-top: 15px"
-                 *ng-if="CalcSet.Result != null">
+                 *ngIf="CalcSet.Result != null">
                 <div class="field">
                     <label>{{'结果: ' | tran:glsetting.lang}}</label>
                     <a (click)="setBaziTime()">

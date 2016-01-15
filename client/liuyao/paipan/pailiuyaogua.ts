@@ -1,5 +1,6 @@
 /// <reference path="../../../typings/angular2-meteor.d.ts" />
-import {Component, Inject, NgFor, ElementRef} from 'angular2/angular2'
+import {Component, Inject, ElementRef} from 'angular2/core'
+import {NgFor} from 'angular2/common'
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
 import {Gua64} from "../../../lib/base/gua"
@@ -69,7 +70,7 @@ export class PaiLiuyaoGua{
         }
     }
     
-    onInit(){
+    ngOnInit(){
         let domGuaName = jQuery('#paigua-yao-name')
         this.GuaGongOrder = domGuaName.hasClass('guagong') ? true : false;
         this.guayaoModel = domGuaName.hasClass('hidden') ? true : false;
@@ -92,14 +93,14 @@ export class PaiLiuyaoGua{
     initGuaNames(guagong:boolean) {
         if (guagong === false) {
             if (!PaiLiuyaoGua.guaNamesShang) {
-                PaiLiuyaoGua.guaNamesShang = new Array<Object>();
+                PaiLiuyaoGua.guaNamesShang = [];
                 this.initGuaNamesShang();
             }
 
             this.GuaNameOptions = PaiLiuyaoGua.guaNamesShang;
         } else {
             if (!PaiLiuyaoGua.guaNamesGong) {
-                PaiLiuyaoGua.guaNamesGong = new Array<Object>();
+                PaiLiuyaoGua.guaNamesGong = [];
                 this.initGuaNamesGong();
             }
 
