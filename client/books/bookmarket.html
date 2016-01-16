@@ -1,5 +1,5 @@
 <div>
-    <div class="ui top attached menu">
+    <div class="ui top attached pointing menu">
         <div class="ui animated fade primary button item" (click)="showMenu()">
             <div class="visible content">
                 <i class="sidebar icon"></i>
@@ -8,9 +8,21 @@
                 {{'菜单' | tran:glsetting.lang}}
             </div>
         </div>
-        
-        <div class="ui basic button item" (click)="editBook()">
-            {{'创建新书' | tran:glsetting.lang}}
+        <div class="item active"
+             [class.active]="Market == 'private'"
+             (click)="Market = 'private'">
+            {{'个人书集' | tran:glsetting.lang}}
+        </div>
+        <div class="item"
+             [class.active]="Market == 'public'"
+             (click)="Market = 'public'">
+            {{'公共书集' | tran:glsetting.lang}}
+        </div>
+
+        <div class="right menu">
+            <div class="ui basic button item" (click)="editBook()">
+                {{'创建新书' | tran:glsetting.lang}}
+            </div>
         </div>
     </div>
     

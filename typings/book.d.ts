@@ -36,7 +36,7 @@ declare type YiRecord = {
     question: string,
     description?: string,
     owner?: string,
-    feed: boolean,
+    feed: string,
     created: number,
     modified: number,
 }

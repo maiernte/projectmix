@@ -9,11 +9,12 @@ import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from 'client/globalsetting'
 
 import {LocalRecords, Books} from 'collections/books'
+import {RecordHelper} from './record/recordhelper'
 
 declare var jQuery;
 
 @Component({
-    selector: "book-market",
+    selector: "book-content",
     pipes:[TranslatePipe],
     templateUrl: "client/books/bookcontent.html",
     directives: [NgFor]
@@ -23,7 +24,7 @@ export class BookContent{
     private bookname: string;
     records: Array<YiRecord>;
 
-    private rdviews: Array<RecordView>;
+    private rdviews: Array<RecordHelper>;
     
     constructor(private router: Router,
                 private routeParams: RouteParams,
@@ -46,11 +47,25 @@ export class BookContent{
             this.bookname = book.name;
         }else{
             this.bookname = '本地记录'
-            this.records = LocalRecords.find({}).fetch().reverse();
+            this.records = LocalRecords
+                .find({})
+                .map(r => {
+                    return {
+                        _id: r._id,
+                        gua: r.gua,
+                        bazi: r.bazi,
+                        question: r.question,
+                        description: null,
+                        owner: null,
+                        feed: r.feed,
+                        created: r.created,
+                        modified: r.modified
+                    };
+                }).reverse();
 
             this.rdviews = [];
             for(let rd of this.records){
-                let view  = new RecordView(rd);
+                let view  = new RecordHelper(rd);
                 this.rdviews.push(view);
             }
         }
@@ -82,60 +97,10 @@ export class BookContent{
             })
             .modal('show')
     }
+
+    openRecord(rd: RecordHelper){
+        let params = rd.RouteParams;
+        this.router.parent.navigate(['./BookRecord', {bid: this.bookid, rid: rd.Id}])
+    }
 }
 
-class RecordView{
-    Checked: boolean
-    constructor(private rd: YiRecord){
-        this.Checked = false;
-    }
-
-    get Id(){
-        return this.rd._id;
-    }
-
-    get IsGua(){
-        if(this.rd.gua){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    get Created(){
-        let date = new Date(this.rd.created)
-        return this.toChina(date)
-    }
-
-    get Question(){
-        return this.rd.question;
-    }
-    
-    get Feed(){
-        return this.rd.feed;
-    }
-
-    get Detail(){
-        try{
-            if(this.rd.gua){
-                let g = this.rd.gua;
-                let name = g.ben == g.bian ? g.ben : g.ben + '之' + g.bian
-                return g.yueri[0] + '月' + g.yueri[1] + '日 / ' + name
-            }else if(this.rd.bazi){
-                let items = this.rd.bazi.bazi.split(' ')
-                return items.join(' / ')
-            }
-        }catch(err){
-            return ''
-        }
-    }
-
-    private toChina(d: Date): string{
-        let res = d.getFullYear() + "年"
-                + (d.getMonth() + 1) + "月"
-                + d.getDate() + "日"
-                + d.getHours() + "时"
-                + d.getMinutes() + "分";
-        return res;
-    }
-}

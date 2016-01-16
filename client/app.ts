@@ -1,6 +1,9 @@
 /// <reference path="../typings/angular2-meteor.d.ts" />
 /// <reference path="../typings/angular2.d.ts" />
 
+import {enableProdMode} from 'angular2/core';
+enableProdMode();
+
 import {Component,
         Inject,
         provide,
@@ -55,8 +58,6 @@ class HuaheApp {
     constructor(@Inject(Router) router: Router,
                 @Inject(Location) location: Location,
                 @Inject(GlobalSetting) glsetting: GlobalSetting){
-        console.log('App constructor')
-
         this.router = router;
         this.location = location;
         this.glsetting = glsetting;
@@ -67,5 +68,4 @@ class HuaheApp {
     }
 }
 
-//bootstrap(HuaheApp)
 bootstrap(HuaheApp, [ROUTER_PROVIDERS, provide(LocationStrategy, { useClass: HashLocationStrategy }), GlobalSetting]);

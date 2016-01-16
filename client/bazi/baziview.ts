@@ -167,7 +167,13 @@ export class BaziView{
     }
 
     ngOnInit(){
-        this.initParams = JSON.parse(this.initdata)
+        if(typeof this.initdata == 'string'){
+            this.initParams =  JSON.parse(this.initdata)
+        }else{
+            this.initParams =  this.initdata
+        }
+
+        //this.initParams = JSON.parse(this.initdata)
         this.paiBazi(this.initParams);
     }
     
@@ -212,7 +218,7 @@ export class BaziView{
             question: ques,
             description: '',
             owner: null,
-            feed: false,
+            feed: '',
             created: Date.now(),
             modified: Date.now(),
         }

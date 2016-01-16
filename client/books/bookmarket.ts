@@ -20,6 +20,7 @@ declare var jQuery;
 })
 export class BookMarket{
     private books: Array<BookView>;
+    Market = 'private'
     
     glsetting:GlobalSetting;
     constructor(private router: Router,

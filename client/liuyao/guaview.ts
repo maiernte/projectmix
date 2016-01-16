@@ -285,7 +285,13 @@ export class GuaView{
     }
 
     ngOnInit(){
-        let params = JSON.parse(this.initdata)
+        let params: Object;
+        if(typeof this.initdata == 'string'){
+            params =  JSON.parse(this.initdata)
+        }else{
+            params =  this.initdata
+        }
+
 
         this.onInitParse(params);
         this.onInitBaseInfo(params);
@@ -333,7 +339,7 @@ export class GuaView{
             question: ques,
             description: '',
             owner: null,
-            feed: false,
+            feed: '',
             created: Date.now(),
             modified: Date.now(),
         }

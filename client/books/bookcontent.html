@@ -35,6 +35,10 @@
                     <a class="ui mini teal circular label" *ngIf="rd.IsGua">六爻</a>
                     <a class="ui mini blue circular label" *ngIf="!rd.IsGua">八字</a>
                     {{rd.Question}}
+                    <button class="ui right floated basic icon button"
+                            (click)="openRecord(rd)">
+                        <i class="chevron right icon"></i>
+                    </button>
                 </div>
                 <div class="extra">
                     {{'创建时间：' | tran:glsetting.lang}}
