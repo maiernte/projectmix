@@ -19,6 +19,8 @@ export  class GlobalSetting{
 
     private language: boolean; // 是否使用繁体字
 
+    Clipboard: Object
+
     constructor(){
         this.initSetting();
     }

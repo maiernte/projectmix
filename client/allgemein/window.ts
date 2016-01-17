@@ -102,12 +102,11 @@ export class TyWindow {
 		if(this.baziview) record = this.baziview.exportAsRecord()
 		
 		if(record && flag == 0){
-			console.log('saveTo local record', record)
 			LocalRecords.insert(record, (err, id) => {
 				console.log("insert callback", err, id)
 			})
 		}else{
-			console.log('copy to clipbord')
+			this.glsetting.Clipboard = record;
 		}
 	}
 

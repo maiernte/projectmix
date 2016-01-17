@@ -221,7 +221,7 @@ export class GuaView{
 
         this.bianyaos = [];
 
-        let wxbase = this.Gua.Bian.WuXing;
+        let wxbase = this.Gua.Ben.WuXing;
         let gz = this.Gua.Bian.GanZhis;
         let yaos = this.Gua.Bianyaos;
 

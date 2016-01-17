@@ -7,7 +7,7 @@ import {Router, RouteParams} from 'angular2/router'
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from 'client/globalsetting'
 
-import {LocalRecords, Books} from 'collections/books'
+import {LocalRecords, Books, BkRecords} from 'collections/books'
 import {RecordHelper} from './recordhelper'
 import {YixuePart} from './yipart'
 
@@ -38,13 +38,16 @@ export class RecordView{
         this.bookid = this.routeParams.params['bid']
         this.recordid = this.routeParams.params['rid']
 
+        let rd: YiRecord;
         if(this.bookid && this.bookid != ''){
             let book = Books.findOne({_id: this.bookid})
             this.bookname = book.name;
+            rd = BkRecords.findOne({_id: this.recordid});
         }else{
-            let rd = LocalRecords.findOne({_id: this.recordid})
-            this.record = new RecordHelper(rd);
+            rd = LocalRecords.findOne({_id: this.recordid})
         }
+
+        this.record = new RecordHelper(rd);
     }
 
     get Bookname(){

@@ -30,7 +30,7 @@ declare type YiBazi = {
 // flag = 0 Gua; flag = 1 Bazi
 declare type YiRecord = {
     _id?: string,
-    _book?: string,
+    book?: string,
     gua?: YiGua,
     bazi?: YiBazi,
     question: string,

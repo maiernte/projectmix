@@ -1,5 +1,5 @@
 /// <reference path="../../../typings/book.d.ts" />
-import {LocalRecords, Books} from 'collections/books'
+import {LocalRecords, Books, BkRecords} from 'collections/books'
 
 export class RecordHelper{
     Checked: boolean
@@ -8,7 +8,7 @@ export class RecordHelper{
     }
 
     get BookId(){
-        return this.rd._book;
+        return this.rd.book;
     }
 
     get Id(){
@@ -74,11 +74,12 @@ export class RecordHelper{
         this.rd.question = ques;
         this.rd.feed = feed;
 
-        if(!this.rd._book){
+        if(!this.rd.book){
             LocalRecords.update(this.rd._id, {$set: {
                 question: ques,
                 description: desc,
-                feed: feed
+                feed: feed,
+                modified: Date.now()
             }}, (err, res) => {
                 if(err){
                     alert('更新数据失败: ' + err)
@@ -87,7 +88,15 @@ export class RecordHelper{
                 }
             })
         }else{
-            alert('待建中')
+            this.rd.description = desc;
+            this.rd.modified = Date.now();
+            BkRecords.update(this.rd, (err, res) => {
+                if(err){
+                    alert('更新数据失败: ' + err)
+                }else{
+                    alert('更新数据成功!')
+                }
+            })
         }
     }
 

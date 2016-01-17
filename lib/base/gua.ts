@@ -340,7 +340,7 @@ export class Gua{
     }
 
     private initShenSha(){
-        this.shenshas = new Array<ShenSha>();
+        this.shenshas = [];
         this.shenshas.push(new ShenSha('将星', [this.guatime[1].Index]))
         this.shenshas.push(new ShenSha('华盖', [this.guatime[1].Index]))
         this.shenshas.push(new ShenSha('驿马', [this.guatime[1].Index]))
@@ -358,7 +358,7 @@ export class Gua{
     }
 
     private initShen6(){
-        this.shen6 = new Array<string>();
+        this.shen6 = [];
 
         var start = this.guatime[1].Gan.Index;
         start = start >= 5 ? Math.floor((start + 2) / 2) : Math.floor(start / 2);

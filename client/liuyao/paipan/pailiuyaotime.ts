@@ -87,7 +87,7 @@ export class PailiuyaoTime{
     }
 
     ngAfterViewInit(){
-        console.log('After pailiuyao time view init')
+        //console.log('After pailiuyao time view init')
     }
     
     private showAnimate(outId: string, inId: string){
