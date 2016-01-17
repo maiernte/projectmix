@@ -76,15 +76,23 @@ export class PaiLiuyao {
             params['time'] = date.toISOString();
             params['type'] = gua;
             params['gua'] = gua === 3 ? this.calcRandomGua() : this.calcRiYueGua(gua);
+            params['question'] = this.question
         }else if(this.InputModel == 'leading'){
             let date = new Date(Date.now());
             params['time'] = date.toISOString();
             params['gua'] = gua;
             params['type'] = 0;
+            params['question'] = this.question
         }
 
         //console.log('paigua', params)
         this.router.parent.navigate(['/Desktop', params])
+    }
+
+    leadingFinished(event){
+        console.log('leading finished......', event)
+        this.question = event[2];
+        this.paiGua(null, [event[0], event[1]])
     }
 
     // 1 日月卦 2 日时卦

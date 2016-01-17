@@ -13,44 +13,7 @@
         {{'保存' | tran:glsetting.lang}}
     </a>-->
 </div>
-<div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" style="padding-right: 0;">
-        <yixue-part>
-            <guaview *ngIf='IsGua' [initdata]="YiData"></guaview>
-            <baziview *ngIf='!IsGua' [initdata]="YiData"></baziview>
-        </yixue-part>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
-        <div class="ui top attached segment" style="padding: 0;">
-            <div class="ui buttons">
-                <div class="ui icon button">
-                    <i class="angle double left icon"></i>
-                </div>
-                <div class="ui icon button">
-                    <i class="angle double right icon"></i>
-                </div>
-                <div class="ui icon button" [class.disabled]="EditModel"
-                    (click)="EditModel = true">
-                    <i class="edit icon"></i>
-                </div>
-                <div class="ui icon button" [class.disabled]="!EditModel"
-                     (click)="EditModel = false">
-                    <i class="save icon"></i>
-                </div>
-            </div>
-        </div>
-        <div class="ui attached segment">
-            <div class="ui form">
-                <div class="inline field">
-                    <label>{{QuestionT | tran:glsetting.lang}}</label>
-                    <span class="editable question"></span>
-                </div>
-                <div class="inline field">
-                    <label>{{'反馈: ' | tran:glsetting.lang}}</label>
-                    <span class="feed" [class.editable]="EditModel"></span>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
+<yixue-part [record]="Record">
+    <guaview *ngIf='IsGua' [initdata]="YiData"></guaview>
+    <baziview *ngIf='!IsGua' [initdata]="YiData"></baziview>
+</yixue-part>

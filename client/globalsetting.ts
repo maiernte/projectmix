@@ -38,7 +38,7 @@ export  class GlobalSetting{
     }
 
     // 是否使用繁体字
-    get lang(){
+    get lang(): boolean{
         return this.setting.filter(s => s.Name == 'lang')[0]['Value']
     }
 

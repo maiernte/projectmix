@@ -4,6 +4,7 @@ import {TranslatePipe} from '../../allgemein/translatePipe'
 import {GlobalSetting} from  '../../globalsetting'
 
 import {PailiuyaoCoins} from  './coins'
+import {Gua64} from "../../../lib/base/gua"
 
 declare  var jQuery: any;
 declare var Promise: any;
@@ -33,7 +34,28 @@ export class LeadingYao{
     }
 
     get Result(){
-        return '6 yao are.....'
+        let yaos = [];
+        for(let img of this.yao6){
+            switch (img){
+                case 'shaoyin.svg':
+                    yaos.push(0) ;
+                    break;
+                case 'shaoyan.svg':
+                    yaos.push(1) ;
+                    break;
+                case 'laoyin.svg':
+                    yaos.push(2) ;
+                    break;
+                case 'laoyan.svg':
+                    yaos.push(3) ;
+                    break;
+                default:
+                    yaos.push(0) ;
+                    break;
+            }
+        }
+
+        return this.convertYaoToName(yaos);
     }
 
     get ButtonText(){
@@ -108,5 +130,22 @@ export class LeadingYao{
             default:
                 return 'empty.svg';
         }
+    }
+
+    private convertYaoToName(yaos: Array<number>){
+        let benText = ''
+        let bianText = ''
+        for(let idx = 5; idx >= 0; idx--){
+            benText += (yaos[idx] % 2);
+            bianText += yaos[idx] > 1 ? ((yaos[idx] + 1) % 2) : (yaos[idx] % 2)
+        }
+
+        let beni = parseInt(benText, 2)
+        let biani = parseInt(bianText, 2)
+
+        let bengua = Gua64(beni);
+        let biangua = Gua64(biani);
+
+        return [bengua.Name, biangua.Name]
     }
 }

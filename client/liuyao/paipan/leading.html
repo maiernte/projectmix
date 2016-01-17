@@ -37,7 +37,7 @@
              [class.completed]="CurrentStep > 5">
             <div class="content">
                 <div class="title">{{'发卦' | tran:glsetting.lang}}</div>
-                <div class="description">{{'保存或发布六爻卦' | tran:glsetting.lang}}</div>
+                <div class="description">{{'排卦' | tran:glsetting.lang}}</div>
             </div>
         </div>
     </div>
@@ -157,14 +157,13 @@
             </button>
         </div>
         <div id="pagua-step-4" class='transition hidden'>
-            <!--<pailiuyao-leadingyao (onfinished)="NextStep($event)" (oncancel)="GoBack($event)">
-                <pailiuyao-coins [cointype]="0" [yao]="0"></pailiuyao-coins>
-            </pailiuyao-leadingyao>-->
             <ng-content></ng-content>
         </div>
         <div id="pagua-step-5" class='transition hidden'>
-            four step
-            <button class="ui button" (click)="GoBack()">
+            <button class="ui button" (click)="paiGua()" style="margin-top: 10px">
+                {{'排六爻卦' | tran:glsetting.lang}}
+            </button>
+            <button class="ui button" (click)="GoBack()" style="margin-top: 10px">
                 {{'重新开始' | tran:glsetting.lang}}
             </button>
         </div>

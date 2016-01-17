@@ -13,10 +13,8 @@ import {YixuePart} from './yipart'
 
 import {GuaView} from 'client/liuyao/guaview'
 import {BaziView} from 'client/bazi/baziview'
-import {TranslatePipe} from "../../allgemein/translatePipe";
 
 declare var jQuery;
-declare var MediumEditor;
 
 @Component({
     selector: "recordview",
@@ -30,14 +28,9 @@ export class RecordView{
     private recordid = ''
     private bookname = '本地记录'
     private record: RecordHelper;
-    private editor;
-    private translator: TranslatePipe;
-
-    private editmodel = false;
 
     constructor(private router: Router,
                 private routeParams: RouteParams,
-                private rootElement: ElementRef,
                 @Inject(GlobalSetting) public glsetting:GlobalSetting) {
     }
 
@@ -52,35 +45,6 @@ export class RecordView{
             let rd = LocalRecords.findOne({_id: this.recordid})
             this.record = new RecordHelper(rd);
         }
-
-        let domQuestion = jQuery(this.rootElement.nativeElement).find('.editable.question')
-        domQuestion.text(this.record.Question)
-
-        this.translator = new TranslatePipe();
-    }
-
-    get EditModel(){
-        return this.editmodel;
-    }
-
-    set EditModel(value){
-        this.editmodel = value;
-
-        if(value == true){
-            setTimeout(() => {
-                let placeholder = '点击编辑按钮, 然后输入内容.'
-                this.editor = new MediumEditor('.editable', {
-                    placeholder: {
-                        text: this.translator.transform(placeholder, this.glsetting.lang)
-                    }
-                });
-            }, 500);
-        }else{
-            console.log(this.editor)
-            this.editor.destroy();
-            this.editor = null;
-
-        }
     }
 
     get Bookname(){
@@ -91,17 +55,13 @@ export class RecordView{
         return this.record.IsGua
     }
 
+    get Record(){
+        return this.record;
+    }
+
     get YiData(){
         let data = this.record.RouteParams;
         return data;
-    }
-
-    get QuestionT(){
-        return this.IsGua ? "问念: " : "命主: "
-    }
-
-    get Question(){
-        return this.record.Question;
     }
 
     goBack(){

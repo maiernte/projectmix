@@ -1,5 +1,5 @@
 /// <reference path="../../../typings/angular2-meteor.d.ts" />
-import {Component, Inject, ContentChild, AfterContentInit} from 'angular2/core'
+import {Component, Inject, ContentChild, AfterContentInit, Output, EventEmitter} from 'angular2/core'
 import {NgFor} from 'angular2/common'
 import {TranslatePipe} from '../../allgemein/translatePipe'
 import {GlobalSetting} from  '../../globalsetting'
@@ -26,10 +26,13 @@ export class PailiuyaoLeading{
     private cointype: number;
 
     @ContentChild(LeadingYao) step4: LeadingYao;
+    @Output() onfinished = new EventEmitter();
 
-    glsetting:GlobalSetting;
-    constructor(@Inject(GlobalSetting) glsetting:GlobalSetting) {
-        this.glsetting = glsetting;
+    constructor(@Inject(GlobalSetting) public glsetting:GlobalSetting) {
+    }
+
+    get Result(){
+        return ''
     }
 
     get CoinType(){
@@ -57,9 +60,14 @@ export class PailiuyaoLeading{
     }
 
     goStep4(yao){
-        console.log('goStep4', yao)
         this.step4.Reinit(this.cointype, yao)
         this.NextStep();
+    }
+
+    paiGua(){
+        let res = this.step4.Result
+        res.push(this.Question)
+        this.onfinished.emit(res)
     }
 
     ngOnInit(){

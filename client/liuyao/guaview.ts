@@ -284,6 +284,10 @@ export class GuaView{
             .transition('fade up', 1000)
     }
 
+    changeQuestion(txt: string){
+        this.Info.question = txt;
+    }
+
     ngOnInit(){
         let params: Object;
         if(typeof this.initdata == 'string'){

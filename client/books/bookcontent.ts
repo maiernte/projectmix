@@ -99,7 +99,6 @@ export class BookContent{
     }
 
     openRecord(rd: RecordHelper){
-        let params = rd.RouteParams;
         this.router.parent.navigate(['./BookRecord', {bid: this.bookid, rid: rd.Id}])
     }
 }

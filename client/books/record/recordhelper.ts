@@ -7,8 +7,16 @@ export class RecordHelper{
         this.Checked = false;
     }
 
+    get BookId(){
+        return this.rd._book;
+    }
+
     get Id(){
         return this.rd._id;
+    }
+
+    get Data(){
+        return this.rd;
     }
 
     get IsGua(){
@@ -33,6 +41,15 @@ export class RecordHelper{
         return txt != '';
     }
 
+    get FeedText(){
+        let txt = this.rd.feed ? this.rd.feed.trim() : '';
+        return txt;
+    }
+
+    get Description(){
+        return this.rd.description;
+    }
+
     get Detail(){
         try{
             if(this.rd.gua){
@@ -50,6 +67,28 @@ export class RecordHelper{
 
     get RouteParams(){
         return this.IsGua ? this.guaParams() : this.baziParams();
+    }
+
+    Save(ques: string, feed: string, desc: string){
+        //this.rd.description = desc;
+        this.rd.question = ques;
+        this.rd.feed = feed;
+
+        if(!this.rd._book){
+            LocalRecords.update(this.rd._id, {$set: {
+                question: ques,
+                description: desc,
+                feed: feed
+            }}, (err, res) => {
+                if(err){
+                    alert('更新数据失败: ' + err)
+                }else{
+                    alert('更新数据成功!')
+                }
+            })
+        }else{
+            alert('待建中')
+        }
     }
 
     private toChina(d: Date): string{

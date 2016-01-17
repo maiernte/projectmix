@@ -1,3 +1,58 @@
-<div>
-    <ng-content></ng-content>
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" style="padding-right: 0;">
+        <ng-content></ng-content>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
+        <div class="ui top attached segment" style="padding: 0;">
+            <div class="ui buttons">
+                <div class="ui icon button" (click)="showSetting()">
+                    <i class="setting icon"></i>
+                </div>
+                <div class="ui icon button" (click)="goNextRecord(-1)">
+                    <i class="angle double left icon"></i>
+                </div>
+                <div class="ui icon button" (click)="goNextRecord(1)">
+                    <i class="angle double right icon"></i>
+                </div>
+                <div class="ui icon button" [class.disabled]="EditModel"
+                     (click)="EditModel = true">
+                    <i class="edit icon"></i>
+                </div>
+                <div class="ui icon button" [class.disabled]="!EditModel"
+                     (click)="EditModel = false">
+                    <i class="save icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <table class="ui attached table">
+            <tbody>
+            <tr>
+                <td class="collapsing" style="font-weight: bold">
+                    {{QuestionT | tran:glsetting.lang}}
+                </td>
+                <td class="editable question">
+
+                </td>
+            </tr>
+            <tr>
+                <td class="collapsing" style="font-weight: bold">
+                    {{'反馈: ' | tran:glsetting.lang}}
+                </td>
+                <td class="editable feed" align="left">
+
+                </td>
+            </tr>
+            <tr>
+                <td class="collapsing" style="font-weight: bold">
+                    {{'解读: ' | tran:glsetting.lang}}
+                </td>
+                <td class="editable description" align="left">
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+

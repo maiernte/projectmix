@@ -166,6 +166,10 @@ export class BaziView{
             .transition('fade up', 1000)
     }
 
+    changeQuestion(txt: string){
+        this.Info.Name = txt;
+    }
+
     ngOnInit(){
         if(typeof this.initdata == 'string'){
             this.initParams =  JSON.parse(this.initdata)
