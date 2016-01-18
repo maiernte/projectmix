@@ -18,9 +18,7 @@ export class AppSetting{
     private guaShenSha: string
     private guaSimple: string
     private baziShenSha: string
-
-    simple
-
+    
     constructor(@Inject(GlobalSetting) public glsetting: GlobalSetting){
 
     }

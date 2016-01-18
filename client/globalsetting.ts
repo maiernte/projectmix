@@ -3,8 +3,10 @@
 declare var jQuery;
 declare var html2canvas;
 declare var Promise;
+declare var SemanticModal;
 
 import {saveAs} from './lib/FileSaver'
+import {TranslatePipe} from './allgemein/translatePipe'
 
 export  class GlobalSetting{
     private setting = [
@@ -15,14 +17,18 @@ export  class GlobalSetting{
         {Name: 'desktop-tip', Value: true},
         {Name: 'created', Value: Date.now()},
         {Name: 'modified', Value: Date.now()},
+        {Name: 'username', Value: ''},
+        {Name: 'password', Value: ''},
     ]
 
     private language: boolean; // 是否使用繁体字
+    private translator: TranslatePipe;
 
     Clipboard: Object
 
     constructor(){
         this.initSetting();
+        this.translator = new TranslatePipe();
     }
     
     get IsCordova(){
@@ -91,11 +97,11 @@ export  class GlobalSetting{
             window['canvas2ImagePlugin'].saveImageDataToLibrary(
                 function (msg) {
                     //console.log(msg);
-                    alert('图片保存到 ' + msg)
+                    this.ShowMessage('图片保存', '路径：' + msg)
                 },
                 function (err) {
                     //console.log('fehler : ' + err);
-                    alert('保存图片出错：' + err)
+                    this.ShowMessage('保存图片出错', err)
                 },
                 canva
             );
@@ -104,6 +110,21 @@ export  class GlobalSetting{
                 saveAs(blob, fileName + '.png');
             }, "image/png");
         }
+    }
+    
+    ShowMessage(header: string, message: string){
+        if(this.lang == true){
+            header = this.translator.transform(header, [true]);
+            message = this.translator.transform(message, [true]);
+        }
+        
+        SemanticModal.confirmModal(
+            {
+                header: header,
+                message: message,
+                noButtons: true
+            }
+        );
     }
 
     Exit(){

@@ -31,6 +31,7 @@ import {BookComponent} from 'client/books/bookcomponent'
 import {TranslatePipe} from './allgemein/translatePipe'
 import {GlobalSetting} from  './globalsetting'
 import {AppSetting} from './allgemein/setting'
+import {UserPage} from './user/userpage'
 
 declare var jQuery;
 
@@ -48,7 +49,7 @@ declare var jQuery;
     {path: '/compass', as: 'Compass', component: CompassPage},
     {path: '/setting', as: 'Setting', component: AppSetting},
     {path: '/books/...', as: 'Books', component: BookComponent},
-    {path: '/user', as: 'User', component: AppSetting},
+    {path: '/user', as: 'User', component: UserPage},
 ])
 class HuaheApp {
     router: Router;

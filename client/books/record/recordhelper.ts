@@ -1,6 +1,8 @@
 /// <reference path="../../../typings/book.d.ts" />
 import {LocalRecords, Books, BkRecords} from 'collections/books'
 
+declare var Promise;
+
 export class RecordHelper{
     Checked: boolean
     constructor(private rd: YiRecord){
@@ -70,34 +72,40 @@ export class RecordHelper{
     }
 
     Save(ques: string, feed: string, desc: string){
-        //this.rd.description = desc;
-        this.rd.question = ques;
-        this.rd.feed = feed;
-
-        if(!this.rd.book){
-            LocalRecords.update(this.rd._id, {$set: {
-                question: ques,
-                description: desc,
-                feed: feed,
-                modified: Date.now()
-            }}, (err, res) => {
-                if(err){
-                    alert('更新数据失败: ' + err)
-                }else{
-                    alert('更新数据成功!')
-                }
-            })
-        }else{
-            this.rd.description = desc;
-            this.rd.modified = Date.now();
-            BkRecords.update(this.rd, (err, res) => {
-                if(err){
-                    alert('更新数据失败: ' + err)
-                }else{
-                    alert('更新数据成功!')
-                }
-            })
-        }
+        let promise = new Promise((resolve, reject) => {
+            //this.rd.description = desc;
+            this.rd.question = ques;
+            this.rd.feed = feed;
+    
+            if(!this.rd.book){
+                LocalRecords.update(this.rd._id, {$set: {
+                    question: ques,
+                    description: desc,
+                    feed: feed,
+                    modified: Date.now()
+                }}, (err, res) => {
+                    if(err){
+                        reject(err)
+                    }else{
+                        resolve(true)
+                    }
+                })
+            }else{
+                this.rd.description = desc;
+                this.rd.modified = Date.now();
+                BkRecords.update(this.rd, (err, res) => {
+                    if(err){
+                        reject(err)
+                    }else{
+                        resolve(true)
+                    }
+                })
+            }
+        });
+        
+        return promise
+        
+        
     }
 
     private toChina(d: Date): string{

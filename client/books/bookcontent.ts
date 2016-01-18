@@ -74,7 +74,11 @@ export class BookContent{
                 onApprove : () => {
                     this.rdviews = this.rdviews.filter(r => !r.Checked);
                     for(let id of ids){
-                        LocalRecords.remove(id)
+                        if(this.bookid){
+                            BkRecords.remove(id)
+                        }else{
+                            LocalRecords.remove(id)
+                        }
                     }
                 }
             })
@@ -87,9 +91,10 @@ export class BookContent{
                 this.glsetting.Clipboard = null;
                 return this.loadRecordes();
         }).then(res => {
-            jQuery('.add-record-success.modal').modal('show')
+            //jQuery('.add-record-success.modal').modal('show')
+            this.router.parent.navigate(['./BookContent', {id: this.bookid}])
         }).catch(err => {
-            alert('新建记录失败: ' + err)
+            this.glsetting.ShowMessage("新建记录失败", err)
         })
     }
 

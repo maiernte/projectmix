@@ -23,3 +23,6 @@ Meteor documentation can be found at http://docs.meteor.com/
 
 Run Project
 $ meteor --port $IP:$PORT
+
+Using Couchdb Account
+https://github.com/mariobriggs/meteor-accounts-couchdb

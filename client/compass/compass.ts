@@ -59,7 +59,7 @@ export class CompassView{
     set RotateType(value){
         if(value == 'n' && !navigator['compass']){
             // 没有指南针
-            alert('当前平台没有方位感应设备, 无法启用指南针.')
+            this.glsetting.ShowMessage('指南针', '当前平台没有方位感应设备, 无法启用指南针.')
             return
         }
 
@@ -178,7 +178,7 @@ export class CompassView{
                 this.changeOpacity(0.0)
             }, function (err) {
                 if (err != "Selection cancelled.") {
-                    alert('加载图片错: ' + err);
+                    this.glsetting.ShowMessage('加载图片错', err)
                 }
             },
             {

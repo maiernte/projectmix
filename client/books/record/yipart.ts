@@ -100,7 +100,7 @@ export class YixuePart{
             this.router.parent.navigate(['./BookRecord', {bid: '', rid: rd._id}])
         }else{
             let msg = "现在已经是" + (flag < 0 ? '第一个' : '最后一个') + '记录'
-            alert(msg)
+            this.glsetting.ShowMessage("搜索记录", msg)
         }
     }
 
@@ -130,8 +130,12 @@ export class YixuePart{
         dom = jQuery(this.rootElement.nativeElement).find('.editable.description')
         let desc = dom[0].innerText;
 
-        this.record.Save(question, feed, desc);
-        if(this.guaview) this.guaview.changeQuestion(question);
-        if(this.baziview) this.baziview.changeQuestion(question);
+        this.record.Save(question, feed, desc).then(res => {
+            if(this.guaview) this.guaview.changeQuestion(question);
+            if(this.baziview) this.baziview.changeQuestion(question);
+            this.glsetting.ShowMessage('更新成功', '成功更新到数据库！')
+        }).catch(err => {
+            this.glsetting.ShowMessage('更新数据失败', err)
+        });
     }
 }
