@@ -19,16 +19,29 @@ export  class GlobalSetting{
         {Name: 'modified', Value: Date.now()},
         {Name: 'username', Value: ''},
         {Name: 'password', Value: ''},
+        {Name: 'autosignin', Value: false},
     ]
 
     private language: boolean; // 是否使用繁体字
     private translator: TranslatePipe;
 
     Clipboard: Object
+    Signed = false;
 
     constructor(){
         this.initSetting();
         this.translator = new TranslatePipe();
+
+        let autosignin = this.GetSetting('autosignin')
+        if(autosignin){
+            let user = this.GetSetting('username')
+            let pw = this.GetSetting('password')
+            this.SignIn(user, pw).then(res => {
+                this.Signed = true;
+            }).catch(err => {
+                this.Signed = false;
+            })
+        }
     }
     
     get IsCordova(){
@@ -64,6 +77,7 @@ export  class GlobalSetting{
         if(res && res.length == 1){
             window.localStorage.setItem(key, value);
             res[0].Value = value
+            console.log('setValue', value)
         }
     }
 
@@ -127,6 +141,19 @@ export  class GlobalSetting{
         );
     }
 
+    SignIn(user: string, pw: string): any{
+        let promise = new Promise((resolve, reject) => {
+
+            if(user == '' || pw == ''){
+                reject('用户名或者密码错误！')
+            }
+
+            resolve(true)
+        })
+
+        return promise;
+    }
+
     Exit(){
         if(this.IsCordova){
             navigator['app'].exitApp();
@@ -144,10 +171,10 @@ export  class GlobalSetting{
                 return false;
             }else{
                 let num = parseInt(value)
-                if(num != NaN){
-                    return num;
-                }else{
+                if(isNaN(num)){
                     return value
+                }else{
+                    return num;
                 }
             }
         }

@@ -93,6 +93,8 @@
         <item url="file://$USER_HOME$/.meteor/packages/es5-shim/4.1.14/web.browser/console.js" />
         <item url="file://$USER_HOME$/.meteor/packages/es5-shim/4.1.14/web.browser/.npm/package/node_modules/es5-shim/es5-sham.js" />
         <item url="file://$USER_HOME$/.meteor/packages/es5-shim/4.1.14/web.browser/.npm/package/node_modules/es5-shim/es5-shim.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/richsilv_semantic-ui-modal/1.1.1/web.browser/packages/richsilv_semantic-ui-modal.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/richsilv_semantic-ui-modal/1.1.1/web.browser/packages/richsilv_semantic-ui-modal/semantic-ui-modal.css" />
         <item url="file://$USER_HOME$/.meteor/packages/promise/0.5.1/web.browser/.npm/package/node_modules/meteor-promise/promise.bundle.js" />
         <item url="file://$USER_HOME$/.meteor/packages/random/1.0.5/web.browser/deprecated.js" />
         <item url="file://$USER_HOME$/.meteor/packages/random/1.0.5/web.browser/random.js" />
@@ -110,7 +112,12 @@
         <item url="file://$USER_HOME$/.meteor/packages/ddp-client/1.2.1/web.browser/client_convenience.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ddp-client/1.2.1/web.browser/id_map.js" />
         <item url="file://$USER_HOME$/.meteor/packages/webapp/1.2.3/web.browser/webapp_client.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/templating-tools/1.0.0/web.browser/templating-tools.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/templating-tools/1.0.0/web.browser/compile-tags-with-spacebars.js" />
         <item url="file://$USER_HOME$/.meteor/packages/diff-sequence/1.0.1/web.browser/diff.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/templating-tools/1.0.0/web.browser/html-scanner.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/templating-tools/1.0.0/web.browser/throw-compile-error.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/templating-tools/1.0.0/web.browser/code-generation.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ejson/1.0.7/web.browser/stringify.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ejson/1.0.7/web.browser/ejson.js" />
         <item url="file://$USER_HOME$/.meteor/packages/semantic_ui-css/2.1.2/web.browser/packages/semantic_ui-css/semantic.css" />
@@ -226,6 +233,8 @@
       <root url="file://$USER_HOME$/.meteor/packages/es5-shim/4.1.14/web.browser/console.js" />
       <root url="file://$USER_HOME$/.meteor/packages/es5-shim/4.1.14/web.browser/.npm/package/node_modules/es5-shim/es5-sham.js" />
       <root url="file://$USER_HOME$/.meteor/packages/es5-shim/4.1.14/web.browser/.npm/package/node_modules/es5-shim/es5-shim.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/richsilv_semantic-ui-modal/1.1.1/web.browser/packages/richsilv_semantic-ui-modal.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/richsilv_semantic-ui-modal/1.1.1/web.browser/packages/richsilv_semantic-ui-modal/semantic-ui-modal.css" />
       <root url="file://$USER_HOME$/.meteor/packages/promise/0.5.1/web.browser/.npm/package/node_modules/meteor-promise/promise.bundle.js" />
       <root url="file://$USER_HOME$/.meteor/packages/random/1.0.5/web.browser/deprecated.js" />
       <root url="file://$USER_HOME$/.meteor/packages/random/1.0.5/web.browser/random.js" />
@@ -243,7 +252,12 @@
       <root url="file://$USER_HOME$/.meteor/packages/ddp-client/1.2.1/web.browser/client_convenience.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ddp-client/1.2.1/web.browser/id_map.js" />
       <root url="file://$USER_HOME$/.meteor/packages/webapp/1.2.3/web.browser/webapp_client.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/templating-tools/1.0.0/web.browser/templating-tools.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/templating-tools/1.0.0/web.browser/compile-tags-with-spacebars.js" />
       <root url="file://$USER_HOME$/.meteor/packages/diff-sequence/1.0.1/web.browser/diff.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/templating-tools/1.0.0/web.browser/html-scanner.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/templating-tools/1.0.0/web.browser/throw-compile-error.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/templating-tools/1.0.0/web.browser/code-generation.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ejson/1.0.7/web.browser/stringify.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ejson/1.0.7/web.browser/ejson.js" />
       <root url="file://$USER_HOME$/.meteor/packages/semantic_ui-css/2.1.2/web.browser/packages/semantic_ui-css/semantic.css" />

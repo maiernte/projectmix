@@ -14,26 +14,30 @@ declare var jQuery:any;
     pipes: [TranslatePipe],
 })
 export class UserPage{
+    private static viewInited = false;
+
     private islogin = false;
     loginForm: ControlGroup;
     registerForm: ControlGroup;
-    
+
     Username = ''
+    SaveUsername = false;
+    AutoSignIn = true;
     
     constructor(@Inject(GlobalSetting) public glsetting: GlobalSetting,
                 private rootElement: ElementRef){
         var fbLogin = new FormBuilder();
         this.loginForm = fbLogin.group({
-            name: ['', Validators.compose([Validators.required, loginValidator])],
-            pw: ['', Validators.compose([Validators.required, loginValidator])]
+            name: ['', Validators.compose([Validators.required, nameValidator])],
+            pw: ['', Validators.compose([Validators.required, pwValidator])]
         });
         
         var fbRegister = new FormBuilder();
         this.registerForm = fbRegister.group({
-            name: ['', Validators.compose([Validators.required, loginValidator])],
+            name: ['', Validators.compose([Validators.required, nameValidator])],
             email: [''],
-            pw1: ['', Validators.compose([Validators.required, loginValidator])],
-            pw2: ['', Validators.compose([Validators.required, loginValidator])]
+            pw1: ['', Validators.compose([Validators.required, pwValidator])],
+            pw2: ['', Validators.compose([Validators.required, pwValidator])]
         })
     }
     
@@ -52,16 +56,26 @@ export class UserPage{
     ngOnInit(){
         let hideMenu = true;
         this.showMenu(hideMenu);
-        
-        let username = this.glsetting.GetSetting('username')
-        let password = this.glsetting.GetSetting('password')
-        this.signIn(username, password).then(res => {
-            this.Username = username;
-            this.islogin = true;
-        }).catch(err => {
-            this.islogin = false;
-            console.log("sign in error", err)
-        })
+
+        this.AutoSignIn = this.glsetting.GetSetting('autosignin')
+        this.SaveUsername = true;
+    }
+
+    ngAfterViewInit(){
+        let name = this.glsetting.GetSetting('username')
+
+        if(this.glsetting.Signed){
+            this.Username = name
+
+            if(UserPage.viewInited == false){
+                UserPage.viewInited = true
+                this.changeView('loged-part', 'loging-part', ['fade down', 'fade up'])
+            }
+        }else{
+            setTimeout(() => {
+                (this.loginForm.controls['name']).updateValue(name);
+            }, 500)
+        }
     }
     
     login(user){
@@ -71,9 +85,22 @@ export class UserPage{
         }else{
             console.log('login input', user)
             this.Username = user.name;
-            
-            
-            this.signIn(user.name, user.pw).then(res => {
+
+            this.glsetting.SignIn(user.name, user.pw).then(res => {
+                if(this.SaveUsername){
+                    this.glsetting.SetValue('username', user.name)
+                }else{
+                    this.glsetting.SetValue('username', '')
+                }
+
+                if(this.AutoSignIn){
+                    this.glsetting.SetValue('password', user.pw)
+                    this.glsetting.SetValue('autosignin', true)
+                }else{
+                    this.glsetting.SetValue('password', '')
+                    this.glsetting.SetValue('autosignin', false)
+                }
+
                 (this.loginForm.controls['name']).updateValue('');
                 (this.loginForm.controls['pw']).updateValue('');
                 this.changeView('loged-part', 'loging-part', ['fade down', 'fade up'])
@@ -84,14 +111,16 @@ export class UserPage{
     }
     
     logout(){
-        this.Username = ''
+
+        this.glsetting.SetValue('username', '')
+        this.glsetting.SetValue('password', '')
         this.changeView('loging-part', 'loged-part', ['fade down', 'fade up'])
     }
     
     regist(user){
         if(!this.registerForm.valid){
             this.glsetting.ShowMessage("用户名或密码错误", 
-                "用户名和密码都要求在20个字符以内, 并且不能有空格。")
+                "用户名要求2至50个字符(包括中文字符), 但不允许有空格。密码要求6至20个任意字符。")
             return;
         }
         
@@ -119,29 +148,31 @@ export class UserPage{
                     .find('#' + inId).transition(action[1]);
         });
     }
-    
-    private signIn(user: string, pw: string): any{
-        let promise = new Promise((resolve, reject) => {
-            console.log('connect server...')
-            if(user == '' || pw == '' || user != 'tianya1'){
-                reject('用户名或者密码错误！')
-            }
-            
-            resolve(true)
-        })
-        
-        return promise;
-    }
 }
 
-function loginValidator(control: Control): { [s: string]: boolean } { 
+function nameValidator(control: Control): { [s: string]: boolean } {
     let input = control.value.trim();
     let invalid = input == '' || 
-                input.length < 6 || 
-                input.length > 20 ||
+                input.length < 2 ||
+                input.length > 50 ||
                 input.indexOf(' ') > 0
     
     if (invalid) {  
         return {invalid: true};  
     }
+}
+
+function pwValidator(control: Control): {[s: string]: boolean}{
+    let input = control.value;
+    let invalid = input == '' ||
+        input.length < 6 ||
+        input.length > 20
+
+    if (invalid) {
+        return {invalid: true};
+    }
+    /*if(!input.match(/^[a-z0-9]{6,20}$/i)){
+        console.log('pwValidator not match')
+        return {invalid: true}
+    }*/
 }

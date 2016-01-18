@@ -29,13 +29,13 @@
             <div class="inline fields">
                 <div class="field">
                     <div class="ui checkbox">
-                      <input type="checkbox" name="example">
+                      <input type="checkbox" [(ngModel)]="SaveUsername">
                       <label>{{'记住用户名' | tran:glsetting.lang}}</label>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                      <input type="checkbox" name="example">
+                      <input type="checkbox" [(ngModel)]="AutoSignIn">
                       <label>{{'自动登录' | tran:glsetting.lang}}</label>
                     </div>
                 </div>
@@ -93,7 +93,7 @@
                     <label>昵称：</label>
                     <input type="text" 
                             class="error"
-                            placeholder="6 至 20 个字符"
+                            placeholder="2 至 50 个无空格字符"
                             ngControl="name"/>
                 </div>
                 <div class="inline field">
@@ -127,22 +127,45 @@
         </div>
     </div>
     <div class="ui to attached segment transition hidden" id="loged-part">
-        <div class="ui labeled button">
-          <div class="ui teal button" (click)="logout()">
-            <i class="sign out icon"></i>
-            {{'退出' | tran:glsetting.lang}}
-          </div>
-          <a class="ui basic teal left pointing label">
-            {{Username}}
-          </a>
-        </div>
-        <div class="ui form" style="margin-top: 10px">
+        <div class="ui form">
             <div class="inline field">
                 <label>{{'昵称' | tran:glsetting.lang}}</label>
                 <input type="text"/>
-                <button class="ui button">Edit</button>
+                <button class="ui icon basic button">
+                    <i class="write icon"></i>
+                </button>
+            </div>
+            <div class="inline field">
+                <label>{{'邮箱' | tran:glsetting.lang}}</label>
+                <input type="text"/>
+                <button class="ui icon basic button">
+                    <i class="mail icon"></i>
+                </button>
+            </div>
+            <div class="inline field">
+                <label>{{'头像' | tran:glsetting.lang}}</label>
+                <input type="text"/>
+            </div>
+            <div class="inline field">
+                <label>{{'组别' | tran:glsetting.lang}}</label>
+                <input type="text"/>
             </div>
         </div>
+
+        <div class="ui labeled button" style="margin-top: 10px">
+            <div class="ui teal button" (click)="logout()">
+                <i class="sign out icon"></i>
+                {{'注销用户' | tran:glsetting.lang}}
+            </div>
+            <a class="ui basic teal left pointing label">
+                {{Username}}
+            </a>
+        </div>
+
+        <button class="ui teal labeled icon button">
+            <i class="privacy icon"></i>
+            {{'修改密码' | tran:glsetting.lang}}
+        </button>
     </div>
 </div>
 
