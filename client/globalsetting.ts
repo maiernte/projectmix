@@ -150,7 +150,7 @@ export  class GlobalSetting{
                     if(err){
                         reject(err)
                     }else{
-                        console.log('signIn', Meteor.user())
+                        //console.log('signIn', Meteor.user())
                         resolve(true)
                     }
                 })

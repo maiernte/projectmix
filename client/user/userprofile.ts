@@ -8,6 +8,7 @@ import {NgIf} from 'angular2/common'
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
 
+declare var Promise:any;
 
 @Component({
     templateUrl: 'client/user/userprofile.html',
@@ -16,6 +17,7 @@ import {GlobalSetting} from  'client/globalsetting'
 })
 export class UerProfile{
     private static groupDef = ['注册用户', '贵宾', '华鹤同门', '易学老师', '管理员']
+    private profile: Object;
 
     Username = ''
     Email = ''
@@ -25,11 +27,7 @@ export class UerProfile{
     NickName = ''
     MailVerified = false
 
-    private EditName = false;
-    private Editemail = false;
-    private Editmoto = false;
-    
-    private profile: Object;
+    private editModel = false;
 
     constructor(private router: Router,
                 private routeParams: RouteParams,
@@ -38,64 +36,23 @@ export class UerProfile{
                 @Inject(GlobalSetting) public glsetting: GlobalSetting){
     }
 
-    changeNickName(){
-        if(this.EditName == false){
-            this.EditName = true;
-        }else{
-            this.EditName = false;
-            
-            console.log(this.profile)
-            this.updateProfile(this.NickName)
-        }
+    get EditModel(){
+        return this.editModel;
     }
 
-    changeEmail(){
-        if(this.Editemail == false){
-            this.Editemail = true;
-        }else{
-            this.Editemail = false;
-            // update Email
-            //this.sendVerifyEmail();
-            
-            Meteor.call("sendVerifyMail", Meteor.userId(), this.Email,
-            (err, res) => {
-                if(err){
-                    console.log('chang mail err: ', err)
-                }else{
-                    console.log('chang mail ok!', err)
-                }
+    set EditModel(value){
+        this.editModel = value;
+        if(value === false){
+            this.updateProfile(this.NickName, this.Moto).then((res) => {
+                this.changEmail(this.Email)
+            }).catch(err => {
+                this.glsetting.ShowMessage("更新数据失败", err)
             })
-        }
-    }
-
-    changeMoto(){
-        if(this.Editmoto == false){
-            this.Editmoto = true;
-        }else{
-            this.Editmoto = false;
-            // update Moto
         }
     }
     
     sendVerifyEmail(){
-        let code = this.glsetting.RandomStr(5)
-        let url = "https://huahecloud-maiernte.c9users.io/#/verify/" + code
-        let mail = {
-            to: this.Email,
-            from: 'huahe@huaheyixue.com',
-            html: `<html>
-                    <head>华鹤易学</head>
-                    <body>
-                        <p>感谢您的使用!</p>
-                        <br/>
-                        <a href='${url}'>点击确认邮箱地址</a>
-                    </body>
-                   </html>`,
-            text: 'Text',
-            subject: '邮箱验证'
-        }
-        
-        Meteor.call('sendMail', mail, (err, response) => {
+        Meteor.call('sendVerificationEmail', Meteor.userId(), this.Email, (err, response) => {
             if(!err){
                 console.log('email is sended!')
             }else{
@@ -141,17 +98,32 @@ export class UerProfile{
         })
     }
     
-    private updateProfile(data){
-        console.log("try update profile")
-        Meteor.users.update(
-            {_id: Meteor.userId()}, 
-            {$set: {'profile.nickname': data}}, 
-            (err, res) => {
-                if(err){
-                    this.glsetting.ShowMessage("更新数据失败", err)
-                }else{
-                    console.log("update profile")
-                }
-            });
+    private updateProfile(nickname: string, moto: string): any{
+        let promise = new Promise((resolve, reject) => {
+            Meteor.users.update(
+                {_id: Meteor.userId()},
+                {$set: {'profile.nickname': nickname, 'profile.moto': moto}},
+                (err, res) => {
+                    if(err){
+                        //this.glsetting.ShowMessage("更新数据失败", err)
+                        reject(err)
+                    }else{
+                        console.log("update profile successed!")
+                        resolve(true)
+                    }
+                });
+        })
+
+        return promise;
+    }
+
+    private changEmail(newmail: string){
+        Meteor.call('changeMail', Meteor.userId(), newmail, (err, res) => {
+            if(err){
+                this.glsetting.ShowMessage("更改邮箱失败", err)
+            }else{
+                console.log('change mail successed:', res)
+            }
+        })
     }
 }

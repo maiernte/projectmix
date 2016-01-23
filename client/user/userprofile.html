@@ -9,7 +9,7 @@
              (click)="EditModel = false">
             <i class="save icon"></i>
         </div>
-        <div class="ui icon button" >
+        <div class="ui icon button" (click)="sendVerifyEmail()">
             <i class="mail icon"></i>
         </div>
         <div class="ui icon button" >
@@ -22,22 +22,17 @@
     <div class="ui form" style="margin-top: 10px">
         <div class="inline field">
             <label>{{'用户' | tran:glsetting.lang}}</label>
-            <a class="ui basic teal label">
+            <label class="ui basic teal label">
                 {{Username}}
-            </a>
+            </label>
         </div>
-        <div class="inline field" [class.disabled]="!EditModel">
+        <div class="inline field">
             <label>{{'昵称' | tran:glsetting.lang}}</label>
-            <input type="text" [(ngModel)]="NickName"/>
+            <input type="text" [(ngModel)]="NickName" [readonly]="!EditModel"/>
         </div>
         <div class="inline field">
             <label>{{'邮箱' | tran:glsetting.lang}}</label>
-            <input type="text" [(ngModel)]="Email"
-                   [readonly]="!Editemail"/>
-            <button class="ui icon basic button"
-                    (click)="changeEmail()">
-                <i class="mail icon"></i>
-            </button>
+            <input type="text" [(ngModel)]="Email" [readonly]="!EditModel"/>
             <label *ngIf="!MailVerified">
                 {{'未验证' | tran:glsetting.lang}}
             </label>
@@ -47,12 +42,7 @@
         </div>
         <div class="inline field">
             <label>{{'签名' | tran:glsetting.lang}}</label>
-            <input type="text"  [(ngModel)]="Moto"
-                   [readonly]="!Editmoto"/>
-            <button class="ui icon basic button"
-                    (click)="changeMoto()">
-                <i class="write icon"></i>
-            </button>
+            <input type="text"  [(ngModel)]="Moto" [readonly]="!EditModel"/>
         </div>
         <div class="inline field">
             <label>{{'组别' | tran:glsetting.lang}}</label>
