@@ -112,7 +112,7 @@ export class YixuePart{
         domFeed.text(this.record.FeedText)
 
         let domDesc = jQuery(this.rootElement.nativeElement).find('.editable.description')
-        domDesc.text(this.record.Description)
+        domDesc.html(this.record.Description)
     }
 
     ngAfterViewInit(){
@@ -128,7 +128,7 @@ export class YixuePart{
         let feed = dom[0].innerText;
 
         dom = jQuery(this.rootElement.nativeElement).find('.editable.description')
-        let desc = dom[0].innerText;
+        let desc = dom[0].innerHTML;
 
         this.record.Save(question, feed, desc).then(res => {
             if(this.guaview) this.guaview.changeQuestion(question);
