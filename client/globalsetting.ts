@@ -174,6 +174,7 @@ export  class GlobalSetting{
     }
 
     RegistUser(name: string, email: string, pw: string, profile: Object): any{
+        console.log('profile', profile)
         let promise = new Promise((resolve, reject) => {
             Accounts.createUser({
                 username: name,
@@ -192,8 +193,7 @@ export  class GlobalSetting{
         return promise;
     }
     
-    RandomStr(length: number)
-    {
+    RandomStr(length: number){
         var text = "";
         var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     
@@ -201,6 +201,12 @@ export  class GlobalSetting{
             text += possible.charAt(Math.floor(Math.random() * possible.length));
     
         return text;
+    }
+    
+    CheckEmail(email) {
+        var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        //var re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        return re.test(email);
     }
 
     Exit(){

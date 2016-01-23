@@ -26,7 +26,7 @@
         </div>
     </div>
     
-    <div class="ui info message">
+    <div class="ui info message" *ngIf="!ShowTips">
         <i class="close icon"></i>
         <div class="header">
             {{'欢迎使用华鹤易学移动平台！' | tran:glsetting.lang}}

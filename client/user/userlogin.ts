@@ -17,14 +17,15 @@ export class UserLogin{
 
     Username = ''
     Password = ''
+    Email = ''
     SaveUsername = true
     AutoSignIn = false
 
     constructor(private router: Router,
                 private routeParams: RouteParams,
                 private ngZone: NgZone,
-                @Inject(GlobalSetting) public glsetting: GlobalSetting,
-                private rootElement: ElementRef){
+                private rootElement: ElementRef,
+                @Inject(GlobalSetting) public glsetting: GlobalSetting){
     }
 
     changeView(inId, outId, effect){
@@ -69,5 +70,33 @@ export class UserLogin{
 
     regist(){
         this.router.parent.navigate(['Regist'])
+    }
+    
+    forgetPassword(){
+        if(!this.glsetting.CheckEmail(this.Email)){
+            this.glsetting.ShowMessage('无效邮箱地址', '请输入有效邮箱！')
+            return
+        }
+        
+        Meteor.call('sendResetPasswordEmail', this.Email, (res, err) => {
+            console.log(err, res)
+            if(!err){
+                this.glsetting.ShowMessage('邮件发送成功', '验证邮件已经发送到您的注册邮箱中！')
+            }else{
+                this.glsetting.ShowMessage('操作失败', `抱歉，这个邮箱地址(${this.Email})没有被验证过，我们无法向您发送新密码。`)
+            }
+        })
+    }
+    
+    reportAdmin(){
+        let dom = jQuery('.report.admin')
+        Meteor.call('reportToAdmin', dom[0].value, (res, err) => {
+            console.log(err, res)
+            if(!err){
+                this.glsetting.ShowMessage('问题报告', '您的问题已经报告给管理员。请耐心等候回复。')
+            }else{
+                this.glsetting.ShowMessage('操作失败', err)
+            }
+        })
     }
 }

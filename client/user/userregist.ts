@@ -60,10 +60,11 @@ export class UserRegist{
 
         this.glsetting.RegistUser(user.name, user.email, user.pw1, profile)
             .then(res => {
-                this.ngZone.run(() => {
+                /*this.ngZone.run(() => {
                     this.router.parent.navigate(['Profile'])
-                })
-                
+                })*/
+                this.router.parent.navigate(['Login'])
+                this.glsetting.ShowMessage('注册成功', '恭喜您！请登录, 更多功能等待着您！')
             }).catch(err => {
                 let msg = err.error == 403 ? '用户名或密码不正确.' : err.message;
                 this.glsetting.ShowMessage('注册失败', '非常抱歉, 注册没有成功. 原因是: ' + err)

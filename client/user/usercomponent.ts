@@ -1,6 +1,6 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 
-import {Component, Inject} from 'angular2/core'
+import {Component, Inject, NgZone} from 'angular2/core'
 import {NgFor} from 'angular2/common'
 import {RouterOutlet, RouteConfig} from 'angular2/router'
 import {Router, RouteParams} from 'angular2/router'
@@ -42,6 +42,7 @@ declare var jQuery;
 export class UserComponent{
     constructor(private router: Router,
                 private routeParams: RouteParams,
+                private ngZone: NgZone,
         @Inject(GlobalSetting) public glsetting: GlobalSetting){
     }
 
@@ -59,8 +60,14 @@ export class UserComponent{
     }
 
     ngAfterViewInit(){
+        //console.log(this.router)
         if(this.glsetting.Signed){
-            this.router.navigate(['Profile'])
+            /*this.ngZone.run(() => {
+                this.router.navigate(['Profile'])
+            })*/
+            setTimeout(() => {
+                this.router.navigate(['Profile'])
+            }, 1000)
         }
     }
 }

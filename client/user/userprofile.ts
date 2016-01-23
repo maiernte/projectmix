@@ -55,6 +55,7 @@ export class UerProfile{
         Meteor.call('sendVerificationEmail', Meteor.userId(), this.Email, (err, response) => {
             if(!err){
                 console.log('email is sended!')
+                this.glsetting.ShowMessage('邮件发送成功', '验证邮件已经发送到您的注册邮箱中！')
             }else{
                 console.log('Error : ', err)
             }
@@ -68,17 +69,25 @@ export class UerProfile{
             return;
         }
         
-        this.profile = JSON.parse(JSON.stringify(user.profile));
-        this.Username = user.username
-        this.NickName = user.profile.nickname
-        this.Moto = user.profile.moto
-
-        let sum = user.profile.group
-        this.Group = sum > 0 ? UerProfile.groupDef[1] : UerProfile.groupDef[0]
-        this.Group = Math.floor(sum / 2) > 0 ? UerProfile.groupDef[2] : this.Group
-        this.Group = Math.floor(sum / 4) > 0 ? UerProfile.groupDef[4] : this.Group
-        this.Group = Math.floor(sum / 8) > 0 ? UerProfile.groupDef[8] : this.Group
-
+        if(user.profile){
+            this.profile = JSON.parse(JSON.stringify(user.profile));
+            this.Username = user.username
+            this.NickName = user.profile.nickname
+            this.Moto = user.profile.moto
+    
+            let sum = user.profile.group
+            this.Group = sum > 0 ? UerProfile.groupDef[1] : UerProfile.groupDef[0]
+            this.Group = Math.floor(sum / 2) > 0 ? UerProfile.groupDef[2] : this.Group
+            this.Group = Math.floor(sum / 4) > 0 ? UerProfile.groupDef[4] : this.Group
+            this.Group = Math.floor(sum / 8) > 0 ? UerProfile.groupDef[8] : this.Group
+        }else{
+            this.profile = {}
+            this.Username = user.username
+            this.NickName = user.username
+            this.Moto = ''
+            this.Group = UerProfile.groupDef[0]
+        }
+        
         if(user.emails && user.emails.length > 0){
             this.Email = user.emails[0].address
             this.MailVerified = user.emails[0].verified

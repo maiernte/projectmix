@@ -14,11 +14,6 @@ declare var jQuery
     pipes: [TranslatePipe],
 })
 export class MailVerified{
-    private para: string;
-    
-    Username = ''
-    Password = ''
-    
     constructor(private router: Router,
                 private routeParams: RouteParams,
                 @Inject(GlobalSetting) public glsetting: GlobalSetting){
@@ -26,27 +21,18 @@ export class MailVerified{
     }
     
     ngOnInit(){
-        this.para = this.routeParams.params['ad']
-        console.log(this.para)
-        
+        let para = this.routeParams.params['ad']
+        this.verify(para)
     }
     
-    login(){
-        Accounts.verifyEmail(this.para, (err) => {
-            console.log('verify....', err)
-        })
-        return;
-        
-        this.glsetting.SignIn(this.Username.trim(), this.Password).then(res => {
-            let uid = Meteor.userId()
-            if(uid == this.para){
-                this.showSuccess('verify-successed')
-            }else{
+    verify(para){
+        Accounts.verifyEmail(para, (err) => {
+            if(err){
+                console.log('verify....', err)
                 this.showSuccess('verify-failed')
+            }else{
+                this.showSuccess('verify-successed')
             }
-        }).catch(err => {
-            let msg = err.error == 403 ? '用户名或密码不正确.' : err.message;
-            this.glsetting.ShowMessage("登录失败", msg)
         })
     }
     
