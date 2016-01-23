@@ -1,0 +1,40 @@
+<div class="ui to attached segment">
+    <div class="ui form"
+         [ngFormModel]="registerForm"
+         #fregist="ngForm">
+        <div class="inline field">
+            <label>昵称：</label>
+            <input type="text"
+                   class="error"
+                   placeholder="2 至 50 个无空格字符"
+                   ngControl="name"/>
+        </div>
+        <div class="inline field">
+            <label>邮件：</label>
+            <input type="email" placeholder="邮箱地址"
+                   ngControl="email"/>
+        </div>
+        <div class="inline field">
+            <label>{{'密码第一次：' | tran:glsetting.lang}}</label>
+            <input type="password"
+                   placeholder="6 至 20 个字符"
+                   ngControl="pw1"/>
+        </div>
+        <div class="inline field">
+            <label>{{'密码第二次：' | tran:glsetting.lang}}</label>
+            <input type="password"
+                   placeholder="6 至 20 个字符"
+                   ngControl="pw2"/>
+        </div>
+        <div class="ui primary buttons">
+            <div class="ui button" type="submit"
+                 (click)="gologin()">
+                {{'重新登录' | tran:glsetting.lang}}
+            </div>
+            <div class="ui button"
+                 (click)="regist(fregist.value)">
+                {{'注册用户' | tran:glsetting.lang}}
+            </div>
+        </div>
+    </div>
+</div>

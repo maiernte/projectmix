@@ -33,13 +33,16 @@ export  class GlobalSetting{
         this.translator = new TranslatePipe();
 
         let autosignin = this.GetSetting('autosignin')
-        if(autosignin){
+        if(autosignin) {
             let user = this.GetSetting('username')
-            let pw = this.GetSetting('password')
+            let pw = this.GetSetting('password').toString();
+
+            console.log(user, pw)
             this.SignIn(user, pw).then(res => {
                 this.Signed = true;
             }).catch(err => {
                 this.Signed = false;
+                console.log('signIn ', false, err)
             })
         }
     }
@@ -77,7 +80,6 @@ export  class GlobalSetting{
         if(res && res.length == 1){
             window.localStorage.setItem(key, value);
             res[0].Value = value
-            console.log('setValue', value)
         }
     }
 
@@ -132,26 +134,73 @@ export  class GlobalSetting{
             message = this.translator.transform(message, [true]);
         }
         
-        SemanticModal.confirmModal(
-            {
-                header: header,
-                message: message,
-                noButtons: true
-            }
-        );
+        SemanticModal.confirmModal({
+            header: header,
+            message: message,
+            noButtons: true
+        });
     }
 
     SignIn(user: string, pw: string): any{
         let promise = new Promise((resolve, reject) => {
-
-            if(user == '' || pw == ''){
+            if(user == '' || pw == '' || !user || !pw){
                 reject('用户名或者密码错误！')
+            }else{
+                Meteor.loginWithPassword(user, pw, err => {
+                    if(err){
+                        reject(err)
+                    }else{
+                        console.log('signIn', Meteor.user())
+                        resolve(true)
+                    }
+                })
             }
-
-            resolve(true)
         })
 
         return promise;
+    }
+
+    SignOut(){
+        let promise = new Promise((resolve, reject) => {
+            Meteor.logout(err => {
+                if(err){
+                    reject(err)
+                }else{
+                    resolve(true)
+                }
+            })
+        })
+        return promise;
+    }
+
+    RegistUser(name: string, email: string, pw: string, profile: Object): any{
+        let promise = new Promise((resolve, reject) => {
+            Accounts.createUser({
+                username: name,
+                email: email,
+                password: pw,
+                profile: profile
+            }, (err) => {
+                if(err){
+                    reject(err)
+                }else{
+                    resolve(true)
+                }
+            });
+        })
+
+        return promise;
+    }
+    
+    RandomStr(length: number)
+    {
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    
+        for( var i=0; i < length; i++ )
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+    
+        return text;
     }
 
     Exit(){

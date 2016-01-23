@@ -31,7 +31,8 @@ import {BookComponent} from 'client/books/bookcomponent'
 import {TranslatePipe} from './allgemein/translatePipe'
 import {GlobalSetting} from  './globalsetting'
 import {AppSetting} from './allgemein/setting'
-import {UserPage} from './user/userpage'
+import {UserComponent} from './user/usercomponent'
+import {MailVerified} from 'client/user/mailverify'
 
 declare var jQuery;
 
@@ -49,7 +50,8 @@ declare var jQuery;
     {path: '/compass', as: 'Compass', component: CompassPage},
     {path: '/setting', as: 'Setting', component: AppSetting},
     {path: '/books/...', as: 'Books', component: BookComponent},
-    {path: '/user', as: 'User', component: UserPage},
+    {path: '/user/...', as: 'User', component: UserComponent},
+    {path: '/verify/:ad', as: 'Verified', component: MailVerified},
 ])
 class HuaheApp {
     router: Router;

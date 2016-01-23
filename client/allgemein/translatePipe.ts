@@ -25,6 +25,10 @@ export class TranslatePipe{
     }
 
     transform(text, [lang]){
+        if(!text){
+            return ''
+        }
+        
         if(lang === true){
             return typeof text == 'string' ? TranslatePipe.s2t(text) : text.toString();
         }else{

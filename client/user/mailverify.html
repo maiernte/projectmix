@@ -1,0 +1,35 @@
+<div class="ui to attached segment">
+    <div class="ui form" id='verify-login'>
+        <div class="inline field">
+            <label>帐号：</label>
+            <input type="text" placeholder="您的用户名或邮箱"
+                   [(ngModel)]="Username"/>
+        </div>
+        <div class="inline field">
+            <label>{{'密码：' | tran:glsetting.lang}}</label>
+            <input type="password" [(ngModel)]="Password"/>
+        </div>
+
+        <div class="ui primary buttons">
+            <div class="ui button" type="submit"
+                 (click)="login()">
+                {{'登录' | tran:glsetting.lang}}
+            </div>
+        </div>
+    </div>
+    
+    <div class="ui positive message transition hidden" id="verify-successed">
+      <div class="header">
+          {{'邮箱验证成功！' | tran:glsetting.lang}}
+        
+      </div>
+      <p>{{'感谢您的支持！' | tran:glsetting.lang}}</p>
+    </div>
+    <div class="ui negative message transition hidden" id="verify-failed">
+      <div class="header">
+          {{'邮箱验证失败！' | tran:glsetting.lang}}
+        
+      </div>
+      <p>{{'验证邮件失效。' | tran:glsetting.lang}}</p>
+    </div>
+</div>

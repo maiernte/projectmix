@@ -68,11 +68,12 @@ export class BookEditor{
             description: this.Desc,
             icon: null,
             author: this.Author,
-            owner: null,
+            owner: Meteor.userId(),
             readpermission: 0,
             writepermission: 0,
             created: Date.now(),
             modified: Date.now(),
+            public: false
         }, (err, id) => {
             if(err){
                 jQuery(this.rootElement.nativeElement)

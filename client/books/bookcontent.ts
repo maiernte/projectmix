@@ -1,7 +1,7 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 /// <reference path="../../typings/book.d.ts" />
 
-import {Component, Inject, ElementRef} from 'angular2/core'
+import {Component, Inject, NgZone, ElementRef} from 'angular2/core'
 import {NgFor} from 'angular2/common'
 import {Router, RouteParams} from 'angular2/router'
 
@@ -30,11 +30,16 @@ export class BookContent{
     constructor(private router: Router,
                 private routeParams: RouteParams,
                 private rootElement: ElementRef,
+                private ngZone: NgZone,
                 @Inject(GlobalSetting) public glsetting:GlobalSetting) {
     }
     
     get BookName(){
         return this.bookname;
+    }
+    
+    set BookName(value){
+        this.bookname = value
     }
 
     get Records(){
@@ -47,6 +52,7 @@ export class BookContent{
     
     ngOnInit(){
         this.bookid = this.routeParams.params['id']
+        this.bookname = ''
         this.loadRecordes();
     }
     
@@ -105,41 +111,63 @@ export class BookContent{
     private loadRecordes(): any{
         let promise = new Promise((resolve, reject) => {
             if(this.bookid && this.bookid != ''){
-                let book = Books.findOne({_id: this.bookid})
+                /*let book = Books.findOne({_id: this.bookid})
                 this.bookname = book.name;
                 this.records = BkRecords
                     .find({book: this.bookid}, {sort: {created: 'desc'}})
-                    .fetch()
+                    .fetch()*/
+                
+                Meteor.subscribe('books', () => {
+                    let book = Books.findOne({_id: this.bookid})
+                    this.BookName = book.name;
+                    this.ngZone.run(() => {})
+                });
+            
+
+                this.records = []
+                this.rdviews = []
+                Meteor.subscribe('bkrecord', this.bookid, () => {
+                    this.records = BkRecords
+                        .find({book: this.bookid}, {sort: {created: 'desc'}})
+                        .fetch()  
+                        
+                    this.buildRecordView()
+                })
             }else{
                 this.bookname = '本地记录'
                 this.records = LocalRecords
-                    .find({})
-                    .map(r => {
-                        return {
-                            _id: r._id,
-                            gua: r.gua,
-                            bazi: r.bazi,
-                            question: r.question,
-                            description: null,
-                            owner: null,
-                            feed: r.feed,
-                            created: r.created,
-                            modified: r.modified
-                        };
-                    }).reverse();
+                .find({})
+                .map(r => {
+                    return {
+                        _id: r._id,
+                        gua: r.gua,
+                        bazi: r.bazi,
+                        question: r.question,
+                        description: null,
+                        owner: null,
+                        feed: r.feed,
+                        created: r.created,
+                        modified: r.modified
+                    };
+                }).reverse();
+                
+                this.buildRecordView();
             }
-
-            let tmp = [];
-            for(let rd of this.records){
-                let view  = new RecordHelper(rd);
-                tmp.push(view);
-            }
-
-            this.Records = tmp;
-            resolve(true);
         })
 
         return promise;
+    }
+    
+    private buildRecordView(){
+        let tmp = [];
+        for(let rd of this.records){
+            let view  = new RecordHelper(rd);
+            tmp.push(view);
+        }
+
+        this.ngZone.run(() => {
+            this.Records = tmp;    
+        })
     }
 
     private doaddRecord(): any{
@@ -150,6 +178,7 @@ export class BookContent{
             }else{
                 if(this.bookid){
                     this.glsetting.Clipboard['book'] = this.bookid
+                    this.glsetting.Clipboard['owner'] = Meteor.userId()
                     console.log(this.glsetting.Clipboard)
                     BkRecords.insert(this.glsetting.Clipboard, (err, id) => {
                         if(err){

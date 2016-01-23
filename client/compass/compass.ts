@@ -169,11 +169,14 @@ export class CompassView{
         }
     }
 
+    ImgUrl = ''
     LoadImage(event){
         if(this.IsCordova && navigator['camera']){
             navigator['camera'].getPicture((data) => {
-                var img = jQuery('#compass-image');
-                img.attr('xlink:href', 'data:image/jpeg;base64,' + data);
+                /*var img = jQuery('#compass-image');
+                img.attr('xlink:href', 'data:image/jpeg;base64,' + data);*/
+                this.ImgUrl = 'url(data:image/jpeg;base64,' + r.result + ')'
+                
                 this.Opacity = 0.5;
                 this.changeOpacity(0.0)
             }, function (err) {
@@ -191,9 +194,10 @@ export class CompassView{
             var r = new FileReader();
             r.onload = () => {
                 //compass - image
-                console.log('file loaded' , r.result)
-                var img = jQuery('#compass-image');
-                img.attr('xlink:href', r.result);
+                console.log('file loaded ' , r.result)
+                /*var img = jQuery('#compass-image');
+                img.attr('xlink:href', r.result);*/
+                this.ImgUrl = 'url(' + r.result + ')'
 
                 this.Opacity = 0.5;
                 this.changeOpacity(0.0)

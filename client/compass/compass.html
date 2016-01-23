@@ -101,11 +101,13 @@
     </div>
 
     <div class='ui attached segment'>
-
-        <svg id="compass-svg" style="padding:3px;margin:0;"
+        <!--<img [attr.src]="ImgUrl" />-->
+        <svg id="compass-svg" style="padding:3px;margin:0;background-repeat: no-repeat;background-size: 100% 100%;"
              preserveAspectRatio="xMinYMin meet"
-             viewBox="0,0,1000,1000">
-            <image x="0" y="0" width="1000" height="1000" xlink:href="" id="compass-image"></image>
+             viewBox="0,0,1000,1000" 
+            [style.background-image]="ImgUrl">
+            <!--<image x="0" y="0" width="1000" height="1000" [attr.xlink:href]="ImgUrl" id="compass-image"/>-->
+
 
             <!--0刻度那条线-->
             <line x1="500" y1="10" x2="500" y2="45" style="stroke-width:2;stroke:black" />

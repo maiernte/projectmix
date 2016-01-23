@@ -1,7 +1,7 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 /// <reference path="../../typings/book.d.ts" />
 
-import {Component, Inject} from 'angular2/core'
+import {Component, Inject, NgZone} from 'angular2/core'
 import {NgFor} from 'angular2/common'
 import {Router, RouteParams} from 'angular2/router'
 
@@ -25,6 +25,7 @@ export class BookMarket{
     glsetting:GlobalSetting;
     constructor(private router: Router,
                 private routeParams: RouteParams,
+                private ngZone: NgZone,
                 @Inject(GlobalSetting) glsetting:GlobalSetting) {
         this.glsetting = glsetting;
     }
@@ -75,8 +76,8 @@ export class BookMarket{
     }
     
     private loadBooks(){
-        let tmp = Books.find().fetch()
-        
+        //let tmp = Books.find().fetch()
+
         this.books = [];
         let localbook = {
             _id: null,
@@ -89,12 +90,19 @@ export class BookMarket{
             author: null,
             created: this.glsetting.GetSetting('created'),
             modified: this.glsetting.GetSetting('modified'),
+            public: false
         }
         
         this.books.push(new BookView(localbook));
-        for(let b of tmp){
-            this.books.push(new BookView(b))
-        }
+
+        Meteor.subscribe('books', () => {
+            let tmp = Books.find().fetch();
+            for(let b of tmp){
+                this.books.push(new BookView(b))
+            }
+            
+            this.ngZone.run(() => {})
+        });
     }
 }
 
