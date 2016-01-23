@@ -4,10 +4,10 @@ function validateEmail(email) {
     return re.test(email);
 }
 
-var baseurl = "https://huahemeteor-maiernte.c9users.io/#/verify/"
+var baseurl = "https://huahemeteor-maiernte.c9users.io/#/"
 
 function writeVerifyEmail(address, token, name){
-    let http = baseurl + token
+    let http = baseurl + 'verify/' + token
     let mail = {
         to: address,
         from: 'huahe@huaheyixue.com',
@@ -27,7 +27,7 @@ function writeVerifyEmail(address, token, name){
 }
 
 function writeResetPasswordEmail(address, token, name){
-    let http = baseurl + token
+    let http = baseurl + 'resetpw/' + token
     let mail = {
         to: address,
         from: 'huahe@huaheyixue.com',
@@ -36,7 +36,7 @@ function writeResetPasswordEmail(address, token, name){
                 <body>
                     <p>${name} 您好！请点击以下链接设置您的新密码。</p>
                     <br/>
-                    <a href='${http}'>点击确认邮箱地址</a>
+                    <a href='${http}'>点击重设密码</a>
                 </body>
                </html>`,
         text: '重设密码',

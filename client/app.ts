@@ -33,6 +33,7 @@ import {GlobalSetting} from  './globalsetting'
 import {AppSetting} from './allgemein/setting'
 import {UserComponent} from './user/usercomponent'
 import {MailVerified} from 'client/user/mailverify'
+import {ResetPassword} from 'client/user/resetpassword'
 
 declare var jQuery;
 
@@ -52,6 +53,7 @@ declare var jQuery;
     {path: '/books/...', as: 'Books', component: BookComponent},
     {path: '/user/...', as: 'User', component: UserComponent},
     {path: '/verify/:ad', as: 'Verified', component: MailVerified},
+    {path: 'resetpw/:tk', as: 'ResetPw', component: ResetPassword}
 ])
 class HuaheApp {
     router: Router;
