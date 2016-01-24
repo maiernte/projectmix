@@ -1,5 +1,12 @@
 <div class="ui to attached segment">
-    <div class="ui form"
+    <div class="ui segment" *ngIf="Signing">
+        <div class="ui active inverted dimmer">
+            <div class="ui text loader">{{'注册用户' | tran:glsetting.lang}}</div>
+        </div>
+        <p>{{'正在向系统注册, 请稍等片刻...' | tran:glsetting.lang}}</p>
+    </div>
+
+    <div class="ui form" *ngIf="!Signing"
          [ngFormModel]="registerForm"
          #fregist="ngForm">
         <div class="inline field">

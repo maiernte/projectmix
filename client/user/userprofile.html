@@ -5,7 +5,7 @@
     </div>
 
     <div class="ui buttons" >
-        <div class="ui icon button" [class.disabled]="EditModel"
+        <div class="ui icon button" [class.disabled]="(EditModel || PwModel)"
              (click)="EditModel = true">
             <i class="edit icon"></i>
         </div>
@@ -13,11 +13,12 @@
              (click)="EditModel = false">
             <i class="save icon"></i>
         </div>
-        <div class="ui icon button" (click)="sendVerifyEmail()">
+        <div class="ui icon button" [class.disabled]="PwModel || EditModel"
+             (click)="sendVerifyEmail()">
             <i class="mail icon"></i>
         </div>
         <div class="ui icon button" (click)="PwModel = true"
-            [class.disabled]="PwModel == true">
+            [class.disabled]="PwModel || EditModel">
             <i class="privacy icon"></i>
         </div>
         <div class="ui icon button" (click)="logout()">
@@ -72,7 +73,9 @@
                 <input type="password"
                        placeholder="6 至 20 个字符" [(ngModel)]="pw2"/>
             </div>
-            <div class="ui primary button" (click)="resetpassword()">
+            <div class="ui primary button"
+                 [class.disabled]="changingpw"
+                 (click)="resetpassword()">
                 {{'确定' | tran:glsetting.lang}}
             </div>
             <div class="ui primary button" (click)="PwModel = false">

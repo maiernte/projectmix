@@ -1,5 +1,18 @@
 <div class="ui to attached segment">
-    <div class="ui form" id="login-normalform">
+    <div class="ui segment" *ngIf="Loging">
+        <div class="ui active inverted dimmer">
+            <div class="ui text loader">{{'用户登录' | tran:glsetting.lang}}</div>
+        </div>
+        <p>{{'正在连接数据库, 请耐心等候...' | tran:glsetting.lang}}</p>
+    </div>
+    <div class="ui segment" *ngIf="Sendingmail">
+        <div class="ui active inverted dimmer">
+            <div class="ui text loader">{{'发送邮件' | tran:glsetting.lang}}</div>
+        </div>
+        <p>{{'正在发送邮件, 请耐心等候...' | tran:glsetting.lang}}</p>
+    </div>
+
+    <div class="ui form" id="login-normalform" *ngIf="Loging == false">
         <div class="inline field">
             <label>帐号：</label>
             <input type="text" placeholder="您的用户名或邮箱"
@@ -41,7 +54,7 @@
         </div>
     </div>
 
-    <div class="transition hidden" id="login-vergessen">
+    <div class="transition hidden" id="login-vergessen" *ngIf="Sendingmail == false">
         <div class="ui left action input">
             <button class="ui teal labeled icon button" (click)="forgetPassword()">
                 <i class="mail icon"></i>

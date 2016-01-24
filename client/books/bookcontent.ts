@@ -1,5 +1,6 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 /// <reference path="../../typings/book.d.ts" />
+/// <reference path="../../typings/ng2-pagination.d.ts" />
 
 import {Component, Inject, NgZone, ElementRef} from 'angular2/core'
 import {NgFor, NgIf} from 'angular2/common'
@@ -12,6 +13,7 @@ import {LocalRecords, Books, BkRecords} from 'collections/books'
 import {RecordHelper} from './record/recordhelper'
 
 import {MeteorComponent} from 'angular2-meteor';
+import {PaginationService, PaginatePipe, PaginationControlsCpm} from 'ng2-pagination';
 
 declare var jQuery;
 declare var Promise;
@@ -19,9 +21,10 @@ declare var CouchDB: any;
 
 @Component({
     selector: "book-content",
-    pipes:[TranslatePipe],
+    pipes:[TranslatePipe, PaginatePipe],
     templateUrl: "client/books/bookcontent.html",
-    directives: [NgFor, NgIf]
+    directives: [NgFor, NgIf, PaginationControlsCpm],
+    viewProviders: [PaginationService]
 })
 export class BookContent extends MeteorComponent{
     private bookid: string;
@@ -31,6 +34,9 @@ export class BookContent extends MeteorComponent{
     private rdviews: Array<RecordHelper>;
 
     Loaded = false;
+    pageSize: number = 2;
+    curPage: ReactiveVar<number> = new ReactiveVar<number>(1);
+    sumItems: number = this.pageSize
     
     constructor(private router: Router,
                 private routeParams: RouteParams,
@@ -69,15 +75,10 @@ export class BookContent extends MeteorComponent{
     deleteRecords(){
         let ids = this.rdviews.filter(r => r.Checked).map(r => {return r.Id})
         if(ids.length == 0){
-            /*jQuery(this.rootElement.nativeElement)
-                .find('.no-record.modal')
-                .modal('show')*/
             jQuery('.no-record.modal').modal('show')
             return;
         }
 
-        //jQuery(this.rootElement.nativeElement)
-        //    .find('.delete.record.modal')
         jQuery('.delete.record.modal')
             .modal({
                 closable  : false,
@@ -101,10 +102,9 @@ export class BookContent extends MeteorComponent{
         this.doaddRecord()
             .then(res => {
                 this.glsetting.Clipboard = null;
-                this.ngZone.run(() => {
+                /*this.ngZone.run(() => {
                     return this.loadRecordes();
-                })
-
+                })*/
         }).then(res => {
             //jQuery('.add-record-success.modal').modal('show')
             this.router.parent.navigate(['./BookContent', {id: this.bookid}])
@@ -117,41 +117,54 @@ export class BookContent extends MeteorComponent{
         this.router.parent.navigate(['./BookRecord', {bid: this.bookid, rid: rd.Id}])
     }
 
+    onPageChanged(page: number) {
+        this.curPage.set(page);
+    }
+
+
+
     private loadRecordes(): any{
         this.Loaded = false;
 
         let promise = new Promise((resolve, reject) => {
             if(this.bookid && this.bookid != ''){
-
-                /*Meteor.subscribe('books', () => {
-                    let book = Books.findOne({_id: this.bookid})
-                    this.BookName = book.name;
-                    this.ngZone.run(() => {})
-                });*/
                 this.subscribe('books', () => {
                     let book = Books.findOne({_id: this.bookid})
                     this.BookName = book.name;
                 })
-            
 
                 this.records = []
                 this.rdviews = []
-                /*Meteor.subscribe('bkrecord', this.bookid, () => {
-                    this.records = BkRecords
-                        .find({book: this.bookid}, {sort: {created: 'desc'}})
-                        .fetch()  
-                        
-                    this.buildRecordView()
-                })*/
-                this.subscribe('bkrecord', this.bookid, () => {
-                    this.records = BkRecords
-                        .find({book: this.bookid}, {sort: {created: 'desc'}})
-                        .fetch()
-                    this.buildRecordView()
-                    this.ngZone.run(() => {
-                        this.Loaded = true;
+
+                this.autorun(() => {
+                    Meteor.setTimeout(() => {
+                        let countOpt = {
+                            fields : ['_id']
+                        }
+                        this.subscribe('bkrecord', this.bookid, countOpt, () => {
+                            this.ngZone.run(() => {
+                                this.sumItems = BkRecords.find().count();
+                            })
+                        })
+                    }, 2 * 1000)
+
+                    let options = {
+                        limit: this.pageSize,
+                        skip: (this.curPage.get() - 1) * this.pageSize,
+                        sort: {created: 'desc'}
+                    }
+
+                    this.subscribe('bkrecord', this.bookid, options, () => {
+                        this.records = BkRecords
+                            .find()
+                            .fetch()
+                        this.buildRecordView()
+                        this.ngZone.run(() => {
+                            this.Loaded = true;
+                        })
                     })
                 })
+
             }else{
                 this.bookname = '本地记录'
                 this.records = LocalRecords
@@ -169,7 +182,8 @@ export class BookContent extends MeteorComponent{
                         modified: r.modified
                     };
                 }).reverse();
-                
+
+                this.sumItems = this.records.length
                 this.buildRecordView();
                 this.Loaded = true;
             }

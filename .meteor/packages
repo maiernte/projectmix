@@ -27,3 +27,5 @@ richsilv:semantic-ui-modal
 accounts-password
 gfk:mailgun-api
 email
+reactive-var
+barbatus:ng2-pagination

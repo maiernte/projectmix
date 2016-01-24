@@ -12,6 +12,7 @@ declare var jQuery:any;
     selector: 'user-login',
     templateUrl: 'client/user/userlogin.html',
     pipes: [TranslatePipe],
+    directives: [NgIf]
 })
 export class UserLogin{
 
@@ -20,6 +21,9 @@ export class UserLogin{
     Email = ''
     SaveUsername = true
     AutoSignIn = false
+
+    Loging = false;
+    Sendingmail = false;
 
     constructor(private router: Router,
                 private routeParams: RouteParams,
@@ -53,16 +57,22 @@ export class UserLogin{
             return;
         }
 
+        this.Loging = true
         this.glsetting.SignIn(this.Username.trim(), this.Password).then(res => {
             this.glsetting.SetValue('username', this.SaveUsername ? this.Username : '')
             this.glsetting.SetValue('password', this.AutoSignIn ? this.Password : '')
             this.glsetting.SetValue('autosignin', this.AutoSignIn)
 
             this.ngZone.run(() => {
+                this.Loging = false;
                 this.router.parent.navigate(['Profile'])
             })
             
         }).catch(err => {
+            this.ngZone.run(() => {
+                this.Loging = false;
+            })
+
             let msg = err.error == 403 ? '用户名或密码不正确.' : err.message;
             this.glsetting.ShowMessage("登录失败", msg)
         })
@@ -77,9 +87,14 @@ export class UserLogin{
             this.glsetting.ShowMessage('无效邮箱地址', '请输入有效邮箱！')
             return
         }
-        
+
+        this.Sendingmail = true
         Meteor.call('sendResetPasswordEmail', this.Email, (res, err) => {
-            console.log(err, res)
+
+            this.ngZone.run(() => {
+                this.Sendingmail = false;
+            })
+
             if(!err){
                 this.glsetting.ShowMessage('邮件发送成功', '验证邮件已经发送到您的注册邮箱中！')
             }else{
@@ -91,7 +106,10 @@ export class UserLogin{
     reportAdmin(){
         let dom = jQuery('.report.admin')
         Meteor.call('reportToAdmin', dom[0].value, (res, err) => {
-            console.log(err, res)
+            this.ngZone.run(() => {
+                this.Sendingmail = false;
+            })
+
             if(!err){
                 this.glsetting.ShowMessage('问题报告', '您的问题已经报告给管理员。请耐心等候回复。')
             }else{

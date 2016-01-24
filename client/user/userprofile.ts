@@ -32,6 +32,7 @@ export class UerProfile{
     pw1 = ''
     pw2 = ''
     pwmodel = false
+    changingpw = false;
 
     private editModel = false;
 
@@ -52,6 +53,10 @@ export class UerProfile{
             this.updateProfile(this.NickName, this.Moto).then((res) => {
                 this.changEmail(this.Email)
             }).catch(err => {
+                this.ngZone.run(() => {
+                    this.ngOnInit()
+                })
+
                 this.glsetting.ShowMessage("更新数据失败", err)
             })
         }
@@ -156,13 +161,19 @@ export class UerProfile{
             return
         }
 
+        this.changingpw = true;
         Accounts.changePassword(this.pw, this.pw1, (err) => {
             if(!err){
                 this.glsetting.ShowMessage("操作成功", "您的密码已经更改!")
                 this.ngZone.run(() => {
+                    this.changingpw = false
                     this.PwModel = false;
                 })
             }else{
+                this.ngZone.run(() => {
+                    this.changingpw = false
+                })
+
                 this.glsetting.ShowMessage('更改密码失败', err)
             }
         })
