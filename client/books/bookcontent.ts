@@ -137,7 +137,7 @@ export class BookContent extends MeteorComponent{
                 this.rdviews = []
 
                 this.autorun(() => {
-                    Meteor.setTimeout(() => {
+                    /*Meteor.setTimeout(() => {
                         let countOpt = {
                             fields : ['_id']
                         }
@@ -146,7 +146,16 @@ export class BookContent extends MeteorComponent{
                                 this.sumItems = BkRecords.find().count();
                             })
                         })
+                    }, 2 * 1000)*/
+
+                    Meteor.setTimeout(() => {
+                        this.subscribe('bkrecordsum', this.bookid, () => {
+                            this.ngZone.run(() => {
+                                this.sumItems = BkRecords.find().count();
+                            })
+                        })
                     }, 2 * 1000)
+
 
                     let options = {
                         limit: this.pageSize,
@@ -163,8 +172,7 @@ export class BookContent extends MeteorComponent{
                             this.Loaded = true;
                         })
                     })
-                })
-
+                }, true);
             }else{
                 this.bookname = '本地记录'
                 this.records = LocalRecords

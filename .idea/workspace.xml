@@ -2,16 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd628d0f-b330-4283-9dbe-d11a93ac6559" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.meteor/packages" afterPath="$PROJECT_DIR$/.meteor/packages" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.meteor/versions" afterPath="$PROJECT_DIR$/.meteor/versions" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/books/bookcontent.html" afterPath="$PROJECT_DIR$/client/books/bookcontent.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/books/bookcontent.ts" afterPath="$PROJECT_DIR$/client/books/bookcontent.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/user/userlogin.html" afterPath="$PROJECT_DIR$/client/user/userlogin.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/user/userlogin.ts" afterPath="$PROJECT_DIR$/client/user/userlogin.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/user/userprofile.html" afterPath="$PROJECT_DIR$/client/user/userprofile.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/user/userprofile.ts" afterPath="$PROJECT_DIR$/client/user/userprofile.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/user/userregist.html" afterPath="$PROJECT_DIR$/client/user/userregist.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/user/userregist.ts" afterPath="$PROJECT_DIR$/client/user/userregist.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/bookcollection.ts" afterPath="$PROJECT_DIR$/server/bookcollection.ts" />
     </list>
     <ignored path="HuaheC9.iws" />
@@ -38,8 +30,8 @@
           <file leaf-file-name="bookcontent.ts" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/client/books/bookcontent.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.87677723">
-                  <caret line="185" column="51" selection-start-line="185" selection-start-column="51" selection-end-line="185" selection-end-column="51" />
+                <state vertical-scroll-proportion="0.2843602">
+                  <caret line="147" column="26" selection-start-line="147" selection-start-column="26" selection-end-line="147" selection-end-column="26" />
                   <folding>
                     <element signature="n#!!doc" expanded="true" />
                     <element signature="n#!!block;n#BookName#0;n#BookContent#0" expanded="false" />
@@ -57,11 +49,9 @@
           <file leaf-file-name="bookcollection.ts" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/server/bookcollection.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-9.444445">
-                  <caret line="35" column="14" selection-start-line="35" selection-start-column="14" selection-end-line="35" selection-end-column="14" />
-                  <folding>
-                    <element signature="n#!!block;n#buildQuery#0" expanded="false" />
-                  </folding>
+                <state vertical-scroll-proportion="-13.888889">
+                  <caret line="25" column="27" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="27" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -147,8 +137,8 @@
         <option value="$PROJECT_DIR$/client/user/userregist.html" />
         <option value="$PROJECT_DIR$/client/user/userprofile.ts" />
         <option value="$PROJECT_DIR$/client/user/userprofile.html" />
-        <option value="$PROJECT_DIR$/server/bookcollection.ts" />
         <option value="$PROJECT_DIR$/client/books/bookcontent.html" />
+        <option value="$PROJECT_DIR$/server/bookcollection.ts" />
         <option value="$PROJECT_DIR$/client/books/bookcontent.ts" />
       </list>
     </option>
@@ -159,8 +149,8 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="64" />
-    <option name="y" value="65" />
+    <option name="x" value="72" />
+    <option name="y" value="66" />
     <option name="width" value="1805" />
     <option name="height" value="976" />
   </component>
@@ -443,7 +433,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="64" y="65" width="1805" height="976" extended-state="0" />
+    <frame x="72" y="66" width="1805" height="976" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17063712" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -919,16 +909,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/bookcollection.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.444445">
-          <caret line="35" column="14" selection-start-line="35" selection-start-column="14" selection-end-line="35" selection-end-column="14" />
-          <folding>
-            <element signature="n#!!block;n#buildQuery#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/books/bookcontent.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7978884">
@@ -937,10 +917,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/server/bookcollection.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.888889">
+          <caret line="25" column="27" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/books/bookcontent.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.87677723">
-          <caret line="185" column="51" selection-start-line="185" selection-start-column="51" selection-end-line="185" selection-end-column="51" />
+        <state vertical-scroll-proportion="0.2843602">
+          <caret line="147" column="26" selection-start-line="147" selection-start-column="26" selection-end-line="147" selection-end-column="26" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="n#!!block;n#BookName#0;n#BookContent#0" expanded="false" />

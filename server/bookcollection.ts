@@ -1,37 +1,30 @@
 import {Books, LocalRecords, BkRecords} from 'collections/books'
 
 declare var Meteor;
-
-function buildQuery(partyId?: string): Object {
-    var isAvailable = {
-        $or: [
-            { public: true },
-            {
-                $and: [
-                    { owner: this.userId },
-                    { owner: { $exists: true } }
-                ]
-            }
-        ]
-    };
-
-    if (partyId) {
-        return { $and: [{ _id: partyId }, isAvailable] };
-    }
-
-    return isAvailable;
-}
+declare var Counts;
 
 Meteor.publish('books', function() {
     return Books.find({owner: this.userId});
 });
 
-Meteor.publish('bkrecord', function(bookid: string, options: Object) {
-    return BkRecords.find({
+function buildQuery(bookid?: string): Object {
+    var isAvailable = {
         $and: [
             {owner: this.userId},
             {book: bookid},
             {created: {$gt: 0}}
         ]
-    }, options);
+    };
+
+    return isAvailable;
+}
+
+Meteor.publish('bkrecord', function(bookid: string, options: Object) {
+    return BkRecords.find(buildQuery.call(this, bookid), options);
+});
+
+Meteor.publish('bkrecordsum', function(bookid: string) {
+    return BkRecords.find(buildQuery.call(this, bookid), {
+        fields : ['_id']
+    });
 });
