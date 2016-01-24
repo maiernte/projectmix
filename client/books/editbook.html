@@ -29,7 +29,14 @@
       </div>
       <p>{{'修改内容无法被保存。' | tran:glsetting.lang}}</p>
     </div>
-    <div class="ui form">
+
+    <div class="ui segment" *ngIf="!Loaded">
+        <div class="ui active inverted dimmer">
+            <div class="ui text loader">{{'加载' | tran:glsetting.lang}}</div>
+        </div>
+        <p>{{'正在加载数据, 请耐心等候...' | tran:glsetting.lang}}</p>
+    </div>
+    <div class="ui form" *ngIf="Loaded">
         <div class="inline field">
             <label>{{'书名：' | tran:glsetting.lang}}</label>
             <input type="text" placeholder="书名" [(ngModel)]="Name">

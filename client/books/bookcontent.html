@@ -41,7 +41,14 @@
     </div>
 </div>
 <div class="ui attached segment">
-    <div class="ui items">
+    <div class="ui segment" *ngIf="!Loaded">
+        <div class="ui active inverted dimmer">
+            <div class="ui text loader">{{'加载' | tran:glsetting.lang}}</div>
+        </div>
+        <p>{{'正在加载数据, 请耐心等候...' | tran:glsetting.lang}}</p>
+    </div>
+
+    <div class="ui items" *ngIf="Loaded">
         <div class="middle aligned item" *ngFor="#rd of Records">
             <div class="content">
                 <div class="meta">

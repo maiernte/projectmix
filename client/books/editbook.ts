@@ -1,12 +1,14 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 /// <reference path="../../typings/book.d.ts" />
 
-import {Component, Inject, ElementRef} from 'angular2/core'
+import {Component, Inject, ElementRef, NgZone} from 'angular2/core'
 import {FormBuilder, ControlGroup, Validators, FORM_DIRECTIVES} from 'angular2/common';
 import {Router, RouteParams} from 'angular2/router'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from 'client/globalsetting'
+
+import {MeteorComponent} from 'angular2-meteor';
 
 import {Books} from 'collections/books'
 
@@ -19,25 +21,34 @@ declare var jQuery;
     directives: [FORM_DIRECTIVES]
 })
 
-export class BookEditor{
+export class BookEditor extends MeteorComponent{
     private book: Book;
     Name: string;
     Desc: string;
     Author: string;
 
+    Loaded = false;
+
     constructor(private router: Router,
                 private routeParams: RouteParams,
                 private rootElement: ElementRef,
+                private ngZone: NgZone,
                 @Inject(GlobalSetting) public glsetting:GlobalSetting) {
+        super()
     }
     
     ngOnInit(){
         let id = this.routeParams.params['id']
         if(id){
-            this.book = Books.findOne({_id: id})
-            this.Name = this.book.name;
-            this.Desc = this.book.description;
-            this.Author = this.book.author;
+            this.subscribe('books', () => {
+                this.book = Books.findOne({_id: id})
+                this.Name = this.book.name;
+                this.Desc = this.book.description;
+                this.Author = this.book.author;
+                this.ngZone.run(() => {
+                    this.Loaded = true;
+                })
+            })
         }
         
         jQuery(this.rootElement.nativeElement)

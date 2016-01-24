@@ -2,7 +2,7 @@
 /// <reference path="../../typings/book.d.ts" />
 
 import {Component, Inject, NgZone, ElementRef} from 'angular2/core'
-import {NgFor} from 'angular2/common'
+import {NgFor, NgIf} from 'angular2/common'
 import {Router, RouteParams} from 'angular2/router'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
@@ -11,27 +11,33 @@ import {GlobalSetting} from 'client/globalsetting'
 import {LocalRecords, Books, BkRecords} from 'collections/books'
 import {RecordHelper} from './record/recordhelper'
 
+import {MeteorComponent} from 'angular2-meteor';
+
 declare var jQuery;
 declare var Promise;
+declare var CouchDB: any;
 
 @Component({
     selector: "book-content",
     pipes:[TranslatePipe],
     templateUrl: "client/books/bookcontent.html",
-    directives: [NgFor]
+    directives: [NgFor, NgIf]
 })
-export class BookContent{
+export class BookContent extends MeteorComponent{
     private bookid: string;
     private bookname: string;
     records: Array<YiRecord>;
 
     private rdviews: Array<RecordHelper>;
+
+    Loaded = false;
     
     constructor(private router: Router,
                 private routeParams: RouteParams,
                 private rootElement: ElementRef,
                 private ngZone: NgZone,
                 @Inject(GlobalSetting) public glsetting:GlobalSetting) {
+        super()
     }
     
     get BookName(){
@@ -112,29 +118,39 @@ export class BookContent{
     }
 
     private loadRecordes(): any{
+        this.Loaded = false;
+
         let promise = new Promise((resolve, reject) => {
             if(this.bookid && this.bookid != ''){
-                /*let book = Books.findOne({_id: this.bookid})
-                this.bookname = book.name;
-                this.records = BkRecords
-                    .find({book: this.bookid}, {sort: {created: 'desc'}})
-                    .fetch()*/
-                
-                Meteor.subscribe('books', () => {
+
+                /*Meteor.subscribe('books', () => {
                     let book = Books.findOne({_id: this.bookid})
                     this.BookName = book.name;
                     this.ngZone.run(() => {})
-                });
+                });*/
+                this.subscribe('books', () => {
+                    let book = Books.findOne({_id: this.bookid})
+                    this.BookName = book.name;
+                })
             
 
                 this.records = []
                 this.rdviews = []
-                Meteor.subscribe('bkrecord', this.bookid, () => {
+                /*Meteor.subscribe('bkrecord', this.bookid, () => {
                     this.records = BkRecords
                         .find({book: this.bookid}, {sort: {created: 'desc'}})
                         .fetch()  
                         
                     this.buildRecordView()
+                })*/
+                this.subscribe('bkrecord', this.bookid, () => {
+                    this.records = BkRecords
+                        .find({book: this.bookid}, {sort: {created: 'desc'}})
+                        .fetch()
+                    this.buildRecordView()
+                    this.ngZone.run(() => {
+                        this.Loaded = true;
+                    })
                 })
             }else{
                 this.bookname = '本地记录'
@@ -155,6 +171,7 @@ export class BookContent{
                 }).reverse();
                 
                 this.buildRecordView();
+                this.Loaded = true;
             }
         })
 

@@ -13,7 +13,13 @@
         {{'保存' | tran:glsetting.lang}}
     </a>-->
 </div>
-<yixue-part [record]="Record">
+<div class="ui segment" *ngIf="Record == null">
+    <div class="ui active inverted dimmer">
+        <div class="ui text loader">{{'加载' | tran:glsetting.lang}}</div>
+    </div>
+    <p>{{'正在加载数据, 请耐心等候...' | tran:glsetting.lang}}</p>
+</div>
+<yixue-part [record]="Record" *ngIf="Record != null">
     <guaview *ngIf='IsGua' [initdata]="YiData"></guaview>
     <baziview *ngIf='!IsGua' [initdata]="YiData"></baziview>
 </yixue-part>

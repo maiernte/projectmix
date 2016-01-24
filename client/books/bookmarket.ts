@@ -8,9 +8,12 @@ import {Router, RouteParams} from 'angular2/router'
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from 'client/globalsetting'
 
+import {MeteorComponent} from 'angular2-meteor';
+
 import {Books} from 'collections/books'
 
 declare var jQuery;
+declare var CouchDB: any;
 
 @Component({
     selector: "book-market",
@@ -18,8 +21,10 @@ declare var jQuery;
     templateUrl: "client/books/bookmarket.html",
     directives: [NgFor]
 })
-export class BookMarket{
+export class BookMarket extends MeteorComponent{
     private books: Array<BookView>;
+    private bookCur: CouchDB.Cursor<Book>;
+
     Market = 'private'
     
     glsetting:GlobalSetting;
@@ -28,6 +33,7 @@ export class BookMarket{
                 private ngZone: NgZone,
                 @Inject(GlobalSetting) glsetting:GlobalSetting) {
         this.glsetting = glsetting;
+        super();
     }
     
     get Books(){
@@ -99,14 +105,21 @@ export class BookMarket{
         
         this.books.push(new BookView(localbook));
 
-        Meteor.subscribe('books', () => {
+        this.subscribe('books', () => {
+            this.bookCur = Books.find()
+            this.bookCur.forEach((b) => {
+                this.books.push(new BookView(b))
+            })
+        }, true);
+
+        /*Meteor.subscribe('books', () => {
             let tmp = Books.find().fetch();
             for(let b of tmp){
                 this.books.push(new BookView(b))
             }
             
             this.ngZone.run(() => {})
-        });
+        });*/
     }
 }
 

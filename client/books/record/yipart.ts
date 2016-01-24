@@ -63,7 +63,7 @@ export class YixuePart{
     }
 
     get IsGua(){
-        return this.record.IsGua
+        return this.record ? this.record.IsGua : true;
     }
 
     get QuestionT(){
