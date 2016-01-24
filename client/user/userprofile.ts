@@ -8,7 +8,8 @@ import {NgIf} from 'angular2/common'
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
 
-declare var Promise:any;
+declare var Promise: any;
+declare var jQuery: any
 
 @Component({
     templateUrl: 'client/user/userprofile.html',
@@ -26,6 +27,11 @@ export class UerProfile{
     Group = ''
     NickName = ''
     MailVerified = false
+
+    pw = ''
+    pw1 = ''
+    pw2 = ''
+    pwmodel = false
 
     private editModel = false;
 
@@ -50,8 +56,30 @@ export class UerProfile{
             })
         }
     }
+
+    get PwModel(){
+        return this.pwmodel;
+    }
+
+    set PwModel(value){
+        this.pwmodel = value
+        if(value == true){
+            this.pw = ''
+            this.pw1 = ''
+            this.pw2 = ''
+
+            this.changeView('profile-changepw', 'profile-page', null)
+        }else{
+            this.changeView('profile-page', 'profile-changepw', null)
+        }
+    }
     
     sendVerifyEmail(){
+        if(this.glsetting.CheckEmail(this.Email)){
+            this.glsetting.ShowMessage('无效地址', '邮箱地址不正确, 无法发送验证邮件！')
+            return;
+        }
+
         Meteor.call('sendVerificationEmail', Meteor.userId(), this.Email, (err, response) => {
             if(!err){
                 console.log('email is sended!')
@@ -106,6 +134,39 @@ export class UerProfile{
             this.glsetting.ShowMessage("退出失败", err)
         })
     }
+
+    resetpassword(){
+        if(this.pw == '' || this.pw1 == ''){
+            this.glsetting.ShowMessage('更改密码', '请输入旧密码和新密码。')
+            return
+        }
+
+        if(this.pw == this.pw1){
+            this.glsetting.ShowMessage('更改密码', '旧密码和新密码是一样的, 没有改变。')
+            return
+        }
+
+        if(this.pw1 == '' || this.pw1 != this.pw2){
+            this.glsetting.ShowMessage('操作失败', '您的两次输入不一致。')
+            return
+        }
+
+        if(this.pw1.length < 6 || this.pw1.length > 20){
+            this.glsetting.ShowMessage('操作失败', '系统只接受6到20位字符的密码。')
+            return
+        }
+
+        Accounts.changePassword(this.pw, this.pw1, (err) => {
+            if(!err){
+                this.glsetting.ShowMessage("操作成功", "您的密码已经更改!")
+                this.ngZone.run(() => {
+                    this.PwModel = false;
+                })
+            }else{
+                this.glsetting.ShowMessage('更改密码失败', err)
+            }
+        })
+    }
     
     private updateProfile(nickname: string, moto: string): any{
         let promise = new Promise((resolve, reject) => {
@@ -127,6 +188,11 @@ export class UerProfile{
     }
 
     private changEmail(newmail: string){
+        if(!this.glsetting.CheckEmail(this.Email)){
+            this.glsetting.ShowMessage("更改邮箱失败", '您输入的是一个无效信箱地址.')
+            return;
+        }
+
         Meteor.call('changeMail', Meteor.userId(), newmail, (err, res) => {
             if(err){
                 this.glsetting.ShowMessage("更改邮箱失败", err)
@@ -134,5 +200,15 @@ export class UerProfile{
                 console.log('change mail successed:', res)
             }
         })
+    }
+
+    changeView(inId, outId, effect){
+        let action = effect ? effect : ['fade left', 'fade right']
+        jQuery(this.rootElement.nativeElement)
+            .find('#' + outId)
+            .transition(action[0], () => {
+                jQuery(this.rootElement.nativeElement)
+                    .find('#' + inId).transition(action[1]);
+            });
     }
 }

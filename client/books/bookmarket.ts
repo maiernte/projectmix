@@ -66,7 +66,11 @@ export class BookMarket{
         if(book){
             this.router.parent.navigate(['./EditBook', {id: book.Id}])
         }else{
-            this.router.parent.navigate(['./EditBook', {id: null}])
+            if(this.glsetting.Signed == false){
+                this.glsetting.ShowMessage('创建书集', '您还没有注册或者登录, 无法创建在线书集.')
+            }else{
+                this.router.parent.navigate(['./EditBook', {id: null}])
+            }
         }
     }
     

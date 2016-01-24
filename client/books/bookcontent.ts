@@ -95,7 +95,10 @@ export class BookContent{
         this.doaddRecord()
             .then(res => {
                 this.glsetting.Clipboard = null;
-                return this.loadRecordes();
+                this.ngZone.run(() => {
+                    return this.loadRecordes();
+                })
+
         }).then(res => {
             //jQuery('.add-record-success.modal').modal('show')
             this.router.parent.navigate(['./BookContent', {id: this.bookid}])

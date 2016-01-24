@@ -2,6 +2,26 @@ import {Books, LocalRecords, BkRecords} from 'collections/books'
 
 declare var Meteor;
 
+function buildQuery(partyId?: string): Object {
+    var isAvailable = {
+        $or: [
+            { public: true },
+            {
+                $and: [
+                    { owner: this.userId },
+                    { owner: { $exists: true } }
+                ]
+            }
+        ]
+    };
+
+    if (partyId) {
+        return { $and: [{ _id: partyId }, isAvailable] };
+    }
+
+    return isAvailable;
+}
+
 Meteor.publish('books', function() {
     return Books.find({owner: this.userId});
 });

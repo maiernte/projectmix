@@ -1,5 +1,9 @@
-
 <div class="ui to attached segment">
+    <div class="ui negative message" *ngIf="!MailVerified">
+        <p>{{'您还没有填写邮箱, 或者邮件地址没有经过验证.' | tran:glsetting.lang}}</p>
+        <p>{{'万一丢失密码, 我们无法通知您新的密码.' | tran:glsetting.lang}}</p>
+    </div>
+
     <div class="ui buttons" >
         <div class="ui icon button" [class.disabled]="EditModel"
              (click)="EditModel = true">
@@ -12,15 +16,17 @@
         <div class="ui icon button" (click)="sendVerifyEmail()">
             <i class="mail icon"></i>
         </div>
-        <div class="ui icon button" >
+        <div class="ui icon button" (click)="PwModel = true"
+            [class.disabled]="PwModel == true">
             <i class="privacy icon"></i>
         </div>
         <div class="ui icon button" (click)="logout()">
             <i class="sign out icon"></i>
         </div>
     </div>
-    <div class="ui form" style="margin-top: 10px">
-        <div class="inline field">
+
+    <div id="profile-page" class="ui form" >
+        <div class="inline field" style="margin-top: 10px">
             <label>{{'用户' | tran:glsetting.lang}}</label>
             <label class="ui basic teal label">
                 {{Username}}
@@ -47,6 +53,31 @@
         <div class="inline field">
             <label>{{'组别' | tran:glsetting.lang}}</label>
             <label>{{Group}}</label>
+        </div>
+    </div>
+    <div id="profile-changepw" class="transition hidden">
+        <div class="ui form" style="margin-top: 10px">
+            <div class="inline field">
+                <label>{{'旧密码：' | tran:glsetting.lang}}</label>
+                <input type="password"
+                       placeholder="6 至 20 个字符" [(ngModel)]="pw"/>
+            </div>
+            <div class="inline field">
+                <label>{{'新密码第一次：' | tran:glsetting.lang}}</label>
+                <input type="password"
+                       placeholder="6 至 20 个字符" [(ngModel)]="pw1"/>
+            </div>
+            <div class="inline field">
+                <label>{{'新密码第二次：' | tran:glsetting.lang}}</label>
+                <input type="password"
+                       placeholder="6 至 20 个字符" [(ngModel)]="pw2"/>
+            </div>
+            <div class="ui primary button" (click)="resetpassword()">
+                {{'确定' | tran:glsetting.lang}}
+            </div>
+            <div class="ui primary button" (click)="PwModel = false">
+                {{'取消' | tran:glsetting.lang}}
+            </div>
         </div>
     </div>
 </div>

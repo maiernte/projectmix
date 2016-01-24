@@ -33,8 +33,6 @@ export class ResetPassword{
     }
     
     resetpassword(){
-        console.log(this.pw1, this.pw2)
-        
         if(this.pw1 == '' || this.pw1 != this.pw2){
             this.glsetting.ShowMessage('操作失败', '您的两次输入不一致。')
             return
