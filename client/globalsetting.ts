@@ -38,12 +38,7 @@ export  class GlobalSetting{
             let pw = this.GetSetting('password').toString();
 
             console.log(user, pw)
-            this.SignIn(user, pw).then(res => {
-                this.Signed = true;
-            }).catch(err => {
-                this.Signed = false;
-                console.log('signIn ', false, err)
-            })
+            this.SignIn(user, pw)
         }
     }
     
@@ -147,10 +142,12 @@ export  class GlobalSetting{
                 reject('用户名或者密码错误！')
             }else{
                 Meteor.loginWithPassword(user, pw, err => {
+                    console.log('sign in err: ', err)
                     if(err){
+                        this.Signed = false;
                         reject(err)
                     }else{
-                        //console.log('signIn', Meteor.user())
+                        this.Signed = true
                         resolve(true)
                     }
                 })

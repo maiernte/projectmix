@@ -22,9 +22,3 @@ function buildQuery(bookid?: string): Object {
 Meteor.publish('bkrecord', function(bookid: string, options: Object) {
     return BkRecords.find(buildQuery.call(this, bookid), options);
 });
-
-Meteor.publish('bkrecordsum', function(bookid: string) {
-    return BkRecords.find(buildQuery.call(this, bookid), {
-        fields : ['_id']
-    });
-});

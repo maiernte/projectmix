@@ -14,6 +14,7 @@ import {Books} from 'collections/books'
 
 declare var jQuery;
 declare var CouchDB: any;
+declare var Mongo;
 
 @Component({
     selector: "book-market",
@@ -23,16 +24,14 @@ declare var CouchDB: any;
 })
 export class BookMarket extends MeteorComponent{
     private books: Array<BookView>;
-    private bookCur: CouchDB.Cursor<Book>;
+    private bookCur: Mongo.Cursor<Book>;
 
     Market = 'private'
-    
-    glsetting:GlobalSetting;
+
     constructor(private router: Router,
                 private routeParams: RouteParams,
                 private ngZone: NgZone,
-                @Inject(GlobalSetting) glsetting:GlobalSetting) {
-        this.glsetting = glsetting;
+                @Inject(GlobalSetting) public glsetting:GlobalSetting) {
         super();
     }
     
@@ -69,6 +68,7 @@ export class BookMarket extends MeteorComponent{
     }
     
     editBook(book: BookView){
+        console.log(this.glsetting.Signed)
         if(book){
             this.router.parent.navigate(['./EditBook', {id: book.Id}])
         }else{
@@ -111,15 +111,6 @@ export class BookMarket extends MeteorComponent{
                 this.books.push(new BookView(b))
             })
         }, true);
-
-        /*Meteor.subscribe('books', () => {
-            let tmp = Books.find().fetch();
-            for(let b of tmp){
-                this.books.push(new BookView(b))
-            }
-            
-            this.ngZone.run(() => {})
-        });*/
     }
 }
 

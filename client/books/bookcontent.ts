@@ -65,7 +65,8 @@ export class BookContent extends MeteorComponent{
     ngOnInit(){
         this.bookid = this.routeParams.params['id']
         this.bookname = ''
-        this.loadRecordes();
+        //this.loadRecordes();
+        this.loadContent()
     }
     
     goBack(){
@@ -121,7 +122,35 @@ export class BookContent extends MeteorComponent{
         this.curPage.set(page);
     }
 
+    private loadContent(){
+        this.subscribe('books', () => {
+            let book = Books.findOne({_id: this.bookid})
+            this.BookName = book.name;
+        })
 
+        this.records = []
+        this.rdviews = []
+
+        this.records = LocalRecords
+            .find({book: this.bookid})
+            .map(r => {
+                return {
+                    _id: r._id,
+                    gua: r.gua,
+                    bazi: r.bazi,
+                    question: r.question,
+                    description: null,
+                    owner: null,
+                    feed: r.feed,
+                    created: r.created,
+                    modified: r.modified
+                };
+            }).reverse();
+
+        this.sumItems = this.records.length
+        this.buildRecordView();
+        this.Loaded = true;
+    }
 
     private loadRecordes(): any{
         this.Loaded = false;

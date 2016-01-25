@@ -4,7 +4,15 @@
     <list default="true" id="dd628d0f-b330-4283-9dbe-d11a93ac6559" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/books/bookcontent.ts" afterPath="$PROJECT_DIR$/client/books/bookcontent.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/books/bookmarket.ts" afterPath="$PROJECT_DIR$/client/books/bookmarket.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/books/editbook.html" afterPath="$PROJECT_DIR$/client/books/editbook.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/books/editbook.ts" afterPath="$PROJECT_DIR$/client/books/editbook.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/globalsetting.ts" afterPath="$PROJECT_DIR$/client/globalsetting.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/collections/books.ts" afterPath="$PROJECT_DIR$/collections/books.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/bookcollection.ts" afterPath="$PROJECT_DIR$/server/bookcollection.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/load_books.ts" afterPath="$PROJECT_DIR$/server/load_books.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/main.ts" afterPath="$PROJECT_DIR$/server/main.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/typings/book.d.ts" afterPath="$PROJECT_DIR$/typings/book.d.ts" />
     </list>
     <ignored path="HuaheC9.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -24,14 +32,14 @@
     <favorites_list name="HuaheC9" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.50501">
+    <splitter split-orientation="horizontal" split-proportion="0.50835">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="bookcontent.ts" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/client/books/bookcontent.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.2843602">
-                  <caret line="147" column="26" selection-start-line="147" selection-start-column="26" selection-end-line="147" selection-end-column="26" />
+                <state vertical-scroll-proportion="-0.5530303">
+                  <caret line="68" column="25" selection-start-line="68" selection-start-column="25" selection-end-line="68" selection-end-column="25" />
                   <folding>
                     <element signature="n#!!doc" expanded="true" />
                     <element signature="n#!!block;n#BookName#0;n#BookContent#0" expanded="false" />
@@ -46,11 +54,95 @@
               </provider>
             </entry>
           </file>
+          <file leaf-file-name="app.ts" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/client/app.ts">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-8.777778">
+                  <caret line="52" column="29" selection-start-line="52" selection-start-column="29" selection-end-line="52" selection-end-column="29" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
           <file leaf-file-name="bookcollection.ts" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/server/bookcollection.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-13.888889">
-                  <caret line="25" column="27" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="27" />
+                <state vertical-scroll-proportion="-7.2222223">
+                  <caret line="23" column="3" selection-start-line="23" selection-start-column="3" selection-end-line="23" selection-end-column="3" />
+                  <folding>
+                    <element signature="n#!!block;n#buildQuery#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="books.ts" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/collections/books.ts">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-10.555555">
+                  <caret line="19" column="24" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="main.ts" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/server/main.ts">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-15.555555">
+                  <caret line="28" column="8" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="load_books.ts" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/server/load_books.ts">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-0.5555556">
+                  <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="bookmarket.ts" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/client/books/bookmarket.ts">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-11.666667">
+                  <caret line="31" column="49" selection-start-line="31" selection-start-column="49" selection-end-line="31" selection-end-column="49" />
+                  <folding>
+                    <element signature="n#!!doc" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="email.ts" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/server/email.ts">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-45.0">
+                  <caret line="81" column="54" selection-start-line="81" selection-start-column="54" selection-end-line="81" selection-end-column="54" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="recordhelper.ts" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/client/books/record/recordhelper.ts">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-0.5555556">
+                  <caret line="1" column="22" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="recordview.ts" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/client/books/record/recordview.ts">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-8.148149">
+                  <caret line="48" column="27" selection-start-line="48" selection-start-column="27" selection-end-line="48" selection-end-column="27" />
                   <folding />
                 </state>
               </provider>
@@ -60,11 +152,66 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="bookcontent.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="bookcontent.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/books/bookcontent.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.7978884">
-                  <caret line="75" column="66" selection-start-line="75" selection-start-column="66" selection-end-line="75" selection-end-column="66" />
+                <state vertical-scroll-proportion="-11.5">
+                  <caret line="48" column="10" selection-start-line="48" selection-start-column="10" selection-end-line="48" selection-end-column="10" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="editbook.ts" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/client/books/editbook.ts">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-10.0">
+                  <caret line="56" column="20" selection-start-line="56" selection-start-column="20" selection-end-line="56" selection-end-column="20" />
+                  <folding>
+                    <element signature="n#!!doc" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="editbook.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/client/books/editbook.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-15.0">
+                  <caret line="24" column="43" selection-start-line="24" selection-start-column="43" selection-end-line="24" selection-end-column="43" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="book.d.ts" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/typings/book.d.ts">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-18.333334">
+                  <caret line="33" column="9" selection-start-line="33" selection-start-column="9" selection-end-line="33" selection-end-column="9" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="globalsetting.ts" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/client/globalsetting.ts">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.6136364">
+                  <caret line="144" column="44" selection-start-line="144" selection-start-column="44" selection-end-line="144" selection-end-column="44" />
+                  <folding>
+                    <element signature="n#!!block;n#Exit#0;n#GlobalSetting#0" expanded="false" />
+                    <marker date="1453749293000" expanded="true" signature="4891:4901" placeholder="{...}" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="yipart.ts" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/client/books/record/yipart.ts">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-0.5555556">
+                  <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="51" />
                   <folding />
                 </state>
               </provider>
@@ -111,26 +258,15 @@
         <option value="$PROJECT_DIR$/client/liuyao/paiLiuyao.ts" />
         <option value="$PROJECT_DIR$/client/allgemein/window.ts" />
         <option value="$PROJECT_DIR$/client/liuyao/paipan/pailiuyaotime.ts" />
-        <option value="$PROJECT_DIR$/collections/books.ts" />
-        <option value="$PROJECT_DIR$/server/load_books.ts" />
-        <option value="$PROJECT_DIR$/typings/book.d.ts" />
-        <option value="$PROJECT_DIR$/client/books/record/recordhelper.ts" />
         <option value="$PROJECT_DIR$/lib/base/gua.ts" />
         <option value="$PROJECT_DIR$/client/liuyao/guaview.ts" />
         <option value="$PROJECT_DIR$/client/user/userpage.html" />
         <option value="$PROJECT_DIR$/client/user/userpage.ts" />
-        <option value="$PROJECT_DIR$/client/globalsetting.ts" />
         <option value="$PROJECT_DIR$/server/email.ts" />
-        <option value="$PROJECT_DIR$/server/main.ts" />
         <option value="$PROJECT_DIR$/client/user/resetpassword.ts" />
         <option value="$PROJECT_DIR$/client/books/bookmarket.html" />
-        <option value="$PROJECT_DIR$/client/books/bookmarket.ts" />
-        <option value="$PROJECT_DIR$/client/books/record/yipart.ts" />
         <option value="$PROJECT_DIR$/client/books/record/recordview.html" />
-        <option value="$PROJECT_DIR$/client/books/record/recordview.ts" />
         <option value="$PROJECT_DIR$/client/books/bookcomponent.ts" />
-        <option value="$PROJECT_DIR$/client/books/editbook.html" />
-        <option value="$PROJECT_DIR$/client/books/editbook.ts" />
         <option value="$PROJECT_DIR$/client/user/userlogin.html" />
         <option value="$PROJECT_DIR$/client/user/userlogin.ts" />
         <option value="$PROJECT_DIR$/client/user/userregist.ts" />
@@ -138,8 +274,19 @@
         <option value="$PROJECT_DIR$/client/user/userprofile.ts" />
         <option value="$PROJECT_DIR$/client/user/userprofile.html" />
         <option value="$PROJECT_DIR$/client/books/bookcontent.html" />
+        <option value="$PROJECT_DIR$/server/main.ts" />
+        <option value="$PROJECT_DIR$/client/books/record/recordhelper.ts" />
+        <option value="$PROJECT_DIR$/client/books/record/recordview.ts" />
+        <option value="$PROJECT_DIR$/client/books/record/yipart.ts" />
         <option value="$PROJECT_DIR$/server/bookcollection.ts" />
+        <option value="$PROJECT_DIR$/client/books/bookmarket.ts" />
+        <option value="$PROJECT_DIR$/collections/books.ts" />
+        <option value="$PROJECT_DIR$/typings/book.d.ts" />
+        <option value="$PROJECT_DIR$/server/load_books.ts" />
+        <option value="$PROJECT_DIR$/client/books/editbook.html" />
+        <option value="$PROJECT_DIR$/client/books/editbook.ts" />
         <option value="$PROJECT_DIR$/client/books/bookcontent.ts" />
+        <option value="$PROJECT_DIR$/client/globalsetting.ts" />
       </list>
     </option>
   </component>
@@ -150,7 +297,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="72" />
-    <option name="y" value="66" />
+    <option name="y" value="70" />
     <option name="width" value="1805" />
     <option name="height" value="976" />
   </component>
@@ -179,6 +326,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -317,8 +466,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -433,13 +580,13 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="72" y="66" width="1805" height="976" extended-state="0" />
+    <frame x="72" y="70" width="1805" height="976" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17063712" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18842225" sideWeight="0.53264606" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18707483" sideWeight="0.46735394" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18842225" sideWeight="0.5368421" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1861521" sideWeight="0.4631579" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -680,33 +827,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/globalsetting.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.037037">
-          <caret line="202" column="6" selection-start-line="208" selection-start-column="29" selection-end-line="209" selection-end-column="5" />
-          <folding>
-            <element signature="n#!!block;n#Exit#0;n#GlobalSetting#0" expanded="false" />
-            <marker date="1453571146000" expanded="true" signature="4995:5005" placeholder="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/email.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.7473525">
-          <caret line="81" column="54" selection-start-line="81" selection-start-column="54" selection-end-line="81" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/load_books.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.7777777">
-          <caret line="5" column="24" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/allgemein/desktop.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.44879517">
@@ -719,7 +839,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-3.125">
           <caret line="5" column="6" selection-start-line="2" selection-start-column="4" selection-end-line="16" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -727,38 +846,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-11.875">
           <caret line="19" column="14" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/main.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="4.962963">
-          <caret line="22" column="35" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/app.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.5431165">
-          <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/collections/books.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/books/record/recordhelper.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-35.833332">
-          <caret line="139" column="31" selection-start-line="139" selection-start-column="23" selection-end-line="139" selection-end-column="31" />
           <folding />
         </state>
       </provider>
@@ -795,44 +882,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/books/editbook.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.666666">
-          <caret line="48" column="39" selection-start-line="48" selection-start-column="39" selection-end-line="48" selection-end-column="39" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/books/record/yipart.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-38.814816">
-          <caret line="73" column="35" selection-start-line="73" selection-start-column="35" selection-end-line="73" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/books/record/recordview.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.888889">
-          <caret line="53" column="65" selection-start-line="53" selection-start-column="65" selection-end-line="53" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/user/userlogin.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.875">
           <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
-          <folding>
-            <element signature="n#div#0;n#div#2;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#2;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#div#2;n#div#2;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#div#3;n#div#2;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#div#3;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#3;n#div#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -856,15 +909,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.0416665">
           <caret line="19" column="30" selection-start-line="19" selection-start-column="30" selection-end-line="19" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/books/editbook.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.416666">
-          <caret line="34" column="6" selection-start-line="32" selection-start-column="4" selection-end-line="37" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -886,49 +930,124 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.875">
           <caret line="15" column="74" selection-start-line="15" selection-start-column="74" selection-end-line="15" selection-end-column="74" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#2;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#3;n#div#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/books/bookmarket.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.111111">
-          <caret line="107" column="30" selection-start-line="107" selection-start-column="8" selection-end-line="107" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/typings/book.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-20.555555">
-          <caret line="37" column="11" selection-start-line="37" selection-start-column="11" selection-end-line="37" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/books/bookcontent.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7978884">
-          <caret line="75" column="66" selection-start-line="75" selection-start-column="66" selection-end-line="75" selection-end-column="66" />
+        <state vertical-scroll-proportion="-11.5">
+          <caret line="48" column="10" selection-start-line="48" selection-start-column="10" selection-end-line="48" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/app.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.777778">
+          <caret line="52" column="29" selection-start-line="52" selection-start-column="29" selection-end-line="52" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/books/record/recordhelper.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.5555556">
+          <caret line="1" column="22" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/books/record/recordview.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.148149">
+          <caret line="48" column="27" selection-start-line="48" selection-start-column="27" selection-end-line="48" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/email.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-45.0">
+          <caret line="81" column="54" selection-start-line="81" selection-start-column="54" selection-end-line="81" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/main.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-15.555555">
+          <caret line="28" column="8" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/books/record/yipart.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.5555556">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/books/bookmarket.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.666667">
+          <caret line="31" column="49" selection-start-line="31" selection-start-column="49" selection-end-line="31" selection-end-column="49" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/load_books.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.5555556">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/books/editbook.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-15.0">
+          <caret line="24" column="43" selection-start-line="24" selection-start-column="43" selection-end-line="24" selection-end-column="43" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/bookcollection.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.888889">
-          <caret line="25" column="27" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="27" />
+        <state vertical-scroll-proportion="-7.2222223">
+          <caret line="23" column="3" selection-start-line="23" selection-start-column="3" selection-end-line="23" selection-end-column="3" />
+          <folding>
+            <element signature="n#!!block;n#buildQuery#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/collections/books.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.555555">
+          <caret line="19" column="24" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/books/editbook.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.0">
+          <caret line="56" column="20" selection-start-line="56" selection-start-column="20" selection-end-line="56" selection-end-column="20" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/books/bookcontent.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2843602">
-          <caret line="147" column="26" selection-start-line="147" selection-start-column="26" selection-end-line="147" selection-end-column="26" />
+        <state vertical-scroll-proportion="-0.5530303">
+          <caret line="68" column="25" selection-start-line="68" selection-start-column="25" selection-end-line="68" selection-end-column="25" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="n#!!block;n#BookName#0;n#BookContent#0" expanded="false" />
@@ -938,6 +1057,25 @@
             <element signature="n#!!block;n#goBack#0;n#BookContent#0" expanded="false" />
             <element signature="n#!!block;n#deleteRecords#0;n#BookContent#0" expanded="false" />
             <element signature="n#!!block;n#doaddRecord#0;n#BookContent#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/typings/book.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-18.333334">
+          <caret line="33" column="9" selection-start-line="33" selection-start-column="9" selection-end-line="33" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/globalsetting.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6136364">
+          <caret line="144" column="44" selection-start-line="144" selection-start-column="44" selection-end-line="144" selection-end-column="44" />
+          <folding>
+            <element signature="n#!!block;n#Exit#0;n#GlobalSetting#0" expanded="false" />
+            <marker date="1453749293000" expanded="true" signature="4891:4901" placeholder="{...}" />
           </folding>
         </state>
       </provider>

@@ -4,10 +4,10 @@ import {changeEmail, verificationMail, sendResetPasswordEmail} from 'server/emai
 
 declare var Meteor;
 declare var Mailgun;
-declare var process;
+declare var Accounts;
 
 Meteor.startup(function(){
-    loadBooks();
+    //loadBooks();
     var options = {
             apiKey: 'key-f1c82d8c2b8c0ab791faf1e1819d8f33',
             domain: 'sandboxdbf0d92981a346b1b8a136edfeeedd3e.mailgun.org'

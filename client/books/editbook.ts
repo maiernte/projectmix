@@ -49,6 +49,8 @@ export class BookEditor extends MeteorComponent{
                     this.Loaded = true;
                 })
             })
+        }else{
+            this.Loaded = true;
         }
         
         jQuery(this.rootElement.nativeElement)
@@ -87,24 +89,20 @@ export class BookEditor extends MeteorComponent{
             public: false
         }, (err, id) => {
             if(err){
-                jQuery(this.rootElement.nativeElement)
-                    .find('.negative.message')
-                    .transition('fade')
+                jQuery('.negative.editbook.message').transition('fade')
             }else{
-               jQuery(this.rootElement.nativeElement)
-                    .find('.positive.message')
-                    .transition('fade')
+                jQuery('.positive.editbook.message').transition('fade')
             }
         });
     }
     
     private updateBook(){
-        this.book.name = this.Name;
+        /*this.book.name = this.Name;
         this.book.description = this.Desc;
         this.book.author = this.Author;
-        this.book.modified = Date.now()
-        
-        Books.update(this.book, false, (err, res) => {
+        this.book.modified = Date.now()*/
+
+        /*Books.update(this.book, false, (err, res) => {
             if(err){
                 jQuery(this.rootElement.nativeElement)
                     .find('.negative.message')
@@ -113,6 +111,26 @@ export class BookEditor extends MeteorComponent{
                 jQuery(this.rootElement.nativeElement)
                     .find('.positive.message')
                     .transition('fade')
+            }
+        })*/
+
+        this.Loaded = false
+        Books.update(this.book._id, {
+            $set: {
+                name: this.Name,
+                description: this.Desc,
+                author: this.Author,
+                modified: Date.now()
+            }
+        }, (err, res) => {
+            this.ngZone.run(() => {
+                this.Loaded = true;
+            })
+
+            if(err){
+                jQuery('.negative.editbook.message').transition('fade')
+            }else{
+                jQuery('.positive.editbook.message').transition('fade')
             }
         })
     }
