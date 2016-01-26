@@ -15,8 +15,6 @@ import {YixuePart} from './yipart'
 import {GuaView} from 'client/liuyao/guaview'
 import {BaziView} from 'client/bazi/baziview'
 
-import {MeteorComponent} from 'angular2-meteor';
-
 declare var jQuery;
 declare var Promise;
 
@@ -27,7 +25,7 @@ declare var Promise;
     directives: [YixuePart, GuaView, BaziView, NgIf]
 })
 
-export class RecordView extends MeteorComponent{
+export class RecordView{
     private bookid = ''
     private recordid = ''
     private bookname = '本地记录'
@@ -37,14 +35,16 @@ export class RecordView extends MeteorComponent{
                 private routeParams: RouteParams,
                 private ngZone: NgZone,
                 @Inject(GlobalSetting) public glsetting:GlobalSetting) {
-        super()
     }
 
     ngOnInit(){
         this.bookid = this.routeParams.params['bid']
         this.recordid = this.routeParams.params['rid']
 
-        if(this.bookid && this.bookid != ''){
+        let rd = LocalRecords.findOne({_id: this.recordid, book: this.bookid})
+        this.Record = new RecordHelper(rd);
+
+        /*if(this.bookid && this.bookid != ''){
             this.subscribe('books', () => {
                 let book = Books.findOne({_id: this.bookid})
                 this.bookname = book.name;
@@ -59,7 +59,7 @@ export class RecordView extends MeteorComponent{
         }else{
             let rd = LocalRecords.findOne({_id: this.recordid})
             this.Record = new RecordHelper(rd);
-        }
+        }*/
     }
 
     get Bookname(){

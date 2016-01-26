@@ -1,19 +1,14 @@
 <div class="ui top attached segment"
      style="text-align: center" >
-    <a class="ui basic top left attached large label" style="margin-bottom: 0"
+    <a class="ui basic top left attached large label"
+       style="margin-bottom: 0"
        (click)="goBack()">
         <i class="angle left icon"></i>
         {{'返回' | tran:glsetting.lang}}
     </a>
-    {{BookName | tran:glsetting.lang}}
-    <!--<a class="ui basic top right attached large label"
-       style="margin-bottom: 0"
-       (click)="deleteRecords()">
-        <i class="trash outline icon"></i>
-        {{'删除' | tran:glsetting.lang}}
-    </a>-->
+    {{'书名: ' + BookName | tran:glsetting.lang}}
 </div>
-<div class="ui attached segment" style="padding: 0;">
+<div class="ui attached segment" style="padding: 0">
     <div class="ui buttons">
         <div class="ui icon button"
             (click)="onPageChanged(-2)">
@@ -32,11 +27,11 @@
         </div>
     </div>
     <div class="ui checkbox" style="margin-left: 5px">
-        <input type="checkbox">
+        <input type="checkbox" [(ngModel)]="ShowGua">
         <label>六爻</label>
     </div>
     <div class="ui checkbox" style="margin-left: 5px">
-        <input type="checkbox">
+        <input type="checkbox"  [(ngModel)]="ShowBazi">
         <label>八字</label>
     </div>
 </div>
@@ -49,7 +44,8 @@
     </div>
 
     <div class="ui items" *ngIf="Loaded">
-        <div class="middle aligned item" *ngFor="#rd of Records | paginate:{currentPage: 1, itemsPerPage: pageSize, totalItems: sumItems}">
+        <div class="middle aligned item"
+             *ngFor="#rd of Records | paginate:{currentPage: 1, itemsPerPage: pageSize, totalItems: sumItems}">
             <div class="content">
                 <div class="meta">
                     <input type="checkbox" [(ngModel)]="rd.Checked">

@@ -1,5 +1,8 @@
+/// <reference path="../typings/book.d.ts" />
+
 import './bookcollection';
 import {changeEmail, verificationMail, sendResetPasswordEmail} from 'server/email'
+import {BkRecords} from 'collections/books'
 
 declare var Meteor;
 declare var Mailgun;
@@ -73,6 +76,10 @@ Meteor.startup(function(){
             
             NigerianPrinceGun.send(mail)
             return null
+        },
+
+        upsertRecord: function(record: YiRecord){
+            BkRecords.upsert(record)
         }
     })
 }); 

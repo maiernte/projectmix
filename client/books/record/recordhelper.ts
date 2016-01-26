@@ -76,8 +76,22 @@ export class RecordHelper{
             //this.rd.description = desc;
             this.rd.question = ques;
             this.rd.feed = feed;
+            this.rd.description = desc;
+
+            LocalRecords.update(this.rd._id, {$set: {
+                question: ques,
+                description: desc,
+                feed: feed,
+                modified: Date.now()
+            }}, (err, res) => {
+                if(err){
+                    reject(err)
+                }else{
+                    resolve(true)
+                }
+            })
     
-            if(!this.rd.book){
+            /*if(!this.rd.book){
                 LocalRecords.update(this.rd._id, {$set: {
                     question: ques,
                     description: desc,
@@ -100,12 +114,10 @@ export class RecordHelper{
                         resolve(true)
                     }
                 })
-            }
+            }*/
         });
         
         return promise
-        
-        
     }
 
     private toChina(d: Date): string{

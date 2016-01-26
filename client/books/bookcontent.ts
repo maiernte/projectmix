@@ -29,6 +29,8 @@ declare var CouchDB: any;
 export class BookContent extends MeteorComponent{
     private bookid: string;
     private bookname: string;
+    private showgua = true
+    private showbazi = true
     private rdviews: Array<RecordHelper>;
 
     Loaded = false;
@@ -59,10 +61,35 @@ export class BookContent extends MeteorComponent{
     set Records(value){
         this.rdviews = value
     }
+
+    get ShowGua(){
+        return this.showgua
+    }
+
+    set ShowGua(value){
+        this.showgua = value
+        this.loadContent()
+    }
+
+    get ShowBazi(){
+        return this.showbazi;
+    }
+
+    set ShowBazi(value){
+        this.showbazi = value
+        this.loadContent()
+    }
     
     ngOnInit(){
         this.bookid = this.routeParams.params['id']
-        this.bookname = ''
+        this.glsetting.LoadBooks(false).then(bks => {
+            let book = bks.filter(bk => bk._id == this.bookid)[0]
+            console.log(book.name)
+            this.ngZone.run(() => {
+                this.BookName = book.name
+            })
+        })
+
         //this.loadRecordes();
         this.loadContent()
     }
@@ -125,37 +152,64 @@ export class BookContent extends MeteorComponent{
     
     synchronCloud(){
         this.glsetting.ShowMessage("数据同步", '是否将这本书集的内容与云端数据同步？', () => {
-            /*LocalRecords.clear()
-            console.log('all data is reset')
-            return*/
-        
             this.cloudData().then(rds => {
                 return this.download(rds)
             }).then(ids => {
                 console.log("need to upload", ids)
                 return this.upload(ids)
-            }).then(errs => {
-                if(errs.length == 0){
-                    this.glsetting.ShowMessage('操作成功', '恭喜！数据已经全部同步！')
-                    this.loadContent()
-                }else{
-                    this.glsetting.ShowMessage('上传数据错误', errs.join('; '))
+            }).then(up => {
+                if(up == true){
+                    Books.update(this.bookid, {$set: {modified: Date.now()}}, (err, res) => {
+                        console.log('book updated', err, res)
+                    })
                 }
+
+                this.glsetting.ShowMessage('操作成功', '恭喜！数据已经全部同步！')
             }).catch(err => {
                 //this.glsetting.ShowMessage('上传数据错误', err)
                 console.log('catch err ', err)
+                this.glsetting.ShowMessage('上传数据错误', err)
             })
         });
     }
 
     private loadContent(){
-        this.subscribe('books', () => {
+        console.log('load book content')
+        /*this.subscribe('books', () => {
             let book = Books.findOne({_id: this.bookid})
-            this.BookName = book.name;
-        })
+            this.ngZone.run(() => {
+                this.BookName = book.name;
+            })
+        })*/
+
+        let selector: Object
+        if(this.ShowGua && this.ShowBazi){
+            selector = {
+                book: this.bookid,
+                deleted: false
+            }
+        }
+        else if(!this.ShowGua && this.ShowBazi){
+            selector = {
+                book: this.bookid,
+                deleted: false,
+                bazi: {$exists: true}
+            }
+        }else if(this.ShowGua && !this.ShowBazi){
+            selector = {
+                book: this.bookid,
+                deleted: false,
+                gua: {$exists: true}
+            }
+        }else if(!this.ShowBazi && !this.ShowGua){
+            this.sumItems = 0;
+            this.Records = [];
+            this.Loaded = true;
+            return;
+        }
 
         let records = LocalRecords
-            .find({book: this.bookid, deleted: false}, 
+            .find(selector,
                   {fields: {description: 0, img: 0}, sort: {created: 'desc'}})
             .fetch()
             
@@ -213,11 +267,9 @@ export class BookContent extends MeteorComponent{
                         modified: crd.modified,
                         deleted: crd.deleted
                     }})
-                    
-                    console.log('update local', lcd._id)
+
                     ids = ids.filter(i => i != lcd._id)
                 }else if(lcd.modified == crd.modified){
-                    console.log('record ist syn...', lcd._id)
                     ids = ids.filter(i => i != lcd._id)
                 }else{
                     console.log('?', lcd, crd)
@@ -229,31 +281,26 @@ export class BookContent extends MeteorComponent{
         
         return promise;
     }
-    
+
+    // 返回 false 代表没有更新在线记录. true 表示在线记录也更新了.
     private upload(ids: Array<string>): any{
         let promise = new Promise((resolve, reject) => {
             let counter = ids.length
-            let errinfo = []
-            
             if(counter == 0){
-                resolve(errinfo)
+                resolve(false)
             }
-            
-            console.log('try upload ', ids)
+
             for(let id of ids){
                 let lrd = LocalRecords.findOne({_id: id})
                 if(!lrd){
                     console.log('en.... not good', id)
                     continue;
                 }
-                
-                console.log('try upsert ', lrd)
-                BkRecords.insert(lrd, (err) => {
-                    console.log('upserted', err)
-                    if(err) errinfo.push(err.toString())
+
+                Meteor.call('upsertRecord', lrd, (err) => {
                     counter = counter - 1;
                     if(counter <= 0){
-                        resolve(errinfo)
+                        resolve(true)
                     }
                 })
             } 
