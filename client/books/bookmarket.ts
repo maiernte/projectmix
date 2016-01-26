@@ -8,9 +8,8 @@ import {Router, RouteParams} from 'angular2/router'
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from 'client/globalsetting'
 
-import {MeteorComponent} from 'angular2-meteor';
 
-import {Books} from 'collections/books'
+import {Books, LocalRecords} from 'collections/books'
 
 declare var jQuery;
 declare var CouchDB: any;
@@ -22,17 +21,17 @@ declare var Mongo;
     templateUrl: "client/books/bookmarket.html",
     directives: [NgFor]
 })
-export class BookMarket extends MeteorComponent{
+export class BookMarket{
     private books: Array<BookView>;
     private bookCur: Mongo.Cursor<Book>;
 
     Market = 'private'
+    Loading = false;
 
     constructor(private router: Router,
                 private routeParams: RouteParams,
                 private ngZone: NgZone,
                 @Inject(GlobalSetting) public glsetting:GlobalSetting) {
-        super();
     }
     
     get Books(){
@@ -50,7 +49,7 @@ export class BookMarket extends MeteorComponent{
     ngOnInit() {
         let hideMenu = true;
         this.showMenu(hideMenu);
-        this.loadBooks();
+        this.loadBooks(false);
     }
     
     deleteBook(book: BookView){
@@ -60,8 +59,15 @@ export class BookMarket extends MeteorComponent{
             onDeny    : function(){
             },
             onApprove : () => {
-              Books.remove(book.Id);
-              this.loadBooks();
+                // need to update records 
+                
+                Books.remove(book.Id, (err) => {
+                    if(!err){
+                        this.loadBooks(true)
+                    }else{
+                        this.glsetting.ShowMessage('操作失败', err)
+                    }
+                });
             }
         })
         .modal('show')
@@ -85,32 +91,23 @@ export class BookMarket extends MeteorComponent{
         this.router.parent.navigate(['./BookContent', {id: bookid}])
     }
     
-    private loadBooks(){
-        //let tmp = Books.find().fetch()
-
-        this.books = [];
-        let localbook = {
-            _id: null,
-            name: '本地记录',
-            description: '同时保存卦例、八字等排盘记录。本地记录只能被当前移动设备访问。',
-            icon: null,
-            owner: null,
-            readpermission: 0,
-            writepermission: 0,
-            author: null,
-            created: this.glsetting.GetSetting('created'),
-            modified: this.glsetting.GetSetting('modified'),
-            public: false
-        }
-        
-        this.books.push(new BookView(localbook));
-
-        this.subscribe('books', () => {
-            this.bookCur = Books.find()
-            this.bookCur.forEach((b) => {
-                this.books.push(new BookView(b))
+    private loadBooks(reload){
+        this.Loading = true;
+        this.books = []
+        this.glsetting.LoadBooks(reload).then(bks => {
+            for(let bk of bks){
+                this.books.push(new BookView(bk))
+            }
+            
+            this.ngZone.run(() => {
+                this.Loading = false
             })
-        }, true);
+        }).catch(err => {
+            console.log('load book error', err)
+            this.ngZone.run(() => {
+                this.Loading = false
+            })
+        })
     }
 }
 

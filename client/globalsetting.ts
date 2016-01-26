@@ -1,4 +1,6 @@
 /// <reference path="../typings/meteor/meteor.d.ts" />
+/// <reference path="../typings/book.d.ts" />
+
 
 declare var jQuery;
 declare var html2canvas;
@@ -7,6 +9,8 @@ declare var SemanticModal;
 
 import {saveAs} from './lib/FileSaver'
 import {TranslatePipe} from './allgemein/translatePipe'
+
+import {Books} from 'collections/books'
 
 export  class GlobalSetting{
     private setting = [
@@ -24,9 +28,9 @@ export  class GlobalSetting{
 
     private language: boolean; // 是否使用繁体字
     private translator: TranslatePipe;
+    private books: Array<Book>;
 
     Clipboard: Object
-    Signed = false;
 
     constructor(){
         this.initSetting();
@@ -37,9 +41,14 @@ export  class GlobalSetting{
             let user = this.GetSetting('username')
             let pw = this.GetSetting('password').toString();
 
-            console.log(user, pw)
-            this.SignIn(user, pw)
+            if(!this.Signed){
+                this.SignIn(user, pw)
+            }
         }
+    }
+    
+    get Signed(){
+        return !!Meteor.user()
     }
     
     get IsCordova(){
@@ -58,7 +67,7 @@ export  class GlobalSetting{
 
     // 是否使用繁体字
     get lang(): boolean{
-        return this.setting.filter(s => s.Name == 'lang')[0]['Value']
+        return this.setting.filter(s => s.Name == 'lang')[0]['Value'] == true
     }
 
     GetSetting(name: string): any{
@@ -123,7 +132,7 @@ export  class GlobalSetting{
         }
     }
     
-    ShowMessage(header: string, message: string){
+    ShowMessage(header: string, message: string, callback?){
         if(this.lang == true){
             header = this.translator.transform(header, [true]);
             message = this.translator.transform(message, [true]);
@@ -132,7 +141,10 @@ export  class GlobalSetting{
         SemanticModal.confirmModal({
             header: header,
             message: message,
-            noButtons: true
+            noButtons: !callback,
+            callback: function() {
+                callback() 
+            }
         });
     }
 
@@ -144,10 +156,9 @@ export  class GlobalSetting{
                 Meteor.loginWithPassword(user, pw, err => {
                     console.log('sign in err: ', err)
                     if(err){
-                        this.Signed = false;
                         reject(err)
                     }else{
-                        this.Signed = true
+                        this.LoadBooks(true)
                         resolve(true)
                     }
                 })
@@ -167,6 +178,7 @@ export  class GlobalSetting{
                 }
             })
         })
+        
         return promise;
     }
 
@@ -202,8 +214,23 @@ export  class GlobalSetting{
     
     CheckEmail(email) {
         var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        //var re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
         return re.test(email);
+    }
+    
+    LoadBooks(reload: boolean): any{
+        let promise = new Promise((resolve, reject) => {
+            if(this.books && reload != true){
+                resolve(this.books)
+                return
+            }
+            
+            Meteor.subscribe('books', () => {
+                this.books = Books.find().fetch()
+                resolve(this.books)
+            });
+        })
+        
+        return promise;
     }
 
     Exit(){

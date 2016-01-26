@@ -25,6 +25,13 @@
         </div>
     </div>
     
+    <div class="ui segment" *ngIf="Loading">
+        <div class="ui active inverted dimmer">
+            <div class="ui text loader">{{'加载' | tran:glsetting.lang}}</div>
+        </div>
+        <p>{{'正在加载数据, 请耐心等候...' | tran:glsetting.lang}}</p>
+    </div>
+    
     <div class="ui cards" style="padding-top:5px">
         <div class="card" *ngFor="#book of Books">
             <a class="ui basic right corner label">

@@ -29,8 +29,6 @@ declare var CouchDB: any;
 export class BookContent extends MeteorComponent{
     private bookid: string;
     private bookname: string;
-    records: Array<YiRecord>;
-
     private rdviews: Array<RecordHelper>;
 
     Loaded = false;
@@ -88,30 +86,22 @@ export class BookContent extends MeteorComponent{
                 onApprove : () => {
                     this.rdviews = this.rdviews.filter(r => !r.Checked);
                     for(let id of ids){
-                        if(this.bookid){
-                            BkRecords.remove(id)
-                        }else{
-                            LocalRecords.remove(id)
-                        }
+                        LocalRecords.update(id, {$set: {
+                                question: '',
+                                description: '',
+                                feed: '',
+                                gua: null,
+                                bazi: null,
+                                deleted: true,
+                                modified: Date.now()
+                            }
+                        })
                     }
+                    
+                    this.loadContent();
                 }
             })
             .modal('show')
-    }
-
-    addRecord(){
-        this.doaddRecord()
-            .then(res => {
-                this.glsetting.Clipboard = null;
-                /*this.ngZone.run(() => {
-                    return this.loadRecordes();
-                })*/
-        }).then(res => {
-            //jQuery('.add-record-success.modal').modal('show')
-            this.router.parent.navigate(['./BookContent', {id: this.bookid}])
-        }).catch(err => {
-            this.glsetting.ShowMessage("新建记录失败", err)
-        })
     }
 
     openRecord(rd: RecordHelper){
@@ -119,7 +109,43 @@ export class BookContent extends MeteorComponent{
     }
 
     onPageChanged(page: number) {
+        if(page <= 0){
+            let idx = this.curPage.get() + (1 + page)
+            let pages = Math.ceil(this.sumItems / this.pageSize)
+            if(idx < 1 || idx > pages){
+                console.log('index out of range', idx)
+                return;
+            }else{
+                page = idx;
+            }
+        }
+        
         this.curPage.set(page);
+    }
+    
+    synchronCloud(){
+        this.glsetting.ShowMessage("数据同步", '是否将这本书集的内容与云端数据同步？', () => {
+            /*LocalRecords.clear()
+            console.log('all data is reset')
+            return*/
+        
+            this.cloudData().then(rds => {
+                return this.download(rds)
+            }).then(ids => {
+                console.log("need to upload", ids)
+                return this.upload(ids)
+            }).then(errs => {
+                if(errs.length == 0){
+                    this.glsetting.ShowMessage('操作成功', '恭喜！数据已经全部同步！')
+                    this.loadContent()
+                }else{
+                    this.glsetting.ShowMessage('上传数据错误', errs.join('; '))
+                }
+            }).catch(err => {
+                //this.glsetting.ShowMessage('上传数据错误', err)
+                console.log('catch err ', err)
+            })
+        });
     }
 
     private loadContent(){
@@ -128,110 +154,22 @@ export class BookContent extends MeteorComponent{
             this.BookName = book.name;
         })
 
-        this.records = []
-        this.rdviews = []
-
-        this.records = LocalRecords
-            .find({book: this.bookid})
-            .map(r => {
-                return {
-                    _id: r._id,
-                    gua: r.gua,
-                    bazi: r.bazi,
-                    question: r.question,
-                    description: null,
-                    owner: null,
-                    feed: r.feed,
-                    created: r.created,
-                    modified: r.modified
-                };
-            }).reverse();
-
-        this.sumItems = this.records.length
-        this.buildRecordView();
+        let records = LocalRecords
+            .find({book: this.bookid, deleted: false}, 
+                  {fields: {description: 0, img: 0}, sort: {created: 'desc'}})
+            .fetch()
+            
+        
+        this.sumItems = records.length
+        this.onPageChanged(1)
+        this.buildRecordView(records);
         this.Loaded = true;
     }
 
-    private loadRecordes(): any{
-        this.Loaded = false;
-
-        let promise = new Promise((resolve, reject) => {
-            if(this.bookid && this.bookid != ''){
-                this.subscribe('books', () => {
-                    let book = Books.findOne({_id: this.bookid})
-                    this.BookName = book.name;
-                })
-
-                this.records = []
-                this.rdviews = []
-
-                this.autorun(() => {
-                    /*Meteor.setTimeout(() => {
-                        let countOpt = {
-                            fields : ['_id']
-                        }
-                        this.subscribe('bkrecord', this.bookid, countOpt, () => {
-                            this.ngZone.run(() => {
-                                this.sumItems = BkRecords.find().count();
-                            })
-                        })
-                    }, 2 * 1000)*/
-
-                    Meteor.setTimeout(() => {
-                        this.subscribe('bkrecordsum', this.bookid, () => {
-                            this.ngZone.run(() => {
-                                this.sumItems = BkRecords.find().count();
-                            })
-                        })
-                    }, 2 * 1000)
-
-
-                    let options = {
-                        limit: this.pageSize,
-                        skip: (this.curPage.get() - 1) * this.pageSize,
-                        sort: {created: 'desc'}
-                    }
-
-                    this.subscribe('bkrecord', this.bookid, options, () => {
-                        this.records = BkRecords
-                            .find()
-                            .fetch()
-                        this.buildRecordView()
-                        this.ngZone.run(() => {
-                            this.Loaded = true;
-                        })
-                    })
-                }, true);
-            }else{
-                this.bookname = '本地记录'
-                this.records = LocalRecords
-                .find({})
-                .map(r => {
-                    return {
-                        _id: r._id,
-                        gua: r.gua,
-                        bazi: r.bazi,
-                        question: r.question,
-                        description: null,
-                        owner: null,
-                        feed: r.feed,
-                        created: r.created,
-                        modified: r.modified
-                    };
-                }).reverse();
-
-                this.sumItems = this.records.length
-                this.buildRecordView();
-                this.Loaded = true;
-            }
-        })
-
-        return promise;
-    }
-    
-    private buildRecordView(){
+    private buildRecordView(records){
+        //this.rdviews = []
         let tmp = [];
-        for(let rd of this.records){
+        for(let rd of records){
             let view  = new RecordHelper(rd);
             tmp.push(view);
         }
@@ -240,38 +178,88 @@ export class BookContent extends MeteorComponent{
             this.Records = tmp;    
         })
     }
-
-    private doaddRecord(): any{
+    
+    private cloudData(): any{
         let promise = new Promise((resolve, reject) => {
-            let rd = this.glsetting.Clipboard;
-            if(!rd){
-                jQuery('.add-record.modal').modal('show')
-            }else{
-                if(this.bookid){
-                    this.glsetting.Clipboard['book'] = this.bookid
-                    this.glsetting.Clipboard['owner'] = Meteor.userId()
-                    console.log(this.glsetting.Clipboard)
-                    BkRecords.insert(this.glsetting.Clipboard, (err, id) => {
-                        if(err){
-                            reject(err)
-                        }else {
-                            resolve(true)
-                        }
-                    });
-                }else{
-                    LocalRecords.insert(this.glsetting.Clipboard, (err, id) => {
-                        if(err){
-                            reject(err)
-                        }else {
-                            resolve(true)
-                        }
-                    })
-                }
-            }
-        });
-
+            this.subscribe('bkrecord', this.bookid, {}, () => {
+                let records = BkRecords.find().fetch()
+                resolve(records);
+            })
+        })
+        
         return promise;
     }
-
+    
+    private download(cloudData: Array<YiRecord>): any{
+        let promise = new Promise((resolve, reject) => {
+            let ids = LocalRecords.find({book: this.bookid}).map(rd => {return rd._id})
+            
+            for(let crd of cloudData){
+                var lcd = LocalRecords.findOne({_id: crd._id})
+                
+                if(!lcd){
+                    LocalRecords.insert(crd)
+                    continue;
+                }
+                
+                if(!!lcd && crd.modified > lcd.modified){
+                    LocalRecords.update(lcd._id, {$set: {
+                        gua: crd.gua,
+                        bazi: crd.bazi,
+                        question: crd.question,
+                        description: crd.description,
+                        feed: crd.feed,
+                        img: crd.img,
+                        modified: crd.modified,
+                        deleted: crd.deleted
+                    }})
+                    
+                    console.log('update local', lcd._id)
+                    ids = ids.filter(i => i != lcd._id)
+                }else if(lcd.modified == crd.modified){
+                    console.log('record ist syn...', lcd._id)
+                    ids = ids.filter(i => i != lcd._id)
+                }else{
+                    console.log('?', lcd, crd)
+                }
+            }
+            
+            resolve(ids)
+        })
+        
+        return promise;
+    }
+    
+    private upload(ids: Array<string>): any{
+        let promise = new Promise((resolve, reject) => {
+            let counter = ids.length
+            let errinfo = []
+            
+            if(counter == 0){
+                resolve(errinfo)
+            }
+            
+            console.log('try upload ', ids)
+            for(let id of ids){
+                let lrd = LocalRecords.findOne({_id: id})
+                if(!lrd){
+                    console.log('en.... not good', id)
+                    continue;
+                }
+                
+                console.log('try upsert ', lrd)
+                BkRecords.insert(lrd, (err) => {
+                    console.log('upserted', err)
+                    if(err) errinfo.push(err.toString())
+                    counter = counter - 1;
+                    if(counter <= 0){
+                        resolve(errinfo)
+                    }
+                })
+            } 
+        })
+        
+        return promise
+    }
 }
 

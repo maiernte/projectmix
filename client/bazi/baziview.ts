@@ -225,6 +225,7 @@ export class BaziView{
             feed: '',
             created: Date.now(),
             modified: Date.now(),
+            deleted: false
         }
     }
 

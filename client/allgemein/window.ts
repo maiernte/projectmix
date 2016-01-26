@@ -1,4 +1,5 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
+/// <reference path="../../typings/book.d.ts" />
 
 import {Component,
 		ElementRef,
@@ -7,7 +8,8 @@ import {Component,
 		Input,
 		ContentChild,
 		AfterViewInit} from 'angular2/core'
-import {FORM_DIRECTIVES} from 'angular2/common'
+		
+import {FORM_DIRECTIVES, NgFor} from 'angular2/common'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
@@ -26,7 +28,7 @@ declare var jQuery:any;
 	templateUrl: 'client/allgemein/window.html',
 	events: ['onclosing'],
 	pipes: [TranslatePipe],
-	directives: [CalendarView]
+	directives: [CalendarView, NgFor]
 })
 
 export class TyWindow {
@@ -34,6 +36,8 @@ export class TyWindow {
 	onclosing = new EventEmitter();
 	glsetting: GlobalSetting;
 	wide: boolean;
+	
+	books: Array<Book>;
 	
 	@Input() data: Object;
 	@ContentChild(CalendarView) calendarview: CalendarView;
@@ -96,22 +100,39 @@ export class TyWindow {
         .modal('show')
 	}
 	
-	saveTo(flag){
+	saveTo(book){
+		jQuery('.modal.save.pan').modal('hide')
+		
+		if(!this.glsetting.Signed || !this.books || this.books.length == 0){
+			this.glsetting.ShowMessage('无法保存', '您还没有登录， 或者还没有创建书集。无法保存卦例/命例。')
+			return
+		}
+		
 		let record: YiRecord;
 		if(this.guaview) record = this.guaview.exportAsRecord()
 		if(this.baziview) record = this.baziview.exportAsRecord()
 		
-		if(record && flag == 0){
+		record.book = book._id
+		record.owner = Meteor.userId();
+		
+		LocalRecords.insert(record, (err, id) => {
+			console.log("insert record", err, id)
+		})
+		
+		/*if(record && flag == 0){
 			LocalRecords.insert(record, (err, id) => {
 				console.log("insert callback", err, id)
 			})
 		}else{
 			this.glsetting.Clipboard = record;
-		}
+		}*/
 	}
 
 	ngOnInit(){
 		this.IsReady = false;
+		this.glsetting.LoadBooks(false).then(bks => {
+			this.books = bks;
+		})
 	}
 
 	ngAfterViewInit(){

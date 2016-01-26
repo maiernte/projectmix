@@ -1,4 +1,3 @@
-import {loadBooks} from 'server/load_books'
 import './bookcollection';
 import {changeEmail, verificationMail, sendResetPasswordEmail} from 'server/email'
 
@@ -7,7 +6,6 @@ declare var Mailgun;
 declare var Accounts;
 
 Meteor.startup(function(){
-    //loadBooks();
     var options = {
             apiKey: 'key-f1c82d8c2b8c0ab791faf1e1819d8f33',
             domain: 'sandboxdbf0d92981a346b1b8a136edfeeedd3e.mailgun.org'
@@ -18,7 +16,7 @@ Meteor.startup(function(){
     Accounts.onCreateUser(function(options, user) {
         try{
             Meteor.setTimeout(function() {
-                let mailbody = verificationMail(user._id)
+                let mailbody = verificationMail(user._id, null)
                 if(mailbody){
                     NigerianPrinceGun.send(mailbody)
                 }

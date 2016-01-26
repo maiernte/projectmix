@@ -26,6 +26,7 @@ export class BookEditor extends MeteorComponent{
     Name: string;
     Desc: string;
     Author: string;
+    Modified: string;
 
     Loaded = false;
 
@@ -45,6 +46,7 @@ export class BookEditor extends MeteorComponent{
                 this.Name = this.book.name;
                 this.Desc = this.book.description;
                 this.Author = this.book.author;
+                this.Modified = this.toChina(new Date(this.book.modified))
                 this.ngZone.run(() => {
                     this.Loaded = true;
                 })
@@ -92,6 +94,9 @@ export class BookEditor extends MeteorComponent{
                 jQuery('.negative.editbook.message').transition('fade')
             }else{
                 jQuery('.positive.editbook.message').transition('fade')
+                
+                // 强制更新书集
+                this.glsetting.LoadBooks(true)
             }
         });
     }
@@ -131,7 +136,15 @@ export class BookEditor extends MeteorComponent{
                 jQuery('.negative.editbook.message').transition('fade')
             }else{
                 jQuery('.positive.editbook.message').transition('fade')
+                
+                // 强制更新书集
+                this.glsetting.LoadBooks(true)
             }
         })
+    }
+    
+    private toChina(d: Date): string{
+        let res = d.getFullYear() + "年" + (d.getMonth() + 1) + "月" + d.getDate() + "日 " + d.getHours() + "时" + d.getMinutes() + "分";
+        return res;
     }
 }
