@@ -29,9 +29,9 @@
     <div id="profile-page" class="ui form" >
         <div class="inline field" style="margin-top: 10px">
             <label>{{'用户' | tran:glsetting.lang}}</label>
-            <label class="ui basic teal label">
+            <a class="ui basic teal label">
                 {{Username}}
-            </label>
+            </a>
         </div>
         <div class="inline field">
             <label>{{'昵称' | tran:glsetting.lang}}</label>
@@ -55,8 +55,16 @@
             <label>{{'组别' | tran:glsetting.lang}}</label>
             <label>{{Group}}</label>
         </div>
+        <div class="inline field">
+            <label>{{"头像" | tran:glsetting.lang}}</label>
+            <!--<input type="file" name=""/>-->
+            <button class='ui primary tiny button' id="uploadQiniu">
+                {{'上传头像' | tran:glsetting.lang}}
+            </button>
+        </div>
+        <img [src]="Icon" height="64" width="64">
     </div>
-    <div id="profile-changepw" class="transition hidden">
+    <div id="profile-changepw" class="transition hidden" id='uploadQiniu'>
         <div class="ui form" style="margin-top: 10px">
             <div class="inline field">
                 <label>{{'旧密码：' | tran:glsetting.lang}}</label>

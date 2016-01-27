@@ -203,6 +203,7 @@ export class CompassView{
                 this.changeOpacity(0.0)
             }
 
+            console.log(f)
             r.readAsDataURL(f);
         }
     }

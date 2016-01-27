@@ -10,6 +10,7 @@ import {GlobalSetting} from  'client/globalsetting'
 
 declare var Promise: any;
 declare var jQuery: any
+declare var QiniuUploader;
 
 @Component({
     templateUrl: 'client/user/userprofile.html',
@@ -23,7 +24,7 @@ export class UerProfile{
     Username = ''
     Email = ''
     Moto = ''
-    Icon = ''
+    Icon = 'http://7xqidf.com1.z0.glb.clouddn.com/o_1aa19h5qb1be018k61ab1uj37ch9.png'
     Group = ''
     NickName = ''
     MailVerified = false
@@ -101,6 +102,10 @@ export class UerProfile{
             this.router.parent.navigate(['Login'])
             return;
         }
+        
+        this.initQiniu()
+        this.Icon = this.Icon + '?imageView2/2/w/64'
+        
         
         if(user.profile){
             this.profile = JSON.parse(JSON.stringify(user.profile));
@@ -211,6 +216,68 @@ export class UerProfile{
                 console.log('change mail successed:', res)
             }
         })
+    }
+    
+    private initQiniu(){
+        var settings = {
+            bucket: 'huaheapp',
+            browse_button: 'uploadQiniu',
+            domain: 'http://7xqidf.com1.z0.glb.clouddn.com',
+            max_file_size: '200kb',
+            unique_names: false , 
+            save_key: false,
+            bindListeners: {
+                'FilesAdded': function(up, files) {
+                    var maxfiles = 1;
+                    if(up.files.length > maxfiles )
+                    {
+                        up.splice(maxfiles);
+                        alert('每次只允许上传一个文件');
+                    }
+                    
+                    console.log("filesadded")
+                },
+                
+                'BeforeUpload': function(up, file) {
+                    console.log("beforeUpload")
+                },
+                
+                'UploadProgress': function(up, file) {
+                    console.log('upload progress')
+                },
+                
+                'FileUploaded': function(up, file, info) {
+                    console.log('after upload', info)
+                },
+                
+                'Error': function(up, err, errTip) {
+                    console.log('upload error', err, errTip)
+                },
+                
+                'UploadComplete': function() {
+                    console.log('upload completed')
+                },
+                'Key': function(up, file) {
+                    // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
+                    // 该配置必须要在 unique_names: false , save_key: false 时才生效
+                    let item = file.name.split('.')
+                    var key = Meteor.userId() + '/icon.' + item[item.length - 1];
+                    console.log('configure key : ', key)
+                    return key;
+                }
+            }
+        }
+        
+        try{
+            var uploader = new QiniuUploader(settings);
+            uploader.settings.save_key = false
+            uploader.settings.unique_names = false
+            console.log(uploader.settings)
+            uploader.init();
+            console.log('qiniu inited !')
+        }catch(err){
+            console.log('init qiniu err:', err)
+        }
     }
 
     changeView(inId, outId, effect){

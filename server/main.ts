@@ -3,12 +3,15 @@
 import './bookcollection';
 import {changeEmail, verificationMail, sendResetPasswordEmail} from 'server/email'
 import {BkRecords} from 'collections/books'
+import {initQiniu} from "./qiniu"
 
 declare var Meteor;
 declare var Mailgun;
 declare var Accounts;
 
 Meteor.startup(function(){
+    initQiniu()
+    
     var options = {
             apiKey: 'key-f1c82d8c2b8c0ab791faf1e1819d8f33',
             domain: 'sandboxdbf0d92981a346b1b8a136edfeeedd3e.mailgun.org'
