@@ -20,11 +20,12 @@ declare var QiniuUploader;
 export class UerProfile{
     private static groupDef = ['注册用户', '贵宾', '华鹤同门', '易学老师', '管理员']
     private profile: Object;
+    private static iconurl = 'http://7xqidf.com1.z0.glb.clouddn.com'
 
     Username = ''
     Email = ''
     Moto = ''
-    Icon = 'http://7xqidf.com1.z0.glb.clouddn.com/o_1aa19h5qb1be018k61ab1uj37ch9.png'
+    Icon = ''
     Group = ''
     NickName = ''
     MailVerified = false
@@ -104,8 +105,11 @@ export class UerProfile{
         }
         
         this.initQiniu()
-        this.Icon = this.Icon + '?imageView2/2/w/64'
+        if(user.profile.icon && user.profile.icon != ''){
+            this.Icon = UerProfile.iconurl + '/' + user.profile.icon + '?imageView2/2/w/64'
+        }
         
+        console.log('icon url: ', this.Icon)
         
         if(user.profile){
             this.profile = JSON.parse(JSON.stringify(user.profile));
@@ -234,34 +238,48 @@ export class UerProfile{
                         up.splice(maxfiles);
                         alert('每次只允许上传一个文件');
                     }
-                    
-                    console.log("filesadded")
                 },
                 
                 'BeforeUpload': function(up, file) {
-                    console.log("beforeUpload")
                 },
                 
                 'UploadProgress': function(up, file) {
-                    console.log('upload progress')
                 },
                 
                 'FileUploaded': function(up, file, info) {
-                    console.log('after upload', info)
+                    // 其中 info 是文件上传成功后，服务端返回的json，形式如
+                    // {
+                    //    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
+                    //    "key": "gogopher.jpg"
+                    //  }
+                    
+                    let icon = info.key
+                    console.log('file uploaded', info)
+                    this.profile.icon = icon
+                    
+                    Meteor.setTimeout(() => {
+                        Meteor.users.update(
+                            {_id: Meteor.userId()},
+                            {$set: {'profile.icon': icon}},
+                            (err, res) => {
+                                console.log('upload profile error', err, res)
+                        });
+                    }, 2*1000)
+                    
                 },
-                
                 'Error': function(up, err, errTip) {
+                    this.glsetting.ShowMessage("上传失败", "上传图片时失败。请稍后重试。")
                     console.log('upload error', err, errTip)
                 },
-                
                 'UploadComplete': function() {
                     console.log('upload completed')
                 },
                 'Key': function(up, file) {
                     // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
                     // 该配置必须要在 unique_names: false , save_key: false 时才生效
-                    let item = file.name.split('.')
-                    var key = Meteor.userId() + '/icon.' + item[item.length - 1];
+                    //let item = file.name.split('.')
+                    //var key = Meteor.userId() + '/icon.' + item[item.length - 1];
+                    var key = 'user/' + Meteor.userId() + '/icon'
                     console.log('configure key : ', key)
                     return key;
                 }
@@ -274,7 +292,6 @@ export class UerProfile{
             uploader.settings.unique_names = false
             console.log(uploader.settings)
             uploader.init();
-            console.log('qiniu inited !')
         }catch(err){
             console.log('init qiniu err:', err)
         }
