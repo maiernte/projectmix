@@ -61,8 +61,10 @@
             <button class='ui primary tiny button' id="uploadQiniu">
                 {{'上传头像' | tran:glsetting.lang}}
             </button>
+
         </div>
-        <img [src]="Icon" height="64" width="64">
+        <img [src]="Icon" height="64" width="64" *ngIf="!ChangingIcon">
+        <div class="ui active small inline loader" *ngIf="ChangingIcon"></div>
     </div>
     <div id="profile-changepw" class="transition hidden" id='uploadQiniu'>
         <div class="ui form" style="margin-top: 10px">

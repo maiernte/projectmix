@@ -8,6 +8,8 @@ import {NgIf} from 'angular2/common'
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
 
+import {DelResource} from  'collections/admin'
+
 declare var Promise: any;
 declare var jQuery: any
 declare var QiniuUploader;
@@ -29,6 +31,8 @@ export class UerProfile{
     Group = ''
     NickName = ''
     MailVerified = false
+
+    ChangingIcon = false
 
     pw = ''
     pw1 = ''
@@ -107,9 +111,9 @@ export class UerProfile{
         this.initQiniu()
         if(user.profile.icon && user.profile.icon != ''){
             this.Icon = UerProfile.iconurl + '/' + user.profile.icon + '?imageView2/2/w/64'
+        }else{
+            this.Icon = 'user_male.png'
         }
-        
-        console.log('icon url: ', this.Icon)
         
         if(user.profile){
             this.profile = JSON.parse(JSON.stringify(user.profile));
@@ -149,42 +153,9 @@ export class UerProfile{
         })
     }
 
-    resetpassword(){
-        if(this.pw == '' || this.pw1 == ''){
-            this.glsetting.ShowMessage('更改密码', '请输入旧密码和新密码。')
-            return
-        }
-
-        if(this.pw == this.pw1){
-            this.glsetting.ShowMessage('更改密码', '旧密码和新密码是一样的, 没有改变。')
-            return
-        }
-
-        if(this.pw1 == '' || this.pw1 != this.pw2){
-            this.glsetting.ShowMessage('操作失败', '您的两次输入不一致。')
-            return
-        }
-
-        if(this.pw1.length < 6 || this.pw1.length > 20){
-            this.glsetting.ShowMessage('操作失败', '系统只接受6到20位字符的密码。')
-            return
-        }
-
-        this.changingpw = true;
-        Accounts.changePassword(this.pw, this.pw1, (err) => {
-            if(!err){
-                this.glsetting.ShowMessage("操作成功", "您的密码已经更改!")
-                this.ngZone.run(() => {
-                    this.changingpw = false
-                    this.PwModel = false;
-                })
-            }else{
-                this.ngZone.run(() => {
-                    this.changingpw = false
-                })
-
-                this.glsetting.ShowMessage('更改密码失败', err)
-            }
+    insertdel(){
+        DelResource.insert({keyes: ["hhhhhhhhh", "jjjjjjjj"], done: false}, (err) => {
+            console.log('insert to delresource: ', err)
         })
     }
     
@@ -240,47 +211,56 @@ export class UerProfile{
                     }
                 },
                 
-                'BeforeUpload': function(up, file) {
+                'BeforeUpload': (up, file) => {
+                    this.ngZone.run(() => {
+                        this.ChangingIcon = true;
+                    })
                 },
                 
                 'UploadProgress': function(up, file) {
                 },
                 
-                'FileUploaded': function(up, file, info) {
+                'FileUploaded': (up, file, info) => {
                     // 其中 info 是文件上传成功后，服务端返回的json，形式如
                     // {
                     //    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
                     //    "key": "gogopher.jpg"
                     //  }
                     
-                    let icon = info.key
-                    console.log('file uploaded', info)
-                    this.profile.icon = icon
-                    
-                    Meteor.setTimeout(() => {
-                        Meteor.users.update(
-                            {_id: Meteor.userId()},
-                            {$set: {'profile.icon': icon}},
-                            (err, res) => {
-                                console.log('upload profile error', err, res)
+                    let icon = JSON.parse(info)
+                    this.profile['icon'] = icon.key
+
+                    let oldicon = (Meteor.user().profile || {}).icon
+
+                    Meteor.users.update(
+                        {_id: Meteor.userId()},
+                        {$set: {'profile.icon': icon.key}},
+                        (err, res) => {
+                            console.log("update profile : ", err, res)
                         });
-                    }, 2*1000)
-                    
+
+                    if(oldicon && oldicon != ''){
+                        DelResource.insert({keyes: [oldicon], done: false}, (err) => {
+                            console.log('insert to delresource: ', oldicon, err)
+                        })
+                    }
+
                 },
                 'Error': function(up, err, errTip) {
-                    this.glsetting.ShowMessage("上传失败", "上传图片时失败。请稍后重试。")
                     console.log('upload error', err, errTip)
                 },
-                'UploadComplete': function() {
-                    console.log('upload completed')
+                'UploadComplete': () => {
+                    this.ngZone.run(() => {
+                        this.ChangingIcon = false;
+                        this.Icon = UerProfile.iconurl + '/' + this.profile['icon'] + '?imageView2/2/w/64'
+                    })
                 },
-                'Key': function(up, file) {
+                'Key': (up, file) => {
                     // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
                     // 该配置必须要在 unique_names: false , save_key: false 时才生效
                     //let item = file.name.split('.')
                     //var key = Meteor.userId() + '/icon.' + item[item.length - 1];
-                    var key = 'user/' + Meteor.userId() + '/icon'
-                    console.log('configure key : ', key)
+                    var key = 'user/' + Meteor.userId() + '/icon/' + this.glsetting.RandomStr(5)
                     return key;
                 }
             }
@@ -290,7 +270,6 @@ export class UerProfile{
             var uploader = new QiniuUploader(settings);
             uploader.settings.save_key = false
             uploader.settings.unique_names = false
-            console.log(uploader.settings)
             uploader.init();
         }catch(err){
             console.log('init qiniu err:', err)

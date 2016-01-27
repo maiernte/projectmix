@@ -107,6 +107,7 @@
         <item url="file://$USER_HOME$/.meteor/packages/richsilv_semantic-ui-modal/1.1.1/web.browser/packages/richsilv_semantic-ui-modal.js" />
         <item url="file://$USER_HOME$/.meteor/packages/rate-limit/1.0.0/web.browser/rate-limit.js" />
         <item url="file://$USER_HOME$/.meteor/packages/richsilv_semantic-ui-modal/1.1.1/web.browser/packages/richsilv_semantic-ui-modal/semantic-ui-modal.css" />
+        <item url="file://$USER_HOME$/.meteor/packages/simple_json-routes/1.0.4/web.browser/packages/simple_json-routes.js" />
         <item url="file://$USER_HOME$/.meteor/packages/service-configuration/1.0.5/web.browser/service_configuration_common.js" />
         <item url="file://$USER_HOME$/.meteor/packages/promise/0.5.1/web.browser/.npm/package/node_modules/meteor-promise/promise.bundle.js" />
         <item url="file://$USER_HOME$/.meteor/packages/sha/1.0.4/web.browser/sha256.js" />
@@ -115,8 +116,10 @@
         <item url="file://$USER_HOME$/.meteor/packages/srp/1.0.4/web.browser/srp.js" />
         <item url="file://$USER_HOME$/.meteor/packages/srp/1.0.4/web.browser/biginteger.js" />
         <item url="file://$USER_HOME$/.meteor/packages/reactive-dict/1.1.3/web.browser/reactive-dict.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/nimble_restivus/0.8.2/web.browser/packages/nimble_restivus.js" />
         <item url="file://$USER_HOME$/.meteor/packages/reactive-dict/1.1.3/web.browser/migration.js" />
         <item url="file://$USER_HOME$/.meteor/packages/shcherbin_flex-grid/1.0.5/web.browser/packages/shcherbin_flex-grid/vendor/dist/flex-grid.css" />
+        <item url="file://$USER_HOME$/.meteor/packages/chenkaic4_qiniu-uploader/0.0.3/web.browser/packages/chenkaic4_qiniu-uploader.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ddp-client/1.2.1/web.browser/sockjs-0.3.4.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ddp-client/1.2.1/web.browser/random_stream.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ddp-client/1.2.1/web.browser/stream_client_common.js" />
@@ -263,6 +266,7 @@
       <root url="file://$USER_HOME$/.meteor/packages/richsilv_semantic-ui-modal/1.1.1/web.browser/packages/richsilv_semantic-ui-modal.js" />
       <root url="file://$USER_HOME$/.meteor/packages/rate-limit/1.0.0/web.browser/rate-limit.js" />
       <root url="file://$USER_HOME$/.meteor/packages/richsilv_semantic-ui-modal/1.1.1/web.browser/packages/richsilv_semantic-ui-modal/semantic-ui-modal.css" />
+      <root url="file://$USER_HOME$/.meteor/packages/simple_json-routes/1.0.4/web.browser/packages/simple_json-routes.js" />
       <root url="file://$USER_HOME$/.meteor/packages/service-configuration/1.0.5/web.browser/service_configuration_common.js" />
       <root url="file://$USER_HOME$/.meteor/packages/promise/0.5.1/web.browser/.npm/package/node_modules/meteor-promise/promise.bundle.js" />
       <root url="file://$USER_HOME$/.meteor/packages/sha/1.0.4/web.browser/sha256.js" />
@@ -271,8 +275,10 @@
       <root url="file://$USER_HOME$/.meteor/packages/srp/1.0.4/web.browser/srp.js" />
       <root url="file://$USER_HOME$/.meteor/packages/srp/1.0.4/web.browser/biginteger.js" />
       <root url="file://$USER_HOME$/.meteor/packages/reactive-dict/1.1.3/web.browser/reactive-dict.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/nimble_restivus/0.8.2/web.browser/packages/nimble_restivus.js" />
       <root url="file://$USER_HOME$/.meteor/packages/reactive-dict/1.1.3/web.browser/migration.js" />
       <root url="file://$USER_HOME$/.meteor/packages/shcherbin_flex-grid/1.0.5/web.browser/packages/shcherbin_flex-grid/vendor/dist/flex-grid.css" />
+      <root url="file://$USER_HOME$/.meteor/packages/chenkaic4_qiniu-uploader/0.0.3/web.browser/packages/chenkaic4_qiniu-uploader.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ddp-client/1.2.1/web.browser/sockjs-0.3.4.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ddp-client/1.2.1/web.browser/random_stream.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ddp-client/1.2.1/web.browser/stream_client_common.js" />

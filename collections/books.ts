@@ -14,8 +14,6 @@ export var BkRecords = new CouchDB.Database('bkrecord')
 
 export var LocalRecords = new Ground.Collection(null);
 
-Ground.Collection(Meteor.users);
-
 Books.allow({
     insert: function() {
         var user = Meteor.user();

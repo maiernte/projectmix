@@ -38,7 +38,7 @@ export  class GlobalSetting{
 
         let autosignin = this.GetSetting('autosignin')
         if(autosignin) {
-            let user = this.GetSetting('username')
+            let user = this.GetSetting('username').toString()
             let pw = this.GetSetting('password').toString();
 
             if(!this.Signed){

@@ -43,8 +43,8 @@ export class UserLogin{
     }
 
     ngOnInit(){
-        this.Username = this.glsetting.GetSetting('username')
-        this.Password = this.glsetting.GetSetting('password')
+        this.Username = this.glsetting.GetSetting('username').toString()
+        this.Password = this.glsetting.GetSetting('password').toString()
     }
 
     ngAfterViewInit(){

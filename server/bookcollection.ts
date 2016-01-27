@@ -1,4 +1,5 @@
 import {Books, LocalRecords, BkRecords} from 'collections/books'
+import {DelResource} from  'collections/admin'
 
 declare var Meteor;
 declare var Counts;
@@ -22,3 +23,8 @@ function buildQuery(bookid?: string): Object {
 Meteor.publish('bkrecord', function(bookid: string, options: Object) {
     return BkRecords.find(buildQuery.call(this, bookid), options);
 });
+
+Meteor.publish('delresource', function() {
+    return DelResource.find();
+})
+

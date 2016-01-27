@@ -36,7 +36,6 @@ Meteor.startup(function(){
         return user;
     });
 
-    
     Meteor.methods({
         changeMail: function(uid, mail){
             return changeEmail(uid, mail)
