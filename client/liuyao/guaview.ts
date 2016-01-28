@@ -346,7 +346,8 @@ export class GuaView{
             feed: '',
             created: Date.now(),
             modified: Date.now(),
-            deleted: false
+            deleted: false,
+            cloud: false
         }
     }
 

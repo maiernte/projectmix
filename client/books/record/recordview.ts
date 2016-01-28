@@ -43,23 +43,6 @@ export class RecordView{
 
         let rd = LocalRecords.findOne({_id: this.recordid, book: this.bookid})
         this.Record = new RecordHelper(rd);
-
-        /*if(this.bookid && this.bookid != ''){
-            this.subscribe('books', () => {
-                let book = Books.findOne({_id: this.bookid})
-                this.bookname = book.name;
-            })
-
-            this.subscribe('bkrecord', this.bookid, () => {
-                let rd = BkRecords.findOne({_id: this.recordid});
-                this.ngZone.run(() => {
-                    this.Record = new RecordHelper(rd);
-                })
-            })
-        }else{
-            let rd = LocalRecords.findOne({_id: this.recordid})
-            this.Record = new RecordHelper(rd);
-        }*/
     }
 
     get Bookname(){
@@ -67,7 +50,7 @@ export class RecordView{
     }
 
     get IsGua(){
-        return this.record.IsGua
+        return this.Record.IsGua
     }
 
     get Record(){

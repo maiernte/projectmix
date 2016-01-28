@@ -41,5 +41,6 @@ declare type YiRecord = {
     img?: Array<string>,
     created: number,
     modified: number,
-    deleted: boolean
+    deleted: boolean,
+    cloud: boolean
 }

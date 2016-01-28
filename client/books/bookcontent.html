@@ -10,14 +10,14 @@
 </div>
 <div class="ui attached segment" style="padding: 0">
     <div class="ui buttons">
-        <div class="ui icon button"
+        <!--<div class="ui icon button"
             (click)="onPageChanged(-2)">
             <i class="angle double left icon"></i>
         </div>
         <div class="ui icon button" 
             (click)="onPageChanged(0)">
             <i class="angle double right icon"></i>
-        </div>
+        </div>-->
         <div class="ui icon button" (click)="synchronCloud()">
             <i class="cloud upload icon"></i>
         </div>
@@ -61,54 +61,15 @@
                     </button>
                 </div>
                 <div class="extra">
-                    {{'创建时间：' | tran:glsetting.lang}}
+                    {{'创建：' | tran:glsetting.lang}}
                     {{rd.Created}}
                     <i class="bookmark icon" [class.green]="rd.Feed"></i>
+                    <i class="cloud icon" [class.green]="rd.IsCloud" (click)="syncRecord(rd)"></i>
                     <div class="ui divider"></div>
                 </div>
             </div>
         </div>
 
         <pagination-controls (change)="onPageChanged($event.page)"></pagination-controls>
-    </div>
-</div>
-<div class="ui delete record modal">
-    <div class="header">{{'删除记录' | tran:glsetting.lang}}</div>
-    <div class="content">
-        <p>{{'打勾的记录将被永久性删除，所有内容不可恢复。您确认要删除这些记录吗？' | tran:glsetting.lang}}</p>
-    </div>
-    <div class="actions">
-        <div class="ui approve button">{{'是的' | tran:glsetting.lang}}</div>
-        <div class="ui cancel button">{{'再说' | tran:glsetting.lang}}</div>
-    </div>
-</div>
-<div class="ui no-record modal">
-    <div class="header">{{'选取记录' | tran:glsetting.lang}}</div>
-    <div class="content">
-        <p>{{'您还没有选取任何记录, 请在要删除的记录前打勾.' | tran:glsetting.lang}}</p>
-    </div>
-    <div class="actions">
-        <div class="ui approve button">{{'好的' | tran:glsetting.lang}}</div>
-    </div>
-</div>
-<div class="ui add-record modal">
-    <div class="header">{{'添加记录步骤' | tran:glsetting.lang}}</div>
-    <div class="content">
-        <p>{{'1 从主菜单中转到排六爻或者排八字界面.' | tran:glsetting.lang}}</p>
-        <p>{{'2 排盘后, 会自动跳转到"主桌面".' | tran:glsetting.lang}}</p>
-        <p>{{'3 在排好的盘下面, 点击保存按钮, 然后选择保存到"其它书集". ' | tran:glsetting.lang}}</p>
-        <p>{{'4 最后回到当前界面, 点击"新建"按钮. ' | tran:glsetting.lang}}</p>
-    </div>
-    <div class="actions">
-        <div class="ui approve button">{{'好的' | tran:glsetting.lang}}</div>
-    </div>
-</div>
-<div class="ui add-record-success modal">
-    <div class="header">{{'成功添加记录' | tran:glsetting.lang}}</div>
-    <p>{{'如果界面没有更新的话, 请再点击一次"新建"按钮.' | tran:glsetting.lang}}</p>
-    <div class="actions">
-        <div class="ui approve icon button">
-            <i class="smile icon"></i>
-        </div>
     </div>
 </div>

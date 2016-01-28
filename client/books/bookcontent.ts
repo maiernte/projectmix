@@ -84,7 +84,6 @@ export class BookContent extends MeteorComponent{
         this.bookid = this.routeParams.params['id']
         this.glsetting.LoadBooks(false).then(bks => {
             let book = bks.filter(bk => bk._id == this.bookid)[0]
-            console.log(book.name)
             this.ngZone.run(() => {
                 this.BookName = book.name
             })
@@ -99,40 +98,46 @@ export class BookContent extends MeteorComponent{
     }
 
     deleteRecords(){
-        let ids = this.rdviews.filter(r => r.Checked).map(r => {return r.Id})
-        if(ids.length == 0){
-            jQuery('.no-record.modal').modal('show')
+        let rds = this.Records.filter(r => r.Checked)
+        if(rds.length == 0){
+            this.glsetting.ShowMessage("删除记录", '您还没有选取任何记录， 请在要删除的记录前打勾。')
             return;
         }
-
-        jQuery('.delete.record.modal')
-            .modal({
-                closable  : false,
-                onDeny    : function(){
-                },
-                onApprove : () => {
-                    this.rdviews = this.rdviews.filter(r => !r.Checked);
-                    for(let id of ids){
-                        LocalRecords.update(id, {$set: {
-                                question: '',
-                                description: '',
-                                feed: '',
-                                gua: null,
-                                bazi: null,
-                                deleted: true,
-                                modified: Date.now()
-                            }
-                        })
-                    }
-                    
+        
+        let msg = '打勾的记录将被永久性删除，所有内容不可恢复。您确认要删除这些记录吗？'
+        this.glsetting.ShowMessage('删除记录', msg, () => {
+            let promises = []
+            
+            for(let rd of rds){
+                promises.push(rd.Remove())
+            }
+            
+            Promise.all(promises).then(() => {
+                this.ngZone.run(() => {
+                    console.log('alle record sind gelöscht!')
                     this.loadContent();
-                }
+                })
             })
-            .modal('show')
+        })
     }
 
     openRecord(rd: RecordHelper){
         this.router.parent.navigate(['./BookRecord', {bid: this.bookid, rid: rd.Id}])
+    }
+    
+    syncRecord(rd: RecordHelper){
+        console.log("syncRecord", rd)
+        rd.CloudSync().then((res) => {
+            let msg = res < 0 ? "更新到本地。" : "更新到云端。"
+            msg = res == 0 ? "数据已经更新过了。" :msg
+            this.glsetting.ShowMessage("同步数据", msg)
+            
+            this.ngZone.run(() => {
+                console.log('rd.IsCloud ? ', rd.IsCloud)
+            })
+        }).catch(err => {
+            this.glsetting.ShowMessage("同步数据失败", err)
+        })
     }
 
     onPageChanged(page: number) {
@@ -174,14 +179,6 @@ export class BookContent extends MeteorComponent{
     }
 
     private loadContent(){
-        console.log('load book content')
-        /*this.subscribe('books', () => {
-            let book = Books.findOne({_id: this.bookid})
-            this.ngZone.run(() => {
-                this.BookName = book.name;
-            })
-        })*/
-
         let selector: Object
         if(this.ShowGua && this.ShowBazi){
             selector = {
@@ -213,7 +210,6 @@ export class BookContent extends MeteorComponent{
                   {fields: {description: 0, img: 0}, sort: {created: 'desc'}})
             .fetch()
             
-        
         this.sumItems = records.length
         this.onPageChanged(1)
         this.buildRecordView(records);

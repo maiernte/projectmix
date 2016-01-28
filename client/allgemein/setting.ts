@@ -5,6 +5,8 @@ import {NgFor} from 'angular2/common'
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
 
+import {LocalRecords} from 'collections/books'
+
 declare var jQuery:any;
 
 @Component({
@@ -77,5 +79,12 @@ export class AppSetting{
 
         let hideMenu = true;
         this.showMenu(hideMenu);
+    }
+    
+    ClearLocalDB(){
+        this.glsetting.ShowMessage("清空本地数据", "所有本地数据将被清空。没有保存到云端的数据将永久丢失。确定进行此操作吗？", () => {
+            console.log("local records are cleared")
+            LocalRecords.clear()
+        })
     }
 }

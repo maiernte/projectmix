@@ -2,6 +2,7 @@
 import {LocalRecords, Books, BkRecords} from 'collections/books'
 
 declare var Promise;
+declare var Meteor;
 
 export class RecordHelper{
     Checked: boolean
@@ -27,6 +28,10 @@ export class RecordHelper{
         }else{
             return false;
         }
+    }
+    
+    get IsCloud(){
+        return this.rd.cloud == true
     }
 
     get Created(){
@@ -77,12 +82,13 @@ export class RecordHelper{
             this.rd.question = ques;
             this.rd.feed = feed;
             this.rd.description = desc;
+            this.rd.modified = Date.now()
 
             LocalRecords.update(this.rd._id, {$set: {
                 question: ques,
                 description: desc,
                 feed: feed,
-                modified: Date.now()
+                modified: this.rd.modified
             }}, (err, res) => {
                 if(err){
                     reject(err)
@@ -90,14 +96,15 @@ export class RecordHelper{
                     resolve(true)
                 }
             })
+        });
+        
+        return promise
+    }
     
-            /*if(!this.rd.book){
-                LocalRecords.update(this.rd._id, {$set: {
-                    question: ques,
-                    description: desc,
-                    feed: feed,
-                    modified: Date.now()
-                }}, (err, res) => {
+    Remove(): any{
+        let promise = new Promise((resolve, reject) => {
+            if(this.rd.cloud != true){
+                LocalRecords.remove(this.Id, (err) => {
                     if(err){
                         reject(err)
                     }else{
@@ -105,19 +112,81 @@ export class RecordHelper{
                     }
                 })
             }else{
-                this.rd.description = desc;
-                this.rd.modified = Date.now();
-                BkRecords.update(this.rd, (err, res) => {
+                LocalRecords.update(this.Id, {$set: {
+                        question: '',
+                        description: '',
+                        feed: '',
+                        gua: null,
+                        bazi: null,
+                        deleted: true,
+                        modified: Date.now()
+                    }
+                }, (err) => {
                     if(err){
                         reject(err)
                     }else{
                         resolve(true)
                     }
                 })
-            }*/
-        });
+            }
+        })
         
         return promise
+    }
+    
+    CloudSync(): any{
+        let promise = new Promise((resolve, reject) => {
+            Meteor.subscribe('bkrecord', this.BookId, {}, (subscribeerr) => {
+                if(subscribeerr){
+                    reject(subscribeerr)
+                    return
+                }
+                
+                let crd = BkRecords.findOne({_id: this.Id})
+                if(!crd){
+                    this.rd.cloud = true
+                    BkRecords.insert(this.rd, (err, res) => {
+                        if(err){
+                            this.rd.cloud = false
+                            reject(err)
+                        }else{
+                            LocalRecords.update(this.Id, {$set: {cloud: true}})
+                            resolve(1)
+                        }
+                    })
+                }else{
+                    if(this.rd.modified > crd.modified){
+                        if(!this.rd.description){
+                            let lrd = LocalRecords.findOne({_id: this.Id})
+                            this.rd.description = lrd.description
+                        }
+                        
+                        BkRecords.update(this.rd, () => {
+                            resolve(1)
+                        })
+                    }else if(this.rd.modified < crd.modified){
+                        LocalRecords.update(crd._id, {$set: {
+                            gua: crd.gua,
+                            bazi: crd.bazi,
+                            question: crd.question,
+                            description: crd.description,
+                            feed: crd.feed,
+                            img: crd.img,
+                            modified: crd.modified,
+                            deleted: crd.deleted,
+                            cloud: true
+                        }})
+                        
+                        this.rd = LocalRecords.findOne({_id: crd._id})
+                        resolve(-1)
+                    }else{
+                        resolve(0)
+                    }
+                }
+            })
+        })
+        
+        return promise;
     }
 
     private toChina(d: Date): string{

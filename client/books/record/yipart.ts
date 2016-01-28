@@ -82,22 +82,18 @@ export class YixuePart{
     goNextRecord(flag){
         let rd: YiRecord;
 
-        if(this.record.BookId){
-
+        let bookid = this.record.BookId
+        let created = this.record.Data.created;
+        if(flag < 0){
+            rd = LocalRecords.findOne({book: bookid, created: {$lt: created}, deleted: false}, 
+                    {sort: {created: -1}, fields: {question: 1}})
         }else{
-            // LocalRecord
-            let created = this.record.Data.created;
-
-
-            if(flag < 0){
-                rd = LocalRecords.findOne({created: {$lt: created}})
-            }else{
-                rd = LocalRecords.findOne({created: {$gt: created}})
-            }
+            rd = LocalRecords.findOne({book: bookid, created: {$gt: created}, deleted: false},
+                    {sort: {created: 1}, fields: {question: 1}})
         }
 
         if(rd){
-            this.router.parent.navigate(['./BookRecord', {bid: '', rid: rd._id}])
+            this.router.parent.navigate(['./BookRecord', {bid: bookid, rid: rd._id}])
         }else{
             let msg = "现在已经是" + (flag < 0 ? '第一个' : '最后一个') + '记录'
             this.glsetting.ShowMessage("搜索记录", msg)
