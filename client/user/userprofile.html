@@ -58,10 +58,10 @@
         <div class="inline field">
             <label>{{"头像" | tran:glsetting.lang}}</label>
             <!--<input type="file" name=""/>-->
-            <button class='ui primary tiny button' id="uploadQiniu">
+            <button class='ui primary tiny button' id="uploadQiniu"
+                    [class.disabled]="imagequote == null">
                 {{'上传头像' | tran:glsetting.lang}}
             </button>
-
         </div>
         <img [src]="Icon" height="64" width="64" *ngIf="!ChangingIcon">
         <div class="ui active small inline loader" *ngIf="ChangingIcon"></div>

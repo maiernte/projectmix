@@ -39,6 +39,7 @@ declare type YiRecord = {
     owner?: string,
     feed: string,
     img?: Array<string>,
+    link?: Array<string>,
     created: number,
     modified: number,
     deleted: boolean,

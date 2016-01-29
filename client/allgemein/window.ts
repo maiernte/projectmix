@@ -91,31 +91,10 @@ export class TyWindow {
 	private modalEle;
 	
 	showSaveModal(ele){
-		console.log("show modal" , ele)
-		
-		ele.find('.modal.save.pan').modal({
-	            closable  : true,
-	            onDeny    : function(){
-	            },
-	            onApprove : (ele) => {
-	            	
-	            }
-	        }).modal('show')
-		return;
-	
-		if(!this.modalEle){
-			this.modalEle = jQuery(this.elementRef.nativeElement).find('.modal.save.pan')
-		}
-		
-		this.modalEle
+		jQuery('#' + this.data['id'])
 			.modal({
-	            closable  : true,
-	            onDeny    : function(){
-	            },
-	            onApprove : (ele) => {
-	            	
-	            }
-	        }).modal('show')
+				closable  : false,
+			}).modal('show')
 	}
 	
 	saveTo(book){
@@ -132,9 +111,7 @@ export class TyWindow {
 		
 		record.book = book._id
 		record.owner = Meteor.userId();
-		
-		console.log(this.guaview, this.baziview)
-		return
+
 		LocalRecords.insert(record, (err, id) => {
 			console.log("insert record", err, id, record)
 		})

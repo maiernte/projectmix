@@ -3,6 +3,7 @@
 import './bookcollection';
 import {changeEmail, verificationMail, sendResetPasswordEmail} from 'server/email'
 import {BkRecords} from 'collections/books'
+import {UserImages} from 'collections/admin'
 import {initQiniu} from "./qiniu"
 
 declare var Meteor;
@@ -26,13 +27,17 @@ Meteor.startup(function(){
                 if(mailbody){
                     NigerianPrinceGun.send(mailbody)
                 }
+
+                UserImages.insert({user: user._id, quote: 100, current: 0, del: []})
             }, 5 * 1000);
         }catch(err){
             console.log(err)
         }
         
-        if (options.profile)
+        if (options.profile){
             user.profile = options.profile;
+        }
+
         return user;
     });
 

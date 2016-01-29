@@ -22,6 +22,16 @@
                      (click)="EditModel = false">
                     <i class="save icon"></i>
                 </div>
+                <div class="ui icon button"
+                     (click)="syncRecord()">
+                    <i class="cloud icon" [class.teal]="IsCloud"></i>
+                </div>
+                <div class="ui icon button" (click)="insertLink()">
+                    <i class="file image outline icon"></i>
+                </div>
+                <div class="ui icon button" id="uploadBookPic">
+                    <i class="attach icon"></i>
+                </div>
             </div>
         </div>
 
@@ -38,7 +48,7 @@
             </tr>
             <tr>
                 <td class="collapsing" style="font-weight: bold">
-                    <i class="bookmark teal icon"></i>
+                    <i class="bookmark icon" [class.teal]="Feed"></i>
                     {{'反馈: ' | tran:glsetting.lang}}
                 </td>
                 <td class="editable feed" align="left">
@@ -47,7 +57,7 @@
             </tr>
             <tr>
                 <td class="collapsing" style="font-weight: bold">
-                    <i class="file code outline teal icon"></i>
+                    <i class="code outline teal icon"></i>
                     {{'解读: ' | tran:glsetting.lang}}
                 </td>
                 <td class="editable description" align="left">
@@ -56,6 +66,64 @@
             </tr>
             </tbody>
         </table>
+
+        <div class="ui attached segment" *ngIf="UpLoading">
+            <div class="ui progress success" id="progressUploadPic">
+                <div class="bar"></div>
+            </div>
+        </div>
+
+
+        <div class="ui attached segment" *ngIf="Images.length > 0">
+            <div class="ui cards">
+                <div class="ui card" *ngFor="#img of ImageLink">
+                    <div class="image">
+                        <img [src]="img.url" width="128" height="128">
+                    </div>
+                    <div class="content">
+                        <span class="left floated" *ngIf="!img.extr"
+                              (click)="copyLink(img.url)">
+                            <i class="copy icon"></i>
+                            {{'内链图片' | tran:glsetting.lang}}
+                        </span>
+                        <span class="left floated" *ngIf="img.extr"
+                              (click)="copyLink(img.url)"
+                            style="margin-right: 10px">
+                            <i class="copy icon"></i>
+                        </span>
+                        <span class="left floated" *ngIf="img.extr"
+                            (click)="editLink(img.url)">
+                            <i class="linkify icon"></i>
+                            {{'外链图片' | tran:glsetting.lang}}
+                        </span>
+                        <span class="right floated" (click)="removeLink(img)">
+                            <i class="trash outline icon"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
+<div class="ui modal piclink">
+    <div class="header">
+        {{'请输入图片地址:' | tran:glsetting.lang}}
+    </div>
+    <div class="content">
+        <div class="ui fluid input">
+            <input type="text"
+                   placeholder="http://xxx.somesite.com/pic.jpeg"
+                   [(ngModel)]="Inputlink">
+        </div>
 
+    </div>
+    <div class="actions">
+        <div class="ui black deny button">
+            {{'取消' | tran:glsetting.lang}}
+        </div>
+        <div class="ui positive right labeled icon button">
+            {{'确定' | tran:glsetting.lang}}
+        </div>
+    </div>
+</div>

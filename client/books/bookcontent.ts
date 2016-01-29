@@ -126,7 +126,6 @@ export class BookContent extends MeteorComponent{
     }
     
     syncRecord(rd: RecordHelper){
-        console.log("syncRecord", rd)
         rd.CloudSync().then((res) => {
             let msg = res < 0 ? "更新到本地。" : "更新到云端。"
             msg = res == 0 ? "数据已经更新过了。" :msg
@@ -169,6 +168,10 @@ export class BookContent extends MeteorComponent{
                     })
                 }
 
+                LocalRecords.update({book: this.bookid}, {$set: {cloud: true}})
+                this.ngZone.run(() => {
+                    this.loadContent();
+                })
                 this.glsetting.ShowMessage('操作成功', '恭喜！数据已经全部同步！')
             }).catch(err => {
                 //this.glsetting.ShowMessage('上传数据错误', err)
@@ -293,6 +296,7 @@ export class BookContent extends MeteorComponent{
                     continue;
                 }
 
+                lrd.cloud = true
                 Meteor.call('upsertRecord', lrd, (err) => {
                     counter = counter - 1;
                     if(counter <= 0){

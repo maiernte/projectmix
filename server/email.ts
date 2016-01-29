@@ -86,8 +86,12 @@ export function changeEmail(uid, mail){
 export function verificationMail(uid, address): Object{
     // Make sure the user exists, and address is one of their addresses.
     var user = Meteor.users.findOne({_id: uid});
-    if (!user)
-        throw new Error("Can't find user");
+    if (!user){
+        //throw new Error("Can't find user");
+        console.log('Cannot find user')
+        return null
+    }
+
 
     // pick the first unverified address if we weren't passed an address.
     if (!address) {
@@ -97,8 +101,12 @@ export function verificationMail(uid, address): Object{
     }
 
     // make sure we have a valid address
-    if (!address || !_.contains(_.pluck(user.emails || [], 'address'), address))
-        throw new Error("No such email address for user.");
+    if (!address || !_.contains(_.pluck(user.emails || [], 'address'), address)){
+        //throw new Error("No such email address for user.");
+        console.log('no email')
+        return null
+    }
+
 
     var tokenRecord = {
         token: RandomStr(44),

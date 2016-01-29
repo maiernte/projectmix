@@ -8,7 +8,8 @@ import {NgIf} from 'angular2/common'
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
 
-import {DelResource} from  'collections/admin'
+import {UserImages} from  'collections/admin'
+import Error = Meteor.Error;
 
 declare var Promise: any;
 declare var jQuery: any
@@ -41,6 +42,7 @@ export class UerProfile{
     changingpw = false;
 
     private editModel = false;
+    imagequote = null;
 
     constructor(private router: Router,
                 private routeParams: RouteParams,
@@ -141,21 +143,21 @@ export class UerProfile{
             this.Email = ''
             this.MailVerified = false;
         }
+
+        Meteor.subscribe('userimg', () => {
+            this.imagequote = UserImages.findOne({user: user._id})
+            console.log('imagequote', this.imagequote)
+        })
     }
 
     logout(){
         this.glsetting.SignOut().then(() => {
             this.ngZone.run(() => {
+                console.log('log out')
                 this.router.parent.navigate(['Login'])
             })
         }).catch(err => {
             this.glsetting.ShowMessage("退出失败", err)
-        })
-    }
-
-    insertdel(){
-        DelResource.insert({keyes: ["hhhhhhhhh", "jjjjjjjj"], done: false}, (err) => {
-            console.log('insert to delresource: ', err)
         })
     }
     
@@ -202,12 +204,19 @@ export class UerProfile{
             unique_names: false , 
             save_key: false,
             bindListeners: {
-                'FilesAdded': function(up, files) {
+                'FilesAdded': (up, files) => {
+                    if(this.imagequote.quote <= this.imagequote.current){
+                        up.splice(0);
+                        this.glsetting.ShowMessage("拒绝上传", "您的文件数量超出了范围. 如果您想获得更多的权限, 请联系管理员. ")
+                        return
+                    }
+
                     var maxfiles = 1;
                     if(up.files.length > maxfiles )
                     {
-                        up.splice(maxfiles);
-                        alert('每次只允许上传一个文件');
+                        up.splice(0);
+                        this.glsetting.ShowMessage("拒绝上传", "每次只允许上传一个文件.")
+                        return
                     }
                 },
                 
@@ -240,11 +249,14 @@ export class UerProfile{
                         });
 
                     if(oldicon && oldicon != ''){
-                        DelResource.insert({keyes: [oldicon], done: false}, (err) => {
-                            console.log('insert to delresource: ', oldicon, err)
-                        })
+                        this.imagequote.del.push(oldicon)
+                    }else{
+                        this.imagequote.current += 1
                     }
 
+                    UserImages.update(this.imagequote, (err) => {
+                        console.log('insert to delresource: ', oldicon, err)
+                    })
                 },
                 'Error': function(up, err, errTip) {
                     console.log('upload error', err, errTip)

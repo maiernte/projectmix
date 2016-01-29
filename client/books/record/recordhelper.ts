@@ -57,6 +57,15 @@ export class RecordHelper{
         return this.rd.description;
     }
 
+    get Images(){
+        console.log('get images', this.rd.img)
+        return (this.rd.img || [])
+    }
+
+    get Links(){
+        return (this.rd.link || [])
+    }
+
     get Detail(){
         try{
             if(this.rd.gua){
@@ -74,6 +83,47 @@ export class RecordHelper{
 
     get RouteParams(){
         return this.IsGua ? this.guaParams() : this.baziParams();
+    }
+
+    InsertLink(link): any{
+        let promise = new Promise((resolve, reject) => {
+            if(!this.rd.link){
+                this.rd.link = [link]
+            }else{
+                this.rd.link.push(link)
+            }
+
+            LocalRecords.update(this.rd._id,
+                {$set: {link: this.rd.link}},
+                (err) => {
+                    if(err){
+                        reject(err)
+                    }else{
+                        resolve(null)
+                    }
+            })
+        })
+
+        return promise
+    }
+
+    ChangeLink(oldlink, newlink){
+        let promise = new Promise((resolve, reject) => {
+            let tmp = JSON.stringify(this.rd.link)
+            let json = JSON.parse(tmp.replace(oldlink, newlink))
+            this.rd.link = json
+            LocalRecords.update(this.rd._id,
+                {$set: {link: this.rd.link}},
+                (err) => {
+                    if(err){
+                        reject(err)
+                    }else{
+                        resolve(null)
+                    }
+                })
+        })
+
+        return promise
     }
 
     Save(ques: string, feed: string, desc: string){

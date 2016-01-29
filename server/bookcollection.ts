@@ -1,5 +1,5 @@
 import {Books, LocalRecords, BkRecords} from 'collections/books'
-import {DelResource} from  'collections/admin'
+import {UserImages} from  'collections/admin'
 
 declare var Meteor;
 declare var Counts;
@@ -24,7 +24,6 @@ Meteor.publish('bkrecord', function(bookid: string, options: Object) {
     return BkRecords.find(buildQuery.call(this, bookid), options);
 });
 
-Meteor.publish('delresource', function() {
-    return DelResource.find();
+Meteor.publish('userimg', function() {
+    return UserImages.find();
 })
-
