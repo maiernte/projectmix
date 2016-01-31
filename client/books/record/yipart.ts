@@ -13,6 +13,8 @@ import {BaziView} from 'client/bazi/baziview'
 import {LocalRecords, Books} from 'collections/books'
 import {RecordHelper} from './recordhelper'
 
+import {TYUploader} from 'lib/qiniu/tyuploader'
+
 declare var jQuery;
 declare var MediumEditor;
 declare var QiniuUploader;
@@ -24,7 +26,7 @@ declare var QiniuUploader;
     directives: []
 })
 export class YixuePart{
-    private static qiniuUploader;
+    //private static qiniuUploader;
     private static baseUrl = 'http://7xqidf.com1.z0.glb.clouddn.com/'
     private static copyLink = ''
 
@@ -41,7 +43,7 @@ export class YixuePart{
     @Input() record: RecordHelper;
 
     UpLoading = false
-    Inputlink = ''
+    ButtonId = ''
 
     constructor(private router: Router,
                 private routeParams: RouteParams,
@@ -80,6 +82,10 @@ export class YixuePart{
 
     get IsCloud(){
         return this.record.IsCloud
+    }
+
+    get IsCordova(){
+        return this.glsetting.IsCordova
     }
 
     get Feed(){
@@ -130,66 +136,58 @@ export class YixuePart{
     }
 
     insertLink(){
-        let link = (YixuePart.copyLink || 'wasser.png')
+        let urlinit = (YixuePart.copyLink || '')
 
-        let found = this.links.filter(l => l == link)
-        if(found.length > 0)return
+        let content = `<div class="ui fluid input">
+            <input type="text"
+                    value = '${urlinit}'
+                   placeholder="http://xxx.somesite.com/pic.jpeg"
+                   id='record-pic-url-input'>
+        </div>`
 
-        //this.links.push(link)
-        this.record.InsertLink(link)
-            .then(() => {
-                this.ngZone.run(() => {
-                    this.images = this.record.Images
-                    YixuePart.copyLink = null
-                    console.log('links', this.Images)
-                })
-        }).catch(err => {
-            this.glsetting.ShowMessage("添加外链失败", err)
-        })
-    }
+        this.glsetting.ShowMessage("请输入图片地址:", content, () =>{
+            let dom = jQuery('#record-pic-url-input')
+            let url = dom[0].value.trim()
 
-    editLink(link: string){
-        this.Inputlink = link == 'wasser.png' ? '' : link
+            if(url == '')return
+            let found = this.links.filter(l => l == url)
+            if(found.length > 0)return
 
-        jQuery('.ui.modal.piclink')
-            .modal({
-                closable  : false,
-                onDeny    : function(){
-                    return true;
-                },
-                onApprove : () => {
-                    if(link.trim() == this.Inputlink.trim())return
-
-                    this.record.ChangeLink(link, this.Inputlink.trim())
-                        .then(() => {
-                            this.ngZone.run(() => {
-                                this.links = this.record.Links
-                                this.Inputlink = null
-                                console.log('links', this.Links)
-                            })
-                        }).catch(err => {
-                        this.glsetting.ShowMessage("添加外链失败", err)
-                    })
-
-                    /*this.links = [this.Inputlink]
+            this.record.InsertLink(url)
+                .then(() => {
                     this.ngZone.run(() => {
-                        console.log('inputlink:', this.ImageLink)
-                    })*/
-                }
+                        this.links = this.record.Links
+                        console.log('insert links to record', this.Links)
+                    })
+                }).catch(err => {
+                    this.glsetting.ShowMessage("添加外链失败", err)
             })
-            .modal('show')
+        })
     }
 
     removeLink(link){
         if(link.extr == false){
             // 内链图片
+            console.log('remove image ', link.key)
+            this.record.RemoveImage(link.key)
+                .then(() => {
+                    this.ngZone.run(() => {
+                        this.images = this.record.Images
+                    })
+            }).catch(err => {
+                this.glsetting.ShowMessage("删除内链失败", err)
+            })
         }else{
-            this.links = this.links.filter(l => l != link.url)
+            console.log('remove link ', link)
+            this.record.RemoveLink(link.url)
+                .then(() => {
+                    this.ngZone.run(() => {
+                        this.links = this.record.Links
+                    })
+            }).catch(err => {
+                this.glsetting.ShowMessage("删除外链失败", err)
+            })
         }
-
-        this.ngZone.run(() => {
-            console.log('update links')
-        })
     }
 
     showSetting(){
@@ -197,7 +195,11 @@ export class YixuePart{
         if(this.baziview) this.baziview.showSetting();
     }
 
-
+    showOrigPic(url){
+        console.log(url)
+        let content = `<img class="image" src='${url}'>`
+        this.glsetting.ShowMessage('原图', content)
+    }
 
     goNextRecord(flag){
         let rd: YiRecord;
@@ -221,6 +223,8 @@ export class YixuePart{
     }
 
     ngOnInit(){
+        this.ButtonId = 'upbtn-' + this.glsetting.RandomStr(5)
+
         let domQuestion = jQuery(this.rootElement.nativeElement).find('.editable.question')
         domQuestion.text(this.record.Question)
 
@@ -233,7 +237,6 @@ export class YixuePart{
 
     ngAfterViewInit(){
         this.initQiNiuBook();
-        console.log('YiPart', this.ImageLink)
     }
 
     syncRecord(){
@@ -246,15 +249,21 @@ export class YixuePart{
         })
     }
 
-    addImage(){
-        if(this.Images.length === 3){
-            this.glsetting.ShowMessage("添加图片", "非常抱歉, 由于运营成本的缘故, 每个记录最多允许三张图片. ")
-            return;
-        }
+    ngOnDestroy(){
+        console.log('yixuepart destroy....')
+        this.qiniuUploader.Destroy()
     }
 
-    removeImag(){
+    UploadReady() {
+        this.ngZone.run(() => {
+            this.UpLoading = true
+        })
 
+        if(this.qiniuUploader.Inited == false){
+            this.qiniuUploader.Init().then(() => {
+                console.log('init qiniu uploader', this.qiniuUploader)
+            })
+        }
     }
 
     private setprogress(value){
@@ -266,12 +275,14 @@ export class YixuePart{
         });
     }
 
-    private initQiNiuBook(){
-        if(!!YixuePart.qiniuUploader)return
+    private uploadErr = null
+    private qiniuUploader;
+    private testqiniu
 
+    private initQiNiuBook(){
         var settings = {
             bucket: 'huaheapp',
-            browse_button: 'uploadBookPic',
+            browse_button: this.ButtonId,
             domain: 'http://7xqidf.com1.z0.glb.clouddn.com',
             max_file_size: '500kb',
             unique_names: false ,
@@ -291,6 +302,7 @@ export class YixuePart{
                         throw Error('cancel')
                     }
 
+                    console.log('add image file to ', this.record.Question, this.record.Id)
                     this.setprogress(0)
                 },
 
@@ -307,41 +319,48 @@ export class YixuePart{
 
                 'FileUploaded': (up, file, info) => {
                     let pic = JSON.parse(info)
-                    this.Images.push(pic.key)
-                    console.log('file uploaded', this.Images)
+                    this.record.InsertImage(pic.key)
+                    console.log('update images of', this.record.Question, this.record.Id)
                 },
-                'Error': function(up, err, errTip) {
-                    console.log('upload error', err, errTip)
+                'Error': (up, err, errTip) => {
+                    this.uploadErr = err
                 },
                 'UploadComplete': () => {
                     this.ngZone.run(() => {
                         this.UpLoading = false;
-                        console.log('upload completed', this.Images, this.record.Id)
-                        LocalRecords.update(this.record.Id, {$set: {img: this.Images}}, (err) => {
-                            console.log('insert image to record')
-                        })
+                        if(this.uploadErr){
+                            this.glsetting.ShowMessage('上传失败', this.uploadErr)
+                        }else {
+                            console.log('upload completed', this.record.Id)
+                            this.ngZone.run(() => {
+                                this.UpLoading = false;
+                                this.images = this.record.Images
+                            })
+                        }
                     })
                 },
                 'Key': (up, file) => {
                     // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
                     // 该配置必须要在 unique_names: false , save_key: false 时才生效
                     let item = file.name.split('.')
-                    //var key = Meteor.userId() + '/icon.' + item[item.length - 1];
-                    var key = 'bk/' + this.record.BookId + '/rd/' + this.record.Id + '/' + this.Images.length + '.' + item[item.length - 1]
+                    let endung = item[item.length - 1]
+                    let bk =this.record.BookId
+                    let rd = this.record.Id
+                    let name = this.glsetting.RandomStr(5)
+                    let uid = Meteor.userId()
+
+                    var key = `uid-${uid}/bk-${bk}/rd-${rd}/${name}.${endung}`
                     return key;
                 }
             }
         }
 
         try{
-            YixuePart.qiniuUploader = new QiniuUploader(settings);
-            YixuePart.qiniuUploader.settings.save_key = false
-            YixuePart.qiniuUploader.settings.unique_names = false
-            YixuePart.qiniuUploader.init();
-            console.log('Qiniu Book Pic inited')
+            this.qiniuUploader = new TYUploader(settings)
+            this.qiniuUploader.Init()
         }catch(err){
             console.log('init qiniu err:', err)
-            YixuePart.qiniuUploader = null
+            this.qiniuUploader = null
         }
     }
 

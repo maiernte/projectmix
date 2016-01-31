@@ -20,7 +20,7 @@ var config = {
 export function initQiniu(){
     try{
         // 生成实例
-        var qiniu1 = new QiniuSDK(config);
+        var qiniu = new QiniuSDK(config);
         
         let bucket = {
             'bucket': 'huaheapp',
@@ -30,10 +30,12 @@ export function initQiniu(){
         }
 
         // 添加单个 bucket
-        qiniu1.addBucket(bucket);  // 可以获取token了，背后设置了 callbackUrl
+        qiniu.addBucket(bucket);  // 可以获取token了，背后设置了 callbackUrl
+
+        //console.log(qiniu.buckets)
 
         // 应用配置
-        qiniu1.init();
+        qiniu.init();
         console.log('qiniu inited !')
     }catch(err){
         console.log('init qiniu error: ', err)

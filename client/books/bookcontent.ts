@@ -83,10 +83,12 @@ export class BookContent extends MeteorComponent{
     ngOnInit(){
         this.bookid = this.routeParams.params['id']
         this.glsetting.LoadBooks(false).then(bks => {
-            let book = bks.filter(bk => bk._id == this.bookid)[0]
-            this.ngZone.run(() => {
-                this.BookName = book.name
-            })
+            let book = bks.filter(bk => bk._id == this.bookid)
+            if(book.length > 0){
+                this.ngZone.run(() => {
+                    this.BookName = book[0].name
+                })
+            }
         })
 
         //this.loadRecordes();
@@ -210,13 +212,14 @@ export class BookContent extends MeteorComponent{
 
         let records = LocalRecords
             .find(selector,
-                  {fields: {description: 0, img: 0}, sort: {created: 'desc'}})
+                  {fields: {description: 0, img: 0, link: 0}, sort: {created: 'desc'}})
             .fetch()
             
         this.sumItems = records.length
         this.onPageChanged(1)
         this.buildRecordView(records);
         this.Loaded = true;
+        console.log('recordes', records)
     }
 
     private buildRecordView(records){
@@ -263,6 +266,7 @@ export class BookContent extends MeteorComponent{
                         description: crd.description,
                         feed: crd.feed,
                         img: crd.img,
+                        link: crd.link,
                         modified: crd.modified,
                         deleted: crd.deleted
                     }})
@@ -274,7 +278,7 @@ export class BookContent extends MeteorComponent{
                     console.log('?', lcd, crd)
                 }
             }
-            
+
             resolve(ids)
         })
         
@@ -297,6 +301,8 @@ export class BookContent extends MeteorComponent{
                 }
 
                 lrd.cloud = true
+                console.log('upsert record', lrd)
+
                 Meteor.call('upsertRecord', lrd, (err) => {
                     counter = counter - 1;
                     if(counter <= 0){

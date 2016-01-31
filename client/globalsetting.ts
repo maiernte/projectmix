@@ -174,6 +174,8 @@ export  class GlobalSetting{
                 if(err){
                     reject(err)
                 }else{
+                    //this.GetSetting('autosignin')
+                    this.SetValue('autosignin', false)
                     resolve(true)
                 }
             })
@@ -219,15 +221,19 @@ export  class GlobalSetting{
     
     LoadBooks(reload: boolean): any{
         let promise = new Promise((resolve, reject) => {
+            let loaded = !!this.books && this.books.length > 0
             if(this.books && reload != true){
                 resolve(this.books)
                 return
             }
             
-            Meteor.subscribe('books', () => {
+            /*Meteor.subscribe('books', () => {
                 this.books = Books.find().fetch()
                 resolve(this.books)
-            });
+            });*/
+
+            this.books = Books.find().fetch()
+            resolve(this.books)
         })
         
         return promise;

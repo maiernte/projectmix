@@ -39,3 +39,20 @@ UserImages.allow({
     }
 });
 
+
+export var DelImages = new CouchDB.Database('delimg')
+DelImages.allow({
+    insert: function(userId, doc) {
+        var user = Meteor.user();
+        if(user && user._id == doc.user) return true
+
+        return false
+    },
+    update: function(userId, doc, modifiedDoc) {
+        return false
+    },
+    remove: function(userId, doc) {
+        var user = Meteor.user();
+        return !!user && user.profile.group > gp.Master;
+    }
+})

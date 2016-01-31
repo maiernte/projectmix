@@ -1,5 +1,6 @@
 /// <reference path="../../../typings/book.d.ts" />
 import {LocalRecords, Books, BkRecords} from 'collections/books'
+import {DelImages} from 'collections/admin'
 
 declare var Promise;
 declare var Meteor;
@@ -58,7 +59,6 @@ export class RecordHelper{
     }
 
     get Images(){
-        console.log('get images', this.rd.img)
         return (this.rd.img || [])
     }
 
@@ -107,11 +107,33 @@ export class RecordHelper{
         return promise
     }
 
-    ChangeLink(oldlink, newlink){
+    InsertImage(key){
         let promise = new Promise((resolve, reject) => {
-            let tmp = JSON.stringify(this.rd.link)
-            let json = JSON.parse(tmp.replace(oldlink, newlink))
-            this.rd.link = json
+            if(!this.rd.img){
+                this.rd.img = [key]
+            }else{
+                this.rd.img.push(key)
+            }
+
+            LocalRecords.update(this.rd._id,
+                {$set: {img: this.rd.img}},
+                (err) => {
+                    if(err){
+                        reject(err)
+                    }else{
+                        resolve(null)
+                    }
+                })
+        })
+
+        return promise
+    }
+
+    RemoveLink(link):any{
+        let promise = new Promise((resolve, reject) => {
+            link = link.trim()
+            this.rd.link = this.rd.link.filter(l => l != link)
+
             LocalRecords.update(this.rd._id,
                 {$set: {link: this.rd.link}},
                 (err) => {
@@ -121,6 +143,37 @@ export class RecordHelper{
                         resolve(null)
                     }
                 })
+        })
+
+        return promise
+    }
+
+    RemoveImage(key: string): any{
+        let del = {
+            user: Meteor.userId(),
+            bk: this.BookId,
+            rd: this.Id,
+            key: key
+        }
+
+        let promise = new Promise((resolve, reject) => {
+            DelImages.insert(del, (errqiniu) => {
+                console.log('insert to DelImge')
+                if(!errqiniu){
+                    this.rd.img = this.rd.img.filter(k => k != key)
+                    LocalRecords.update(this.rd._id,
+                        {$set: {img: this.rd.img}},
+                        (err) => {
+                            if(err){
+                                reject(err)
+                            }else{
+                                resolve(null)
+                            }
+                        })
+                }else{
+                    reject(errqiniu)
+                }
+            })
         })
 
         return promise
@@ -169,7 +222,8 @@ export class RecordHelper{
                         gua: null,
                         bazi: null,
                         deleted: true,
-                        modified: Date.now()
+                        modified: Date.now(),
+                        link: null,
                     }
                 }, (err) => {
                     if(err){

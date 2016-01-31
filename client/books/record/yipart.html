@@ -29,7 +29,7 @@
                 <div class="ui icon button" (click)="insertLink()">
                     <i class="file image outline icon"></i>
                 </div>
-                <div class="ui icon button" id="uploadBookPic">
+                <div class="ui icon button" [id]="ButtonId" *ngIf="!IsCordova">
                     <i class="attach icon"></i>
                 </div>
             </div>
@@ -74,11 +74,12 @@
         </div>
 
 
-        <div class="ui attached segment" *ngIf="Images.length > 0">
+        <div class="ui attached segment" *ngIf="ImageLink.length > 0">
             <div class="ui cards">
-                <div class="ui card" *ngFor="#img of ImageLink">
+                <div class="ui card" *ngFor="#img of ImageLink; #idx = index">
                     <div class="image">
-                        <img [src]="img.url" width="128" height="128">
+                        <img [src]="img.url" width="128" height="128"
+                            (click)="showOrigPic(img.url)">
                     </div>
                     <div class="content">
                         <span class="left floated" *ngIf="!img.extr"
@@ -91,8 +92,7 @@
                             style="margin-right: 10px">
                             <i class="copy icon"></i>
                         </span>
-                        <span class="left floated" *ngIf="img.extr"
-                            (click)="editLink(img.url)">
+                        <span class="left floated" *ngIf="img.extr">
                             <i class="linkify icon"></i>
                             {{'外链图片' | tran:glsetting.lang}}
                         </span>
@@ -103,27 +103,6 @@
                 </div>
             </div>
 
-        </div>
-    </div>
-</div>
-<div class="ui modal piclink">
-    <div class="header">
-        {{'请输入图片地址:' | tran:glsetting.lang}}
-    </div>
-    <div class="content">
-        <div class="ui fluid input">
-            <input type="text"
-                   placeholder="http://xxx.somesite.com/pic.jpeg"
-                   [(ngModel)]="Inputlink">
-        </div>
-
-    </div>
-    <div class="actions">
-        <div class="ui black deny button">
-            {{'取消' | tran:glsetting.lang}}
-        </div>
-        <div class="ui positive right labeled icon button">
-            {{'确定' | tran:glsetting.lang}}
         </div>
     </div>
 </div>

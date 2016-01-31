@@ -8,7 +8,7 @@ import {NgIf} from 'angular2/common'
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
 
-import {UserImages} from  'collections/admin'
+import {UserImages, DelImages} from  'collections/admin'
 import Error = Meteor.Error;
 
 declare var Promise: any;
@@ -194,6 +194,27 @@ export class UerProfile{
             }
         })
     }
+
+    removeImage(key: string): any{
+        let del = {
+            user: Meteor.userId(),
+            bk: null,
+            rd: null,
+            key: key
+        }
+
+        let promise = new Promise((resolve, reject) => {
+            DelImages.insert(del, (errqiniu) => {
+                console.log('insert to DelImge')
+                if(!errqiniu){
+                }else{
+                    reject(errqiniu)
+                }
+            })
+        })
+
+        return promise
+    }
     
     private initQiniu(){
         var settings = {
@@ -249,14 +270,14 @@ export class UerProfile{
                         });
 
                     if(oldicon && oldicon != ''){
-                        this.imagequote.del.push(oldicon)
+                        //this.imagequote.del.push(oldicon)
+                        this.removeImage(oldicon)
                     }else{
                         this.imagequote.current += 1
+                        UserImages.update(this.imagequote, (err) => {
+                            console.log('insert to delresource: ', oldicon, err)
+                        })
                     }
-
-                    UserImages.update(this.imagequote, (err) => {
-                        console.log('insert to delresource: ', oldicon, err)
-                    })
                 },
                 'Error': function(up, err, errTip) {
                     console.log('upload error', err, errTip)
@@ -270,9 +291,11 @@ export class UerProfile{
                 'Key': (up, file) => {
                     // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
                     // 该配置必须要在 unique_names: false , save_key: false 时才生效
-                    //let item = file.name.split('.')
-                    //var key = Meteor.userId() + '/icon.' + item[item.length - 1];
-                    var key = 'user/' + Meteor.userId() + '/icon/' + this.glsetting.RandomStr(5)
+                    let item = file.name.split('.')
+                    let endung = item[item.length - 1]
+                    let uid = Meteor.userId()
+                    let name = this.glsetting.RandomStr(5)
+                    var key = `uid-${uid}/icon/${name}.${endung}`
                     return key;
                 }
             }
@@ -290,6 +313,10 @@ export class UerProfile{
 
     changeView(inId, outId, effect){
         let action = effect ? effect : ['fade left', 'fade right']
+        /*jQuery('#' + outId)
+            .transition(action[0], () => {
+                jQuery('#' + inId).transition(action[1]);
+            });*/
         jQuery(this.rootElement.nativeElement)
             .find('#' + outId)
             .transition(action[0], () => {

@@ -8,7 +8,6 @@ declare var Mongo;
 //export var Books = new CouchDB.Database("books");
 //export var Books = new Meteor.Collection('books')
 export var Books = new Mongo.Collection<Book>('books');
-Ground.Collection(Books);
 
 export var BkRecords = new CouchDB.Database('bkrecord')
 
@@ -43,3 +42,7 @@ BkRecords.allow({
         return !!user;
     }
 });
+
+if (Meteor.isCordova) {
+    Ground.Collection(Books);
+}
