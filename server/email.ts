@@ -8,7 +8,8 @@ function validateEmail(email) {
     return re.test(email);
 }
 
-var baseurl = "https://huahemeteor-maiernte.c9users.io/#/"
+var baseurl = (process.env.ROOT_URL || "https://huahemeteor-maiernte.c9users.io")
+baseurl = baseurl.endsWith('/') ? baseurl + '#/' : baseurl + '/#/'
 
 function writeVerifyEmail(address, token, name){
     let http = baseurl + 'verify/' + token
