@@ -6,12 +6,15 @@ import {BkRecords} from 'collections/books'
 import {UserImages} from 'collections/admin'
 import {initQiniu} from "./qiniu"
 
+import {LogDB} from 'server/tylogger'
+
 declare var Meteor;
 declare var Mailgun;
 declare var Accounts;
 
 Meteor.startup(function(){
     initQiniu()
+    console.log("baseurl", process.env.ROOT_URL)
     
     var options = {
             apiKey: 'key-f1c82d8c2b8c0ab791faf1e1819d8f33',
@@ -31,6 +34,7 @@ Meteor.startup(function(){
                 UserImages.insert({user: user._id, quote: 100, current: 0, del: []})
             }, 5 * 1000);
         }catch(err){
+            LogDB(err.toString(), options, 'onCreateUser')
             console.log(err)
         }
         
@@ -47,46 +51,62 @@ Meteor.startup(function(){
         },
 
         sendVerificationEmail: function(uid, email){
-            let mailbody = verificationMail(uid, email)
-            NigerianPrinceGun.send(mailbody)
-            return true
+            try{
+                let mailbody = verificationMail(uid, email)
+                NigerianPrinceGun.send(mailbody)
+                return true
+            }catch(err){
+                LogDB(err.toString(), email, uid)
+                return false
+            }
         },
         
         sendResetPasswordEmail: function(email){
-            let user = Accounts.findUserByEmail(email)
-            if(!user){
-                let err = new Error("找不到使用这个信箱的用户。")
-                console.log(err)
-                return err
+            try{
+                let user = Accounts.findUserByEmail(email)
+                if(!user){
+                    return "找不到使用这个信箱的用户。"
+                }
+                
+                let mailbody = sendResetPasswordEmail(user._id, email)
+                NigerianPrinceGun.send(mailbody)
+                console.log('reset password email is sended.')
+                return null
+            }catch(err){
+                LogDB(err.toString(), email, this.userId)
+                return err.toString()
             }
-            
-            let mailbody = sendResetPasswordEmail(user._id, email)
-            NigerianPrinceGun.send(mailbody)
-            console.log('reset password email is sended.')
-            return null
         },
         
         reportToAdmin: function(content){
-            console.log(content)
-            let mail = {
-                to: 'meerbusch@sina.com',
-                from: 'huahe@huaheyixue.com',
-                html: `<html>
-                        <head>华鹤易学</head>
-                        <body>
-                            ${content}
-                        </body>
-                       </html>`,
-                text: '用户报告',
-                subject: '华鹤易学'
+            try{
+                let mail = {
+                    to: 'meerbusch@sina.com',
+                    from: 'huahe@huaheyixue.com',
+                    html: `<html>
+                            <head>华鹤易学</head>
+                            <body>
+                                ${content}
+                            </body>
+                           </html>`,
+                    text: '用户报告',
+                    subject: '华鹤易学'
+                }
+                
+                NigerianPrinceGun.send(mail)
+                return null
+            }catch(err){
+                LogDB(err.toString(), content, this.userId)
+                return err.toString()
             }
-            
-            NigerianPrinceGun.send(mail)
-            return null
         },
 
         upsertRecord: function(record: YiRecord){
-            BkRecords.upsert(record)
+            try{
+                BkRecords.upsert(record)
+            }catch(err){
+                LogDB(err.toString(), record, this.userId)
+            }
         }
     })
 }); 

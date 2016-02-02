@@ -54,6 +54,16 @@ export  class GlobalSetting{
     get IsCordova(){
         return Meteor.isCordova;
     }
+    
+    get Ios(){
+        let ios = navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPhone/i)
+        return ios;
+    }
+    
+    get Android(){
+        let android = navigator.userAgent.match(/Android/i)
+        return android;
+    }
 
     get GUID() {
         function s4() {

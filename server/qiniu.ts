@@ -1,3 +1,5 @@
+import {LogDB} from 'server/tylogger'
+
 declare var QiniuSDK
 
 function onUploaded(res){
@@ -32,12 +34,11 @@ export function initQiniu(){
         // 添加单个 bucket
         qiniu.addBucket(bucket);  // 可以获取token了，背后设置了 callbackUrl
 
-        //console.log(qiniu.buckets)
-
         // 应用配置
         qiniu.init();
         console.log('qiniu inited !')
     }catch(err){
+        LogDB(err.toString(), 'initQiniu', 'server')
         console.log('init qiniu error: ', err)
     }
 }

@@ -31,7 +31,7 @@
         <i class="user icon"></i>
         {{'用户' | tran:glsetting.lang}}
     </a>
-    <a class="item" (click)="Exit()">
+    <a class="item" (click)="Exit()" *ngIf="CanExit">
         <i class="power icon"></i>
         {{'退出' | tran:glsetting.lang}}
     </a>

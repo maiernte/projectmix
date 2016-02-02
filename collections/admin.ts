@@ -56,3 +56,7 @@ DelImages.allow({
         return !!user && user.profile.group > gp.Master;
     }
 })
+
+export var LoggerIBM = new CouchDB.Database('logibm')
+
+export var LoggerMongo = new Mongo.Collection('logmongo');

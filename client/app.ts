@@ -8,7 +8,9 @@ import {Component,
         Inject,
         provide,
         AfterViewInit} from 'angular2/core';
-import {FORM_DIRECTIVES} from  'angular2/common'
+        
+import {FORM_DIRECTIVES, NgIf} from  'angular2/common'
+
 import {bootstrap} from 'angular2-meteor';
 import {
         Router,
@@ -40,7 +42,7 @@ declare var jQuery;
 @Component({
     selector: 'app',
     templateUrl: 'client/app.html',
-    directives: [ROUTER_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, NgIf],
     pipes: [TranslatePipe],
 })
 @RouteConfig([
@@ -66,6 +68,10 @@ class HuaheApp {
         this.router = router;
         this.location = location;
         this.glsetting = glsetting;
+    }
+    
+    get CanExit(){
+        return this.glsetting.Android && this.glsetting.IsCordova
     }
 
     Exit(){
