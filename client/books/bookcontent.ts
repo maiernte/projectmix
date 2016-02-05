@@ -34,7 +34,7 @@ export class BookContent extends MeteorComponent{
     private rdviews: Array<RecordHelper>;
 
     Loaded = false;
-    pageSize: number = 2;
+    pageSize: number = 15;
     curPage: ReactiveVar<number> = new ReactiveVar<number>(1);
     sumItems: number = this.pageSize
     
@@ -44,6 +44,7 @@ export class BookContent extends MeteorComponent{
                 private ngZone: NgZone,
                 @Inject(GlobalSetting) public glsetting:GlobalSetting) {
         super()
+        this.pageSize = this.glsetting.PageSize;
     }
     
     get BookName(){

@@ -24,6 +24,7 @@ export  class GlobalSetting{
         {Name: 'username', Value: ''},
         {Name: 'password', Value: ''},
         {Name: 'autosignin', Value: false},
+        {Name: 'book-pagerd', Value: 4},
     ]
 
     private language: boolean; // 是否使用繁体字
@@ -78,6 +79,15 @@ export  class GlobalSetting{
     // 是否使用繁体字
     get lang(): boolean{
         return this.setting.filter(s => s.Name == 'lang')[0]['Value'] == true
+    }
+
+    get PageSize(){
+        let size = this.GetSetting('book-pagerd')
+        if(size > 4){
+            return size;
+        }else{
+            return this.IsCordova ? 10 : 25;
+        }
     }
 
     GetSetting(name: string): any{

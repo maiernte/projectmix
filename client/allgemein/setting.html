@@ -33,6 +33,11 @@
             </div>
         </div>
 
+        <div class="inline field">
+            <label>{{'书集每页记录: ' | tran:glsetting.lang}}</label>
+            <input type="number" min="5" step="1" max="50" [(ngModel)]="BookPageRD"/>
+        </div>
+
         <div class="fields">
             <div class="inline field">
                 <label>{{'六爻盘每行神煞数:' | tran:glsetting.lang}}</label>
