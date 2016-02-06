@@ -14,6 +14,7 @@ import content = BrowserPolicy.content;
 
 declare var jQuery:any
 declare var Camera;
+declare var navigator: any;
 
 @Component({
     selector: 'compass-view',
@@ -43,7 +44,8 @@ export class CompassView{
 
     Needle = {
         Angle: 0,
-        Id: ''
+        Id: '',
+        Value: 0
     }
 
     glsetting:GlobalSetting;
@@ -166,6 +168,7 @@ export class CompassView{
         if(navigator['compass'] && this.Needle.Id != ''){
             navigator['compass'].clearWatch(this.Needle.Id);
             this.Needle.Id = ''
+            this.Needle.Value = 0
         }
     }
 
@@ -219,13 +222,22 @@ export class CompassView{
     private startCompass(){
         if(!navigator['compass'])return;
 
-        var options = { frequency: 100 };
+        var options = { frequency: 200 };
         this.Needle.Angle = 0;
+
+        navigator.compass.getCurrentHeading(heading => {
+            this.Needle.Angle = (0 - heading.magneticHeading + 360) % 360
+            this.Needle.Value = parseInt(heading.magneticHeading * 100) / 100
+        }, (err) => {
+            console.log('getCurrentHeading Error',err);
+        });
 
         this.Needle.Id = navigator['compass']
             .watchHeading((heading) => {
                 let ziel = (0 - heading.magneticHeading + 360) % 360
                 let current = (this.Needle.Angle + 360) % 360;
+                this.Needle.Value = parseInt(heading.magneticHeading * 100) / 100
+
                 if(Math.abs(ziel - current) < 1){
                     return;
                 }

@@ -3,10 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="dd628d0f-b330-4283-9dbe-d11a93ac6559" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/allgemein/window.ts" afterPath="$PROJECT_DIR$/client/allgemein/window.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/liuyao/guaview.html" afterPath="$PROJECT_DIR$/client/liuyao/guaview.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/liuyao/guaview.ts" afterPath="$PROJECT_DIR$/client/liuyao/guaview.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/user/userprofile.ts" afterPath="$PROJECT_DIR$/client/user/userprofile.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/compass/compass.html" afterPath="$PROJECT_DIR$/client/compass/compass.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/compass/compass.ts" afterPath="$PROJECT_DIR$/client/compass/compass.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-config.js" afterPath="$PROJECT_DIR$/mobile-config.js" />
     </list>
     <ignored path="HuaheC9.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,7 +25,7 @@
     <favorites_list name="HuaheC9" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.46248296">
+    <splitter split-orientation="horizontal" split-proportion="0.51500684">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="bookcontent.ts" pinned="false" current-in-tab="false">
@@ -43,10 +42,10 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="globalsetting.ts" pinned="false" current-in-tab="true">
+          <file leaf-file-name="globalsetting.ts" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/globalsetting.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-2.1292775">
+                <state vertical-scroll-proportion="63.88889">
                   <caret line="86" column="24" selection-start-line="86" selection-start-column="24" selection-end-line="86" selection-end-column="24" />
                   <folding />
                 </state>
@@ -63,55 +62,57 @@
               </provider>
             </entry>
           </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="setting.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/client/allgemein/setting.html">
+          <file leaf-file-name="kadira.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/server/kadira.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-12.5">
-                  <caret line="37" column="78" selection-start-line="37" selection-start-column="72" selection-end-line="37" selection-end-column="82" />
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="userprofile.ts" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/client/user/userprofile.ts">
+          <file leaf-file-name="compass.ts" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/client/compass/compass.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-25.333334">
-                  <caret line="145" column="0" selection-start-line="145" selection-start-column="0" selection-end-line="145" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.7077326">
+                  <caret line="253" column="25" selection-start-line="253" selection-start-column="25" selection-end-line="253" selection-end-column="25" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="mobile-config.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/mobile-config.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="app.ts" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/client/app.ts">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-41.11111">
+                  <caret line="83" column="30" selection-start-line="83" selection-start-column="30" selection-end-line="83" selection-end-column="30" />
                   <folding>
-                    <element signature="n#!!block;n#EditModel#0;n#UerProfile#0" expanded="false" />
-                    <element signature="n#!!block;n#EditModel#1;n#UerProfile#0" expanded="false" />
-                    <element signature="n#!!block;n#PwModel#0;n#UerProfile#0" expanded="false" />
-                    <element signature="n#!!block;n#logout#0;n#UerProfile#0" expanded="false" />
-                    <element signature="n#!!block;n#updateProfile#0;n#UerProfile#0" expanded="false" />
-                    <element signature="n#!!block;n#changEmail#0;n#UerProfile#0" expanded="false" />
-                    <element signature="n#!!block;n#removeImage#0;n#UerProfile#0" expanded="false" />
-                    <element signature="n#!!block;n#initQiniu#0;n#UerProfile#0" expanded="false" />
-                    <element signature="n#!!block;n#changeView#0;n#UerProfile#0" expanded="false" />
+                    <marker date="1454425428000" expanded="true" signature="2545:2551" placeholder="{...}" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="window.ts" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/client/allgemein/window.ts">
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="compass.html" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/client/compass/compass.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.42125985">
-                  <caret line="102" column="5" selection-start-line="102" selection-start-column="5" selection-end-line="102" selection-end-column="5" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="window.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/client/allgemein/window.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-8.375">
-                  <caret line="32" column="38" selection-start-line="32" selection-start-column="25" selection-end-line="32" selection-end-column="38" />
+                <state vertical-scroll-proportion="0.47288775">
+                  <caret line="35" column="44" selection-start-line="35" selection-start-column="43" selection-end-line="35" selection-end-column="44" />
                   <folding />
                 </state>
               </provider>
@@ -136,8 +137,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/client/app.html" />
-        <option value="$PROJECT_DIR$/client/bazi/baziview.html" />
         <option value="$PROJECT_DIR$/client/bazi/baziview.ts" />
         <option value="$PROJECT_DIR$/client/liuyao/paipan/leading.html" />
         <option value="$PROJECT_DIR$/client/liuyao/paipan/leadingyaos.ts" />
@@ -175,7 +174,6 @@
         <option value="$PROJECT_DIR$/client/app.ts" />
         <option value="$PROJECT_DIR$/client/books/record/yipart.ts" />
         <option value="$PROJECT_DIR$/client/books/record/yipart.html" />
-        <option value="$PROJECT_DIR$/mobile-config.js" />
         <option value="$PROJECT_DIR$/.cfignore" />
         <option value="$PROJECT_DIR$/server/email.ts" />
         <option value="$PROJECT_DIR$/client/allgemein/setting.html" />
@@ -187,6 +185,9 @@
         <option value="$PROJECT_DIR$/client/liuyao/guaview.html" />
         <option value="$PROJECT_DIR$/client/user/userprofile.ts" />
         <option value="$PROJECT_DIR$/client/allgemein/window.ts" />
+        <option value="$PROJECT_DIR$/mobile-config.js" />
+        <option value="$PROJECT_DIR$/client/compass/compass.html" />
+        <option value="$PROJECT_DIR$/client/compass/compass.ts" />
       </list>
     </option>
   </component>
@@ -196,10 +197,10 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="76" />
-    <option name="y" value="61" />
+    <option name="x" value="102" />
+    <option name="y" value="63" />
     <option name="width" value="1739" />
-    <option name="height" value="939" />
+    <option name="height" value="940" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -290,7 +291,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="user" />
+              <option name="myItemId" value="compass" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -322,11 +323,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="allgemein" />
+              <option name="myItemId" value=".meteor" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -343,6 +340,32 @@
               <option name="myItemId" value=".meteor" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="local" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HuaheC9" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HuaheProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value=".meteor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="local" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cordova-build" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
@@ -351,7 +374,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../huahe" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../buildhuahe" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="enabled" />
     <property name="js.meteor.project" value="true" />
@@ -464,7 +487,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="76" y="61" width="1739" height="939" extended-state="0" />
+    <frame x="102" y="63" width="1739" height="940" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15698677" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -498,26 +521,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/client/compass/compass.ts</url>
-          <line>175</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="20" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/client/allgemein/setting.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/liuyao/paiLiuyao.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-12.5">
@@ -623,14 +631,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/compass/compass.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-20.555555">
-          <caret line="107" column="10" selection-start-line="106" selection-start-column="8" selection-end-line="109" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/books/bookmarket.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -669,13 +669,6 @@
     <entry file="file://$PROJECT_DIR$/client/calendar/calendar.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/compass/compass.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.2981927">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
@@ -756,17 +749,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/app.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="83" column="30" selection-start-line="83" selection-start-column="30" selection-end-line="83" selection-end-column="30" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <marker date="1454425428000" expanded="true" signature="2545:2551" placeholder="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/user/userprofile.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -822,14 +804,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mobile-config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.vscode/settings.json">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -841,14 +815,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="14" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/kadira.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.115384616">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -904,18 +870,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/allgemein/setting.html">
+    <entry file="file://$PROJECT_DIR$/client/globalsetting.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.5">
-          <caret line="37" column="78" selection-start-line="37" selection-start-column="72" selection-end-line="37" selection-end-column="82" />
+        <state vertical-scroll-proportion="63.88889">
+          <caret line="86" column="24" selection-start-line="86" selection-start-column="24" selection-end-line="86" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/globalsetting.ts">
+    <entry file="file://$PROJECT_DIR$/client/allgemein/window.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.1292775">
-          <caret line="86" column="24" selection-start-line="86" selection-start-column="24" selection-end-line="86" selection-end-column="24" />
+        <state vertical-scroll-proportion="-8.375">
+          <caret line="32" column="38" selection-start-line="32" selection-start-column="25" selection-end-line="32" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/allgemein/window.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.9444447">
+          <caret line="102" column="5" selection-start-line="102" selection-start-column="5" selection-end-line="102" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.meteor/cordova-plugins">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/kadira.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/allgemein/setting.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.22727273">
+          <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
           <folding />
         </state>
       </provider>
@@ -938,18 +936,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/allgemein/window.html">
+    <entry file="file://$PROJECT_DIR$/client/app.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.375">
-          <caret line="32" column="38" selection-start-line="32" selection-start-column="25" selection-end-line="32" selection-end-column="38" />
+        <state vertical-scroll-proportion="-41.11111">
+          <caret line="83" column="30" selection-start-line="83" selection-start-column="30" selection-end-line="83" selection-end-column="30" />
+          <folding>
+            <marker date="1454425428000" expanded="true" signature="2545:2551" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile-config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/allgemein/window.ts">
+    <entry file="file://$PROJECT_DIR$/client/compass/compass.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.42125985">
-          <caret line="102" column="5" selection-start-line="102" selection-start-column="5" selection-end-line="102" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.47288775">
+          <caret line="35" column="44" selection-start-line="35" selection-start-column="43" selection-end-line="35" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/compass/compass.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7077326">
+          <caret line="253" column="25" selection-start-line="253" selection-start-column="25" selection-end-line="253" selection-end-column="25" />
           <folding />
         </state>
       </provider>
