@@ -88,7 +88,7 @@ export class UerProfile{
     }
     
     sendVerifyEmail(){
-        if(this.glsetting.CheckEmail(this.Email)){
+        if(!this.glsetting.CheckEmail(this.Email)){
             this.glsetting.ShowMessage('无效地址', '邮箱地址不正确, 无法发送验证邮件！')
             return;
         }

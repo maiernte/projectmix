@@ -120,7 +120,12 @@ export class GuaView{
                     rowCollection.push('')
                 }else{
                     let ss = this.Gua.ShenShas[r * column + c];
-                    rowCollection.push('[' + ss.Name + ' - ' + ss.Result.join('') + ']')
+                    let disObj = {
+                        name: '[' + ss.Name + ' - ' + ss.Result.join('') + ']',
+                        wide: ss.Name == '贵人' ? 2 : 1
+                    }
+
+                    rowCollection.push(disObj)
                 }
             }
         }

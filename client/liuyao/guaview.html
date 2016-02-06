@@ -26,10 +26,10 @@
 
     <div class="ui equal width grid" *ngFor="#sslist of ShenShas; #row=index"
         style="margin-left: 5px;">
-        <div class="column" *ngFor="#ss of sslist"
+        <div class="column" *ngFor="#ss of sslist;"
              [style.padding-top]="row > 0 ? 0 : null"
-             style="padding-left: 0px;padding-right: 0px;padding-bottom: 0px;">
-            {{ss | tran:glsetting.lang}}
+             style="padding-left: 0px;padding-bottom: 0px;padding-right:0;margin-right: -10px">
+            {{ss.name | tran:glsetting.lang}}
         </div>
     </div>
 

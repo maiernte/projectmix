@@ -91,6 +91,11 @@ export class TyWindow {
 	private modalEle;
 	
 	showSaveModal(ele){
+		if(!this.glsetting.Signed || !this.books || this.books.length == 0){
+			this.glsetting.ShowMessage('无法保存', '您还没有登录， 或者还没有创建书集。无法保存卦例/命例。')
+			return
+		}
+
 		jQuery('#' + this.data['id'])
 			.modal({
 				closable  : false,
@@ -99,11 +104,6 @@ export class TyWindow {
 	
 	saveTo(book){
 		jQuery('.modal.save.pan').modal('hide')
-		
-		if(!this.glsetting.Signed || !this.books || this.books.length == 0){
-			this.glsetting.ShowMessage('无法保存', '您还没有登录， 或者还没有创建书集。无法保存卦例/命例。')
-			return
-		}
 		
 		let record: YiRecord;
 		if(this.guaview) record = this.guaview.exportAsRecord()
