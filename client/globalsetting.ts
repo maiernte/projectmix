@@ -25,6 +25,7 @@ export  class GlobalSetting{
         {Name: 'password', Value: ''},
         {Name: 'autosignin', Value: false},
         {Name: 'book-pagerd', Value: 4},
+        {Name: 'gua-arrow', Value: true}
     ]
 
     private language: boolean; // 是否使用繁体字

@@ -21,6 +21,7 @@ export class AppSetting{
     private guaSimple: string
     private baziShenSha: string
     private bookpagerd: number;
+    private guaArrow: boolean;
     
     constructor(@Inject(GlobalSetting) public glsetting: GlobalSetting){
 
@@ -74,6 +75,15 @@ export class AppSetting{
         this.glsetting.SetValue('book-pagerd', value)
     }
 
+    get GuaArrow(){
+        return this.guaArrow
+    }
+
+    set GuaArrow(value){
+        this.guaArrow = value;
+        this.glsetting.SetValue('gua-arrow', value)
+    }
+
     showMenu(hide){
         if(hide === true){
             jQuery(document).find('.ui.labeled.sidebar').sidebar('hide')
@@ -88,6 +98,7 @@ export class AppSetting{
         this.guaSimple = this.glsetting.GetSetting('gua-simple') == true ? '1' : '0';
         this.baziShenSha = this.glsetting.GetSetting('bazi-shensha').toString();
         this.bookpagerd = this.glsetting.PageSize;
+        this.guaArrow = this.glsetting.GetSetting('gua-arrow')
 
         let hideMenu = true;
         this.showMenu(hideMenu);

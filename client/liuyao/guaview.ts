@@ -32,6 +32,7 @@ export class GuaView{
     Gua: Gua;
     shenshaColumnCount = 5;
     simpleShow = 'f';
+    showArrow = true
 
     @Input() initdata:string
 
@@ -43,10 +44,9 @@ export class GuaView{
 
     private translate = new TranslatePipe();
 
-    glsetting: GlobalSetting;
-    constructor(@Inject(GlobalSetting) glsetting: GlobalSetting,
+    constructor(@Inject(GlobalSetting) public glsetting: GlobalSetting,
                 private rootElement: ElementRef){
-        this.glsetting = glsetting;
+        this.showArrow = this.glsetting.GetSetting('gua-arrow')
     }
 
     get Yue(){
@@ -135,14 +135,12 @@ export class GuaView{
     }
 
     get Shen6(){
-        /*let res = []
-         for(let idx = 5; idx >= 0; idx--){
-         res.push(this.Gua.Shen6[idx]);
-         }
-
-         return res;*/
-
-        return this.Gua.Shen6;
+        if(this.simpleShow == 's'){
+            let res = this.Gua.Shen6.map(s => {return s.substr(0, 1)})
+            return res;
+        }else {
+            return this.Gua.Shen6;
+        }
     }
 
     get Fuyaos(){

@@ -69,7 +69,20 @@
     </div>
 
     <div *ngFor="#i of [5,4,3,2,1,0]" class="ui grid">
-        <div class="four wide column">
+        <div class="four wide column" *ngIf="showArrow">
+            <div class="ui grid">
+                <div class="six wide column"
+                     style="padding-left:3px;padding-top: 0;padding-right: 0;padding-bottom: 0">
+                    {{Shen6[i]| tran:glsetting.lang}}
+                </div>
+                <div class="ten wide column gua mean"
+                     [attr.data-content]="Fuyaos[i].info"
+                     style="padding:0;color: grey">
+                    {{Fuyaos[i].Text | tran:glsetting.lang}}
+                </div>
+            </div>
+        </div>
+        <div class="five wide column" *ngIf="showArrow == false">
             <div class="ui grid">
                 <div class="six wide column"
                      style="padding-left:3px;padding-top: 0;padding-right: 0;padding-bottom: 0">
@@ -90,9 +103,8 @@
             <img [src]="Benyaos[i].Img">
             {{Benyaos[i].ShiYing | tran:glsetting.lang}}
         </div>
-        <div class="column"
+        <div class="column" *ngIf="showArrow"
              style="padding:0;font-weight: bolder">
-            <!--{{ShiYing[i] | tran:glsetting.lang}}-->
             <img [src]="ShiYing[i]">
         </div>
         <div class="five wide column gua mean"
@@ -124,6 +136,15 @@
                     <option value="f">{{'全排' | tran:glsetting.lang}}</option>
                     <option value="s">{{'简排' | tran:glsetting.lang}}</option>
                 </select>
+            </div>
+        </div>
+
+        <div class="two fields">
+            <div class="inline field">
+                <div class="ui checkbox">
+                    <input type="checkbox" [(ngModel)]="showArrow">
+                    <label>{{'显示变爻箭头' | tran:glsetting.lang}}</label>
+                </div>
             </div>
         </div>
     </div>
