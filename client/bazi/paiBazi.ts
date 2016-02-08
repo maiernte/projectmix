@@ -296,6 +296,7 @@ export class PaiBazi{
              var dateDiff = bazi.D.Index - baziTmp['D'].Index;
              dateDiff = (dateDiff + 60) % 60;
              date = TYLunar.addDays(dateDiff, date);
+
              baziTmp = TYLunar.calcBazi(date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes());
              if (baziTmp['Y'].Index == bazi.Y.Index &&
                  baziTmp['M'].Index == bazi.M.Index &&
@@ -309,7 +310,7 @@ export class PaiBazi{
 
          if(found != null){
              this.CalcSet.currentYear = found.getFullYear();
-             let hours = bazi.T.Index * 2;
+             let hours = (bazi.T.Index % 12) * 2;
              let res = new Date(found.getTime() + hours * 60 * 60 * 1000)
              return res;
          }else{

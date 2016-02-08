@@ -27,6 +27,8 @@ export class CompassView{
     Degreed = [];
     DegreedX = []
 
+    private selectedYear: number;
+    private feixingDirection: boolean; // true = 顺推 false = 逆推
     private imageData;
     private years: Array<number>;
     private rotation: number;
@@ -36,8 +38,6 @@ export class CompassView{
     PanType = 'z'
     FeiXing = {
         Years: [],
-        SelectedYear: 0,
-        Direction: 's', // s = 顺推 n = 逆推
         //Startes: ['一白水', '二黑土', '三碧木', '四绿木', '五黄土', '六白金', '七赤金', '八白土', '九紫火']
         Startes: [],
     };
@@ -48,10 +48,28 @@ export class CompassView{
         Value: 0
     }
 
-    glsetting:GlobalSetting;
-    constructor(@Inject(GlobalSetting) glsetting:GlobalSetting,
+
+    constructor(@Inject(GlobalSetting) public glsetting:GlobalSetting,
                 private rootElement: ElementRef) {
-        this.glsetting = glsetting;
+    }
+
+    get SelectedYear(){
+        return this.selectedYear;
+    }
+
+    set SelectedYear(value){
+        this.selectedYear = value
+        this.FeiXing.Startes = this.calcFeiXing(value);
+    }
+
+    get FeiXingDirection(){
+        return this.feixingDirection ;
+    }
+
+    set FeiXingDirection(value){
+        // s = 顺推 n = 逆推
+        this.feixingDirection = value
+        this.FeiXing.Startes = this.calcFeiXing(this.SelectedYear);
     }
 
     get RotateType(){
@@ -145,13 +163,13 @@ export class CompassView{
 
         this.FeiXing = {
             Years: this.years,
-            SelectedYear: year,
-            Direction: 's', // s = 顺推 n = 逆推
             //Startes: ['一白水', '二黑土', '三碧木', '四绿木', '五黄土', '六白金', '七赤金', '八白土', '九紫火']
             Startes: [],
         };
 
+        this.SelectedYear = year;
         this.FeiXing.Startes = this.calcFeiXing(year);
+        this.FeiXingDirection = true;
         
         this.Rotation = 0
         this.changeRotation(0)
@@ -280,7 +298,7 @@ export class CompassView{
 
         var res = ['1', '2', '3', '4', '5', '6', '7', '8', '9', ];
         for (var idx = 0; idx < 9; idx++) {
-            var index = this.FeiXing.Direction == 's' ? (4 + idx) % 9 : (4 - idx + 9) % 9;
+            var index = this.FeiXingDirection == true ? (4 + idx) % 9 : (4 - idx + 9) % 9;
             res[index] = tmp[idx];
         };
 

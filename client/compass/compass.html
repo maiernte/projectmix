@@ -41,7 +41,7 @@
         <div class="ui fluid accordion compass">
             <div class="title">
                 <i class="dropdown icon"></i>
-                旋转罗盘
+                {{'旋转罗盘' | tran:glsetting.lang}}
             </div>
             <div class="content">
                 <div class="ui tiny teal progress"
@@ -62,10 +62,13 @@
                         {{'顺时针旋转' | tran:glsetting.lang}}
                     </div>
                 </div>
+                <div class="ui input">
+                    <input type="number" min="-179" max="180" [(ngModel)]="Rotation">
+                </div>
             </div>
             <div class="title">
                 <i class="dropdown icon"></i>
-                加载图片
+                {{'加载图片' | tran:glsetting.lang}}
             </div>
             <div class="content">
                 <div class="ui tiny olive progress"
@@ -96,6 +99,27 @@
                        *ngIf="!IsCordova"
                        (change)="LoadImage($event)"
                         style="padding-left: 0;padding-right: 0"/>
+            </div>
+            <div class="title" *ngIf="PanType == 'f'">
+                <i class="dropdown icon"></i>
+                {{'流年飞星' | tran:glsetting.lang}}
+            </div>
+            <div class="content" *ngIf="PanType == 'f'">
+                <div class="ui form">
+                    <div class="two fields">
+                        <div class="inline field">
+                            <label>{{'流年' | tran:glsetting.lang}}</label>
+                            <input type="number" min="2000" max="2030"
+                                   [(ngModel)]="SelectedYear">
+                        </div>
+                        <div class="inline field">
+                            <div class="ui checkbox">
+                                <input type="checkbox" [(ngModel)]="FeiXingDirection">
+                                <label>{{'顺飞(反选逆飞)' | tran:glsetting.lang}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
