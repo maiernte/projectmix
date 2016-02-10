@@ -49,7 +49,7 @@
             <form class="ui form">
                 <div class="inline field">
                     <label>{{'问念' | tran:glsetting.lang}}</label>
-                    <input type="text" placeholder="请输入起卦要问的事情...">
+                    <input type="text" placeholder="请输入起卦要问的事情..." [(ngModel)]="question">
                 </div>
                 <div class="ui primary buttons">
                     <button class="ui button" (click)="paiGua(null, 1)">

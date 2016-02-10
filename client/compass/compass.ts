@@ -88,7 +88,6 @@ export class CompassView{
         if(value == 'n'){
             this.UnloadImage();
             this.Rotation = 0;
-
             // 启动指南针
             this.startCompass();
         }else{
@@ -253,7 +252,8 @@ export class CompassView{
         this.Needle.Id = navigator['compass']
             .watchHeading((heading) => {
                 let ziel = (0 - heading.magneticHeading + 360) % 360
-                let current = (this.Needle.Angle + 360) % 360;
+                //let current = (this.Needle.Angle + 360) % 360;
+                let current = (this.Rotation + 360) % 360;
                 this.Needle.Value = parseInt(heading.magneticHeading * 100) / 100
 
                 if(Math.abs(ziel - current) < 1){
@@ -268,7 +268,8 @@ export class CompassView{
                     ziel = gegen ? current + 1 : current - 1;
                 }
 
-                this.Needle.Angle = ziel
+                //this.Needle.Angle = ziel
+                this.Rotation = ziel
             }, (err) => {
                 console.log(err);
             }, options);

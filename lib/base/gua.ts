@@ -264,7 +264,8 @@ export class Gua{
         initGua64Collection();
 
         if(time){
-            let date = new TYDate(time);
+            let correctTime = new Date(time.getTime() + 60 * 60 * 1000)
+            let date = new TYDate(correctTime);
             this.guatime = [new GanZhi(date.GZmonth), new GanZhi(date.GZdate)]
         }else{
             let gzYue = new GanZhi(yue)
