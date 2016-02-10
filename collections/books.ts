@@ -13,6 +13,8 @@ export var BkRecords = new CouchDB.Database('bkrecord')
 
 export var LocalRecords = new Ground.Collection(null);
 
+export var LocalBooks = new Ground.Collection('lcbooks', { connection: null });
+
 Books.allow({
     insert: function() {
         var user = Meteor.user();

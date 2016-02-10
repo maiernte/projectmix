@@ -8,7 +8,7 @@ import {Router, RouteParams} from 'angular2/router'
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from 'client/globalsetting'
 
-import {LocalRecords, Books, BkRecords} from 'collections/books'
+import {LocalRecords, LocalBooks, BkRecords} from 'collections/books'
 import {RecordHelper} from './recordhelper'
 import {YixuePart} from './yipart'
 
@@ -40,13 +40,8 @@ export class RecordView{
     ngOnInit(){
         this.bookid = this.routeParams.params['bid']
         this.recordid = this.routeParams.params['rid']
-
-        this.glsetting.LoadBooks(false).then(bks => {
-            let bk = bks.filter(b => b._id == this.bookid)
-            this.ngZone.run(() => {
-                this.bookname = bk.length > 0 ? bk[0].name : ''
-            })
-        })
+        let book = LocalBooks.findOne({_id: this.bookid})
+        this.bookname = book.name
 
         let rd = LocalRecords.findOne({_id: this.recordid, book: this.bookid})
         this.Record = new RecordHelper(rd);

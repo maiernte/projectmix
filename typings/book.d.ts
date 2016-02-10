@@ -9,7 +9,10 @@ declare type Book = {
     author?: string,
     created: number,
     modified: number,
-    public: boolean
+    readed: number,
+    cloud: boolean,
+    public: boolean,
+    deleted: boolean
 };
 
 declare type YiGua = {

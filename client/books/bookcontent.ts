@@ -9,7 +9,7 @@ import {Router, RouteParams} from 'angular2/router'
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from 'client/globalsetting'
 
-import {LocalRecords, Books, BkRecords} from 'collections/books'
+import {LocalRecords, LocalBooks, BkRecords} from 'collections/books'
 import {RecordHelper} from './record/recordhelper'
 
 import {MeteorComponent} from 'angular2-meteor';
@@ -83,16 +83,8 @@ export class BookContent extends MeteorComponent{
     
     ngOnInit(){
         this.bookid = this.routeParams.params['id']
-        this.glsetting.LoadBooks(false).then(bks => {
-            let book = bks.filter(bk => bk._id == this.bookid)
-            if(book.length > 0){
-                this.ngZone.run(() => {
-                    this.BookName = book[0].name
-                })
-            }
-        })
-
-        //this.loadRecordes();
+        let book = LocalBooks.findOne({_id: this.bookid})
+        this.BookName = book.name
         this.loadContent()
     }
     
@@ -131,7 +123,7 @@ export class BookContent extends MeteorComponent{
     syncRecord(rd: RecordHelper){
         rd.CloudSync().then((res) => {
             let msg = res < 0 ? "更新到本地。" : "更新到云端。"
-            msg = res == 0 ? "数据已经更新过了。" :msg
+            msg = res == 0 ? "数据已经更新过了。" : msg
             this.glsetting.ShowMessage("同步数据", msg)
             
             this.ngZone.run(() => {
@@ -166,9 +158,11 @@ export class BookContent extends MeteorComponent{
                 return this.upload(ids)
             }).then(up => {
                 if(up == true){
-                    Books.update(this.bookid, {$set: {modified: Date.now()}}, (err, res) => {
-                        console.log('book updated', err, res)
-                    })
+                    let book = LocalBooks.findOne({_id: this.bookid})
+                    if(book.cloud == true){
+                        let bkmanager = this.glsetting.BookManager
+                        bkmanager.UploadBook(this.bookid)
+                    }
                 }
 
                 LocalRecords.update({book: this.bookid}, {$set: {cloud: true}})

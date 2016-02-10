@@ -2,7 +2,7 @@
 /// <reference path="../../typings/book.d.ts" />
 
 import {Component, Inject, ElementRef, NgZone} from 'angular2/core'
-import {FormBuilder, ControlGroup, Validators, FORM_DIRECTIVES} from 'angular2/common';
+import {FormBuilder, ControlGroup, Validators, FORM_DIRECTIVES, NgIf} from 'angular2/common';
 import {Router, RouteParams} from 'angular2/router'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
@@ -10,7 +10,7 @@ import {GlobalSetting} from 'client/globalsetting'
 
 import {MeteorComponent} from 'angular2-meteor';
 
-import {Books} from 'collections/books'
+import {LocalBooks} from 'collections/books'
 
 declare var jQuery;
 
@@ -18,7 +18,7 @@ declare var jQuery;
     selector: "book-edit",
     pipes:[TranslatePipe],
     templateUrl: "client/books/editbook.html",
-    directives: [FORM_DIRECTIVES]
+    directives: [FORM_DIRECTIVES, NgIf]
 })
 
 export class BookEditor extends MeteorComponent{
@@ -38,23 +38,26 @@ export class BookEditor extends MeteorComponent{
         super()
     }
     
+    get IsCloud(){
+        return this.book ? this.book.cloud : false
+    }
+    
     ngOnInit(){
         let id = this.routeParams.params['id']
-        if(id){
-            this.subscribe('books', () => {
-                this.book = Books.findOne({_id: id})
-                this.Name = this.book.name;
-                this.Desc = this.book.description;
-                this.Author = this.book.author;
-                this.Modified = this.toChina(new Date(this.book.modified))
-                this.ngZone.run(() => {
-                    this.Loaded = true;
-                })
-            })
+        this.book = LocalBooks.findOne({_id: id})
+        if(this.book){
+            this.Name = this.book.name;
+            this.Desc = this.book.description;
+            this.Author = this.book.author;
+            this.Modified = this.toChina(new Date(this.book.modified))
         }else{
-            this.Loaded = true;
+            this.Name = ''
+            this.Desc = ''
+            this.Author = ''
+            this.Modified = ''
         }
         
+        this.Loaded = true;
         jQuery(this.rootElement.nativeElement)
             .find('.message .close')
             .on('click', function() {
@@ -69,7 +72,12 @@ export class BookEditor extends MeteorComponent{
     }
     
     saveBook(){
-        //console.log("addBook", this.Name, this.Desc, this.Author)
+        if(!this.Name || this.Name == ''){
+            this.glsetting.ShowMessage("保存书集", "请给您的新书一个名字。")
+            return
+        }
+        
+        
         if(this.book){
             this.updateBook();
         }else{
@@ -77,8 +85,18 @@ export class BookEditor extends MeteorComponent{
         }
     }
     
+    pushCloud(){
+        if(this.book.cloud == true) return;
+    
+        let msg = "一旦转为云书集， 则不可以转为纯本地书集。要将此书集推送到云端吗？"
+        this.glsetting.ShowMessage("推送云端", msg, () => {
+            let bkmanager = this.glsetting.BookManager;
+            bkmanager.UploadBook(this.book._id)
+        })
+    }
+    
     private addBook(){
-        Books.insert({
+        LocalBooks.insert({
             name: this.Name,
             description: this.Desc,
             icon: null,
@@ -88,44 +106,28 @@ export class BookEditor extends MeteorComponent{
             writepermission: 0,
             created: Date.now(),
             modified: Date.now(),
+            readed: Date.now(),
+            cloud: false,
+            deleted: false,
             public: false
         }, (err, id) => {
             if(err){
                 jQuery('.negative.editbook.message').transition('fade')
             }else{
                 jQuery('.positive.editbook.message').transition('fade')
-                
-                // 强制更新书集
-                this.glsetting.LoadBooks(true)
             }
         });
     }
     
     private updateBook(){
-        /*this.book.name = this.Name;
-        this.book.description = this.Desc;
-        this.book.author = this.Author;
-        this.book.modified = Date.now()*/
-
-        /*Books.update(this.book, false, (err, res) => {
-            if(err){
-                jQuery(this.rootElement.nativeElement)
-                    .find('.negative.message')
-                    .transition('fade')
-            }else{
-                jQuery(this.rootElement.nativeElement)
-                    .find('.positive.message')
-                    .transition('fade')
-            }
-        })*/
-
         this.Loaded = false
-        Books.update(this.book._id, {
+        LocalBooks.update(this.book._id, {
             $set: {
                 name: this.Name,
                 description: this.Desc,
                 author: this.Author,
-                modified: Date.now()
+                modified: Date.now(),
+                readed: Date.now()
             }
         }, (err, res) => {
             this.ngZone.run(() => {
@@ -136,9 +138,6 @@ export class BookEditor extends MeteorComponent{
                 jQuery('.negative.editbook.message').transition('fade')
             }else{
                 jQuery('.positive.editbook.message').transition('fade')
-                
-                // 强制更新书集
-                this.glsetting.LoadBooks(true)
             }
         })
     }

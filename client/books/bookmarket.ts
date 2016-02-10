@@ -9,7 +9,7 @@ import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from 'client/globalsetting'
 
 
-import {Books, LocalRecords} from 'collections/books'
+import {LocalRecords, LocalBooks} from 'collections/books'
 
 declare var jQuery;
 declare var CouchDB: any;
@@ -49,28 +49,47 @@ export class BookMarket{
     ngOnInit() {
         let hideMenu = true;
         this.showMenu(hideMenu);
-        this.loadBooks(false);
+        
+        this.books = []
+        let bkmanager = this.glsetting.BookManager
+        let bks = bkmanager.MyBooks;
+        if(bks.length == 0){
+            let msg = "没有发现本地书集。请登录后， 回到本页点击上方“下行”按钮，拉取你的在线书集。或者点击“新建”按钮，创建本地书集。"
+            this.glsetting.ShowMessage("书集提示", msg)
+            this.Loading = false;
+        }else{
+            for(let bk of bks){
+                this.books.push(new BookView(bk))
+            }
+        }
+    }
+    
+    pushCloud(book: BookView){
+        if(book.IsCloud == true) return;
+    
+        let msg = "一旦转为云书集， 则不可以转为纯本地书集。要将此书集推送到云端吗？"
+        this.glsetting.ShowMessage("推送云端", msg, () => {
+            let bkmanager = this.glsetting.BookManager;
+            bkmanager.UploadBook(book.Id)
+        })
     }
     
     deleteBook(book: BookView){
-        jQuery('.delete.book.modal')
-        .modal({
-            closable  : false,
-            onDeny    : function(){
-            },
-            onApprove : () => {
-                // need to update records 
-                
-                Books.remove(book.Id, (err) => {
+        let msg = "这本书将被永久性删除，所有内容将不可恢复。您确认要删除此书吗？"
+        this.glsetting.ShowMessage('删除书集', msg, () => {
+            let bkmanager = this.glsetting.BookManager
+            bkmanager.DeleteBook(book.Id)
+                .then(err => {
                     if(!err){
-                        this.loadBooks(true)
+                        this.ngZone.run(() => {
+                            this.books = this.books.filter(bk => bk.Id != book.Id)
+                            console.log('this.books', this.books)
+                        })
                     }else{
-                        this.glsetting.ShowMessage('操作失败', err)
+                        this.glsetting.ShowMessage("删除书集失败", err)
                     }
-                });
-            }
-        })
-        .modal('show')
+                })
+            })
     }
     
     editBook(book: BookView){
@@ -91,21 +110,27 @@ export class BookMarket{
         this.router.parent.navigate(['./BookContent', {id: bookid}])
     }
     
-    private loadBooks(reload){
-        this.Loading = true;
+    private loadBooks(){
+        if(this.glsetting.Signed == false){
+            this.glsetting.ShowMessage("拉取在线书集", "您还没有登录，无法拉取在线书集。")
+            return
+        }
+    
         this.books = []
-        this.glsetting.LoadBooks(reload).then(bks => {
-            for(let bk of bks){
-                this.books.push(new BookView(bk))
+        this.Loading = true;
+        let bkmanager = this.glsetting.BookManager
+        bkmanager.DownloadBooks().then(res => {
+            if(res == false){
+                this.glsetting.ShowMessage("在线书集", "对不起，找不到您的在线书集。如果确实创建过的话，请联系管理员。")
+            }else{
+                let bks = bkmanager.MyBooks
+                for(let bk of bks){
+                    this.books.push(new BookView(bk))
+                }
             }
             
             this.ngZone.run(() => {
-                this.Loading = false
-            })
-        }).catch(err => {
-            console.log('load book error', err)
-            this.ngZone.run(() => {
-                this.Loading = false
+                this.Loading = false;
             })
         })
     }
@@ -135,11 +160,15 @@ class BookView{
     }
     
     get IsCloud(){
-        return this.book._id != null;
+        return this.book.cloud;
     }
     
     get Editable(){
-        return this.book._id != null;
+        if(this.book.cloud == false) return true
+    
+        if(!Meteor.userId()) return false;
+        
+        return this.book.owner == Meteor.userId();
     }
     
     get Created(){

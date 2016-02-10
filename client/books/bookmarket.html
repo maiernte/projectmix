@@ -8,21 +8,37 @@
                 {{'菜单' | tran:glsetting.lang}}
             </div>
         </div>
+        <div class="ui animated fade primary button item" (click)="loadBooks()">
+            <div class="visible content">
+                <i class="cloud download icon"></i>
+            </div>
+            <div class="hidden content">
+                {{'下行' | tran:glsetting.lang}}
+            </div>
+        </div>
+        <div class="ui animated fade primary button item" (click)="editBook()">
+            <div class="visible content">
+                <i class="book icon"></i>
+            </div>
+            <div class="hidden content">
+                {{'新建' | tran:glsetting.lang}}
+            </div>
+        </div>
         <div class="item active"
              [class.active]="Market == 'private'"
              (click)="Market = 'private'">
-            {{'个人书集' | tran:glsetting.lang}}
+            {{'个人' | tran:glsetting.lang}}
         </div>
         <div class="item"
              [class.active]="Market == 'public'"
              (click)="Market = 'public'">
-            {{'公共书集' | tran:glsetting.lang}}
+            {{'公共' | tran:glsetting.lang}}
         </div>
-        <div class="right menu">
+        <!--<div class="right menu">
             <div class="ui basic button item" (click)="editBook()">
                 {{'创建新书' | tran:glsetting.lang}}
             </div>
-        </div>
+        </div>-->
     </div>
     
     <div class="ui segment" *ngIf="Loading">
@@ -34,8 +50,8 @@
     
     <div class="ui cards" style="padding-top:5px">
         <div class="card" *ngFor="#book of Books">
-            <a class="ui basic right corner label">
-                <i class="cloud icon" *ngIf="book.IsCloud"></i>
+            <a class="ui basic right corner label" (click)="pushCloud(book)">
+                <i class="cloud green icon" *ngIf="book.IsCloud"></i>
                 <i class="inbox icon" *ngIf="!book.IsCloud"></i>
             </a>
             <div class="content">
@@ -80,17 +96,6 @@
                     {{'删除' | tran:glsetting.lang}}
                 </div>
             </div>
-        </div>
-    </div>
-    
-    <div class="ui delete book modal">
-        <div class="header">{{'删除书集' | tran:glsetting.lang}}</div>
-        <div class="content">
-        <p>{{'这本书将被永久性删除，所有内容将不可恢复。您确认要删除此书吗？' | tran:glsetting.lang}}</p>
-        </div>
-        <div class="actions">
-            <div class="ui approve button">{{'是的' | tran:glsetting.lang}}</div>
-            <div class="ui cancel button">{{'再说' | tran:glsetting.lang}}</div>
         </div>
     </div>
 </div>

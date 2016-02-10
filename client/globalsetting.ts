@@ -10,7 +10,7 @@ declare var SemanticModal;
 import {saveAs} from './lib/FileSaver'
 import {TranslatePipe} from './allgemein/translatePipe'
 
-import {Books} from 'collections/books'
+import {Bookmanager} from 'client/books/bookmanager'
 
 export  class GlobalSetting{
     private setting = [
@@ -33,10 +33,12 @@ export  class GlobalSetting{
     private books: Array<Book>;
 
     Clipboard: Object
+    BookManager: Bookmanager;
 
     constructor(){
         this.initSetting();
         this.translator = new TranslatePipe();
+        this.BookManager = new Bookmanager();
 
         let autosignin = this.GetSetting('autosignin')
         if(autosignin) {
@@ -179,7 +181,6 @@ export  class GlobalSetting{
                     if(err){
                         reject(err)
                     }else{
-                        this.LoadBooks(true)
                         resolve(true)
                     }
                 })
@@ -238,26 +239,6 @@ export  class GlobalSetting{
     CheckEmail(email) {
         var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
-    }
-    
-    LoadBooks(reload: boolean): any{
-        let promise = new Promise((resolve, reject) => {
-            let loaded = !!this.books && this.books.length > 0
-            if(this.books && reload != true){
-                resolve(this.books)
-                return
-            }
-            
-            /*Meteor.subscribe('books', () => {
-                this.books = Books.find().fetch()
-                resolve(this.books)
-            });*/
-
-            this.books = Books.find().fetch()
-            resolve(this.books)
-        })
-        
-        return promise;
     }
 
     Exit(){

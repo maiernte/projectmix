@@ -119,9 +119,8 @@ export class TyWindow {
 
 	ngOnInit(){
 		this.IsReady = false;
-		this.glsetting.LoadBooks(false).then(bks => {
-			this.books = bks;
-		})
+		let bkmanager = this.glsetting.BookManager;
+		this.books = bkmanager.MyBooks
 	}
 
 	ngAfterViewInit(){

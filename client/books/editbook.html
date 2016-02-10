@@ -7,12 +7,12 @@
         {{'返回' | tran:glsetting.lang}}
     </a>
     {{'书集详细信息' | tran:glsetting.lang}}
-    <a class="ui basic top right attached large label" 
+    <!--<a class="ui basic top right attached large label" 
         style="margin-bottom: 0"
         (click)="saveBook()">
         <i class="save icon"></i>
         {{'保存' | tran:glsetting.lang}}
-    </a>
+    </a>-->
 </div>
 <div class="ui attached segment">
     <div class="ui hidden positive editbook message">
@@ -50,8 +50,17 @@
             <input type="text" placeholder="简介" [(ngModel)]="Desc">
         </div>
         <div class="inline field">
-            <label>{{'在线版本更新时间：' | tran:glsetting.lang}}</label>
+            <label>{{'更新时间：' | tran:glsetting.lang}}</label>
             {{Modified}}
+        </div>
+        
+        <div class="ui buttons">
+            <button class="ui primary button" (click)="saveBook()">
+                {{'保存修改' | tran:glsetting.lang}}
+            </button>
+            <button class="ui primary button" (click)="pushCloud()" *ngIf="IsCloud">
+                {{'推送云端' | tran:glsetting.lang}}
+            </button>
         </div>
     </div>
 </div>

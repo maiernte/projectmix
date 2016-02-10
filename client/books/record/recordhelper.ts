@@ -1,5 +1,5 @@
 /// <reference path="../../../typings/book.d.ts" />
-import {LocalRecords, Books, BkRecords} from 'collections/books'
+import {LocalRecords, BkRecords} from 'collections/books'
 import {DelImages} from 'collections/admin'
 
 declare var Promise;

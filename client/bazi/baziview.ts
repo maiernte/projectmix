@@ -263,6 +263,9 @@ export class BaziView{
         this.initMingJu();
         this.ChangeDaYun(this.Bazi.DaYun[0])
         this.shenshaColumnCount = this.glsetting.GetSetting('bazi-shensha')
+        
+        this.shenshas = null
+        this.liunian = null
     }
 
     private initMingJu(){
