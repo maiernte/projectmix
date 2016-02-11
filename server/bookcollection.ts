@@ -7,7 +7,7 @@ declare var Counts;
 
 Meteor.publish('books', function() {
     try{
-        return Books.find({owner: this.userId});
+        return Books.find({owner: this.userId, deleted: false});
     }catch(err){
         LogDB(err.toString(), 'publish books', this.userId)
         return null

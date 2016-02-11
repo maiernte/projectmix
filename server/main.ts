@@ -11,6 +11,7 @@ import {LogDB} from 'server/tylogger'
 declare var Meteor;
 declare var Mailgun;
 declare var Accounts;
+declare var process;
 
 Meteor.startup(function(){
     initQiniu()

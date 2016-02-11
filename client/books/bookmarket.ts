@@ -77,8 +77,11 @@ export class BookMarket{
             let bkmanager = this.glsetting.BookManager;
             bkmanager.UploadBook(book.Id)
                 .then((res) => {
+                    console.log('Upload result', res)
                     if(res == true){
                         book.IsCloud = true
+                    }else{
+                        this.glsetting.ShowMessage('推送失败', res)
                     }
                 })
         })

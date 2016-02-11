@@ -67,9 +67,10 @@ export class GuaView{
 
     get Bengua(){
         let text = this.Gua.Ben.Name;
+        //text = text.length < 4 ? text : text.substring(2)
         let prop = this.Gua.Ben.Property;
         if(prop != ''){
-            text += '【' + prop + '】'
+            text += ' [' + prop + ']'
         }
 
         let res = {
@@ -87,9 +88,10 @@ export class GuaView{
         }
 
         let text = this.Gua.Bian.Name;
+        //text = text.length < 4 ? text : text.substring(2)
         let prop = this.Gua.Bian.Property;
         if(prop != ''){
-            text += '【' + prop + '】'
+            text += ' [' + prop + ']'
         }
 
         let res = {

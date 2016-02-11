@@ -3,6 +3,7 @@ import {LogDB} from 'server/tylogger'
 declare var Meteor;
 declare var Accounts;
 declare var _;
+declare var process;
 
 var baseurl = (process.env.ROOT_URL || "https://huahemeteor-maiernte.c9users.io")
 baseurl = baseurl.endsWith('/') ? baseurl + '#/' : baseurl + '/#/'

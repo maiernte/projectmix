@@ -73,31 +73,27 @@ export class Bookmanager{
         let promise = new Promise((resolve, reject) => {
             let book = LocalBooks.findOne({_id: bookid})
             if(!book) return;
-            
-            
+
             if(book.cloud == false){
                 book.cloud = true;
                 book.owner = Meteor.userId();
-                
+
                 Books.insert(book, (err, id) => {
                     if(err){
                         reject(err)
                     }else{
-                        LocalBooks.update({_id:bookid}, {$set:{cloud: true}})
+                        LocalBooks.update({_id:bookid}, {
+                            $set: {
+                                cloud: true,
+                                owner: Meteor.userId()
+                            }
+                        })
+
                         resolve(true)
                     }
                 })
             }else{
-                Books.update({_id: bookid}, {
-                    $set: {
-                        name: book.name,
-                        description: book.description,
-                        author: book.author,
-                        modified: Date.now(),
-                        readed: book.readed,
-                        cloud: true
-                    }
-                }, (err, res) => {
+                Books.update(book, (err, res) => {
                     if(err){
                         reject(err)
                     }else{
@@ -114,19 +110,17 @@ export class Bookmanager{
         let promise = new Promise((resolve, reject) => {
             let book = LocalBooks.findOne({_id: bookid})
             if(book.cloud == false){
-                LocalBooks.remove({_id: bookid})
                 LocalRecords.remove({book: bookid})
+                LocalBooks.remove({_id: bookid})
                 resolve(null)
             }else{
-                Books.update({_id: bookid}, {
-                    $set: {
-                        deleted: true,
-                        modified: Date.now()
-                    }
-                }, (err, res) => {
+                book.deleted = true
+                book.modified = Date.now()
+
+                Books.update(book, (err, res) => {
                     if(!err){
-                        LocalBooks.remove({_id: bookid})
                         LocalRecords.remove({book: bookid})
+                        LocalBooks.remove({_id: bookid})
                         resolve(null)
                     }else{
                         resolve(err)

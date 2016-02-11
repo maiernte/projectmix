@@ -244,7 +244,7 @@ export class CompassView{
 
         navigator.compass.getCurrentHeading(heading => {
             this.Needle.Angle = (0 - heading.magneticHeading + 360) % 360
-            this.Needle.Value = parseInt(heading.magneticHeading * 100) / 100
+            this.Needle.Value = Math.floor(heading.magneticHeading * 100) / 100
         }, (err) => {
             console.log('getCurrentHeading Error',err);
         });
@@ -254,7 +254,7 @@ export class CompassView{
                 let ziel = (0 - heading.magneticHeading + 360) % 360
                 //let current = (this.Needle.Angle + 360) % 360;
                 let current = (this.Rotation + 360) % 360;
-                this.Needle.Value = parseInt(heading.magneticHeading * 100) / 100
+                this.Needle.Value = Math.floor(heading.magneticHeading * 100) / 100
 
                 if(Math.abs(ziel - current) < 1){
                     return;

@@ -63,8 +63,7 @@
                 {{'清空本地' | tran:glsetting.lang}}
             </button>
             <button class="ui primary tiny button" (click)="pushCloud()" 
-                [class.disabled]="IsNew"
-                *ngIf="!IsCloud">
+                [class.disabled]="IsNew">
                 {{'推送云端' | tran:glsetting.lang}}
             </button>
         </div>

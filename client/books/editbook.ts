@@ -90,11 +90,23 @@ export class BookEditor extends MeteorComponent{
     }
     
     pushCloud(){
-        if(this.book.cloud == true) return;
-        
         if(!this.glsetting.Signed){
             this.glsetting.ShowMessage("推送云端", "您还没有登录，无法将书集推送云端。")
             return;
+        }
+
+        if(this.book.cloud == true){
+            let bkmanager = this.glsetting.BookManager;
+            bkmanager.UploadBook(this.book._id)
+                .then((res) => {
+                    if(res == true){
+                        this.glsetting.ShowMessage("推送云端", "更新成功!")
+                    }else{
+                        this.glsetting.ShowMessage("推送云端", "更新失败!")
+                    }
+                })
+
+            return
         }
     
         let msg = "一旦转为云书集， 则不可以转为纯本地书集。要将此书集推送到云端吗？"
@@ -104,6 +116,9 @@ export class BookEditor extends MeteorComponent{
                 .then((res) => {
                     if(res == true){
                         this.book.cloud = true
+                        this.glsetting.ShowMessage("推送云端", "更新成功!")
+                    }else{
+                        this.glsetting.ShowMessage("推送云端", "更新失败!")
                     }
                 })
         })
