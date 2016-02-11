@@ -214,7 +214,6 @@ export class BookContent extends MeteorComponent{
         this.onPageChanged(1)
         this.buildRecordView(records);
         this.Loaded = true;
-        console.log('recordes', records)
     }
 
     private buildRecordView(records){

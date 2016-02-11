@@ -5,9 +5,8 @@ declare var Ground;
 declare var Meteor;
 declare var Mongo;
 
-//export var Books = new CouchDB.Database("books");
-//export var Books = new Meteor.Collection('books')
-export var Books = new Mongo.Collection<Book>('books');
+export var Books = new CouchDB.Database("books");
+//export var Books = new Mongo.Collection<Book>('books');
 
 export var BkRecords = new CouchDB.Database('bkrecord')
 

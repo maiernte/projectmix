@@ -113,7 +113,9 @@ export class TyWindow {
 		record.owner = Meteor.userId();
 
 		LocalRecords.insert(record, (err, id) => {
-			console.log("insert record", err, id, record)
+			if(err){
+				console.log("insert record", err, id, record)
+			}
 		})
 	}
 

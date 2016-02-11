@@ -10,7 +10,7 @@ import {GlobalSetting} from 'client/globalsetting'
 
 import {MeteorComponent} from 'angular2-meteor';
 
-import {LocalBooks} from 'collections/books'
+import {LocalBooks, LocalRecords} from 'collections/books'
 
 declare var jQuery;
 
@@ -40,6 +40,10 @@ export class BookEditor extends MeteorComponent{
     
     get IsCloud(){
         return this.book ? this.book.cloud : false
+    }
+    
+    get IsNew(){
+        return !this.book;
     }
     
     ngOnInit(){
@@ -87,12 +91,29 @@ export class BookEditor extends MeteorComponent{
     
     pushCloud(){
         if(this.book.cloud == true) return;
+        
+        if(!this.glsetting.Signed){
+            this.glsetting.ShowMessage("推送云端", "您还没有登录，无法将书集推送云端。")
+            return;
+        }
     
         let msg = "一旦转为云书集， 则不可以转为纯本地书集。要将此书集推送到云端吗？"
         this.glsetting.ShowMessage("推送云端", msg, () => {
             let bkmanager = this.glsetting.BookManager;
             bkmanager.UploadBook(this.book._id)
+                .then((res) => {
+                    if(res == true){
+                        this.book.cloud = true
+                    }
+                })
         })
+    }
+    
+    cleanLocal(){
+       let msg = "如果打算长时间不读此书，可以将保存在本地的记录清空，以节省空间。将来有需要的时候，再次从云端拉取。您确定要清空此书的本地记录吗？"
+        this.glsetting.ShowMessage("清空本地", msg, () => {
+            LocalRecords.remove({book: this.book._id})
+        }) 
     }
     
     private addBook(){
@@ -115,6 +136,10 @@ export class BookEditor extends MeteorComponent{
                 jQuery('.negative.editbook.message').transition('fade')
             }else{
                 jQuery('.positive.editbook.message').transition('fade')
+                this.ngZone.run(() => {
+                    this.book = LocalBooks.findOne({_id: id})
+                    console.log("saveBook", id)
+                })
             }
         });
     }

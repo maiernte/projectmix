@@ -66,11 +66,21 @@ export class BookMarket{
     
     pushCloud(book: BookView){
         if(book.IsCloud == true) return;
+        
+        if(!this.glsetting.Signed){
+            this.glsetting.ShowMessage("推送云端", "您还没有登录，无法将书集推送云端。")
+            return;
+        }
     
         let msg = "一旦转为云书集， 则不可以转为纯本地书集。要将此书集推送到云端吗？"
         this.glsetting.ShowMessage("推送云端", msg, () => {
             let bkmanager = this.glsetting.BookManager;
             bkmanager.UploadBook(book.Id)
+                .then((res) => {
+                    if(res == true){
+                        book.IsCloud = true
+                    }
+                })
         })
     }
     
@@ -97,16 +107,13 @@ export class BookMarket{
         if(book){
             this.router.parent.navigate(['./EditBook', {id: book.Id}])
         }else{
-            if(this.glsetting.Signed == false){
-                this.glsetting.ShowMessage('创建书集', '您还没有注册或者登录, 无法创建在线书集.')
-            }else{
-                this.router.parent.navigate(['./EditBook', {id: null}])
-            }
+            this.router.parent.navigate(['./EditBook', {id: null}])
         }
     }
     
     openBook(book: BookView){
         let bookid = book.Id ? book.Id : ''
+        LocalBooks.update({_id: bookid}, {$set:{readed: Date.now()}})
         this.router.parent.navigate(['./BookContent', {id: bookid}])
     }
     
@@ -120,10 +127,15 @@ export class BookMarket{
         this.Loading = true;
         let bkmanager = this.glsetting.BookManager
         bkmanager.DownloadBooks().then(res => {
+            let msg = "对不起，找不到您的在线书集。如果确实创建过的话，请联系管理员。"
             if(res == false){
-                this.glsetting.ShowMessage("在线书集", "对不起，找不到您的在线书集。如果确实创建过的话，请联系管理员。")
+                this.glsetting.ShowMessage("在线书集", msg)
             }else{
                 let bks = bkmanager.MyBooks
+                if(bks.length == 0){
+                    this.glsetting.ShowMessage("在线书集", msg)
+                }
+                
                 for(let bk of bks){
                     this.books.push(new BookView(bk))
                 }
@@ -161,6 +173,10 @@ class BookView{
     
     get IsCloud(){
         return this.book.cloud;
+    }
+    
+    set IsCloud(value){
+        this.book.cloud = value
     }
     
     get Editable(){

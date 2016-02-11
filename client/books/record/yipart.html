@@ -29,7 +29,9 @@
                 <div class="ui icon button" (click)="insertLink()">
                     <i class="file image outline icon"></i>
                 </div>
-                <div class="ui icon button" [id]="ButtonId" *ngIf="!IsCordova">
+                <div class="ui icon button" [id]="ButtonId" 
+                    [class.disabled]="!AllowQiniu"
+                    *ngIf="!IsCordova">
                     <i class="attach icon"></i>
                 </div>
             </div>

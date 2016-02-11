@@ -83,6 +83,7 @@ export class Bookmanager{
                     if(err){
                         reject(err)
                     }else{
+                        LocalBooks.update({_id:bookid}, {$set:{cloud: true}})
                         resolve(true)
                     }
                 })

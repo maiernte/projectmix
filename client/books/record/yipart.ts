@@ -10,7 +10,7 @@ import {GlobalSetting} from 'client/globalsetting'
 import {GuaView} from 'client/liuyao/guaview'
 import {BaziView} from 'client/bazi/baziview'
 
-import {LocalRecords, Books} from 'collections/books'
+import {LocalRecords, LocalBooks} from 'collections/books'
 import {RecordHelper} from './recordhelper'
 
 import {TYUploader} from 'lib/qiniu/tyuploader'
@@ -36,6 +36,9 @@ export class YixuePart{
     private images: Array<string>;
     private links: Array<string>;
     private progressValue = 0
+    
+    private uploadErr = null
+    private qiniuUploader;
 
     @ContentChild(GuaView) guaview: GuaView;
     @ContentChild(BaziView) baziview: BaziView;
@@ -44,6 +47,7 @@ export class YixuePart{
 
     UpLoading = false
     ButtonId = ''
+    AllowQiniu = false
 
     constructor(private router: Router,
                 private routeParams: RouteParams,
@@ -236,7 +240,16 @@ export class YixuePart{
     }
 
     ngAfterViewInit(){
+        if(this.IsCordova) return
+    
+        let book = LocalBooks.findOne({_id: this.record.BookId})
+        if(!book || book.cloud != true){
+            // 本地书集以及手机软件不允许用七牛
+            return
+        }
+    
         this.initQiNiuBook();
+        this.AllowQiniu = true;
     }
 
     syncRecord(){
@@ -250,8 +263,9 @@ export class YixuePart{
     }
 
     ngOnDestroy(){
-        console.log('yixuepart destroy....')
-        this.qiniuUploader.Destroy()
+        if(this.AllowQiniu && this.qiniuUploader){
+            this.qiniuUploader.Destroy()
+        }
     }
 
     UploadReady() {
@@ -274,10 +288,6 @@ export class YixuePart{
             total: 100
         });
     }
-
-    private uploadErr = null
-    private qiniuUploader;
-    private testqiniu
 
     private initQiNiuBook(){
         var settings = {
