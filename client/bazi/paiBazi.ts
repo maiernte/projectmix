@@ -37,6 +37,8 @@ export class PaiBazi{
         City: '',
         Date: '',
         Time: '',
+        HH: 0,
+        MM: 0,
         Solar: true,
         Code: ''
     }
@@ -144,10 +146,13 @@ export class PaiBazi{
         this.maps = LandMaps.Maps;
         this.Land = this.maps[0]['Name']
 
+        let time = new Date(Date.now())
         this.Input.Date = moment().format('YYYY-MM-DD');
-        this.Input.Time = moment().format('HH:mm');
-        this.Solar = true;
+        //this.Input.Time = moment().format('HH:mm');
+        this.Input.HH = time.getHours();
+        this.Input.MM = time.getMinutes();
 
+        this.Solar = true;
         this.CalcSet.Y = this.GanZhiNames[0];
         this.CalcSet.D = this.GanZhiNames[0];
         this.CalcSet.currentYear = (new Date(Date.now())).getFullYear();
@@ -168,15 +173,20 @@ export class PaiBazi{
     setBaziTime(){
         let mm = moment(this.CalcSet.Result);
         this.Input.Date = mm.format('YYYY-MM-DD');
-        this.Input.Time = mm.format('HH:mm');
+        //this.Input.Time = mm.format('HH:mm');
+        let date = this.CalcSet.Result
+        this.Input.HH = date.getHours();
+        this.Input.MM = date.getMinutes();
         this.Panel = 'paipan'
     }
 
     paiBazi(){
         let date = new Date(this.Input.Date)
-        let time = this.Input.Time.split(':')
-        let houres = parseInt(time[0])
-        let minutes = parseInt(time[1])
+        //let time = this.Input.Time.split(':')
+        //let houres = parseInt(time[0])
+        //let minutes = parseInt(time[1])
+        let houres = this.Input.HH;
+        let minutes = this.Input.MM;
 
         let birthday = new Date(date.getFullYear(), date.getMonth(), date.getDate(), houres, minutes)
         let params = {

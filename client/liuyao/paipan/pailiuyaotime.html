@@ -7,19 +7,24 @@
     </h5>
     <div id='paigua-time-gl'>
         <div class="fields">
-            <div class="eight field">
+            <div class="field">
                 <label>{{'日期' | tran:glsetting.lang}}</label>
                 <input type="date"
                        lang="zh"
                        [(ngModel)]='InputTime.Date'
                        id='paigua-datepicker'>
             </div>
-            <div class="eight field">
+            <div class="field">
                 <label>{{'时辰' | tran:glsetting.lang}}</label>
-                <input type="time"
+                <!--<input type="time"
                        lang="zh"
                        [(ngModel)]='InputTime.Time'
-                       id='paigua-timepicker'>
+                       id='paigua-timepicker'>-->
+                <input type="number" min="0" max="23" [(ngModel)]="InputTime.HH">
+            </div>
+            <div class="field">
+                <label>:</label>
+                <input type="number" min="0" max="59" [(ngModel)]="InputTime.MM">
             </div>
         </div>
     </div>

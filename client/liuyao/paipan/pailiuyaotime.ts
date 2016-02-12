@@ -22,7 +22,14 @@ export class PailiuyaoTime{
     private ganzhinamesfull: Array<string>;
     
     glsetting:GlobalSetting;
-    InputTime: Object;
+    InputTime = {
+        Date: '',
+        Time: '',
+        HH: 0,
+        MM: 0,
+        Yue: '',
+        Ri: ''
+    }
     
     constructor(@Inject(GlobalSetting) glsetting:GlobalSetting, elementRef: ElementRef) {
         this.glsetting = glsetting;
@@ -34,9 +41,11 @@ export class PailiuyaoTime{
             return [this.InputTime['Yue'], this.InputTime['Ri']];
         }else{
             let date = new Date(this.InputTime['Date'])
-            let time = this.InputTime['Time'].split(':')
-            let houre = parseInt(time[0])
-            let minute = parseInt(time[1])
+            //let time = this.InputTime.Time.split(':')
+            //let houre = parseInt(time[0])
+            //let minute = parseInt(time[1])
+            let houre = this.InputTime.HH;
+            let minute = this.InputTime.MM;
             let res = new Date(date.getFullYear(), date.getMonth(), date.getDate(), houre, minute)
             return res.toISOString()
         }
@@ -73,10 +82,13 @@ export class PailiuyaoTime{
     ngOnInit(){
         let dateText = moment().format('YYYY-MM-DD');
         let timeText = moment().format('HH:mm')
+        let time = new Date(Date.now())
 
         this.InputTime = {
             Date: dateText,
             Time: timeText,
+            HH: time.getHours(),
+            MM: time.getMinutes(),
             Yue: this.GanZhiNamesFull[0],
             Ri: this.GanZhiNames[0]
         }
