@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd628d0f-b330-4283-9dbe-d11a93ac6559" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/meteor_packages_auto_import_browser.xml" afterPath="$PROJECT_DIR$/.idea/libraries/meteor_packages_auto_import_browser.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.meteor/packages" afterPath="$PROJECT_DIR$/.meteor/packages" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.meteor/versions" afterPath="$PROJECT_DIR$/.meteor/versions" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app.ts" afterPath="$PROJECT_DIR$/client/app.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile-config.js" afterPath="$PROJECT_DIR$/mobile-config.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/collections/books.ts" afterPath="$PROJECT_DIR$/collections/books.ts" />
     </list>
     <ignored path="HuaheC9.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,11 +27,31 @@
     <splitter split-orientation="horizontal" split-proportion="0.5089163">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="paiBazi.ts" pinned="false" current-in-tab="true">
+          <file leaf-file-name="paiBazi.ts" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/client/bazi/paiBazi.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
+                <state vertical-scroll-proportion="-0.0">
                   <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="bookcollection.ts" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/server/bookcollection.ts">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="-13.888889">
+                  <caret line="25" column="4" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="books.ts" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/collections/books.ts">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.55949366">
+                  <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -120,7 +137,7 @@
             <entry file="file://$PROJECT_DIR$/.meteor/packages">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="-0.0">
-                  <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+                  <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -186,7 +203,6 @@
         <option value="$PROJECT_DIR$/client/books/record/recordhelper.ts" />
         <option value="$PROJECT_DIR$/lib/qiniu/tyuploader.ts" />
         <option value="$PROJECT_DIR$/client/user/userprofile.html" />
-        <option value="$PROJECT_DIR$/collections/books.ts" />
         <option value="$PROJECT_DIR$/client/books/record/yipart.ts" />
         <option value="$PROJECT_DIR$/client/books/record/yipart.html" />
         <option value="$PROJECT_DIR$/.cfignore" />
@@ -216,6 +232,7 @@
         <option value="$PROJECT_DIR$/client/liuyao/paipan/pailiuyaotime.ts" />
         <option value="$PROJECT_DIR$/client/app.ts" />
         <option value="$PROJECT_DIR$/mobile-config.js" />
+        <option value="$PROJECT_DIR$/collections/books.ts" />
       </list>
     </option>
   </component>
@@ -225,8 +242,8 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="104" />
-    <option name="y" value="23" />
+    <option name="x" value="69" />
+    <option name="y" value="25" />
     <option name="width" value="1766" />
     <option name="height" value="940" />
   </component>
@@ -520,7 +537,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../buildhuahe" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../hahe" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="enabled" />
     <property name="js.meteor.project" value="true" />
@@ -633,7 +650,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="104" y="23" width="1766" height="940" extended-state="0" />
+    <frame x="69" y="25" width="1766" height="940" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22650057" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -902,6 +919,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="184" column="34" selection-start-line="184" selection-start-column="34" selection-end-line="184" selection-end-column="34" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -916,6 +934,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="67" column="23" selection-start-line="67" selection-start-column="23" selection-end-line="67" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -931,20 +950,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="111" column="50" selection-start-line="111" selection-start-column="50" selection-end-line="111" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/collections/books.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/bookcollection.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.0">
-          <caret line="25" column="4" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -952,6 +958,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.6666666">
           <caret line="122" column="19" selection-start-line="122" selection-start-column="19" selection-end-line="122" selection-end-column="19" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1008,7 +1017,7 @@
     <entry file="file://$PROJECT_DIR$/.meteor/packages">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1041,6 +1050,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/bookcollection.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.888889">
+          <caret line="25" column="4" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/collections/books.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.55949366">
+          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
           <folding />
         </state>
       </provider>

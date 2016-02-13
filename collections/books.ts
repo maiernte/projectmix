@@ -44,6 +44,6 @@ BkRecords.allow({
     }
 });
 
-if (Meteor.isCordova) {
+/*if (Meteor.isCordova) {
     Ground.Collection(Books);
-}
+}*/
