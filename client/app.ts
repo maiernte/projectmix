@@ -68,6 +68,7 @@ class HuaheApp {
         this.router = router;
         this.location = location;
         this.glsetting = glsetting;
+        console.log("huaheApp start")
     }
     
     get CanExit(){
@@ -80,6 +81,7 @@ class HuaheApp {
 }
 
 bootstrap(HuaheApp, [ROUTER_PROVIDERS, provide(LocationStrategy, { useClass: HashLocationStrategy }), GlobalSetting]);
+/*
 Meteor.startup(function () {
     Meteor.subscribe("books");
-});
+});*/

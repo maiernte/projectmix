@@ -7,8 +7,8 @@ App.info({
     description: '华鹤易学移动平台',
     author: '鎏金天涯',
     email: 'mai.yongfeng@googlemail.com',
-    website: 'http://huahe.eu-gb.mybluemix.net',
-    version: '0.0.1'
+    website: 'http://huaheweb.eu-gb.mybluemix.net',
+    version: '0.0.2'
 });
 
 // Set up resources such as icons and launch screens.
@@ -38,5 +38,9 @@ App.launchScreens({
 
 // Set PhoneGap/Cordova preferences
 //App.setPreference('BackgroundColor', '0xff0000ff');
-//App.setPreference('HideKeyboardFormAccessoryBar', true);
+App.setPreference('HideKeyboardFormAccessoryBar', true);
 //App.setPreference('AllowInlineMediaPlayback', true);
+
+// 17 = Version 4.2 19 = 4.4 15 = 4.0
+App.setPreference('android-targetSdkVersion', '19');
+App.setPreference('android-minSdkVersion', '14');
