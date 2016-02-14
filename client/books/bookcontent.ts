@@ -37,6 +37,8 @@ export class BookContent extends MeteorComponent{
     pageSize: number = 15;
     curPage: ReactiveVar<number> = new ReactiveVar<number>(1);
     sumItems: number = this.pageSize
+
+    IsCloud = false;
     
     constructor(private router: Router,
                 private routeParams: RouteParams,
@@ -84,7 +86,11 @@ export class BookContent extends MeteorComponent{
     ngOnInit(){
         this.bookid = this.routeParams.params['id']
         let book = LocalBooks.findOne({_id: this.bookid})
-        this.BookName = book.name
+        if(book){
+            this.IsCloud = book.cloud;
+            this.BookName = book.name
+        }
+
         this.loadContent()
     }
     

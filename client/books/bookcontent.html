@@ -18,7 +18,9 @@
             (click)="onPageChanged(0)">
             <i class="angle double right icon"></i>
         </div>-->
-        <div class="ui icon button" (click)="synchronCloud()">
+        <div class="ui icon button"
+             [class.disabled]="!IsCloud"
+             (click)="synchronCloud()">
             <i class="cloud upload icon"></i>
         </div>
         <div class="ui icon button" (click)="deleteRecords()">

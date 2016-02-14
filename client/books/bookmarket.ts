@@ -23,7 +23,6 @@ declare var Mongo;
 })
 export class BookMarket{
     private books: Array<BookView>;
-    private bookCur: Mongo.Cursor<Book>;
 
     Market = 'private'
     Loading = false;
