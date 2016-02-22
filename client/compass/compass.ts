@@ -10,7 +10,6 @@ import {NgFor,
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
-import content = BrowserPolicy.content;
 
 declare var jQuery:any
 declare var Camera;

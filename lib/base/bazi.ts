@@ -77,7 +77,7 @@ export class Bazi{
     }
 
     get Direction(): number{
-        return (this.Gender == 'm' ? 1 : -1) * (this.Y.Zhi.Index % 2 == 0 ? 1 : -1);
+        return (this.Gender == 'm' ? 1 : -1) * ((this.Y.Zhi.Index % 2) == 0 ? 1 : -1);
     }
 
     get MingGong(): GanZhi{

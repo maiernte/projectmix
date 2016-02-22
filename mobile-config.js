@@ -7,7 +7,7 @@ App.info({
     description: '华鹤易学移动平台',
     author: '鎏金天涯',
     email: 'mai.yongfeng@googlemail.com',
-    website: 'http://huahe.eu-gb.mybluemix.net',
+    website: 'http://huaheweb.eu-gb.mybluemix.net',
     version: '0.0.2'
 });
 

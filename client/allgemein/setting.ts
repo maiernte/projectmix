@@ -22,9 +22,10 @@ export class AppSetting{
     private baziShenSha: string
     private bookpagerd: number;
     private guaArrow: boolean;
-    
-    constructor(@Inject(GlobalSetting) public glsetting: GlobalSetting){
 
+    glsetting:GlobalSetting;
+    constructor(@Inject(GlobalSetting) glsetting: GlobalSetting){
+        this.glsetting = glsetting;
     }
 
     get TwLang(): string{

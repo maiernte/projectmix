@@ -70,6 +70,10 @@ class HuaheApp {
         this.glsetting = glsetting;
         console.log("huaheApp start")
     }
+
+    get iOS(){
+        return this.glsetting.Ios;
+    }
     
     get CanExit(){
         return this.glsetting.Android && this.glsetting.IsCordova

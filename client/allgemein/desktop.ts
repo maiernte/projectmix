@@ -105,15 +105,6 @@ export class Desktop{
               .transition('fade')
             ;
           });
-          
-/*        if(Desktop.showTips == undefined){
-            Desktop.showTips = this.glsetting.GetSetting('desktop-tip');
-            if(Desktop.showTips == false){
-                jQuery('.message .close')
-                    .closest('.message')
-                    .transition('fade')
-            }
-        }*/
     }
     
     private buildChildWindows(params){
