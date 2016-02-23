@@ -6,6 +6,7 @@ declare var jQuery;
 declare var html2canvas;
 declare var Promise;
 declare var SemanticModal;
+declare var alertify;
 
 import {saveAs} from './lib/FileSaver'
 import {TranslatePipe} from './allgemein/translatePipe'
@@ -39,6 +40,8 @@ export  class GlobalSetting{
         this.initSetting();
         this.translator = new TranslatePipe();
         this.BookManager = new Bookmanager();
+        
+        TranslatePipe.setLanguage(this.lang)
 
         let autosignin = this.GetSetting('autosignin')
         if(autosignin) {
@@ -155,20 +158,35 @@ export  class GlobalSetting{
         }
     }
     
-    ShowMessage(header: string, message: string, callback?){
-        if(this.lang == true){
-            header = this.translator.transform(header, [true]);
-            message = this.translator.transform(message, [true]);
-        }
+    Notify(message: string, type: number){
+        message = this.translator.transform(message, null)
+        let flag = type >= 0 ? 'success' : 'warning'
         
-        SemanticModal.confirmModal({
-            header: header,
-            message: message,
-            noButtons: !callback,
-            callback: function() {
-                callback() 
+        alertify.notify(message, flag, 5)
+    }
+    
+    Alert(title, message){
+        title = (title || '华鹤易学')
+        message = this.translator.transform(message, null)
+        title = this.translator.transform(title, null)
+        alertify.alert(title, message).set('labels', {ok:'好的'});
+    }
+    
+    Confirm(title, message, onok, oncancel){
+        title = this.translator.transform(title, null)
+        message = this.translator.transform(message, null)
+        let oktext = this.translator.transform('确定', null)
+        let canceltext = this.translator.transform('取消', null)
+        
+        alertify.confirm(title, message, () => {
+            if(onok){
+                onok()
             }
-        });
+        }, () => {
+            if(oncancel){
+                oncancel();
+            } 
+        }).set('labels', {ok:oktext, cancel:canceltext});
     }
 
     SignIn(user: string, pw: string): any{

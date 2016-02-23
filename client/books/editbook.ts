@@ -77,7 +77,7 @@ export class BookEditor extends MeteorComponent{
     
     saveBook(){
         if(!this.Name || this.Name == ''){
-            this.glsetting.ShowMessage("保存书集", "请给您的新书一个名字。")
+            this.glsetting.Alert("保存书集", "请给您的新书一个名字。")
             return
         }
         
@@ -91,7 +91,7 @@ export class BookEditor extends MeteorComponent{
     
     pushCloud(){
         if(!this.glsetting.Signed){
-            this.glsetting.ShowMessage("推送云端", "您还没有登录，无法将书集推送云端。")
+            this.glsetting.Alert("推送云端", "您还没有登录，无法将书集推送云端。")
             return;
         }
 
@@ -100,9 +100,9 @@ export class BookEditor extends MeteorComponent{
             bkmanager.UploadBook(this.book._id)
                 .then((res) => {
                     if(res == true){
-                        this.glsetting.ShowMessage("推送云端", "更新成功!")
+                        this.glsetting.Notify("更新成功!", 1)
                     }else{
-                        this.glsetting.ShowMessage("推送云端", "更新失败!")
+                        this.glsetting.Alert("推送云端", "更新失败!")
                     }
                 })
 
@@ -110,25 +110,25 @@ export class BookEditor extends MeteorComponent{
         }
     
         let msg = "一旦转为云书集， 则不可以转为纯本地书集。要将此书集推送到云端吗？"
-        this.glsetting.ShowMessage("推送云端", msg, () => {
+        this.glsetting.Confirm("推送云端", msg, () => {
             let bkmanager = this.glsetting.BookManager;
             bkmanager.UploadBook(this.book._id)
                 .then((res) => {
                     if(res == true){
                         this.book.cloud = true
-                        this.glsetting.ShowMessage("推送云端", "更新成功!")
+                        this.glsetting.Notify("更新成功!", 1)
                     }else{
-                        this.glsetting.ShowMessage("推送云端", "更新失败!")
+                        this.glsetting.Alert("推送云端", "更新失败!")
                     }
                 })
-        })
+        }, null)
     }
     
     cleanLocal(){
        let msg = "如果打算长时间不读此书，可以将保存在本地的记录清空，以节省空间。将来有需要的时候，再次从云端拉取。您确定要清空此书的本地记录吗？"
-        this.glsetting.ShowMessage("清空本地", msg, () => {
+        this.glsetting.Confirm("清空本地", msg, () => {
             LocalRecords.remove({book: this.book._id})
-        }) 
+        }, null) 
     }
     
     private addBook(){

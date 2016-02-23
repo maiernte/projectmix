@@ -34,12 +34,12 @@ export class ResetPassword{
     
     resetpassword(){
         if(this.pw1 == '' || this.pw1 != this.pw2){
-            this.glsetting.ShowMessage('操作失败', '您的两次输入不一致。')
+            this.glsetting.Alert('操作失败', '您的两次输入不一致。')
             return
         }
         
         if(this.pw1.length < 6 || this.pw1.length > 20){
-            this.glsetting.ShowMessage('操作失败', '系统只接受6到20位字符的密码。')
+            this.glsetting.Alert('操作失败', '系统只接受6到20位字符的密码。')
             return
         }
         
@@ -49,7 +49,7 @@ export class ResetPassword{
                     this.router.parent.navigate(['User', 'Login'])
                 })
             }else{
-                this.glsetting.ShowMessage('重设密码', err)
+                this.glsetting.Alert('重设密码失败', err.toString())
             }
         })
     }

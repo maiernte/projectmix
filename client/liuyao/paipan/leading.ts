@@ -1,9 +1,18 @@
 /// <reference path="../../../typings/angular2-meteor.d.ts" />
-import {Component, Inject, ContentChild, AfterContentInit, Output, EventEmitter} from 'angular2/core'
+import {Component, 
+        Inject, 
+        ContentChild, 
+        ViewChild,
+        AfterContentInit, 
+        Output, 
+        EventEmitter} from 'angular2/core'
+import {Router} from 'angular2/router'
+
 import {NgFor} from 'angular2/common'
 import {TranslatePipe} from '../../allgemein/translatePipe'
 import {GlobalSetting} from  '../../globalsetting'
 
+import {PaipanEmitter} from 'client/allgemein/paipanermitter'
 import {LeadingYao} from "./leadingyaos";
 import {PailiuyaoCoins} from './coins'
 
@@ -18,6 +27,8 @@ declare var Promise:any;
 })
 
 export class PailiuyaoLeading{
+    emitter = PaipanEmitter.get(PaipanEmitter.Paipan);
+    
     CurrentStep: number;
     ImgUrl: string;
     DeskChecked: boolean;
@@ -25,10 +36,17 @@ export class PailiuyaoLeading{
 
     private cointype: number;
 
-    @ContentChild(LeadingYao) step4: LeadingYao;
+    //@ContentChild(LeadingYao) step4: LeadingYao;
+    @ViewChild(LeadingYao) step4: LeadingYao;
+    
     @Output() onfinished = new EventEmitter();
 
-    constructor(@Inject(GlobalSetting) public glsetting:GlobalSetting) {
+    constructor(@Inject(GlobalSetting) public glsetting:GlobalSetting, private router: Router) {
+        console.log("create leading")
+    }
+    
+    goBack(){
+        this.router.parent.navigate(['./Paigua'])
     }
 
     get Result(){
@@ -65,9 +83,18 @@ export class PailiuyaoLeading{
     }
 
     paiGua(){
-        let res = this.step4.Result
-        res.push(this.Question)
-        this.onfinished.emit(res)
+        let params = {
+            flag: 'gua',
+        }
+        
+        let date = new Date(Date.now());
+        params['time'] = date.toISOString();
+        params['gua'] = this.step4.Result;
+        params['type'] = 0;
+        params['question'] = this.Question
+        
+        //console.log("我要排卦", params)
+        this.emitter.emit(params)
     }
 
     ngOnInit(){
@@ -97,9 +124,7 @@ export class PailiuyaoLeading{
         return promise;
     }
 
-    afterContentInit() {
-       /* <rect x='0' y='7' width="35" height="2" style="fill: black"></rect>
-        <line x1="30" y1="4" x2="35" y2="7" style="stroke:black;stroke-width:2" />
-        <line x1="30" y1="12" x2="35" y2="8" style="stroke:black;stroke-width:2" />*/
+    ngAfterViewInit() {
+       console.log('step4', this.step4)
     }
 }

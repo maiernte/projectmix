@@ -52,7 +52,7 @@ export class UserLogin{
 
     login(){
         if(this.Username.trim() == '' || this.Password == ''){
-            this.glsetting.ShowMessage("用户名或密码错误",
+            this.glsetting.Alert("用户名或密码错误",
                 "用户名和密码都要求在20个字符以内, 并且不能有空格。")
             return;
         }
@@ -74,7 +74,7 @@ export class UserLogin{
             })
 
             let msg = err.error == 403 ? '用户名或密码不正确.' : err.message;
-            this.glsetting.ShowMessage("登录失败", msg)
+            this.glsetting.Alert("登录失败", msg)
         })
     }
 
@@ -84,7 +84,7 @@ export class UserLogin{
     
     forgetPassword(){
         if(!this.glsetting.CheckEmail(this.Email)){
-            this.glsetting.ShowMessage('无效邮箱地址', '请输入有效邮箱！')
+            this.glsetting.Alert('无效邮箱地址', '请输入有效邮箱！')
             return
         }
 
@@ -96,9 +96,9 @@ export class UserLogin{
             })
 
             if(!err){
-                this.glsetting.ShowMessage('邮件发送成功', '验证邮件已经发送到您的注册邮箱中！')
+                this.glsetting.Notify('验证邮件已经发送到您的注册邮箱中！', 1)
             }else{
-                this.glsetting.ShowMessage('操作失败', `抱歉，这个邮箱地址(${this.Email})没有被验证过，我们无法向您发送新密码。`)
+                this.glsetting.Alert('操作失败', `抱歉，这个邮箱地址(${this.Email})没有被验证过，我们无法向您发送新密码。`)
             }
         })
     }
@@ -111,9 +111,9 @@ export class UserLogin{
             })
 
             if(!err){
-                this.glsetting.ShowMessage('问题报告', '您的问题已经报告给管理员。请耐心等候回复。')
+                this.glsetting.Alert('问题报告', '您的问题已经报告给管理员。请耐心等候回复。')
             }else{
-                this.glsetting.ShowMessage('操作失败', err)
+                this.glsetting.Alert('操作失败', err.toString())
             }
         })
     }

@@ -23,7 +23,6 @@ rzymek:moment-locale-zh-cn
 cloudant:couchdb
 ground:db
 mediumeditor:mediumeditor
-richsilv:semantic-ui-modal
 accounts-password
 gfk:mailgun-api
 email
@@ -33,3 +32,4 @@ chenkaic4:qiniu-uploader
 meteorhacks:kadira
 mdg:reload-on-resume
 launch-screen
+ovcharik:alertifyjs

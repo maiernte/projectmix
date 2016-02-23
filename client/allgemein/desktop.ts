@@ -15,6 +15,7 @@ import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
 
 declare var jQuery:any;
+declare var alertify;
 
 @Component({
     selector: 'desktop',
@@ -93,33 +94,28 @@ export class Desktop{
         let hideMenu = true;
         this.showMenu(hideMenu);
         
-        this.initMessage();
-        this.buildChildWindows(this.routeParams.params)
+        //Desktop.AddFrame(this.routeParams.params, this.glsetting.GUID)
+        
+        if(this.ShowTips){
+            let title = '欢迎使用华鹤易学移动平台'
+            let message = '按顶上左边第一个按钮打开系统菜单。第二和第三个按钮分别为万年历和风水罗盘。不再显示此消息请按"确定"。'
+            this.glsetting.Confirm(title, message, () => {
+                this.ShowTips = false;
+            }, () => {
+                Desktop.showTips = true;
+            });
+        }
     }
     
-    private initMessage(){
-        jQuery('.message .close')
-          .on('click', function() {
-            jQuery(this)
-              .closest('.message')
-              .transition('fade')
-            ;
-          });
-    }
-    
-    private buildChildWindows(params){
-        if(params['flag'] == 'gua'){
+    static AddFrame(params, guid){
+        if(!Desktop.frameList){
+            Desktop.frameList = [];
+        }
+        
+        if(params['flag'] == 'gua' || params['flag'] == 'bazi'){
             var frame = {
-                type: 'gua',
-                id: 'U' + this.glsetting.GUID,
-                data: JSON.stringify(params)
-            }
-
-            Desktop.frameList.push(frame);
-        }else if(params['flag'] == 'bazi'){
-            var frame = {
-                type: 'bazi',
-                id: 'U' + this.glsetting.GUID,
+                type: params['flag'],
+                id: 'U' + guid,
                 data: JSON.stringify(params)
             }
 

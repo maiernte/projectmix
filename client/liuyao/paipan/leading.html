@@ -1,5 +1,15 @@
 <div>
-    <div class="ui five top attached small stackable ordered steps">
+    <div class="ui top attached segment"
+         style="text-align: center" >
+        <a class="ui basic top left attached large label"
+           style="margin-bottom: 0"
+           (click)="goBack()">
+            <i class="angle left icon"></i>
+            {{'返回' | tran:glsetting.lang}}
+        </a>
+        {{'新手排卦' | tran:glsetting.lang}}
+    </div>
+    <div class="ui five attached small stackable ordered steps">
         <div class="step"
             [class.active]="CurrentStep === 1"
             [class.completed]="CurrentStep > 1">
@@ -157,8 +167,13 @@
             </button>
         </div>
         <div id="pagua-step-4" class='transition hidden'>
-            <ng-content></ng-content>
+            <!--<ng-content></ng-content>-->
+            <pailiuyao-leadingyao (onfinished)="NextStep()"
+                                  (oncancel)="GoBack($event)">
+                <pailiuyao-coins [cointype]="0" [yao]="0"></pailiuyao-coins>
+            </pailiuyao-leadingyao>
         </div>
+        
         <div id="pagua-step-5" class='transition hidden'>
             <button class="ui button" (click)="paiGua()" style="margin-top: 10px">
                 {{'排六爻卦' | tran:glsetting.lang}}

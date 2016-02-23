@@ -8,7 +8,7 @@ import {NgFor} from 'angular2/common'
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
 
-import {TYLunar} from '../../lib/lunar/tylunar'
+import {TYLunar, TYDate} from '../../lib/lunar/tylunar'
 import {LandMaps} from "../../lib/lunar/landmaps";
 import {Bazi, BaziYun} from '../../lib/base/bazi'
 import {GanZhi} from "../../lib/base/ganzhi";
@@ -245,6 +245,10 @@ export class BaziView{
             let timeoff = LandMaps.CalcTimeOff(params['code'])
             date = new Date(date.getTime() + timeoff * 60 * 1000)
         }
+        
+        let tydate =new TYDate(date)
+        let nl = tydate.NLmonthFullName + tydate.NLdate
+        this.Info.Birthday +=  `(农历 ${nl})`
 
         this.Info.SolarTime = date.toChinaString(true);
         this.Bazi = new Bazi(date, params['gender'])

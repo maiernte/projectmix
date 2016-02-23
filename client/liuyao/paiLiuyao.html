@@ -20,8 +20,8 @@
         </div>
         <div class="item"
              [class.active]="InputModel == 'leading'"
-             (click)="InputModel = 'leading'">
-            {{'引导模式' | tran:glsetting.lang}}
+             (click)="navToLeading()">
+            {{'新手排卦' | tran:glsetting.lang}}
         </div>
     </div>
     
@@ -65,12 +65,12 @@
             </form>
         </div>
     </div>
-    <div [hidden]='InputModel != "leading"'>
+    <!--<div [hidden]='InputModel != "leading"'>
         <pailiuyao-leading #leadingpage (onfinished)="leadingFinished($event)">
             <pailiuyao-leadingyao (onfinished)="leadingpage.NextStep()"
                                   (oncancel)="leadingpage.GoBack($event)">
                 <pailiuyao-coins [cointype]="0" [yao]="0"></pailiuyao-coins>
             </pailiuyao-leadingyao>
         </pailiuyao-leading>
-    </div>
+    </div>-->
 </div>

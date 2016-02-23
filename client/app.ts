@@ -7,7 +7,8 @@ enableProdMode();
 import {Component,
         Inject,
         provide,
-        AfterViewInit} from 'angular2/core';
+        AfterViewInit, 
+        EventEmitter} from 'angular2/core';
         
 import {FORM_DIRECTIVES, NgIf} from  'angular2/common'
 
@@ -23,7 +24,8 @@ import {
         HashLocationStrategy} from 'angular2/router';
     
 import {Desktop} from 'client/allgemein/desktop';
-import {PaiLiuyao} from 'client/liuyao/paiLiuyao';
+//import {PaiLiuyao} from 'client/liuyao/paiLiuyao';
+import {LiuyaoComponent} from 'client/liuyao/liuyaocomponent';
 import {PaiBazi} from 'client/bazi/paiBazi';
 import {CalendarPage} from 'client/calendar/calendarPage'
 import {CompassPage} from 'client/compass/compassPage'
@@ -37,6 +39,8 @@ import {UserComponent} from './user/usercomponent'
 import {MailVerified} from 'client/user/mailverify'
 import {ResetPassword} from 'client/user/resetpassword'
 
+import {PaipanEmitter} from 'client/allgemein/paipanermitter'
+
 declare var jQuery;
 
 @Component({
@@ -48,7 +52,7 @@ declare var jQuery;
 @RouteConfig([
     {path: '/', as: 'Desktop', component: Desktop},
     {path: '/paibazi', as: 'PaiBazi', component: PaiBazi},
-    {path: '/pailiuyao', as: 'PaiLiuyao', component: PaiLiuyao},
+    {path: '/pailiuyao/...', as: 'PaiLiuyao', component: LiuyaoComponent},
     {path: '/calendar', as: 'Calendar', component: CalendarPage},
     {path: '/compass', as: 'Compass', component: CompassPage},
     {path: '/setting', as: 'Setting', component: AppSetting},
@@ -61,6 +65,7 @@ class HuaheApp {
     router: Router;
     location: Location;
     glsetting: GlobalSetting;
+    emitterPaipan: EventEmitter<any>;
     
     constructor(@Inject(Router) router: Router,
                 @Inject(Location) location: Location,
@@ -68,7 +73,14 @@ class HuaheApp {
         this.router = router;
         this.location = location;
         this.glsetting = glsetting;
-        console.log("huaheApp start")
+        
+        
+        this.emitterPaipan = PaipanEmitter.get(PaipanEmitter.Paipan);
+        this.emitterPaipan.subscribe(data => {
+            console.log('ermitter', data)
+            Desktop.AddFrame(data, this.glsetting.GUID)
+            this.router.navigate(['/Desktop'])
+        })
     }
 
     get iOS(){

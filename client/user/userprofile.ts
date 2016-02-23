@@ -65,7 +65,7 @@ export class UerProfile{
                     this.ngOnInit()
                 })
 
-                this.glsetting.ShowMessage("更新数据失败", err)
+                this.glsetting.Alert("更新数据失败", err.toString())
             })
         }
     }
@@ -89,14 +89,14 @@ export class UerProfile{
     
     sendVerifyEmail(){
         if(!this.glsetting.CheckEmail(this.Email)){
-            this.glsetting.ShowMessage('无效地址', '邮箱地址不正确, 无法发送验证邮件！')
+            this.glsetting.Alert('无效地址', '邮箱地址不正确, 无法发送验证邮件！')
             return;
         }
 
         Meteor.call('sendVerificationEmail', Meteor.userId(), this.Email, (err, response) => {
             if(!err){
                 console.log('email is sended!')
-                this.glsetting.ShowMessage('邮件发送成功', '验证邮件已经发送到您的注册邮箱中！')
+                this.glsetting.Notify('验证邮件已经发送到您的注册邮箱中！', 1)
             }else{
                 console.log('Error : ', err)
             }
@@ -157,7 +157,7 @@ export class UerProfile{
                 this.router.parent.navigate(['Login'])
             })
         }).catch(err => {
-            this.glsetting.ShowMessage("退出失败", err)
+            this.glsetting.Alert("退出失败", err.toString())
         })
     }
     
@@ -168,7 +168,6 @@ export class UerProfile{
                 {$set: {'profile.nickname': nickname, 'profile.moto': moto}},
                 (err, res) => {
                     if(err){
-                        //this.glsetting.ShowMessage("更新数据失败", err)
                         reject(err)
                     }else{
                         console.log("update profile successed!")
@@ -182,13 +181,13 @@ export class UerProfile{
 
     private changEmail(newmail: string){
         if(!this.glsetting.CheckEmail(this.Email)){
-            this.glsetting.ShowMessage("更改邮箱失败", '您输入的是一个无效信箱地址.')
+            this.glsetting.Alert("更改邮箱失败", '您输入的是一个无效信箱地址。')
             return;
         }
 
         Meteor.call('changeMail', Meteor.userId(), newmail, (err, res) => {
             if(err){
-                this.glsetting.ShowMessage("更改邮箱失败", err)
+                this.glsetting.Alert("更改邮箱失败", err.toString())
             }else{
                 console.log('change mail successed:', res)
             }
@@ -228,7 +227,7 @@ export class UerProfile{
                 'FilesAdded': (up, files) => {
                     if(this.imagequote.quote <= this.imagequote.current){
                         up.splice(0);
-                        this.glsetting.ShowMessage("拒绝上传", "您的文件数量超出了范围. 如果您想获得更多的权限, 请联系管理员. ")
+                        this.glsetting.Alert("拒绝上传", "您的文件数量超出了范围. 如果您想获得更多的权限, 请联系管理员。 ")
                         return
                     }
 
@@ -236,7 +235,7 @@ export class UerProfile{
                     if(up.files.length > maxfiles )
                     {
                         up.splice(0);
-                        this.glsetting.ShowMessage("拒绝上传", "每次只允许上传一个文件.")
+                        this.glsetting.Alert("拒绝上传", "每次只允许上传一个文。")
                         return
                     }
                 },

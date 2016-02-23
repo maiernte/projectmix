@@ -106,10 +106,14 @@ export class AppSetting{
     }
     
     ClearLocalDB(){
-        this.glsetting.ShowMessage("清空本地数据", "所有本地数据将被清空。没有保存到云端的数据将永久丢失。确定进行此操作吗？", () => {
-            console.log("local records are cleared")
+        let title = "清空本地数据"
+        let msg = "所有本地数据将被清空。没有保存到云端的数据将永久丢失。确定进行此操作吗？"
+        
+        this.glsetting.Confirm(title, msg, () => {
             LocalRecords.clear();
             LocalBooks.clear();
+        }, () => {
+            console.log("cancel")
         })
     }
 }

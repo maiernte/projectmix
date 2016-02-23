@@ -6,6 +6,7 @@ import {Component, Inject} from 'angular2/core'
 import {NgFor} from 'angular2/common'
 import {Router} from 'angular2/router'
 
+import {PaipanEmitter} from 'client/allgemein/paipanermitter'
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
 
@@ -24,6 +25,8 @@ declare var moment;
 })
 
 export class PaiBazi{
+    emitter = PaipanEmitter.get(PaipanEmitter.Paipan);
+    
     private ganzhinames: Array<string>;
     Panel = 'paipan';
 
@@ -200,7 +203,8 @@ export class PaiBazi{
             code: this.Input.Code
         }
 
-        this.router.parent.navigate(['/Desktop', params])
+        //this.router.parent.navigate(['/Desktop', params])
+        this.emitter.emit(params)
     }
 
     private initCityOptions(){

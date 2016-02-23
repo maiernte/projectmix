@@ -54,7 +54,7 @@ export class BookMarket{
         let bks = bkmanager.MyBooks;
         if(bks.length == 0){
             let msg = "没有发现本地书集。请登录后， 回到本页点击上方“下行”按钮，拉取你的在线书集。或者点击“新建”按钮，创建本地书集。"
-            this.glsetting.ShowMessage("书集提示", msg)
+            this.glsetting.Alert("书集", msg)
             this.Loading = false;
         }else{
             for(let bk of bks){
@@ -67,12 +67,12 @@ export class BookMarket{
         if(book.IsCloud == true) return;
         
         if(!this.glsetting.Signed){
-            this.glsetting.ShowMessage("推送云端", "您还没有登录，无法将书集推送云端。")
+            this.glsetting.Alert("推送云端", "您还没有登录，无法将书集推送云端。")
             return;
         }
     
         let msg = "一旦转为云书集， 则不可以转为纯本地书集。要将此书集推送到云端吗？"
-        this.glsetting.ShowMessage("推送云端", msg, () => {
+        this.glsetting.Confirm("推送云端", msg, () => {
             let bkmanager = this.glsetting.BookManager;
             bkmanager.UploadBook(book.Id)
                 .then((res) => {
@@ -80,15 +80,15 @@ export class BookMarket{
                     if(res == true){
                         book.IsCloud = true
                     }else{
-                        this.glsetting.ShowMessage('推送失败', res)
+                        this.glsetting.Alert('推送失败', res.toString())
                     }
                 })
-        })
+        }, null)
     }
     
     deleteBook(book: BookView){
         let msg = "这本书将被永久性删除，所有内容将不可恢复。您确认要删除此书吗？"
-        this.glsetting.ShowMessage('删除书集', msg, () => {
+        this.glsetting.Confirm('删除书集', msg, () => {
             let bkmanager = this.glsetting.BookManager
             bkmanager.DeleteBook(book.Id)
                 .then(err => {
@@ -98,10 +98,10 @@ export class BookMarket{
                             console.log('this.books', this.books)
                         })
                     }else{
-                        this.glsetting.ShowMessage("删除书集失败", err)
+                        this.glsetting.Alert("删除书集失败", err.toString())
                     }
                 })
-            })
+            }, null)
     }
     
     editBook(book: BookView){
@@ -121,7 +121,7 @@ export class BookMarket{
     
     private loadBooks(){
         if(this.glsetting.Signed == false){
-            this.glsetting.ShowMessage("拉取在线书集", "您还没有登录，无法拉取在线书集。")
+            this.glsetting.Alert("拉取在线书集", "您还没有登录，无法拉取在线书集。")
             return
         }
     
@@ -131,11 +131,11 @@ export class BookMarket{
         bkmanager.DownloadBooks().then(res => {
             let msg = "对不起，找不到您的在线书集。如果确实创建过的话，请联系管理员。"
             if(res == false){
-                this.glsetting.ShowMessage("在线书集", msg)
+                this.glsetting.Alert("在线书集", msg)
             }else{
                 let bks = bkmanager.MyBooks
                 if(bks.length == 0){
-                    this.glsetting.ShowMessage("在线书集", msg)
+                    this.glsetting.Alert("在线书集", msg)
                 }
                 
                 for(let bk of bks){

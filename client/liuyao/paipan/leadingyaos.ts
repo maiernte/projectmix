@@ -1,5 +1,6 @@
 /// <reference path="../../../typings/angular2-meteor.d.ts" />
 import {Component, Inject, EventEmitter, Output, ContentChild} from 'angular2/core'
+
 import {TranslatePipe} from '../../allgemein/translatePipe'
 import {GlobalSetting} from  '../../globalsetting'
 
@@ -32,7 +33,7 @@ export class LeadingYao{
     constructor(@Inject(GlobalSetting) glsetting:GlobalSetting) {
         this.glsetting = glsetting;
     }
-
+    
     get Result(){
         let yaos = [];
         for(let img of this.yao6){
@@ -73,6 +74,7 @@ export class LeadingYao{
     }
 
     NextStep(){
+        console.log("step 4 finished")
         this.onfinished.next('step 4');
     }
 

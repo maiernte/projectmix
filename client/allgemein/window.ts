@@ -92,7 +92,7 @@ export class TyWindow {
 	
 	showSaveModal(ele){
 		if(!this.glsetting.Signed || !this.books || this.books.length == 0){
-			this.glsetting.ShowMessage('无法保存', '您还没有登录， 或者还没有创建书集。无法保存卦例/命例。')
+			this.glsetting.Alert('无法保存', '您还没有登录， 或者还没有创建书集。无法保存卦例/命例。')
 			return
 		}
 

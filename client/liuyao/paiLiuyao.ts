@@ -4,6 +4,7 @@ import {Component, Inject} from 'angular2/core'
 import {NgFor} from 'angular2/common'
 import {Router} from 'angular2/router'
 
+import {PaipanEmitter} from 'client/allgemein/paipanermitter'
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
 import {GanZhi, ZhiNames} from "../../lib/base/ganzhi";
@@ -26,6 +27,8 @@ declare function moment();
 })
 
 export class PaiLiuyao {
+    emitter = PaipanEmitter.get(PaipanEmitter.Paipan);
+    
     inputModel:string = 'manuel';
     question: string;
 
@@ -58,14 +61,15 @@ export class PaiLiuyao {
         this.showMenu(hideMenu);
     }
     
-    LogMe(event, gua){
-        console.log(event, gua)
+    navToLeading(){
+        this.router.parent.navigate(['./Leading'])
     }
 
     paiGua(time, gua){
         let params = {
             flag: 'gua',
         }
+
         if(this.InputModel == 'manuel'){
             params['time'] = time;
             params['gua'] = gua;
@@ -77,22 +81,11 @@ export class PaiLiuyao {
             params['type'] = gua;
             params['gua'] = gua === 3 ? this.calcRandomGua() : this.calcRiYueGua(gua);
             params['question'] = this.question
-        }else if(this.InputModel == 'leading'){
-            let date = new Date(Date.now());
-            params['time'] = date.toISOString();
-            params['gua'] = gua;
-            params['type'] = 0;
-            params['question'] = this.question
         }
 
         //console.log('paigua', params)
-        this.router.parent.navigate(['/Desktop', params])
-    }
-
-    leadingFinished(event){
-        console.log('leading finished......', event)
-        this.question = event[2];
-        this.paiGua(null, [event[0], event[1]])
+        //this.router.parent.navigate(['/Desktop', params])
+        this.emitter.emit(params)
     }
 
     // 1 日月卦 2 日时卦

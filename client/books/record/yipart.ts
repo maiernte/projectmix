@@ -18,6 +18,7 @@ import {TYUploader} from 'lib/qiniu/tyuploader'
 declare var jQuery;
 declare var MediumEditor;
 declare var QiniuUploader;
+declare var alertify;
 
 @Component({
     selector: "yixue-part",
@@ -48,6 +49,7 @@ export class YixuePart{
     UpLoading = false
     ButtonId = ''
     AllowQiniu = false
+    PictureUrl = ''
 
     constructor(private router: Router,
                 private routeParams: RouteParams,
@@ -136,37 +138,37 @@ export class YixuePart{
 
     copyLink(link: string){
         YixuePart.copyLink = link
-        this.glsetting.ShowMessage('提示', '点击最上面的图片按钮, 即可将此链接复制到新的外链图片里.')
+        this.glsetting.Alert('提示', '点击最上面的图片按钮, 即可将此链接复制到新的外链图片里.')
     }
 
     insertLink(){
         let urlinit = (YixuePart.copyLink || '')
-
-        let content = `<div class="ui fluid input">
-            <input type="text"
-                    value = '${urlinit}'
-                   placeholder="http://xxx.somesite.com/pic.jpeg"
-                   id='record-pic-url-input'>
-        </div>`
-
-        this.glsetting.ShowMessage("请输入图片地址:", content, () =>{
-            let dom = jQuery('#record-pic-url-input')
-            let url = dom[0].value.trim()
-
-            if(url == '')return
-            let found = this.links.filter(l => l == url)
+        
+        let title = this.translator.transform("外链图片", null)
+        let message = this.translator.transform("请输入图片地址：", null)
+        let oktext = this.translator.transform('确定', null)
+        let canceltext = this.translator.transform('取消', null)
+        
+        alertify.prompt(title, message, urlinit, (evt, value) => {
+            if(value == null || value == '') return 
+            
+            let found = this.links.filter(l => l == value)
             if(found.length > 0)return
 
-            this.record.InsertLink(url)
+            this.record.InsertLink(value)
                 .then(() => {
                     this.ngZone.run(() => {
                         this.links = this.record.Links
                         console.log('insert links to record', this.Links)
                     })
                 }).catch(err => {
-                    this.glsetting.ShowMessage("添加外链失败", err)
-            })
-        })
+                    this.glsetting.Alert("添加外链失败", err.toString())
+                })
+        }, () => {
+            console.log("cancel")
+        }).set('labels', {ok:oktext, cancel:canceltext});
+        
+        return
     }
 
     removeLink(link){
@@ -179,7 +181,7 @@ export class YixuePart{
                         this.images = this.record.Images
                     })
             }).catch(err => {
-                this.glsetting.ShowMessage("删除内链失败", err)
+                this.glsetting.Alert("删除内链失败", err.toString())
             })
         }else{
             console.log('remove link ', link)
@@ -189,7 +191,7 @@ export class YixuePart{
                         this.links = this.record.Links
                     })
             }).catch(err => {
-                this.glsetting.ShowMessage("删除外链失败", err)
+                this.glsetting.Alert("删除外链失败", err.toString())
             })
         }
     }
@@ -200,9 +202,8 @@ export class YixuePart{
     }
 
     showOrigPic(url){
-        console.log(url)
-        let content = `<img class="image" src='${url}'>`
-        this.glsetting.ShowMessage('原图', content)
+        this.PictureUrl = url
+        jQuery('.ui.modal.picture').modal('show')
     }
 
     goNextRecord(flag){
@@ -222,7 +223,7 @@ export class YixuePart{
             this.router.parent.navigate(['./BookRecord', {bid: bookid, rid: rd._id}])
         }else{
             let msg = "现在已经是" + (flag < 0 ? '第一个' : '最后一个') + '记录'
-            this.glsetting.ShowMessage("搜索记录", msg)
+            this.glsetting.Notify(msg, 1)
         }
     }
 
@@ -256,9 +257,9 @@ export class YixuePart{
         this.record.CloudSync().then((res) => {
             let msg = res < 0 ? "更新到本地。" : "更新到云端。"
             msg = res == 0 ? "数据已经更新过了。" :msg
-            this.glsetting.ShowMessage("同步数据", msg)
+            this.glsetting.Notify(msg, 1)
         }).catch(err => {
-            this.glsetting.ShowMessage("同步数据失败", err)
+            this.glsetting.Alert("同步数据失败", err.toString())
         })
     }
 
@@ -300,7 +301,7 @@ export class YixuePart{
             bindListeners: {
                 'FilesAdded': (up, files) => {
                     if(this.Images.length === 3){
-                        this.glsetting.ShowMessage("添加图片", "非常抱歉, 由于运营成本的缘故, 每个记录最多允许三张图片. ")
+                        this.glsetting.Notify("非常抱歉, 由于运营成本的缘故, 每个记录最多允许三张图片. ", -1)
                         throw Error('cancel')
                     }
 
@@ -339,7 +340,7 @@ export class YixuePart{
                     this.ngZone.run(() => {
                         this.UpLoading = false;
                         if(this.uploadErr){
-                            this.glsetting.ShowMessage('上传失败', this.uploadErr)
+                            this.glsetting.Alert('上传失败', this.uploadErr.toString())
                         }else {
                             console.log('upload completed', this.record.Id)
                             this.ngZone.run(() => {
@@ -387,9 +388,9 @@ export class YixuePart{
         this.record.Save(question, feed, desc).then(res => {
             if(this.guaview) this.guaview.changeQuestion(question);
             if(this.baziview) this.baziview.changeQuestion(question);
-            this.glsetting.ShowMessage('更新成功', '成功更新到数据库！')
+            this.glsetting.Notify('成功更新到数据库！', 1)
         }).catch(err => {
-            this.glsetting.ShowMessage('更新数据失败', err)
+            this.glsetting.Alert('更新数据失败', err.toString())
         });
     }
 }

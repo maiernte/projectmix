@@ -101,12 +101,12 @@ export class BookContent extends MeteorComponent{
     deleteRecords(){
         let rds = this.Records.filter(r => r.Checked)
         if(rds.length == 0){
-            this.glsetting.ShowMessage("删除记录", '您还没有选取任何记录， 请在要删除的记录前打勾。')
+            this.glsetting.Alert("删除记录", '您还没有选取任何记录， 请在要删除的记录前打勾。')
             return;
         }
         
         let msg = '打勾的记录将被永久性删除，所有内容不可恢复。您确认要删除这些记录吗？'
-        this.glsetting.ShowMessage('删除记录', msg, () => {
+        this.glsetting.Confirm('删除记录', msg, () => {
             let promises = []
             
             for(let rd of rds){
@@ -119,7 +119,7 @@ export class BookContent extends MeteorComponent{
                     this.loadContent();
                 })
             })
-        })
+        }, null)
     }
 
     openRecord(rd: RecordHelper){
@@ -130,13 +130,13 @@ export class BookContent extends MeteorComponent{
         rd.CloudSync().then((res) => {
             let msg = res < 0 ? "更新到本地。" : "更新到云端。"
             msg = res == 0 ? "数据已经更新过了。" : msg
-            this.glsetting.ShowMessage("同步数据", msg)
+            this.glsetting.Notify(msg, 1)
             
             this.ngZone.run(() => {
                 console.log('rd.IsCloud ? ', rd.IsCloud)
             })
         }).catch(err => {
-            this.glsetting.ShowMessage("同步数据失败", err)
+            this.glsetting.Alert("同步数据失败", err.toString())
         })
     }
 
@@ -156,7 +156,7 @@ export class BookContent extends MeteorComponent{
     }
     
     synchronCloud(){
-        this.glsetting.ShowMessage("数据同步", '是否将这本书集的内容与云端数据同步？', () => {
+        this.glsetting.Confirm("数据同步", '是否将这本书集的内容与云端数据同步？', () => {
             this.cloudData().then(rds => {
                 return this.download(rds)
             }).then(ids => {
@@ -175,13 +175,11 @@ export class BookContent extends MeteorComponent{
                 this.ngZone.run(() => {
                     this.loadContent();
                 })
-                this.glsetting.ShowMessage('操作成功', '恭喜！数据已经全部同步！')
+                this.glsetting.Notify('恭喜！数据已经全部同步！', 1)
             }).catch(err => {
-                //this.glsetting.ShowMessage('上传数据错误', err)
-                console.log('catch err ', err)
-                this.glsetting.ShowMessage('上传数据错误', err)
+                this.glsetting.Alert('上传数据错误', err.toString())
             })
-        });
+        }, null);
     }
 
     private loadContent(){
