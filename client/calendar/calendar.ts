@@ -8,9 +8,6 @@ import {GlobalSetting} from  'client/globalsetting'
 import {TYLunar, TYDate} from 'lib/lunar/tylunar';
 import {LandMaps} from 'lib/lunar/landmaps';
 
-declare function moment();
-declare function moment(text: string);
-
 @Component({
     selector: 'calendarview',
     templateUrl: 'client/calendar/calendar.html',
@@ -80,19 +77,20 @@ export class CalendarView {
         this.inited = true;
     };
     
-    get SelectedDate(){
+    get SelectedDate(): string{
         return this.selectedDate;
     }
     
-    set SelectedDate(value) {
+    set SelectedDate(value: string) {
         if(this.inited == false || value == ''){
             return;
         }
     
         this.selectedDate = value;
-        let d = moment(value);
-        if(d.year() != this.Year || d.month() + 1 != this.Month || d.date() != this.Date){
-            this.initWeeks(d.year(), d.month() + 1, d.date());
+
+        let d = Date.fromText(value)
+        if(d.getFullYear() != this.Year || d.getMonth() + 1 != this.Month || d.getDate() != this.Date){
+            this.initWeeks(d.getFullYear(), d.getMonth() + 1, d.getDate());
         }
     }
 
@@ -115,8 +113,8 @@ export class CalendarView {
         if(m == this.Month && date){
             this.Date = d;
             this.TyDate = date;
-            
-            this.SelectedDate = moment(y + '-' + m + '-' + d).format('YYYY-MM-DD');
+
+            this.SelectedDate = date.date.formate()
         }else{
             this.initWeeks(y, m, d)
         }
@@ -143,7 +141,7 @@ export class CalendarView {
             let month = res.getMonth() + 1;
             let date = res.getDate();
 
-            this.NlSearch['Result'] = moment(year + '-' + month + '-' + date).format('YYYY-MM-DD');;
+            this.NlSearch['Result'] = res.formate()
             this.NlSearch['ResultTX'] = year + '年 ' + month + '月 ' + date + '日'
             console.log(this.NlSearch['Result'])
         }else{
@@ -189,9 +187,9 @@ export class CalendarView {
         this.Month = month;
         this.Date = _date;
         this.Year = year;
-        
-        let d = moment(year + '-' + month + '-' + _date)
-        this.SelectedDate = d.format('YYYY-MM-DD');
+
+        let d = new Date(year, month - 1, _date)
+        this.SelectedDate = d.formate()
     };
 
     private initDetail(){
@@ -212,7 +210,7 @@ export class CalendarView {
     
     ngOnInit(){
         let date = new Date(Date.now());
-        this.SelectedDate = moment().format('YYYY-MM-DD');
+        this.SelectedDate = date.formate();
         this.NlSearch={
             Year: date.getFullYear(),
             MonthOptions:TYLunar.M_ChineseMonthNames,

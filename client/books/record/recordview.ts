@@ -15,6 +15,8 @@ import {YixuePart} from './yipart'
 import {GuaView} from 'client/liuyao/guaview'
 import {BaziView} from 'client/bazi/baziview'
 
+import {PaipanEmitter} from 'client/allgemein/paipanermitter'
+
 declare var jQuery;
 declare var Promise;
 
@@ -26,6 +28,8 @@ declare var Promise;
 })
 
 export class RecordView{
+    emitterBack = PaipanEmitter.get(PaipanEmitter.BackButton);
+
     private bookid = ''
     private recordid = ''
     private bookname = '本地记录'
@@ -35,6 +39,14 @@ export class RecordView{
                 private routeParams: RouteParams,
                 private ngZone: NgZone,
                 @Inject(GlobalSetting) public glsetting:GlobalSetting) {
+
+        document.addEventListener("backbutton", () => {
+            this.glsetting.Notify("recordview back", 1)
+        }, false);
+
+        /*this.emitterBack.subscribe(() => {
+            this.goBack();
+        })*/
     }
 
     ngOnInit(){

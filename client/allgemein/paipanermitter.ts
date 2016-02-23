@@ -7,6 +7,7 @@ export class PaipanEmitter {
     private static _emitters: { [channel: string]: EventEmitter<any> } = {};
 
     static Paipan = 'paipan';
+    static BackButton = 'backbutton'
 
     static get(channel: string): EventEmitter<any> {
         if (!this._emitters[channel])

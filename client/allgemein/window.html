@@ -4,7 +4,7 @@
     </div>
     <div class="ui bottom attached small menu" style="background-color: #eee;">
         <div class="right menu">
-            <div class="ui animated vertical button item" (click)='showSetting()'>
+            <div class="ui animated vertical button item" (click)='showSetting()' *ngIf="CanSave">
                 <div class="visible content">
                     <i class="icon setting"></i>
                 </div>
@@ -20,7 +20,7 @@
                     {{'宽显' | tran:glsetting.lang}}
                 </div>
             </div>
-            <div class="ui animated vertical button item" (click)="saveAsPng(domtosave)">
+            <div class="ui animated vertical button item" (click)="saveAsPng(domtosave)" *ngIf="CanSave">
                 <div class="visible content">
                     <i class="icon photo"></i>
                 </div>

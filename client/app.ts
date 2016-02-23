@@ -65,7 +65,9 @@ class HuaheApp {
     router: Router;
     location: Location;
     glsetting: GlobalSetting;
+
     emitterPaipan: EventEmitter<any>;
+    emitterGoBack: EventEmitter<any>;
     
     constructor(@Inject(Router) router: Router,
                 @Inject(Location) location: Location,
@@ -77,10 +79,20 @@ class HuaheApp {
         
         this.emitterPaipan = PaipanEmitter.get(PaipanEmitter.Paipan);
         this.emitterPaipan.subscribe(data => {
-            console.log('ermitter', data)
+            //console.log('ermitter', data)
             Desktop.AddFrame(data, this.glsetting.GUID)
             this.router.navigate(['/Desktop'])
         })
+
+        /*document.addEventListener("deviceready", () => {
+            console.log('deviceready....')
+            this.glsetting.Notify('deviceready....', 1)
+        }, false);*/
+
+        /*this.emitterGoBack = PaipanEmitter.get(PaipanEmitter.BackButton)
+        document.addEventListener("backbutton", () => {
+            this.emitterGoBack.emit({})
+        }, false);*/
     }
 
     get iOS(){

@@ -5,7 +5,10 @@ import {Component,
         ViewChild,
         AfterContentInit, 
         Output, 
-        EventEmitter} from 'angular2/core'
+        EventEmitter,
+        ElementRef,
+        Renderer} from 'angular2/core'
+
 import {Router} from 'angular2/router'
 
 import {NgFor} from 'angular2/common'
@@ -28,6 +31,7 @@ declare var Promise:any;
 
 export class PailiuyaoLeading{
     emitter = PaipanEmitter.get(PaipanEmitter.Paipan);
+    emitterBack = PaipanEmitter.get(PaipanEmitter.BackButton);
     
     CurrentStep: number;
     ImgUrl: string;
@@ -41,8 +45,29 @@ export class PailiuyaoLeading{
     
     @Output() onfinished = new EventEmitter();
 
-    constructor(@Inject(GlobalSetting) public glsetting:GlobalSetting, private router: Router) {
-        console.log("create leading")
+    constructor(@Inject(GlobalSetting) public glsetting:GlobalSetting,
+                private router: Router,
+                private rootElement: ElementRef,
+                private renderer: Renderer) {
+
+
+        document.addEventListener("backbutton", () => {
+            this.glsetting.Notify("edit book back", 1)
+        }, false);
+
+        /*this.emitterBack.subscribe(() => {
+            this.glsetting.Notify("leading back", 1)
+            this.goBack();
+        })*/
+    }
+
+    ngOnDestroy(){
+        this.glsetting.Notify("leading destroy", -1)
+        document.removeEventListener("backbutton", this.onBackButton, false);
+    }
+
+    onBackButton(){
+        this.glsetting.Notify("leading back", 1)
     }
     
     goBack(){

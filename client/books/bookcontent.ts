@@ -2,7 +2,7 @@
 /// <reference path="../../typings/book.d.ts" />
 /// <reference path="../../typings/ng2-pagination.d.ts" />
 
-import {Component, Inject, NgZone, ElementRef} from 'angular2/core'
+import {Component, Inject, NgZone, ElementRef, Renderer} from 'angular2/core'
 import {NgFor, NgIf} from 'angular2/common'
 import {Router, RouteParams} from 'angular2/router'
 
@@ -14,6 +14,8 @@ import {RecordHelper} from './record/recordhelper'
 
 import {MeteorComponent} from 'angular2-meteor';
 import {PaginationService, PaginatePipe, PaginationControlsCpm} from 'ng2-pagination';
+
+import {PaipanEmitter} from 'client/allgemein/paipanermitter'
 
 declare var jQuery;
 declare var Promise;
@@ -27,6 +29,8 @@ declare var CouchDB: any;
     viewProviders: [PaginationService]
 })
 export class BookContent extends MeteorComponent{
+    emitterBack = PaipanEmitter.get(PaipanEmitter.BackButton);
+
     private bookid: string;
     private bookname: string;
     private showgua = true
@@ -44,9 +48,28 @@ export class BookContent extends MeteorComponent{
                 private routeParams: RouteParams,
                 private rootElement: ElementRef,
                 private ngZone: NgZone,
+                private renderer: Renderer,
                 @Inject(GlobalSetting) public glsetting:GlobalSetting) {
         super()
         this.pageSize = this.glsetting.PageSize;
+
+        document.addEventListener("backbutton", () => {
+            this.glsetting.Notify("book content back", 1)
+        }, false);
+
+        /*this.emitterBack.subscribe(() => {
+            this.glsetting.Notify("book content back", 1)
+            this.goBack();
+        })*/
+    }
+
+    ngOnDestroy(){
+        this.glsetting.Notify("BookContent destroy", -1)
+        document.removeEventListener("backbutton", this.onBackButton, false);
+    }
+
+    onBackButton(){
+        this.glsetting.Notify("book content back", 1)
     }
     
     get BookName(){

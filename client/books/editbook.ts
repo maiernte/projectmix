@@ -11,6 +11,7 @@ import {GlobalSetting} from 'client/globalsetting'
 import {MeteorComponent} from 'angular2-meteor';
 
 import {LocalBooks, LocalRecords} from 'collections/books'
+import {PaipanEmitter} from 'client/allgemein/paipanermitter'
 
 declare var jQuery;
 
@@ -22,6 +23,8 @@ declare var jQuery;
 })
 
 export class BookEditor extends MeteorComponent{
+    emitterBack = PaipanEmitter.get(PaipanEmitter.BackButton);
+
     private book: Book;
     Name: string;
     Desc: string;
@@ -36,6 +39,14 @@ export class BookEditor extends MeteorComponent{
                 private ngZone: NgZone,
                 @Inject(GlobalSetting) public glsetting:GlobalSetting) {
         super()
+
+        document.addEventListener("backbutton", () => {
+            this.glsetting.Notify("edit book back", 1)
+        }, false);
+
+        /*this.emitterBack.subscribe(() => {
+            this.goBack();
+        })*/
     }
     
     get IsCloud(){

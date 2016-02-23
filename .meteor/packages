@@ -19,7 +19,6 @@ semantic:ui
 semantic:ui-css
 flemay:less-autoprefixer
 shcherbin:flex-grid
-rzymek:moment-locale-zh-cn
 cloudant:couchdb
 ground:db
 mediumeditor:mediumeditor

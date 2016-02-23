@@ -6,7 +6,6 @@ import {GlobalSetting} from  'client/globalsetting'
 import {GanZhi, ZhiNames} from "../../../lib/base/ganzhi";
 
 declare var jQuery:any;
-declare function moment();
 
 @Component({
     selector: 'pailiuyao-time',
@@ -80,9 +79,9 @@ export class PailiuyaoTime{
     }
 
     ngOnInit(){
-        let dateText = moment().format('YYYY-MM-DD');
-        let timeText = moment().format('HH:mm')
         let time = new Date(Date.now())
+        let dateText = time.formate();
+        let timeText = time.formate('time');
 
         this.InputTime = {
             Date: dateText,

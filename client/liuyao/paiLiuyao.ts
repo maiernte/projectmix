@@ -17,7 +17,6 @@ import {LeadingYao} from './paipan/leadingyaos'
 import {PailiuyaoCoins} from './paipan/coins'
 
 declare var jQuery:any;
-declare function moment();
 
 @Component({
     selector: 'pailiuyao',
