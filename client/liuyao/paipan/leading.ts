@@ -6,8 +6,7 @@ import {Component,
         AfterContentInit, 
         Output, 
         EventEmitter,
-        ElementRef,
-        Renderer} from 'angular2/core'
+        ElementRef} from 'angular2/core'
 
 import {Router} from 'angular2/router'
 
@@ -47,27 +46,23 @@ export class PailiuyaoLeading{
 
     constructor(@Inject(GlobalSetting) public glsetting:GlobalSetting,
                 private router: Router,
-                private rootElement: ElementRef,
-                private renderer: Renderer) {
+                private rootElement: ElementRef) {
 
+        document.addEventListener("backbutton", this.onBackButton, false);
 
-        document.addEventListener("backbutton", () => {
+        /*document.addEventListener("backbutton", () => {
             this.glsetting.Notify("edit book back", 1)
-        }, false);
-
-        /*this.emitterBack.subscribe(() => {
-            this.glsetting.Notify("leading back", 1)
-            this.goBack();
-        })*/
+        }, false);*/
     }
 
     ngOnDestroy(){
-        this.glsetting.Notify("leading destroy", -1)
+        //this.glsetting.Notify("leading destroy", -1)
         document.removeEventListener("backbutton", this.onBackButton, false);
     }
 
-    onBackButton(){
-        this.glsetting.Notify("leading back", 1)
+    private onBackButton = (evt:Event) => {
+        //this.glsetting.Notify("leading back", 1)
+        this.goBack()
     }
     
     goBack(){

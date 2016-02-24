@@ -317,7 +317,7 @@ export class TYDate{
     get NLdate(){
         return this.nldate;
     }
-    get NLleap(){
+    get NLleap(): string{
         return this.nlleap;
     }
     get NLdateIndex(){

@@ -2,7 +2,7 @@
 /// <reference path="../../typings/moment-node.d.ts" />
 /// <reference path="../../typings/global.d.ts" />
 
-import {Component, Inject} from 'angular2/core'
+import {Component, Inject, ElementRef} from 'angular2/core'
 import {NgFor} from 'angular2/common'
 import {Router} from 'angular2/router'
 
@@ -12,7 +12,7 @@ import {GlobalSetting} from  'client/globalsetting'
 
 import {LandMaps} from "../../lib/lunar/landmaps";
 import {GanZhi} from '../../lib/base/ganzhi'
-import {TYLunar} from '../../lib/lunar/tylunar'
+import {TYLunar, TYDate} from '../../lib/lunar/tylunar'
 
 declare var jQuery:any;
 declare var moment;
@@ -27,6 +27,7 @@ declare var moment;
 export class PaiBazi{
     emitter = PaipanEmitter.get(PaipanEmitter.Paipan);
     
+    private gongliModel = true
     private ganzhinames: Array<string>;
     Panel = 'paipan';
 
@@ -58,10 +59,12 @@ export class PaiBazi{
      }
     monthCollection: Array<string>;
     timeCollection: Array<string>;
+    NlSearch:Object;
 
     glsetting:GlobalSetting;
     constructor(@Inject(GlobalSetting) glsetting:GlobalSetting,
-                private router: Router) {
+                private router: Router, 
+                private rootElement: ElementRef) {
         this.glsetting = glsetting;
     }
     
@@ -137,6 +140,19 @@ export class PaiBazi{
 
         return this.timeCollection;
     }
+    
+    get TimeModel(){
+        return this.gongliModel;
+    }
+    
+    set TimeModel(value){
+        this.gongliModel = value;
+        if(value == true){
+            this.showAnimate('bazi-time-nl', 'bazi-time-gl');
+        }else{
+            this.showAnimate('bazi-time-gl', 'bazi-time-nl');
+        }
+    }
 
     monthcollectionchanged(){
         console.log("monthcollectionchanged")
@@ -158,12 +174,19 @@ export class PaiBazi{
         this.CalcSet.Y = this.GanZhiNames[0];
         this.CalcSet.D = this.GanZhiNames[0];
         this.CalcSet.currentYear = (new Date(Date.now())).getFullYear();
+        
+        let tydate = new TYDate(time)
+        this.NlSearch={
+            Year: time.getFullYear(),
+            MonthOptions:TYLunar.M_ChineseMonthNames,
+            DateOptions: TYLunar.M_DayNames,
+            Month: tydate.NLmonth,
+            Date: tydate.NLdate,
+            Leap: !!tydate.NLleap,
+        }
     }
 
     ngAfterViewInit(){
-
-        /*this.CalcSet.M = '丙寅'
-        this.CalcSet.T = '甲子'*/
     }
 
     calcNextTime(direction: number){
@@ -182,9 +205,15 @@ export class PaiBazi{
 
     paiBazi(){
         let date = new Date(this.Input.Date)
-        //let time = this.Input.Time.split(':')
-        //let houres = parseInt(time[0])
-        //let minutes = parseInt(time[1])
+        if(this.TimeModel == false){
+            // 农历时间
+            date = this.searchNL()
+            if(!date){
+                this.glsetting.Notify('找不到指定的农历日期！', -1)
+                return
+            }
+        }
+        
         let houres = this.Input.HH;
         let minutes = this.Input.MM;
 
@@ -202,6 +231,20 @@ export class PaiBazi{
 
         //this.router.parent.navigate(['/Desktop', params])
         this.emitter.emit(params)
+    }
+    
+    private searchNL(){
+        var y = this.NlSearch['Year'];
+        var m = this.NlSearch['MonthOptions'].indexOf(this.NlSearch['Month']) + 1
+        var d = this.NlSearch['DateOptions'].indexOf(this.NlSearch['Date']) + 1
+        var leap = '';
+        if(this.NlSearch['Leap'] === true){
+            m = m * (-1);
+            leap = '闰'
+        }
+
+        let res = TYLunar.SearchNongli(y, m, d);
+        return res
     }
 
     private initCityOptions(){
@@ -328,4 +371,11 @@ export class PaiBazi{
              return null;
          }
      }
+     
+    private showAnimate(outId: string, inId: string){
+        jQuery(this.rootElement.nativeElement).find('#' + outId).transition('fade left', () => {
+            jQuery(this.rootElement.nativeElement).find('#' + inId).transition('fade right');
+            //jQuery('#' + inId).transition('fade right');
+        });
+    }
 }

@@ -42,7 +42,6 @@ export class UerProfile{
     changingpw = false;
 
     private editModel = false;
-    imagequote = null;
 
     constructor(private router: Router,
                 private routeParams: RouteParams,
@@ -143,11 +142,6 @@ export class UerProfile{
             this.Email = ''
             this.MailVerified = false;
         }
-
-        Meteor.subscribe('userimg', () => {
-            this.imagequote = UserImages.findOne({user: user._id})
-            console.log('imagequote', this.imagequote)
-        })
     }
 
     logout(){
@@ -225,12 +219,6 @@ export class UerProfile{
             save_key: false,
             bindListeners: {
                 'FilesAdded': (up, files) => {
-                    if(this.imagequote.quote <= this.imagequote.current){
-                        up.splice(0);
-                        this.glsetting.Alert("拒绝上传", "您的文件数量超出了范围. 如果您想获得更多的权限, 请联系管理员。 ")
-                        return
-                    }
-
                     var maxfiles = 1;
                     if(up.files.length > maxfiles )
                     {
@@ -269,13 +257,7 @@ export class UerProfile{
                         });
 
                     if(oldicon && oldicon != ''){
-                        //this.imagequote.del.push(oldicon)
                         this.removeImage(oldicon)
-                    }else{
-                        this.imagequote.current += 1
-                        UserImages.update(this.imagequote, (err) => {
-                            console.log('insert to delresource: ', oldicon, err)
-                        })
                     }
                 },
                 'Error': function(up, err, errTip) {

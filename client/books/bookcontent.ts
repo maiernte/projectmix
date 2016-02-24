@@ -2,7 +2,7 @@
 /// <reference path="../../typings/book.d.ts" />
 /// <reference path="../../typings/ng2-pagination.d.ts" />
 
-import {Component, Inject, NgZone, ElementRef, Renderer} from 'angular2/core'
+import {Component, Inject, NgZone, ElementRef} from 'angular2/core'
 import {NgFor, NgIf} from 'angular2/common'
 import {Router, RouteParams} from 'angular2/router'
 
@@ -48,28 +48,21 @@ export class BookContent extends MeteorComponent{
                 private routeParams: RouteParams,
                 private rootElement: ElementRef,
                 private ngZone: NgZone,
-                private renderer: Renderer,
                 @Inject(GlobalSetting) public glsetting:GlobalSetting) {
         super()
         this.pageSize = this.glsetting.PageSize;
 
-        document.addEventListener("backbutton", () => {
-            this.glsetting.Notify("book content back", 1)
-        }, false);
-
-        /*this.emitterBack.subscribe(() => {
-            this.glsetting.Notify("book content back", 1)
-            this.goBack();
-        })*/
+        document.addEventListener("backbutton", this.onBackButton, false);
     }
 
     ngOnDestroy(){
-        this.glsetting.Notify("BookContent destroy", -1)
+        //this.glsetting.Notify("BookContent destroy", -1)
         document.removeEventListener("backbutton", this.onBackButton, false);
     }
 
-    onBackButton(){
-        this.glsetting.Notify("book content back", 1)
+    private onBackButton = (evt: Event) => {
+        //this.glsetting.Notify("book content back", 1)
+        this.goBack()
     }
     
     get BookName(){

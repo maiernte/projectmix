@@ -40,13 +40,15 @@ export class RecordView{
                 private ngZone: NgZone,
                 @Inject(GlobalSetting) public glsetting:GlobalSetting) {
 
-        document.addEventListener("backbutton", () => {
-            this.glsetting.Notify("recordview back", 1)
-        }, false);
+        document.addEventListener("backbutton", this.onBackButton, false);
+    }
+    
+    ngOnDestroy(){
+        document.removeEventListener("backbutton", this.onBackButton, false);
+    }
 
-        /*this.emitterBack.subscribe(() => {
-            this.goBack();
-        })*/
+    private onBackButton = (evt: Event) => {
+        this.goBack()
     }
 
     ngOnInit(){

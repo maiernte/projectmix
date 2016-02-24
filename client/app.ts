@@ -67,7 +67,7 @@ class HuaheApp {
     glsetting: GlobalSetting;
 
     emitterPaipan: EventEmitter<any>;
-    emitterGoBack: EventEmitter<any>;
+    //emitterGoBack: EventEmitter<any>;
     
     constructor(@Inject(Router) router: Router,
                 @Inject(Location) location: Location,
@@ -79,7 +79,6 @@ class HuaheApp {
         
         this.emitterPaipan = PaipanEmitter.get(PaipanEmitter.Paipan);
         this.emitterPaipan.subscribe(data => {
-            //console.log('ermitter', data)
             Desktop.AddFrame(data, this.glsetting.GUID)
             this.router.navigate(['/Desktop'])
         })

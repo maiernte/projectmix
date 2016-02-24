@@ -70,22 +70,71 @@
                     <label>市/县</label>
                 </div>
             </div>
-
-            <div class="fields">
-                <div class="field">
-                    <label>{{'日期' | tran:glsetting.lang}}</label>
-                    <input type="date" lang="zh" [(ngModel)]='Input.Date'>
+            
+            <div class="ui small form" style="margin-bottom: 10px">
+                <h5 class="ui dividing header">{{'出生时间: ' | tran:glsetting.lang}}
+                    <div class="ui toggle checkbox">
+                        <input type="checkbox" [(ngModel)]="TimeModel">
+                        <label>{{'公历/农历' | tran:glsetting.lang}}</label>
+                    </div>
+                </h5>
+                <div id='bazi-time-gl'>
+                    <div class="fields" >
+                        <div class="field">
+                            <label>{{'日期' | tran:glsetting.lang}}</label>
+                            <input type="date" lang="zh" [(ngModel)]='Input.Date'>
+                        </div>
+                        <div class="field">
+                            <label>{{'时辰' | tran:glsetting.lang}}</label>
+                            <!--<input type="time" lang="zh" [(ngModel)]='Input.Time'>-->
+                            <input type="number" min="0" max="23" [(ngModel)]="Input.HH">
+                        </div>
+                        <div class="field">
+                            <label>:</label>
+                            <input type="number" min="0" max="59" [(ngModel)]="Input.MM">
+                        </div>
+                    </div>
                 </div>
-                <div class="field">
-                    <label>{{'时辰' | tran:glsetting.lang}}</label>
-                    <!--<input type="time" lang="zh" [(ngModel)]='Input.Time'>-->
-                    <input type="number" min="0" max="23" [(ngModel)]="Input.HH">
+                
+                <div id='bazi-time-nl' class='transition hidden'>
+                    <div class="fields" >
+                        <div class="six field">
+                            <label>年</label>
+                            <input type="number" min="1640" max="2100" [(ngModel)]="NlSearch.Year">
+                        </div>
+                        <div class="five field">
+                            <label>月</label>
+                            <select class="ui fluid dropdown" [(ngModel)]="NlSearch.Month">
+                                <option *ngFor="#m of NlSearch.MonthOptions" [value]="m">{{m}}</option>
+                            </select>
+                        </div>
+                        <div class="five field">
+                            <label>日</label>
+                            <select class="ui fluid dropdown" [(ngModel)]="NlSearch.Date">
+                                <option *ngFor="#d of NlSearch.DateOptions" [value]="d">{{d}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="inline field">
+                            <label>{{'时辰' | tran:glsetting.lang}}</label>
+                            <!--<input type="time" lang="zh" [(ngModel)]='Input.Time'>-->
+                            <input type="number" min="0" max="23" [(ngModel)]="Input.HH">
+                        </div>
+                        <div class="inline field">
+                            <label>:</label>
+                            <input type="number" min="0" max="59" [(ngModel)]="Input.MM">
+                        </div>
+                        <div class="inline field" style="margin-left: 5px">
+                            <label>闰月</label>
+                            <input type="checkbox" [(ngModel)]="NlSearch.Leap">
+                        </div>
+                    </div>
                 </div>
-                <div class="field">
-                    <label>:</label>
-                    <input type="number" min="0" max="59" [(ngModel)]="Input.MM">
-                </div>
+                
             </div>
+
+            
 
             <div class="field">
 

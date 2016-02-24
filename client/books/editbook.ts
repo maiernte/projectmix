@@ -40,13 +40,15 @@ export class BookEditor extends MeteorComponent{
                 @Inject(GlobalSetting) public glsetting:GlobalSetting) {
         super()
 
-        document.addEventListener("backbutton", () => {
-            this.glsetting.Notify("edit book back", 1)
-        }, false);
+        document.addEventListener("backbutton", this.onBackButton, false);
+    }
+    
+    ngOnDestroy(){
+        document.removeEventListener("backbutton", this.onBackButton, false);
+    }
 
-        /*this.emitterBack.subscribe(() => {
-            this.goBack();
-        })*/
+    private onBackButton = (evt: Event) => {
+        this.goBack()
     }
     
     get IsCloud(){
