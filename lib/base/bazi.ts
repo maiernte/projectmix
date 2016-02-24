@@ -188,7 +188,7 @@ export class Bazi{
         let d = this.D.Index;
         let t = this.T.Index;
 
-        this.shenshas.push(new ShenSha('将星', [y]))
+        this.shenshas.push(new ShenSha('将星', [d]))
         this.shenshas.push(new ShenSha('羊刃', [d]))
         this.shenshas.push(new ShenSha('禄神', [d]))
         this.shenshas.push(new ShenSha('华盖', [d]))

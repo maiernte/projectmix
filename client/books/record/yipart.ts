@@ -50,6 +50,7 @@ export class YixuePart{
     ButtonId = ''
     AllowQiniu = false
     PictureUrl = ''
+    Morefunction = false
 
     constructor(private router: Router,
                 private routeParams: RouteParams,
@@ -57,6 +58,19 @@ export class YixuePart{
                 private ngZone: NgZone,
                 @Inject(GlobalSetting) public glsetting:GlobalSetting) {
         this.translator = new TranslatePipe();
+    }
+    
+    ngOnDestroy(){
+        if(this.AllowQiniu && this.qiniuUploader){
+            this.qiniuUploader.Destroy()
+        }
+        
+        this.editmodel = false
+        
+        if(!!this.editor){
+            this.editor.destroy();
+            this.editor = null;
+        }
     }
 
     get EditModel(){
@@ -199,6 +213,10 @@ export class YixuePart{
     showSetting(){
         if(this.guaview) this.guaview.showSetting();
         if(this.baziview) this.baziview.showSetting();
+        //this.Morefunction = !this.Morefunction
+        
+        jQuery(this.rootElement.nativeElement)
+        .find('#bookrecord-edit').transition('fade up');
     }
 
     showOrigPic(url){
@@ -231,13 +249,13 @@ export class YixuePart{
         this.ButtonId = 'upbtn-' + this.glsetting.RandomStr(5)
 
         let domQuestion = jQuery(this.rootElement.nativeElement).find('.editable.question')
-        domQuestion.text(this.record.Question)
+        domQuestion.text((this.record.Question || ''))
 
         let domFeed = jQuery(this.rootElement.nativeElement).find('.editable.feed')
-        domFeed.text(this.record.FeedText)
+        domFeed.text((this.record.FeedText || ''))
 
         let domDesc = jQuery(this.rootElement.nativeElement).find('.editable.description')
-        domDesc.html(this.record.Description)
+        domDesc.html((this.record.Description || ''))
     }
 
     ngAfterViewInit(){
@@ -254,19 +272,16 @@ export class YixuePart{
     }
 
     syncRecord(){
-        this.record.CloudSync().then((res) => {
-            let msg = res < 0 ? "更新到本地。" : "更新到云端。"
-            msg = res == 0 ? "数据已经更新过了。" :msg
-            this.glsetting.Notify(msg, 1)
-        }).catch(err => {
-            this.glsetting.Alert("同步数据失败", err.toString())
-        })
-    }
-
-    ngOnDestroy(){
-        if(this.AllowQiniu && this.qiniuUploader){
-            this.qiniuUploader.Destroy()
-        }
+        let msg = '将此单个记录的内容与云端数据同步？'
+        this.glsetting.Confirm("数据同步", msg, () => {
+            this.record.CloudSync().then((res) => {
+                let msg = res < 0 ? "更新到本地。" : "更新到云端。"
+                msg = res == 0 ? "数据已经更新过了。" :msg
+                this.glsetting.Notify(msg, 1)
+            }).catch(err => {
+                this.glsetting.Alert("同步数据失败", err.toString())
+            })
+        }, null)
     }
 
     UploadReady() {

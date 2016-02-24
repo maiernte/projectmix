@@ -22,7 +22,7 @@ declare var jQuery;
     directives: [FORM_DIRECTIVES, NgIf]
 })
 
-export class BookEditor extends MeteorComponent{
+export class BookEditor{
     emitterBack = PaipanEmitter.get(PaipanEmitter.BackButton);
 
     private book: Book;
@@ -38,8 +38,6 @@ export class BookEditor extends MeteorComponent{
                 private rootElement: ElementRef,
                 private ngZone: NgZone,
                 @Inject(GlobalSetting) public glsetting:GlobalSetting) {
-        super()
-
         document.addEventListener("backbutton", this.onBackButton, false);
     }
     

@@ -1,7 +1,7 @@
 /// <reference path="../../../typings/angular2-meteor.d.ts" />
 /// <reference path="../../../typings/book.d.ts" />
 
-import {Component, Inject, ElementRef, NgZone} from 'angular2/core'
+import {Component, Inject, ElementRef, NgZone, ViewChild} from 'angular2/core'
 import {NgIf} from 'angular2/common'
 import {Router, RouteParams} from 'angular2/router'
 
@@ -34,6 +34,8 @@ export class RecordView{
     private recordid = ''
     private bookname = '本地记录'
     private record: RecordHelper = null;
+    
+    @ViewChild(YixuePart) yixuepart: YixuePart;
 
     constructor(private router: Router,
                 private routeParams: RouteParams,
@@ -81,8 +83,25 @@ export class RecordView{
         let data = this.Record.RouteParams;
         return data;
     }
+    
+    get IsCloud(){
+        return this.Record.IsCloud
+    }
+    
+    synchronCloud(){
+        if(this.yixuepart){
+            this.yixuepart.syncRecord()
+        }
+    }
 
     goBack(){
-        this.router.parent.navigate(['./BookContent', {id: this.bookid}]);
+        if(this.yixuepart.EditModel == true){
+            let msg = "编辑模式下的数据还没有保存。此时返回书集目录会使数据丢失。您确定放弃保存吗？"
+            this.glsetting.Confirm("保存更改", msg, () => {
+                this.router.parent.navigate(['./BookContent', {id: this.bookid}]);
+            }, null)
+        }else{
+            this.router.parent.navigate(['./BookContent', {id: this.bookid}]);
+        }
     }
 }

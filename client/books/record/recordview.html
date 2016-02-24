@@ -5,7 +5,15 @@
         <i class="angle left icon"></i>
         {{'返回' | tran:glsetting.lang}}
     </a>
+    
     {{'书名: ' + Bookname | tran:glsetting.lang}}
+    
+    <a class="ui basic top right attached large label"
+       style="margin-bottom: 0"
+       (click)="synchronCloud()">
+        <i class="cloud icon" [class.teal]="IsCloud"></i>
+        {{'云同步' | tran:glsetting.lang}}
+    </a>
 </div>
 <div class="ui segment" *ngIf="Record == null">
     <div class="ui active inverted dimmer">

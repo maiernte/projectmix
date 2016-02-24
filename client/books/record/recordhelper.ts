@@ -6,6 +6,7 @@ declare var Promise;
 declare var Meteor;
 
 export class RecordHelper{
+    Loading = false
     Checked: boolean
     constructor(private rd: YiRecord){
         this.Checked = false;

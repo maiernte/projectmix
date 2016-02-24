@@ -28,7 +28,7 @@ declare var CouchDB: any;
     directives: [NgFor, NgIf, PaginationControlsCpm],
     viewProviders: [PaginationService]
 })
-export class BookContent extends MeteorComponent{
+export class BookContent{
     emitterBack = PaipanEmitter.get(PaipanEmitter.BackButton);
 
     private bookid: string;
@@ -49,7 +49,7 @@ export class BookContent extends MeteorComponent{
                 private rootElement: ElementRef,
                 private ngZone: NgZone,
                 @Inject(GlobalSetting) public glsetting:GlobalSetting) {
-        super()
+        
         this.pageSize = this.glsetting.PageSize;
 
         document.addEventListener("backbutton", this.onBackButton, false);
@@ -87,7 +87,7 @@ export class BookContent extends MeteorComponent{
 
     set ShowGua(value){
         this.showgua = value
-        this.loadContent()
+        this.loadContent(null)
     }
 
     get ShowBazi(){
@@ -96,7 +96,7 @@ export class BookContent extends MeteorComponent{
 
     set ShowBazi(value){
         this.showbazi = value
-        this.loadContent()
+        this.loadContent(null)
     }
     
     ngOnInit(){
@@ -107,11 +107,20 @@ export class BookContent extends MeteorComponent{
             this.BookName = book.name
         }
 
-        this.loadContent()
+        this.loadContent(null)
     }
     
     goBack(){
         this.router.parent.navigate(['./List']);
+    }
+    
+    dosearch(evt){
+        let searchText = evt.srcElement.value
+        if(!!searchText && searchText != ''){
+            this.loadContent(searchText)
+        }else{
+            this.loadContent(null)
+        }
     }
 
     deleteRecords(){
@@ -132,7 +141,7 @@ export class BookContent extends MeteorComponent{
             Promise.all(promises).then(() => {
                 this.ngZone.run(() => {
                     console.log('alle record sind gelöscht!')
-                    this.loadContent();
+                    this.loadContent(null);
                 })
             })
         }, null)
@@ -143,17 +152,22 @@ export class BookContent extends MeteorComponent{
     }
     
     syncRecord(rd: RecordHelper){
-        rd.CloudSync().then((res) => {
-            let msg = res < 0 ? "更新到本地。" : "更新到云端。"
-            msg = res == 0 ? "数据已经更新过了。" : msg
-            this.glsetting.Notify(msg, 1)
-            
-            this.ngZone.run(() => {
-                console.log('rd.IsCloud ? ', rd.IsCloud)
+        let msg = '将此单个记录的内容与云端数据同步？'
+        this.glsetting.Confirm("数据同步", msg, () => {
+            rd.Loading = true
+            rd.CloudSync().then((res) => {
+                let msg = res < 0 ? "更新到本地。" : "更新到云端。"
+                msg = res == 0 ? "数据已经更新过了。" : msg
+                this.glsetting.Notify(msg, 1)
+                
+                this.ngZone.run(() => {
+                    rd.Loading = false
+                })
+            }).catch(err => {
+                this.glsetting.Alert("同步数据失败", err.toString())
+                rd.Loading = false
             })
-        }).catch(err => {
-            this.glsetting.Alert("同步数据失败", err.toString())
-        })
+        }, null)
     }
 
     onPageChanged(page: number) {
@@ -172,7 +186,7 @@ export class BookContent extends MeteorComponent{
     }
     
     synchronCloud(){
-        this.glsetting.Confirm("数据同步", '是否将这本书集的内容与云端数据同步？', () => {
+        this.glsetting.Confirm("数据同步", '是否将整本书集的内容与云端数据同步？', () => {
             this.cloudData().then(rds => {
                 return this.download(rds)
             }).then(ids => {
@@ -189,7 +203,7 @@ export class BookContent extends MeteorComponent{
 
                 LocalRecords.update({book: this.bookid}, {$set: {cloud: true}})
                 this.ngZone.run(() => {
-                    this.loadContent();
+                    this.loadContent(null);
                 })
                 this.glsetting.Notify('恭喜！数据已经全部同步！', 1)
             }).catch(err => {
@@ -198,7 +212,7 @@ export class BookContent extends MeteorComponent{
         }, null);
     }
 
-    private loadContent(){
+    private loadContent(txt: string){
         let selector: Object
         if(this.ShowGua && this.ShowBazi){
             selector = {
@@ -224,6 +238,13 @@ export class BookContent extends MeteorComponent{
             this.Loaded = true;
             return;
         }
+        
+        if(!!txt && txt != ''){
+            selector['$or'] = [
+                    {question: {$regex: `.*${txt}.*`}},
+                    {description: {$regex: `.*${txt}.*`}}
+                ]
+        }
 
         let records = LocalRecords
             .find(selector,
@@ -234,6 +255,36 @@ export class BookContent extends MeteorComponent{
         this.onPageChanged(1)
         this.buildRecordView(records);
         this.Loaded = true;
+    }
+    
+    private searchTest(txt){
+        if(!txt){
+            return
+        }
+        
+        let selector = {
+                book: this.bookid,
+                deleted: false,
+                $or: [
+                    {
+                        question: {
+                            $regex: `.*${txt}.*`
+                        }
+                    },
+                    {
+                        description: {
+                            $regex: `.*${txt}.*`
+                        }
+                    },
+                ]
+            }
+            
+        let records = LocalRecords
+            .find(selector,
+                  {fields: {description: 0, img: 0, link: 0}, sort: {created: 'desc'}})
+            .fetch()
+            
+        console.log(records.map(rd => rd.question))
     }
 
     private buildRecordView(records){
@@ -251,7 +302,7 @@ export class BookContent extends MeteorComponent{
     
     private cloudData(): any{
         let promise = new Promise((resolve, reject) => {
-            this.subscribe('bkrecord', this.bookid, {}, () => {
+            Meteor.subscribe('bkrecord', this.bookid, {}, () => {
                 let records = BkRecords.find().fetch()
                 resolve(records);
             })
@@ -313,16 +364,23 @@ export class BookContent extends MeteorComponent{
                     console.log('en.... not good', id)
                     continue;
                 }
-
-                lrd.cloud = true
-                console.log('upsert record', lrd)
-
-                Meteor.call('upsertRecord', lrd, (err) => {
-                    counter = counter - 1;
-                    if(counter <= 0){
-                        resolve(true)
-                    }
-                })
+                
+                if(lrd.cloud == false){
+                    lrd.cloud = true
+                    LocalRecords.update(id, {$set: {cloud: true}})
+                    
+                    BkRecords.insert(lrd, (err, newid) => {
+                        if(err){
+                            resolve(true)
+                        }
+                    })
+                }else{
+                    BkRecords.update(lrd, true, (err, res) => {
+                        if(err){
+                            resolve(true)
+                        }
+                    })
+                }
             } 
         })
         
