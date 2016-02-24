@@ -38,6 +38,7 @@ export class TyWindow {
 	wide: boolean;
 	
 	books: Array<Book>;
+	selectedbook = null;
 	
 	@Input() data: Object;
 	@ContentChild(CalendarView) calendarview: CalendarView;
@@ -92,29 +93,34 @@ export class TyWindow {
 	
 	showSaveModal(ele){
 		if(!this.glsetting.Signed || !this.books || this.books.length == 0){
-			this.glsetting.Alert('无法保存', '您还没有登录， 或者还没有创建书集。无法保存卦例/命例。')
+			this.glsetting.Alert('保存记录', '您还没有登录， 或者还没有创建书集。无法保存卦例/命例。')
 			return
 		}
 
 		jQuery('#' + this.data['id'])
 			.modal({
 				closable  : false,
+				onApprove : () => {
+			      this.saveTo(this.selectedbook)
+			    }
 			}).modal('show')
 	}
 	
 	saveTo(book){
-		jQuery('.modal.save.pan').modal('hide')
-		
 		let record: YiRecord;
 		if(this.guaview) record = this.guaview.exportAsRecord()
 		if(this.baziview) record = this.baziview.exportAsRecord()
 		
-		record.book = book._id
+		record.book = book._id;
 		record.owner = Meteor.userId();
 
 		LocalRecords.insert(record, (err, id) => {
 			if(err){
-				console.log("insert record", err, id, record)
+				//console.log("insert record", err, id, record)
+				this.glsetting.Notify(err.toString(), -1)
+			}else{
+				let name = !!this.guaview ? '卦例' : '命例'
+				this.glsetting.Notify(`${name}已经保存到书集!`, 1)
 			}
 		})
 	}

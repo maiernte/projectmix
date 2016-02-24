@@ -53,14 +53,30 @@
     <div class="ui modal save pan" #modal [id]="data.id">
         <div class="header">{{'保存记录' | tran:glsetting.lang}}</div>
         <div class="content">
-            <div class="ui vertical menu">
+            <!--<div class="ui vertical menu">
                 <a class="approve item" *ngFor="#bk of books" (click)="saveTo(bk)">
                     {{bk.name | tran:glsetting.lang}}
                 </a>
+            </div>-->
+            <div class="ui form">
+                <div class="grouped fields">
+                    <label>{{'选择一本书集：' | tran}}</label>
+                    <div class="field" *ngFor="#bk of books"
+                        (click)="selectedbook = bk">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="selectbook">
+                            <label>{{bk.name | tran:glsetting.lang}}</label>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="actions">
-            <div class="ui cancel button">{{'取消操作' | tran:glsetting.lang}}</div>
+            <div class="ui cancel button">{{'取消' | tran:glsetting.lang}}</div>
+            <div class="ui approve primary button"
+                [class.disabled]="selectedbook == null">
+                {{'确定' | tran:glsetting.lang}}
+            </div>
         </div>
     </div>
 </div>
