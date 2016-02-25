@@ -26,7 +26,7 @@ declare var jQuery:any;
 @Component({
 	selector: 'ty-window',
 	templateUrl: 'client/allgemein/window.html',
-	events: ['onclosing'],
+	events: ['onclosing', 'afterSave'],
 	pipes: [TranslatePipe],
 	directives: [CalendarView, NgFor]
 })
@@ -34,6 +34,8 @@ declare var jQuery:any;
 export class TyWindow {
 	elementRef: ElementRef;
 	onclosing = new EventEmitter();
+	afterSave = new EventEmitter();
+	
 	glsetting: GlobalSetting;
 	wide: boolean;
 	
@@ -97,16 +99,21 @@ export class TyWindow {
 			return
 		}
 
+
 		jQuery('#' + this.data['id'])
 			.modal({
 				closable  : false,
 				onApprove : () => {
-			      this.saveTo(this.selectedbook)
+			      //this.saveTo(this.selectedbook)
+			      console.log('onApprove')
 			    }
 			}).modal('show')
 	}
 	
-	saveTo(book){
+	saveTo(navaftersave){
+		let book = this.selectedbook
+		if(!book)return;
+	
 		let record: YiRecord;
 		if(this.guaview) record = this.guaview.exportAsRecord()
 		if(this.baziview) record = this.baziview.exportAsRecord()
@@ -116,11 +123,14 @@ export class TyWindow {
 
 		LocalRecords.insert(record, (err, id) => {
 			if(err){
-				//console.log("insert record", err, id, record)
 				this.glsetting.Notify(err.toString(), -1)
 			}else{
-				let name = !!this.guaview ? '卦例' : '命例'
-				this.glsetting.Notify(`${name}已经保存到书集!`, 1)
+				if(navaftersave){
+					this.afterSave.next({bid: book._id, rid: id})
+				}else{
+					let name = !!this.guaview ? '卦例' : '命例'
+					this.glsetting.Notify(`${name}已经保存到书集!`, 1)
+				}
 			}
 		})
 	}

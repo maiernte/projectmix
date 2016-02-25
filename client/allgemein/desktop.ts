@@ -85,6 +85,15 @@ export class Desktop{
             }
         }
     }
+    
+    navToRecord(data){
+        
+        try{
+            this.router.parent.navigate(['./Books', 'BookRecord', {bid: data.bid, rid: data.rid}])
+        }catch(err){
+            this.glsetting.Alert("错误", err.toString())
+        }
+    }
 
     ngOnInit(){
         if(!Desktop.frameList){

@@ -29,6 +29,10 @@
                 <i class="trash outline icon"></i>
                 {{'删除' | tran:glsetting.lang}}
             </div>
+            <div class="ui icon button" (click)="copyRecords()">
+                <i class="copy icon"></i>
+                {{'复制' | tran:glsetting.lang}}
+            </div>
         </div>
         <div class="ui checkbox" style="margin-left: 5px">
             <input type="checkbox" [(ngModel)]="ShowGua">
@@ -81,6 +85,31 @@
             </div>
 
             <pagination-controls (change)="onPageChanged($event.page)"></pagination-controls>
+        </div>
+    </div>
+    
+    <div class="ui modal copy record">
+        <div class="header">{{'复制记录' | tran:glsetting.lang}}</div>
+        <div class="content">
+            <div class="ui form">
+                <div class="grouped fields">
+                    <label>{{'选择一本书集：' | tran}}</label>
+                    <div class="field" *ngFor="#bk of books"
+                        (click)="selectedbook = bk">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="selectbook">
+                            <label>{{bk.name | tran:glsetting.lang}}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui cancel button">{{'取消' | tran:glsetting.lang}}</div>
+            <div class="ui approve primary button"
+                [class.disabled]="selectedbook == null">
+                {{'确定' | tran:glsetting.lang}}
+            </div>
         </div>
     </div>
 </div>

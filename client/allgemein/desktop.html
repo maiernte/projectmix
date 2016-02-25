@@ -36,6 +36,7 @@
                    [class.col-md-6]='tywind.wide === false'
                    [class.col-md-12]='tywind.wide === true'
                    [data]="frame"
+                   (afterSave)="navToRecord($event)"
                    (onclosing)="oncloseWind($event)">
             <!--<calendarview class='calendarview' *ngIf='frame.type == "calendar"'></calendarview>-->
             <!--<guaview class='guaview' *ngIf='frame.type == "gua"'></guaview>-->

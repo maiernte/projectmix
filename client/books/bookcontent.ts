@@ -43,6 +43,8 @@ export class BookContent{
     sumItems: number = this.pageSize
 
     IsCloud = false;
+    books: Array<Book>;
+	selectedbook = null;
     
     constructor(private router: Router,
                 private routeParams: RouteParams,
@@ -107,7 +109,9 @@ export class BookContent{
             this.BookName = book.name
         }
 
-        this.loadContent(null)
+        this.ngZone.run(() => {
+            this.loadContent(null)
+        })
     }
     
     goBack(){
@@ -120,6 +124,30 @@ export class BookContent{
             this.loadContent(searchText)
         }else{
             this.loadContent(null)
+        }
+    }
+    
+    copyRecords(){
+        let rds = this.Records.filter(r => r.Checked)
+        if(rds.length == 0){
+            this.glsetting.Alert("复制记录", '您还没有选取任何记录， 请在要复制的记录前打勾。')
+            return;
+        }
+        
+        let otherbooks = LocalBooks.find().fetch()
+        this.books = otherbooks.filter(bk => bk._id != this.bookid)
+        if(this.books.length == 0){
+            this.glsetting.Alert("复制记录", "您没有别的书集，无法选择复制目标。")
+            
+        }else{
+            //this.glsetting.Alert("复制记录", otherbooks.map(bk => bk.name).toString())
+            jQuery('.modal.copy.record')
+			.modal({
+				closable  : false,
+				onApprove : () => {
+			      //this.saveTo(this.selectedbook)
+			    }
+			}).modal('show')
         }
     }
 

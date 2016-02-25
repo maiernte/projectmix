@@ -41,12 +41,12 @@ export class CompassView{
         Startes: [],
     };
 
+    ImgUrl = ''
     Needle = {
         Angle: 0,
         Id: '',
         Value: 0
     }
-
 
     constructor(@Inject(GlobalSetting) public glsetting:GlobalSetting,
                 private rootElement: ElementRef) {
@@ -188,22 +188,19 @@ export class CompassView{
         }
     }
 
-    ImgUrl = ''
+    
     LoadImage(event){
         if(this.IsCordova && navigator['camera']){
             navigator['camera'].getPicture((data) => {
-                /*var img = jQuery('#compass-image');
-                img.attr('xlink:href', 'data:image/jpeg;base64,' + data);*/
-                this.ImgUrl = 'url(data:image/jpeg;base64,' + r.result + ')'
+                this.ImgUrl = 'url(' + data + ')'
                 
                 this.Opacity = 0.5;
                 this.changeOpacity(0.0)
             }, function (err) {
                 if (err != "Selection cancelled.") {
-                    this.glsetting.Alert('加载图片错', err.toString())
+                    this.glsetting.Notify('加载图片失败', -1)
                 }
-            },
-            {
+            },{
                 quality: 50,
                 destinationType: Camera.DestinationType.DATA_URL,
                 sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
@@ -212,10 +209,6 @@ export class CompassView{
             var f = event.srcElement.files[0];
             var r = new FileReader();
             r.onload = () => {
-                //compass - image
-                console.log('file loaded ' , r.result)
-                /*var img = jQuery('#compass-image');
-                img.attr('xlink:href', r.result);*/
                 this.ImgUrl = 'url(' + r.result + ')'
 
                 this.Opacity = 0.5;

@@ -74,8 +74,14 @@
         <div class="actions">
             <div class="ui cancel button">{{'取消' | tran:glsetting.lang}}</div>
             <div class="ui approve primary button"
+                (click)="saveTo()"
                 [class.disabled]="selectedbook == null">
-                {{'确定' | tran:glsetting.lang}}
+                {{'保存' | tran:glsetting.lang}}
+            </div>
+            <div class="ui approve primary button"
+                (click)="saveTo(true)"
+                [class.disabled]="selectedbook == null">
+                {{'保存并跳转' | tran:glsetting.lang}}
             </div>
         </div>
     </div>

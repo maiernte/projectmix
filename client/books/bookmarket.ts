@@ -60,6 +60,10 @@ export class BookMarket{
             for(let bk of bks){
                 this.books.push(new BookView(bk))
             }
+            
+            this.ngZone.run(() => {
+                this.Loading = false;
+            })
         }
     }
     
