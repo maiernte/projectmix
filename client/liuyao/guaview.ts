@@ -1,7 +1,7 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 /// <reference path="../../typings/book.d.ts" />
 
-import {Component, Inject, Input, ElementRef, AfterViewInit} from 'angular2/core'
+import {Component, Inject, Input, ElementRef, AfterViewInit, NgZone} from 'angular2/core'
 import {NgFor} from 'angular2/common'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
@@ -16,7 +16,16 @@ declare var jQuery:any;
     selector: 'guaview',
     templateUrl: 'client/liuyao/guaview.html',
     pipes: [TranslatePipe],
-    directives: [NgFor]
+    directives: [NgFor],
+    styles: [`
+        .ui.table{
+            border-color: transparent;
+        }
+        
+        table {
+           border-collapse: collapse
+        }
+    `]
 })
 
 export class GuaView{
@@ -45,7 +54,8 @@ export class GuaView{
     private translate = new TranslatePipe();
 
     constructor(@Inject(GlobalSetting) public glsetting: GlobalSetting,
-                private rootElement: ElementRef){
+                private rootElement: ElementRef,
+                private ngZone: NgZone){
         this.showArrow = this.glsetting.GetSetting('gua-arrow')
     }
 

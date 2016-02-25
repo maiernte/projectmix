@@ -1,4 +1,4 @@
-<div class='ui attached segment'>
+<div class='ui attached basic segment'>
     <div>
         <a class="ui teal ribbon label" (click)="showSetting()">
             {{title | tran:glsetting.lang}}
@@ -68,7 +68,7 @@
         </div>
     </div>
 
-    <div *ngFor="#i of [5,4,3,2,1,0]" class="ui grid">
+    <!--<div *ngFor="#i of [5,4,3,2,1,0]" class="ui grid" id="gua-region">
         <div class="four wide column" *ngIf="showArrow">
             <div class="ui grid">
                 <div class="six wide column"
@@ -114,8 +114,34 @@
             {{Bianyaos[i].Text | tran:glsetting.lang}}
             <img [src]="Bianyaos[i].Img">
         </div>
-    </div>
+    </div>-->
+    
+    <table class="ui unstackable compact table" style="padding:0; margin:0">
+        <tbody>
+            <tr *ngFor="#i of [5,4,3,2,1,0]">
+                <td style="padding-left:0;padding-right:0;">
+                    {{Shen6[i]| tran}}
+                </td>
+                <td style="padding-left:0;padding-right:0;text-align:center;color:grey">
+                    {{Fuyaos[i].Text | tran}}
+                </td>
+                <td style="padding-left:0;padding-right:0;">
+                    {{Benyaos[i].Text | tran}}
+                    <img [src]="Benyaos[i].Img">
+                    {{Benyaos[i].ShiYing | tran}}
+                </td>
+                <td *ngIf="showArrow" style="padding-left:0;padding-right:0;text-align:center">
+                    <img [src]="ShiYing[i]" width="16">
+                </td>
+                <td *ngIf="HasBianGua" style="padding-left:0;padding-right:0;">
+                    {{Bianyaos[i].Text | tran}}
+                    <img [src]="Bianyaos[i].Img">
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
+
 <div class="ui attached segment transition hidden gua setting">
     <div class="ui form">
         <div class="two fields">
