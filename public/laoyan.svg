@@ -3,6 +3,6 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg viewBox="0,0,40,16" style="padding: 0;margin: 0" width="40" height="16"
     xmlns="http://www.w3.org/2000/svg">
-    <rect x='0' y='4' width="24" height="8" style="fill: black"></rect>
+    <rect x='0' y='6' width="24" height="8" style="fill: black"></rect>
     <circle cx="34" cy="7" r="5" style="fill: white;stroke-width:1;stroke:black" />
 </svg>

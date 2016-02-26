@@ -48,22 +48,16 @@ export class PailiuyaoLeading{
                 private router: Router,
                 private rootElement: ElementRef) {
 
-        document.addEventListener("backbutton", this.onBackButton, false);
-
-        /*document.addEventListener("backbutton", () => {
-            this.glsetting.Notify("edit book back", 1)
-        }, false);*/
+        //document.addEventListener("backbutton", this.onBackButton, false);
     }
 
     ngOnDestroy(){
-        //this.glsetting.Notify("leading destroy", -1)
-        document.removeEventListener("backbutton", this.onBackButton, false);
+        //document.removeEventListener("backbutton", this.onBackButton, false);
     }
 
-    private onBackButton = (evt:Event) => {
-        //this.glsetting.Notify("leading back", 1)
+    /*private onBackButton = (evt:Event) => {
         this.goBack()
-    }
+    }*/
     
     goBack(){
         this.router.parent.navigate(['./Paigua'])

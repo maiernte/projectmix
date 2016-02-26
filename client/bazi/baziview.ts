@@ -14,6 +14,7 @@ import {Bazi, BaziYun} from '../../lib/base/bazi'
 import {GanZhi} from "../../lib/base/ganzhi";
 
 declare var jQuery:any;
+declare var alertify;
 
 @Component({
     selector: 'baziview',
@@ -230,8 +231,56 @@ export class BaziView{
         }
     }
 
+    showYuanJu(){
+        let y = this.Bazi.Y
+        let m = this.Bazi.M
+        let d = this.Bazi.D
+        let t = this.Bazi.T
+
+        let gender = this.Info.Gender
+
+        let dom = `
+            <table class='ui unstackable compact table' style="background-color:transparent;padding:0; margin:0;border-color: transparent">
+                <tr>
+                    <td>
+                        ${gender}
+                    </td>
+                    <td style="text-align: center;">
+                        <div style="color: gray">${y.Shen10Gan[1]}</div>
+                        <h4 style="padding: 0;margin: 0;font-weight: bold">${y.Gan.Name}</h4>
+                        <h4 style="padding: 0;margin: 0;font-weight: bold">${y.Zhi.Name}</h4>
+                        <div style="color: gray">${y.Shen10Zhi[1]}</div>
+                    </td>
+                    <td style="text-align: center;">
+                        <div style="color: gray">${m.Shen10Gan[1]}</div>
+                        <h4 style="padding: 0;margin: 0;font-weight: bold">${m.Gan.Name}</h4>
+                        <h4 style="padding: 0;margin: 0;font-weight: bold">${m.Zhi.Name}</h4>
+                        <div style="color: gray">${m.Shen10Zhi[1]}</div>
+                    </td>
+                    <td style="text-align: center;">
+                        <div style="color: gray">${d.Shen10Gan[1]}</div>
+                        <h4 style="padding: 0;margin: 0;font-weight: bold">${d.Gan.Name}</h4>
+                        <h4 style="padding: 0;margin: 0;font-weight: bold">${d.Zhi.Name}</h4>
+                        <div style="color: gray">${d.Shen10Zhi[1]}</div>
+                    </td>
+                    <td style="text-align: center;">
+                        <div style="color: gray">${t.Shen10Gan[1]}</div>
+                        <h4 style="padding: 0;margin: 0;font-weight: bold">${t.Gan.Name}</h4>
+                        <h4 style="padding: 0;margin: 0;font-weight: bold">${t.Zhi.Name}</h4>
+                        <div style="color: gray">${t.Shen10Zhi[1]}</div>
+                    </td>
+                </tr>
+            </table>
+        `
+
+        alertify.set('notifier','position', 'top-right');
+        alertify.notify(dom, "warning", 0)
+    }
+
     private paiBazi(params){
         //let params = JSON.parse(this.initdata)
+
+        console.log(params)
 
         var date = params['birthday']
         if(typeof params['birthday'] == 'string'){

@@ -1,4 +1,4 @@
-<div id="bookcontent-content">
+<div id="bookcontent-content" style="min-height: 100vh">
     <div class="ui top attached segment"
          style="text-align: center" >
         <a class="ui basic top left attached large label"
@@ -29,7 +29,7 @@
                 <i class="trash outline icon"></i>
                 {{'删除' | tran:glsetting.lang}}
             </div>
-            <div class="ui icon button" (click)="copyRecords()">
+            <div class="ui icon button" (click)="showCopyDialog()">
                 <i class="copy icon"></i>
                 {{'复制' | tran:glsetting.lang}}
             </div>
@@ -38,11 +38,21 @@
             <input type="checkbox" [(ngModel)]="ShowGua">
             <label>六爻</label>
         </div>
-        <div class="ui checkbox" style="margin-left: 5px">
+        <div class="ui checkbox" style="margin-left: 5px;margin-right: 5px">
             <input type="checkbox"  [(ngModel)]="ShowBazi">
             <label>八字</label>
         </div>
-        <div class="ui icon input" style="margin-left: 5px">
+        <div class="ui compact small menu">
+            <div class="ui simple dropdown item">
+                {{recordsort | tran}}
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    <div class="item" (click)="sortcontent('创建时间')">{{'创建时间' | tran}}</div>
+                    <div class="item" (click)="sortcontent('修改时间')">{{'修改时间' | tran}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="ui icon input">
             <input type="text" placeholder="{{'查找标题和内容...' | tran}}"
             (change)="dosearch($event)">
             <i class="search icon"></i>
@@ -57,7 +67,7 @@
         </div>
 
         <div class="ui items" *ngIf="Loaded">
-            <div class="middle aligned item"
+            <div class="middle aligned item" style="padding-top: 0;"
                  *ngFor="#rd of Records | paginate:{currentPage: 1, itemsPerPage: pageSize, totalItems: sumItems}">
                 <div class="content">
                     <div class="meta">
@@ -105,10 +115,16 @@
             </div>
         </div>
         <div class="actions">
-            <div class="ui cancel button">{{'取消' | tran:glsetting.lang}}</div>
-            <div class="ui approve primary button"
+            <div class="ui cancel small button">{{'取消' | tran:glsetting.lang}}</div>
+            <div class="ui approve primary small button"
+                 (click)="copyRecords(false)"
                 [class.disabled]="selectedbook == null">
-                {{'确定' | tran:glsetting.lang}}
+                {{'复制' | tran:glsetting.lang}}
+            </div>
+            <div class="ui approve primary small button"
+                 (click)="copyRecords(true)"
+                 [class.disabled]="selectedbook == null">
+                {{'移动' | tran:glsetting.lang}}
             </div>
         </div>
     </div>

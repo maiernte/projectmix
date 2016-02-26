@@ -22,8 +22,9 @@ declare var jQuery:any;
             border-color: transparent;
         }
         
-        table {
-           border-collapse: collapse
+        table, tr {
+           border-collapse: collapse;
+           border-style: collapse;
         }
     `]
 })

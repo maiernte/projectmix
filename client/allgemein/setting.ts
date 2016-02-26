@@ -28,6 +28,10 @@ export class AppSetting{
         this.glsetting = glsetting;
     }
 
+    get IsCordova(){
+        return this.glsetting.IsCordova
+    }
+
     get TwLang(): string{
         return this.twlang;
     }
@@ -115,5 +119,16 @@ export class AppSetting{
         }, () => {
             console.log("cancel")
         })
+    }
+
+    ImportBook(event){
+        var f = event.srcElement.files[0];
+        var r = new FileReader();
+        r.onload = () => {
+            console.log(r.result)
+        }
+
+        console.log(f)
+        r.readAsText(f);
     }
 }

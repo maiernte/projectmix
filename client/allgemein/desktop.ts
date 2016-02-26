@@ -51,7 +51,6 @@ export class Desktop{
     }
     
     showMenu(hide){
-        //jQuery(document).find('.ui.labeled.sidebar').sidebar('toggle');
         if(hide === true){
             jQuery(document).find('.ui.labeled.sidebar').sidebar('hide')
         }else{

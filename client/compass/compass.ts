@@ -2,7 +2,7 @@
 import {Component,
         Inject,
         ElementRef,
-        AfterViewInit} from 'angular2/core'
+        AfterViewInit, NgZone} from 'angular2/core'
 import {NgFor,
     NgSwitch,
     NgSwitchWhen,
@@ -49,7 +49,8 @@ export class CompassView{
     }
 
     constructor(@Inject(GlobalSetting) public glsetting:GlobalSetting,
-                private rootElement: ElementRef) {
+                private rootElement: ElementRef,
+                private ngZone: NgZone) {
     }
 
     get SelectedYear(){
@@ -192,10 +193,13 @@ export class CompassView{
     LoadImage(event){
         if(this.IsCordova && navigator['camera']){
             navigator['camera'].getPicture((data) => {
-                this.ImgUrl = 'url(' + data + ')'
-                
-                this.Opacity = 0.5;
-                this.changeOpacity(0.0)
+                this.ImgUrl = 'url(data:image/jpeg;base64,' + data + ')'
+                //this.ImgUrl = 'url(' + data + ')'
+
+                this.ngZone.run(() => {
+                    this.Opacity = 0.5;
+                    this.changeOpacity(0.0)
+                })
             }, function (err) {
                 if (err != "Selection cancelled.") {
                     this.glsetting.Notify('加载图片失败', -1)
@@ -203,6 +207,7 @@ export class CompassView{
             },{
                 quality: 50,
                 destinationType: Camera.DestinationType.DATA_URL,
+                //destinationType: Camera.DestinationType.FILE_URI,
                 sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
             });
         }else{
@@ -221,11 +226,11 @@ export class CompassView{
     }
 
     UnloadImage(){
-        var img = jQuery('#compass-image');
-        img.attr('xlink:href', '');
-
-        this.Opacity = 0.0;
-        this.changeOpacity(0.0)
+        this.ngZone.run(() => {
+            this.ImgUrl = ''
+            this.Opacity = 0.0;
+            this.changeOpacity(0.0)
+        })
     }
 
     private startCompass(){

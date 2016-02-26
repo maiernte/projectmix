@@ -10,35 +10,54 @@
         </div>
     </div>
 
-    <div class="ui form" style="margin-top: 10px">
-        <div class="inline fields">
-            <label>{{'语言: ' | tran:glsetting.lang}}</label>
-            <div class="field">
-                <div class="ui radio checkbox">
-                    <input type="radio" name="appset-gender"
-                           value="zh" #zhlang
-                           (click)="TwLang = zhlang.value"
-                           [checked]="TwLang == 'zh'">
-                    <label>{{'简体' | tran:glsetting.lang}}</label>
-                </div>
+    <div class="ui divided items">
+        <div class="item">
+            <div class="ui tiny image">
+                <img src="huahe.jpg" width="64">
             </div>
-            <div class="field">
-                <div class="ui radio checkbox">
-                    <input type="radio" name="appset-gender"
-                           value="tw" #twlang
-                           (click)="TwLang = twlang.value"
-                           [checked]="TwLang == 'tw'">
-                    <label>{{'正体' | tran:glsetting.lang}}</label>
+            <div class="content">
+                <div class="header">{{'制作单位' | tran}}</div>
+                <div class="description">
+                    {{'华鹤国学研究院' | tran}}
+                </div>
+                <div class="extra">
+                    {{'网址:' | tran}}<a href="http://www.32233.cn">www.32233.cn</a>
                 </div>
             </div>
         </div>
 
-        <div class="inline field">
-            <label>{{'书集每页记录: ' | tran:glsetting.lang}}</label>
-            <input type="number" min="5" step="1" max="50" [(ngModel)]="BookPageRD"/>
+        <div class="item ui form">
+            <div class="inline fields">
+                <label>{{'语言: ' | tran:glsetting.lang}}</label>
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" name="appset-gender"
+                               value="zh" #zhlang
+                               (click)="TwLang = zhlang.value"
+                               [checked]="TwLang == 'zh'">
+                        <label>{{'简体' | tran:glsetting.lang}}</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" name="appset-gender"
+                               value="tw" #twlang
+                               (click)="TwLang = twlang.value"
+                               [checked]="TwLang == 'tw'">
+                        <label>{{'正体' | tran:glsetting.lang}}</label>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="fields">
+        <div class="item ui form">
+            <div class="inline field">
+                <label>{{'书集每页记录: ' | tran:glsetting.lang}}</label>
+                <input type="number" min="5" step="1" max="50" [(ngModel)]="BookPageRD"/>
+            </div>
+        </div>
+
+        <div class="item ui form">
             <div class="inline field">
                 <label>{{'六爻盘每行神煞数:' | tran:glsetting.lang}}</label>
                 <select class="ui fluid dropdown"
@@ -49,6 +68,9 @@
                     <option value="7">七</option>
                 </select>
             </div>
+        </div>
+
+        <div class="item ui form">
             <div class="inline field">
                 <label>{{'卦爻显示方式:' | tran:glsetting.lang}}</label>
                 <select class="ui fluid dropdown"
@@ -57,7 +79,9 @@
                     <option value="1">{{'简排' | tran:glsetting.lang}}</option>
                 </select>
             </div>
+        </div>
 
+        <div class="item ui form">
             <div class="inline field">
                 <div class="ui checkbox">
                     <input type="checkbox" [(ngModel)]="GuaArrow">
@@ -66,7 +90,7 @@
             </div>
         </div>
 
-        <div class="fields">
+        <div class="item ui form">
             <div class="inline field">
                 <label>{{'八字盘每行神煞数:' | tran:glsetting.lang}}</label>
                 <select class="ui fluid dropdown"
@@ -78,12 +102,20 @@
                 </select>
             </div>
         </div>
-        
-        <div class="inline field">
-            <label>{{'本地数据:' | tran:glsetting.lang}}</label>
-            <button class="ui tiny primary button" (click)="ClearLocalDB()">
-                {{'清空本地数据' | tran:glsetting.lang}}
-            </button>
+
+        <div class="item ui form">
+            <div class="inline field">
+                <label>{{'本地数据:' | tran:glsetting.lang}}</label>
+                <button class="ui tiny primary button" (click)="ClearLocalDB()">
+                    {{'清空本地数据' | tran:glsetting.lang}}
+                </button>
+            </div>
+        </div>
+        <div class="item ui form" *ngIf="!IsCordova">
+            <div class="inline field">
+                <label>{{'导入书集:' | tran:glsetting.lang}}</label>
+                <input type="file" (change)="ImportBook($event)">
+            </div>
         </div>
     </div>
 </div>

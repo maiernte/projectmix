@@ -65,6 +65,8 @@ export class BookMarket{
                 this.Loading = false;
             })
         }
+
+        console.log('ngOnInit bookmarket')
     }
     
     pushCloud(book: BookView){

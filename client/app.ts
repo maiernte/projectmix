@@ -42,6 +42,7 @@ import {ResetPassword} from 'client/user/resetpassword'
 import {PaipanEmitter} from 'client/allgemein/paipanermitter'
 
 declare var jQuery;
+declare var alertify;
 
 @Component({
     selector: 'app',
@@ -67,7 +68,7 @@ class HuaheApp {
     glsetting: GlobalSetting;
 
     emitterPaipan: EventEmitter<any>;
-    //emitterGoBack: EventEmitter<any>;
+    private testtime = new Date('2016-06-30')
     
     constructor(@Inject(Router) router: Router,
                 @Inject(Location) location: Location,
@@ -88,10 +89,19 @@ class HuaheApp {
             this.glsetting.Notify('deviceready....', 1)
         }, false);*/
 
-        /*this.emitterGoBack = PaipanEmitter.get(PaipanEmitter.BackButton)
         document.addEventListener("backbutton", () => {
-            this.emitterGoBack.emit({})
-        }, false);*/
+            this.glsetting.Notify("本软件暂时不支持硬件返回按钮", -1)
+        }, false);
+
+        document.addEventListener("menubutton", () => {
+            jQuery(document).find('.ui.labeled.sidebar').sidebar('toggle');
+        }, false);
+
+        if(Date.now() >= this.testtime && this.glsetting.IsCordova){
+            alertify.alert('版本过期', '此测试版本已经到期!请更换新的版本',
+                () => {this.Exit()})
+                .set('labels', {ok:'好的'});
+        }
     }
 
     get iOS(){

@@ -45,6 +45,7 @@ export class BookContent{
     IsCloud = false;
     books: Array<Book>;
 	selectedbook = null;
+    recordsort = '创建时间'
     
     constructor(private router: Router,
                 private routeParams: RouteParams,
@@ -54,18 +55,16 @@ export class BookContent{
         
         this.pageSize = this.glsetting.PageSize;
 
-        document.addEventListener("backbutton", this.onBackButton, false);
+        //document.addEventListener("backbutton", this.onBackButton, false);
     }
 
     ngOnDestroy(){
-        //this.glsetting.Notify("BookContent destroy", -1)
-        document.removeEventListener("backbutton", this.onBackButton, false);
+        //document.removeEventListener("backbutton", this.onBackButton, false);
     }
 
-    private onBackButton = (evt: Event) => {
-        //this.glsetting.Notify("book content back", 1)
+    /*private onBackButton = (evt: Event) => {
         this.goBack()
-    }
+    }*/
     
     get BookName(){
         return this.bookname;
@@ -127,7 +126,7 @@ export class BookContent{
         }
     }
     
-    copyRecords(){
+    showCopyDialog(){
         let rds = this.Records.filter(r => r.Checked)
         if(rds.length == 0){
             this.glsetting.Alert("复制记录", '您还没有选取任何记录， 请在要复制的记录前打勾。')
@@ -138,17 +137,43 @@ export class BookContent{
         this.books = otherbooks.filter(bk => bk._id != this.bookid)
         if(this.books.length == 0){
             this.glsetting.Alert("复制记录", "您没有别的书集，无法选择复制目标。")
-            
         }else{
-            //this.glsetting.Alert("复制记录", otherbooks.map(bk => bk.name).toString())
             jQuery('.modal.copy.record')
 			.modal({
 				closable  : false,
-				onApprove : () => {
-			      //this.saveTo(this.selectedbook)
-			    }
 			}).modal('show')
         }
+    }
+
+    copyRecords(move){
+        let rds = this.Records.filter(r => r.Checked)
+
+        for(let rd of rds){
+            let newrd = JSON.parse(JSON.stringify(rd.Data))
+            delete newrd._id
+            delete newrd._rev
+
+            newrd.book = this.selectedbook._id
+            newrd.modified = Date.now()
+            newrd.cloud = false
+
+            LocalRecords.insert(newrd)
+        }
+
+        if(move == true){
+            console.log('remove record')
+            for(let rd of rds){
+                rd.Remove()
+            }
+        }
+
+        this.ngZone.run(() => {
+            if(move == true){
+                this.loadContent(null)
+            }
+
+            this.glsetting.Notify("复制完成!", 1)
+        })
     }
 
     deleteRecords(){
@@ -240,6 +265,18 @@ export class BookContent{
         }, null);
     }
 
+    sortcontent(flag){
+        if(flag == this.recordsort){
+            console.log("no need to sort", flag, this.recordsort)
+        }else{
+            console.log("sort", flag, this.recordsort)
+            this.ngZone.run(() => {
+                this.recordsort = flag
+                this.loadContent(null)
+            })
+        }
+    }
+
     private loadContent(txt: string){
         let selector: Object
         if(this.ShowGua && this.ShowBazi){
@@ -274,9 +311,11 @@ export class BookContent{
                 ]
         }
 
+        let sort = this.recordsort == '创建时间' ? {created: 'desc'} : {modified: 'desc'}
+        console.log('sort:', sort)
         let records = LocalRecords
             .find(selector,
-                  {fields: {description: 0, img: 0, link: 0}, sort: {created: 'desc'}})
+                  {fields: {description: 0, img: 0, link: 0}, sort: sort})
             .fetch()
             
         this.sumItems = records.length

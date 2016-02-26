@@ -38,16 +38,16 @@ export class BookEditor{
                 private rootElement: ElementRef,
                 private ngZone: NgZone,
                 @Inject(GlobalSetting) public glsetting:GlobalSetting) {
-        document.addEventListener("backbutton", this.onBackButton, false);
+        //document.addEventListener("backbutton", this.onBackButton, false);
     }
     
     ngOnDestroy(){
-        document.removeEventListener("backbutton", this.onBackButton, false);
+        //document.removeEventListener("backbutton", this.onBackButton, false);
     }
 
-    private onBackButton = (evt: Event) => {
+    /*private onBackButton = (evt: Event) => {
         this.goBack()
-    }
+    }*/
     
     get IsCloud(){
         return this.book ? this.book.cloud : false

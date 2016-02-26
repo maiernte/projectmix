@@ -48,7 +48,7 @@
         </div>
     </div>
 
-    <div class="ui grid" style="margin-left: 5px;margin-top: 10px;margin-bottom: 10px">
+    <div class="ui grid" style="margin-left: 5px;margin-top: 10px;">
         <div class="four wide column"
              style="padding-left: 0px;padding-right: 0px;">
             {{GuaGong | tran:glsetting.lang}}
@@ -116,13 +116,13 @@
         </div>
     </div>-->
     
-    <table class="ui unstackable compact table" style="padding:0; margin:0">
+    <table class="ui unstackable compact table" style="padding:0; margin:0" id="gua-table">
         <tbody>
             <tr *ngFor="#i of [5,4,3,2,1,0]">
-                <td style="padding-left:0;padding-right:0;">
+                <td style="padding-left:0;padding-right:0;border-collapse:collapse">
                     {{Shen6[i]| tran}}
                 </td>
-                <td style="padding-left:0;padding-right:0;text-align:center;color:grey">
+                <td style="padding-left:3px;padding-right:3px;text-align:center;color:lightgrey">
                     {{Fuyaos[i].Text | tran}}
                 </td>
                 <td style="padding-left:0;padding-right:0;">
@@ -133,7 +133,7 @@
                 <td *ngIf="showArrow" style="padding-left:0;padding-right:0;text-align:center">
                     <img [src]="ShiYing[i]" width="16">
                 </td>
-                <td *ngIf="HasBianGua" style="padding-left:0;padding-right:0;">
+                <td *ngIf="HasBianGua" style="padding-left:0;padding-right:0;margin-right: -10px">
                     {{Bianyaos[i].Text | tran}}
                     <img [src]="Bianyaos[i].Img">
                 </td>

@@ -221,7 +221,7 @@ export class PaiBazi{
         let params = {
             flag: 'bazi',
             name: this.Input.Name == '' ? '未知' : this.Input.Name,
-            birthday: birthday.toISOString(),
+            birthday: birthday.formate('datetime'),
             gender: this.Input.Gender,
             solar: this.Input.Solar,
             land: this.Input.Land,

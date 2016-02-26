@@ -72,13 +72,13 @@
             </div>
         </div>
         <div class="actions">
-            <div class="ui cancel button">{{'取消' | tran:glsetting.lang}}</div>
-            <div class="ui approve primary button"
+            <div class="ui cancel small button">{{'取消' | tran:glsetting.lang}}</div>
+            <div class="ui approve primary small button"
                 (click)="saveTo()"
                 [class.disabled]="selectedbook == null">
                 {{'保存' | tran:glsetting.lang}}
             </div>
-            <div class="ui approve primary button"
+            <div class="ui approve primary small button"
                 (click)="saveTo(true)"
                 [class.disabled]="selectedbook == null">
                 {{'保存并跳转' | tran:glsetting.lang}}
