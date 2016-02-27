@@ -166,7 +166,7 @@ export class PaiBazi{
         this.Land = this.maps[0]['Name']
 
         let time = new Date(Date.now())
-        this.Input.Date = time.formate();
+        this.Input.Date = time.formate('date');
         this.Input.HH = time.getHours();
         this.Input.MM = time.getMinutes();
 
@@ -197,7 +197,7 @@ export class PaiBazi{
 
     setBaziTime(){
         let date = this.CalcSet.Result
-        this.Input.Date = date.formate();
+        this.Input.Date = date.formate('date');
         this.Input.HH = date.getHours();
         this.Input.MM = date.getMinutes();
         this.Panel = 'paipan'

@@ -1,4 +1,6 @@
 /// <reference path="../../../typings/angular2-meteor.d.ts" />
+/// <reference path="../../../typings/global.d.ts" />
+
 import {Component, Inject, ElementRef} from 'angular2/core'
 import {NgFor} from 'angular2/common'
 import {TranslatePipe} from 'client/allgemein/translatePipe'
@@ -80,7 +82,7 @@ export class PailiuyaoTime{
 
     ngOnInit(){
         let time = new Date(Date.now())
-        let dateText = time.formate();
+        let dateText = time.formate('date');
         let timeText = time.formate('time');
 
         this.InputTime = {

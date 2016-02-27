@@ -2,42 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd628d0f-b330-4283-9dbe-d11a93ac6559" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/huahe.jpg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/allgemein/desktop.html" afterPath="$PROJECT_DIR$/client/allgemein/desktop.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/allgemein/desktop.ts" afterPath="$PROJECT_DIR$/client/allgemein/desktop.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/allgemein/setting.html" afterPath="$PROJECT_DIR$/client/allgemein/setting.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/allgemein/setting.ts" afterPath="$PROJECT_DIR$/client/allgemein/setting.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/allgemein/window.html" afterPath="$PROJECT_DIR$/client/allgemein/window.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app.html" afterPath="$PROJECT_DIR$/client/app.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app.ts" afterPath="$PROJECT_DIR$/client/app.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/bazi/baziview.html" afterPath="$PROJECT_DIR$/client/bazi/baziview.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/bazi/baziview.ts" afterPath="$PROJECT_DIR$/client/bazi/baziview.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/bazi/paiBazi.html" afterPath="$PROJECT_DIR$/client/bazi/paiBazi.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/bazi/paiBazi.ts" afterPath="$PROJECT_DIR$/client/bazi/paiBazi.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/books/bookcontent.html" afterPath="$PROJECT_DIR$/client/books/bookcontent.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/books/bookcontent.ts" afterPath="$PROJECT_DIR$/client/books/bookcontent.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/books/bookmarket.html" afterPath="$PROJECT_DIR$/client/books/bookmarket.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/books/bookmarket.ts" afterPath="$PROJECT_DIR$/client/books/bookmarket.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/books/editbook.ts" afterPath="$PROJECT_DIR$/client/books/editbook.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/books/record/recordhelper.ts" afterPath="$PROJECT_DIR$/client/books/record/recordhelper.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/books/record/recordview.ts" afterPath="$PROJECT_DIR$/client/books/record/recordview.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/compass/compass.html" afterPath="$PROJECT_DIR$/client/compass/compass.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/compass/compass.ts" afterPath="$PROJECT_DIR$/client/compass/compass.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/calendar/calendar.ts" afterPath="$PROJECT_DIR$/client/calendar/calendar.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/liuyao/guaview.html" afterPath="$PROJECT_DIR$/client/liuyao/guaview.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/liuyao/guaview.ts" afterPath="$PROJECT_DIR$/client/liuyao/guaview.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/liuyao/paiLiuyao.html" afterPath="$PROJECT_DIR$/client/liuyao/paiLiuyao.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/liuyao/paipan/leading.html" afterPath="$PROJECT_DIR$/client/liuyao/paipan/leading.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/liuyao/paipan/leading.ts" afterPath="$PROJECT_DIR$/client/liuyao/paipan/leading.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/user/resetpassword.html" afterPath="$PROJECT_DIR$/client/user/resetpassword.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/user/userlogin.html" afterPath="$PROJECT_DIR$/client/user/userlogin.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/user/userprofile.html" afterPath="$PROJECT_DIR$/client/user/userprofile.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/user/userregist.html" afterPath="$PROJECT_DIR$/client/user/userregist.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/base.js" afterPath="$PROJECT_DIR$/lib/base.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/laoyan.svg" afterPath="$PROJECT_DIR$/public/laoyan.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/laoyin.svg" afterPath="$PROJECT_DIR$/public/laoyin.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/shaoyan.svg" afterPath="$PROJECT_DIR$/public/shaoyan.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/shaoyin.svg" afterPath="$PROJECT_DIR$/public/shaoyin.svg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/liuyao/paipan/pailiuyaotime.ts" afterPath="$PROJECT_DIR$/client/liuyao/paipan/pailiuyaotime.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/typings/global.d.ts" afterPath="$PROJECT_DIR$/typings/global.d.ts" />
     </list>
     <ignored path="HuaheC9.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -57,109 +29,17 @@
     <favorites_list name="HuaheC9" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.4564235">
+    <splitter split-orientation="horizontal" split-proportion="0.5431267">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="app.ts" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/client/app.ts">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-0.34320322">
-                  <caret line="44" column="21" selection-start-line="44" selection-start-column="21" selection-end-line="44" selection-end-column="21" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="globalsetting.ts" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/client/globalsetting.ts">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-5.5555553">
-                  <caret line="171" column="64" selection-start-line="171" selection-start-column="8" selection-end-line="171" selection-end-column="64" />
-                  <folding>
-                    <element signature="n#!!doc" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="guaview.html" pinned="false" current-in-tab="false">
+          <file leaf-file-name="guaview.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/client/liuyao/guaview.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-29.375">
-                  <caret line="121" column="41" selection-start-line="121" selection-start-column="41" selection-end-line="121" selection-end-column="42" />
+                <state vertical-scroll-proportion="0.49731904">
+                  <caret line="123" column="21" selection-start-line="123" selection-start-column="21" selection-end-line="123" selection-end-column="21" />
                   <folding>
-                    <element signature="n#style#0;n#table#0;n#div#0;n#!!top" expanded="true" />
+                    <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#!!top" expanded="true" />
                   </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="bookcontent.ts" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/client/books/bookcontent.ts">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-2.7777777">
-                  <caret line="277" column="4" selection-start-line="277" selection-start-column="4" selection-end-line="277" selection-end-column="4" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="setting.ts" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/client/allgemein/setting.ts">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-27.777779">
-                  <caret line="50" column="5" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="bookmarket.ts" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/client/books/bookmarket.ts">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-16.11111">
-                  <caret line="43" column="75" selection-start-line="43" selection-start-column="12" selection-end-line="43" selection-end-column="75" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="baziview.ts" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/client/bazi/baziview.ts">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-13.888889">
-                  <caret line="236" column="27" selection-start-line="236" selection-start-column="27" selection-end-line="236" selection-end-column="27" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="window.ts" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/client/allgemein/window.ts">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="9.944445">
-                  <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="paiBazi.ts" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/client/bazi/paiBazi.ts">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-12.666667">
-                  <caret line="223" column="48" selection-start-line="223" selection-start-column="48" selection-end-line="223" selection-end-column="48" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="guaview.ts" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/client/liuyao/guaview.ts">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-8.888889">
-                  <caret line="21" column="37" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="37" />
-                  <folding />
                 </state>
               </provider>
             </entry>
@@ -167,22 +47,12 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf>
-          <file leaf-file-name="compass.ts" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/client/compass/compass.ts">
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="guaview.ts" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/client/liuyao/guaview.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-14.740741">
-                  <caret line="236" column="40" selection-start-line="236" selection-start-column="40" selection-end-line="236" selection-end-column="40" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="setting.html" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/client/allgemein/setting.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.7386059">
-                  <caret line="113" column="51" selection-start-line="113" selection-start-column="51" selection-end-line="113" selection-end-column="51" />
+                <state vertical-scroll-proportion="-5.652759">
+                  <caret line="21" column="37" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="37" />
                   <folding />
                 </state>
               </provider>
@@ -196,8 +66,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="TypeScript File" />
         <option value="JavaScript File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -207,9 +77,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/lib/base/gua.ts" />
-        <option value="$PROJECT_DIR$/server/main.ts" />
-        <option value="$PROJECT_DIR$/server/bookcollection.ts" />
         <option value="$PROJECT_DIR$/client/books/bookmanager.ts" />
         <option value="$PROJECT_DIR$/client/liuyao/paipan/pailiuyaotime.html" />
         <option value="$PROJECT_DIR$/collections/books.ts" />
@@ -218,8 +85,6 @@
         <option value="$PROJECT_DIR$/mobile-config.js" />
         <option value="$PROJECT_DIR$/lib/base/bazi.ts" />
         <option value="$PROJECT_DIR$/client/liuyao/paiLiuyao.ts" />
-        <option value="$PROJECT_DIR$/client/liuyao/paipan/pailiuyaotime.ts" />
-        <option value="$PROJECT_DIR$/client/calendar/calendar.ts" />
         <option value="$PROJECT_DIR$/client/allgemein/window.ts" />
         <option value="$PROJECT_DIR$/client/allgemein/paipanermitter.ts" />
         <option value="$PROJECT_DIR$/client/compass/compass.ts" />
@@ -243,21 +108,26 @@
         <option value="$PROJECT_DIR$/client/books/record/recordview.html" />
         <option value="$PROJECT_DIR$/client/books/editbook.html" />
         <option value="$PROJECT_DIR$/client/liuyao/guaview.ts" />
-        <option value="$PROJECT_DIR$/client/liuyao/guaview.html" />
         <option value="$PROJECT_DIR$/client/bazi/baziview.html" />
-        <option value="$PROJECT_DIR$/lib/base.js" />
-        <option value="$PROJECT_DIR$/client/bazi/paiBazi.ts" />
         <option value="$PROJECT_DIR$/client/bazi/baziview.ts" />
         <option value="$PROJECT_DIR$/client/books/bookmarket.ts" />
         <option value="$PROJECT_DIR$/client/liuyao/paipan/leading.ts" />
         <option value="$PROJECT_DIR$/client/books/editbook.ts" />
         <option value="$PROJECT_DIR$/client/books/record/recordview.ts" />
-        <option value="$PROJECT_DIR$/client/books/record/recordhelper.ts" />
         <option value="$PROJECT_DIR$/client/books/bookcontent.html" />
         <option value="$PROJECT_DIR$/client/books/bookcontent.ts" />
         <option value="$PROJECT_DIR$/client/allgemein/setting.ts" />
         <option value="$PROJECT_DIR$/client/allgemein/setting.html" />
+        <option value="$PROJECT_DIR$/client/books/record/recordhelper.ts" />
         <option value="$PROJECT_DIR$/client/app.ts" />
+        <option value="$PROJECT_DIR$/lib/jsbase.ts" />
+        <option value="$PROJECT_DIR$/lib/base.js" />
+        <option value="$PROJECT_DIR$/lib/dateextend.ts" />
+        <option value="$PROJECT_DIR$/typings/global.d.ts" />
+        <option value="$PROJECT_DIR$/client/calendar/calendar.ts" />
+        <option value="$PROJECT_DIR$/client/bazi/paiBazi.ts" />
+        <option value="$PROJECT_DIR$/client/liuyao/paipan/pailiuyaotime.ts" />
+        <option value="$PROJECT_DIR$/client/liuyao/guaview.html" />
       </list>
     </option>
   </component>
@@ -267,9 +137,9 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="79" />
-    <option name="y" value="75" />
-    <option name="width" value="1850" />
+    <option name="x" value="111" />
+    <option name="y" value="63" />
+    <option name="width" value="1785" />
     <option name="height" value="965" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -371,57 +241,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HuaheC9" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HuaheProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HuaheC9" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HuaheProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lunar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HuaheC9" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HuaheProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="base" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -436,24 +256,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HuaheC9" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HuaheProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="user" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -489,105 +291,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="liuyao" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="paipan" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HuaheC9" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HuaheProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HuaheC9" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HuaheProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="compass" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HuaheC9" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HuaheProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="calendar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HuaheC9" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HuaheProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="books" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HuaheC9" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HuaheProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="books" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="record" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -627,46 +331,14 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HuaheC9" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HuaheProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value=".meteor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HuaheC9" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HuaheProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value=".meteor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="local" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../huaheionic" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../huahemeteor" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="enabled" />
     <property name="js.meteor.project" value="true" />
@@ -675,17 +347,17 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/typings" />
+      <recent name="$PROJECT_DIR$/client/lib" />
+      <recent name="$PROJECT_DIR$/public" />
+      <recent name="$PROJECT_DIR$/client" />
+      <recent name="$PROJECT_DIR$/lib" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources" />
       <recent name="$PROJECT_DIR$/resources/android" />
       <recent name="$PROJECT_DIR$/public" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/public" />
-      <recent name="$PROJECT_DIR$/client/lib" />
-      <recent name="$PROJECT_DIR$/client" />
-      <recent name="$PROJECT_DIR$/typings" />
-      <recent name="$PROJECT_DIR$/lib" />
     </key>
   </component>
   <component name="RunManager" selected="Meteor.Huahe">
@@ -779,25 +451,25 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="79" y="75" width="1850" height="965" extended-state="0" />
+    <frame x="111" y="63" width="1785" height="965" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16270271" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16862746" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.08275862" sideWeight="0.5389189" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.08275862" sideWeight="0.4610811" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.08275862" sideWeight="0.5410811" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.08275862" sideWeight="0.45891893" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -813,23 +485,15 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="20" />
+      <option name="time" value="21" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/client/liuyao/paipan/pailiuyaogua.html">
+    <entry file="file://$PROJECT_DIR$/client/bazi/paiBazi.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="31" column="48" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/liuyao/paiLiuyao.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.9444444">
-          <caret line="108" column="31" selection-start-line="108" selection-start-column="31" selection-end-line="108" selection-end-column="31" />
+          <caret line="201" column="42" selection-start-line="201" selection-start-column="42" selection-end-line="201" selection-end-column="42" />
           <folding />
         </state>
       </provider>
@@ -838,14 +502,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.882353">
           <caret line="134" column="48" selection-start-line="134" selection-start-column="36" selection-end-line="134" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/liuyao/paipan/pailiuyaotime.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.0555556">
-          <caret line="77" column="35" selection-start-line="77" selection-start-column="35" selection-end-line="77" selection-end-column="35" />
           <folding />
         </state>
       </provider>
@@ -865,19 +521,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/calendar/calendar.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.055555">
-          <caret line="192" column="6" selection-start-line="192" selection-start-column="6" selection-end-line="192" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/allgemein/paipanermitter.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.0">
           <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -885,7 +532,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.10288066">
           <caret line="5" column="21" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -893,7 +539,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.10288066">
           <caret line="5" column="20" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -901,7 +546,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.12345679">
           <caret line="6" column="21" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -909,7 +553,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.10288066">
           <caret line="5" column="20" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -917,15 +560,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.13580246">
           <caret line="9" column="48" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/allgemein/desktop.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.3247863">
-          <caret line="62" column="40" selection-start-line="62" selection-start-column="40" selection-end-line="62" selection-end-column="40" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -941,7 +575,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-24.375">
           <caret line="39" column="48" selection-start-line="39" selection-start-column="48" selection-end-line="39" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -949,9 +582,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="30" selection-start-line="0" selection-start-column="30" selection-end-line="0" selection-end-column="30" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -959,10 +589,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
           <caret line="0" column="30" selection-start-line="0" selection-start-column="30" selection-end-line="0" selection-end-column="30" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -970,9 +596,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
           <caret line="0" column="62" selection-start-line="0" selection-start-column="62" selection-end-line="0" selection-end-column="62" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -980,9 +603,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
           <caret line="0" column="61" selection-start-line="0" selection-start-column="61" selection-end-line="0" selection-end-column="61" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -990,9 +610,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
           <caret line="0" column="61" selection-start-line="0" selection-start-column="61" selection-end-line="0" selection-end-column="61" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1000,9 +617,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
           <caret line="0" column="61" selection-start-line="0" selection-start-column="61" selection-end-line="0" selection-end-column="61" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1010,9 +624,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
           <caret line="0" column="30" selection-start-line="0" selection-start-column="30" selection-end-line="0" selection-end-column="30" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1020,7 +631,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1028,9 +638,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.625">
           <caret line="0" column="30" selection-start-line="0" selection-start-column="30" selection-end-line="0" selection-end-column="30" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1038,17 +645,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-20.625">
           <caret line="80" column="48" selection-start-line="80" selection-start-column="48" selection-end-line="80" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/books/record/yipart.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1056,9 +652,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.625">
           <caret line="1" column="61" selection-start-line="1" selection-start-column="61" selection-end-line="1" selection-end-column="61" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1066,9 +659,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.25">
           <caret line="10" column="54" selection-start-line="10" selection-start-column="54" selection-end-line="10" selection-end-column="54" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1076,25 +667,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.125">
           <caret line="14" column="11" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/liuyao/guaview.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.888889">
-          <caret line="21" column="37" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/base.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="69" column="23" selection-start-line="69" selection-start-column="23" selection-end-line="69" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1102,38 +674,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.0">
           <caret line="25" column="16" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
-          <folding>
-            <element signature="n#style#0;n#h4#0;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#1;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h4#0;n#div#1;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h4#1;n#div#1;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#1;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#6;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/bazi/paiBazi.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.666667">
-          <caret line="223" column="48" selection-start-line="223" selection-start-column="48" selection-end-line="223" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/allgemein/window.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="9.944445">
-          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/bazi/baziview.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.888889">
-          <caret line="236" column="27" selection-start-line="236" selection-start-column="27" selection-end-line="236" selection-end-column="27" />
           <folding />
         </state>
       </provider>
@@ -1142,7 +682,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.111111">
           <caret line="21" column="17" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1150,7 +689,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6553398">
           <caret line="45" column="4" selection-start-line="45" selection-start-column="4" selection-end-line="45" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1158,7 +696,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.9466019">
           <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1166,35 +703,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8737864">
           <caret line="55" column="5" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/globalsetting.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.5555553">
+        <state vertical-scroll-proportion="0.0">
           <caret line="171" column="64" selection-start-line="171" selection-start-column="8" selection-end-line="171" selection-end-column="64" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/books/bookmarket.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.11111">
+        <state vertical-scroll-proportion="0.0">
           <caret line="43" column="75" selection-start-line="43" selection-start-column="12" selection-end-line="43" selection-end-column="75" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/books/record/recordhelper.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.296296">
-          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="57" selection-end-column="32" />
-          <folding>
-            <element signature="n#!!block;n#IsGua#0;n#RecordHelper#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1207,10 +730,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.647059">
           <caret line="85" column="37" selection-start-line="85" selection-start-column="32" selection-end-line="85" selection-end-column="37" />
-          <folding>
-            <element signature="n#style#0;n#div#2;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#1;n#div#2;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1218,59 +737,150 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-19.375">
           <caret line="99" column="51" selection-start-line="99" selection-start-column="23" selection-end-line="99" selection-end-column="51" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#div#3;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#svg#0;n#div#3;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/books/bookcontent.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.7777777">
+        <state vertical-scroll-proportion="0.0">
           <caret line="277" column="4" selection-start-line="277" selection-start-column="4" selection-end-line="277" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/compass/compass.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.740741">
-          <caret line="236" column="40" selection-start-line="236" selection-start-column="40" selection-end-line="236" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/liuyao/guaview.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-29.375">
-          <caret line="121" column="41" selection-start-line="121" selection-start-column="41" selection-end-line="121" selection-end-column="42" />
-          <folding>
-            <element signature="n#style#0;n#table#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/allgemein/setting.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7386059">
-          <caret line="113" column="51" selection-start-line="113" selection-start-column="51" selection-end-line="113" selection-end-column="51" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/allgemein/setting.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-27.777779">
+        <state vertical-scroll-proportion="0.0">
           <caret line="50" column="5" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/books/record/yipart.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/app.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.34320322">
-          <caret line="44" column="21" selection-start-line="44" selection-start-column="21" selection-end-line="44" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="86" column="0" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/typings/global.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="1" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/bazi/baziview.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="236" column="27" selection-start-line="236" selection-start-column="27" selection-end-line="236" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/allgemein/desktop.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="62" column="40" selection-start-line="62" selection-start-column="40" selection-end-line="62" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/allgemein/window.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/bazi/paiBazi.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="201" column="42" selection-start-line="201" selection-start-column="42" selection-end-line="201" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/compass/compass.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="249" column="40" selection-start-line="249" selection-start-column="40" selection-end-line="249" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/allgemein/setting.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="80" column="18" selection-start-line="80" selection-start-column="18" selection-end-line="80" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/books/record/recordhelper.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="59" column="5" selection-start-line="59" selection-start-column="5" selection-end-line="59" selection-end-column="5" />
+          <folding>
+            <element signature="n#!!block;n#IsGua#0;n#RecordHelper#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/base.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/liuyao/paipan/pailiuyaotime.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.222222">
+          <caret line="22" column="43" selection-start-line="22" selection-start-column="43" selection-end-line="22" selection-end-column="43" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/liuyao/guaview.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.49731904">
+          <caret line="123" column="21" selection-start-line="123" selection-start-column="21" selection-end-line="123" selection-end-column="21" />
+          <folding>
+            <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/calendar/calendar.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.111111">
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#422#1331#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/liuyao/guaview.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.652759">
+          <caret line="21" column="37" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="37" />
           <folding />
         </state>
       </provider>

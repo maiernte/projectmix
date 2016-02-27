@@ -24,11 +24,8 @@ import {
         HashLocationStrategy} from 'angular2/router';
     
 import {Desktop} from 'client/allgemein/desktop';
-//import {PaiLiuyao} from 'client/liuyao/paiLiuyao';
 import {LiuyaoComponent} from 'client/liuyao/liuyaocomponent';
 import {PaiBazi} from 'client/bazi/paiBazi';
-import {CalendarPage} from 'client/calendar/calendarPage'
-import {CompassPage} from 'client/compass/compassPage'
 import {BookMarket} from 'client/books/bookmarket'
 import {BookComponent} from 'client/books/bookcomponent'
 
@@ -43,6 +40,7 @@ import {PaipanEmitter} from 'client/allgemein/paipanermitter'
 
 declare var jQuery;
 declare var alertify;
+declare var Promise;
 
 @Component({
     selector: 'app',
@@ -54,8 +52,6 @@ declare var alertify;
     {path: '/', as: 'Desktop', component: Desktop},
     {path: '/paibazi', as: 'PaiBazi', component: PaiBazi},
     {path: '/pailiuyao/...', as: 'PaiLiuyao', component: LiuyaoComponent},
-    {path: '/calendar', as: 'Calendar', component: CalendarPage},
-    {path: '/compass', as: 'Compass', component: CompassPage},
     {path: '/setting', as: 'Setting', component: AppSetting},
     {path: '/books/...', as: 'Books', component: BookComponent},
     {path: '/user/...', as: 'User', component: UserComponent},
@@ -97,7 +93,7 @@ class HuaheApp {
             jQuery(document).find('.ui.labeled.sidebar').sidebar('toggle');
         }, false);
 
-        if(Date.now() >= this.testtime && this.glsetting.IsCordova){
+        if(Date.now() >= this.testtime.getTime() && this.glsetting.IsCordova){
             alertify.alert('版本过期', '此测试版本已经到期!请更换新的版本',
                 () => {this.Exit()})
                 .set('labels', {ok:'好的'});

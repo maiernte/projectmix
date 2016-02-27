@@ -123,9 +123,13 @@
                     {{Shen6[i]| tran}}
                 </td>
                 <td style="padding-left:3px;padding-right:3px;text-align:center;color:lightgrey">
-                    {{Fuyaos[i].Text | tran}}
+                    <div class="gua mean" [attr.data-content]="Fuyaos[i].info">
+                        {{Fuyaos[i].Text | tran}}
+                    </div>
                 </td>
-                <td style="padding-left:0;padding-right:0;">
+                <td style="padding-left:0;padding-right:0;"
+                    class="gua mean"
+                    [attr.data-content]="Benyaos[i].info">
                     {{Benyaos[i].Text | tran}}
                     <img [src]="Benyaos[i].Img">
                     {{Benyaos[i].ShiYing | tran}}
@@ -133,7 +137,9 @@
                 <td *ngIf="showArrow" style="padding-left:0;padding-right:0;text-align:center">
                     <img [src]="ShiYing[i]" width="16">
                 </td>
-                <td *ngIf="HasBianGua" style="padding-left:0;padding-right:0;margin-right: -10px">
+                <td *ngIf="HasBianGua" style="padding-left:0;padding-right:0;margin-right: -10px"
+                    class="gua mean"
+                    [attr.data-content]="Bianyaos[i].info">
                     {{Bianyaos[i].Text | tran}}
                     <img [src]="Bianyaos[i].Img">
                 </td>

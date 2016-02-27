@@ -50,14 +50,6 @@ export class RecordHelper{
         return txt != '';
     }
 
-    get Created(){
-        return this.rd.created;
-    }
-
-    get Modified(){
-        return this.rd.modified;
-    }
-
     get FeedText(){
         let txt = this.rd.feed ? this.rd.feed.trim() : '';
         return txt;
