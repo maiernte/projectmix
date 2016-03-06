@@ -65,6 +65,11 @@ export class PaiLiuyao {
     }
 
     paiGua(time, gua){
+        if(gua.error){
+            this.glsetting.Notify(gua.error, -1)
+            return
+        }
+
         let params = {
             flag: 'gua',
         }
@@ -82,7 +87,6 @@ export class PaiLiuyao {
             params['question'] = this.question
         }
 
-        //console.log('paigua', params)
         //this.router.parent.navigate(['/Desktop', params])
         this.emitter.emit(params)
     }

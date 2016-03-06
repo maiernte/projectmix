@@ -2,6 +2,7 @@
 /// <reference path="../typings/book.d.ts" />
 
 
+import DatePipe = ng.DatePipe;
 declare var jQuery;
 declare var html2canvas;
 declare var Promise;
@@ -143,11 +144,11 @@ export  class GlobalSetting{
             window['canvas2ImagePlugin'].saveImageDataToLibrary(
                 function (msg) {
                     //console.log(msg);
-                    this.ShowMessage('图片保存', '路径：' + msg)
+                    this.Alert('图片保存', '路径：' + msg)
                 },
                 function (err) {
                     //console.log('fehler : ' + err);
-                    this.ShowMessage('保存图片出错', err)
+                    this.Alert('保存图片出错', err)
                 },
                 canva
             );
@@ -257,6 +258,28 @@ export  class GlobalSetting{
     CheckEmail(email) {
         var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
+    }
+
+    ParseDate(text: string){
+        let res = new Date(text)
+        if(res.toString() != 'Invalid Date'){
+            return res;
+        }
+
+        let item = text.split(' ')
+        let date = item[0].split('-')
+        let time = item.length >= 2 ? item[1].split(':') : null
+
+
+        var y = parseInt(date[0])
+        var m = parseInt(date[1]) - 1
+        var d = parseInt(date[2])
+
+        var hh = time ? parseInt(time[0]) : 0
+        var mm = time ? parseInt(time[1]) : 0
+
+        res = new Date(y, m, d, hh, mm)
+        return res;
     }
 
     Exit(){

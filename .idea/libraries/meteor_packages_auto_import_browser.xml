@@ -18,9 +18,13 @@
         <item url="file://$USER_HOME$/.meteor/packages/meteorhacks_kadira/2.27.3/web.browser/lib/client/kadira.js" />
         <item url="file://$USER_HOME$/.meteor/packages/gfk_mailgun-api/1.1.0/web.browser/packages/gfk:mailgun-api.js" />
         <item url="file://$USER_HOME$/.meteor/packages/rate-limit/1.0.0/web.browser/rate-limit.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/themeteorites_quilljs/0.20.1/web.browser/quill/quill.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/themeteorites_quilljs/0.20.1/web.browser/quill/quill.snow.css" />
         <item url="file://$USER_HOME$/.meteor/packages/htmljs/1.0.5/web.browser/html.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/themeteorites_quilljs/0.20.1/web.browser/quill/quill.base.css" />
         <item url="file://$USER_HOME$/.meteor/packages/htmljs/1.0.5/web.browser/visitors.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ovcharik_alertifyjs/1.6.1/web.browser/AlertifyJS/build/css/themes/default.css" />
+        <item url="file://$USER_HOME$/.meteor/packages/themeteorites_quilljs/0.20.1/web.browser/export.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ground_db/0.3.14/web.browser/groundDB.client.js" />
         <item url="file://$USER_HOME$/.meteor/packages/htmljs/1.0.5/web.browser/preamble.js" />
         <item url="file://$USER_HOME$/.meteor/packages/binary-heap/1.0.4/web.browser/min-max-heap.js" />
@@ -186,9 +190,13 @@
       <root url="file://$USER_HOME$/.meteor/packages/meteorhacks_kadira/2.27.3/web.browser/lib/client/kadira.js" />
       <root url="file://$USER_HOME$/.meteor/packages/gfk_mailgun-api/1.1.0/web.browser/packages/gfk:mailgun-api.js" />
       <root url="file://$USER_HOME$/.meteor/packages/rate-limit/1.0.0/web.browser/rate-limit.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/themeteorites_quilljs/0.20.1/web.browser/quill/quill.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/themeteorites_quilljs/0.20.1/web.browser/quill/quill.snow.css" />
       <root url="file://$USER_HOME$/.meteor/packages/htmljs/1.0.5/web.browser/html.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/themeteorites_quilljs/0.20.1/web.browser/quill/quill.base.css" />
       <root url="file://$USER_HOME$/.meteor/packages/htmljs/1.0.5/web.browser/visitors.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ovcharik_alertifyjs/1.6.1/web.browser/AlertifyJS/build/css/themes/default.css" />
+      <root url="file://$USER_HOME$/.meteor/packages/themeteorites_quilljs/0.20.1/web.browser/export.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ground_db/0.3.14/web.browser/groundDB.client.js" />
       <root url="file://$USER_HOME$/.meteor/packages/htmljs/1.0.5/web.browser/preamble.js" />
       <root url="file://$USER_HOME$/.meteor/packages/binary-heap/1.0.4/web.browser/min-max-heap.js" />

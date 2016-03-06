@@ -8,7 +8,10 @@ import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
 
 import {Gua} from "../../lib/base/gua";
-import {GanZhi} from "../../lib/base/ganzhi";
+import {GanZhi, Zhi} from "../../lib/base/ganzhi";
+import {TYDate} from '../../lib/lunar/tylunar'
+
+import {SemanticSelect} from 'client/allgemein/directives/smselect'
 
 declare var jQuery:any;
 
@@ -16,7 +19,7 @@ declare var jQuery:any;
     selector: 'guaview',
     templateUrl: 'client/liuyao/guaview.html',
     pipes: [TranslatePipe],
-    directives: [NgFor],
+    directives: [NgFor, SemanticSelect],
     styles: [`
         .ui.table{
             border-color: transparent;
@@ -45,12 +48,16 @@ export class GuaView{
     showArrow = true
 
     @Input() initdata:string
+    Tips: string;
 
-    private fuyaos: Array<Object>;
-    private benyaos: Array<Object>;
-    private bianyaos: Array<Object>;
+    private fuyaos: Array<guayao>;
+    private benyaos: Array<guayao>;
+    private bianyaos: Array<guayao>;
     private shiying: Array<string>;
     private shenshas: Array<Object>;
+    private yue: {name: string, color: string, index: number}
+    private ri: {name: string, color: string, index: number}
+    private xunkong: Array<{name: string, color: string, index: number}>
 
     private translate = new TranslatePipe();
 
@@ -61,11 +68,13 @@ export class GuaView{
     }
 
     get Yue(){
-        return this.Gua.Yue;
+        this.yue = (this.yue || {name: this.Gua.Yue.Name, color: 'black', index: this.Gua.Yue.Index})
+        return this.yue
     }
 
     get Ri(){
-        return this.Gua.Ri;
+        this.ri = (this.ri || {name: this.Gua.Ri.Name, color: 'black', index: this.Gua.Ri.Index})
+        return this.ri
     }
 
     get GuaGong(){
@@ -130,12 +139,19 @@ export class GuaView{
 
             for(let c = 0; c < column; c++){
                 if(r * column + c >= this.Gua.ShenShas.length - 1){
-                    rowCollection.push('')
+                    rowCollection.push({name: null, text: ['', ''], index: [-1, -1]})
                 }else{
                     let ss = this.Gua.ShenShas[r * column + c];
+                    let zhis = ss.Result.map(z => Zhi(z))
+                    let count = zhis.length
+
                     let disObj = {
-                        name: '[' + ss.Name + ' - ' + ss.Result.join('') + ']',
-                        wide: ss.Name == '贵人' ? 2 : 1
+                        //name: '[' + ss.Name + ' - ' + ss.Result.join('') + ']',
+                        name: ss.Name,
+                        text: [zhis[0].Name, count == 1 ? '' : zhis[1].Name],
+                        index: [zhis[0].Index, count == 1 ? -1 : zhis[1].Index],
+                        color: ['black', 'black'],
+                        wide: count == 2 ? 2 : 1
                     }
 
                     rowCollection.push(disObj)
@@ -169,7 +185,7 @@ export class GuaView{
 
         for(let i = 0; i < 6; i++){
             if(gz[i].Index == gzBen[i].Index){
-                this.fuyaos.push({Text: '\u00A0', info: ' '})
+                this.fuyaos.push({Text: '\u00A0', info: ' ', index: -1, color: ''})
                 continue;
             }
 
@@ -179,7 +195,9 @@ export class GuaView{
 
             let obj = {
                 Text: this.simpleShow == 's' ? shen[1] + zhi : shen[0] + zhi + wx,
-                info: this.tran(gz[i].Name + ' —— ' + gz[i].NaYin)
+                info: this.tran(gz[i].Name + ' —— ' + gz[i].NaYin),
+                index: gz[i].Zhi.Index,
+                color: 'lightgrey'
             }
 
             this.fuyaos.push(obj)
@@ -220,7 +238,9 @@ export class GuaView{
                 Shen: shen[0],
                 Img: GuaView.imgs[yaos[i]],
                 ShiYing: txt,
-                info: this.tran(gz[i].Name + ' —— ' + gz[i].NaYin)
+                info: this.tran(gz[i].Name + ' —— ' + gz[i].NaYin),
+                index: gz[i].Zhi.Index,
+                color: 'black'
             }
 
             this.benyaos.push(obj)
@@ -251,7 +271,9 @@ export class GuaView{
                 Text: this.simpleShow == 's' ? shen[1] + zhi : shen[0] + zhi + wx,
                 Shen: shen[0],
                 Img: GuaView.imgs[yaos[i]],
-                info: this.tran(gz[i].Name + ' —— ' + gz[i].NaYin)
+                info: this.tran(gz[i].Name + ' —— ' + gz[i].NaYin),
+                index: gz[i].Zhi.Index,
+                color: 'black'
             }
 
             this.bianyaos.push(obj)
@@ -285,13 +307,21 @@ export class GuaView{
         return this.shiying;
     }
 
-    GetShenSha(name: string): string{
-        let xk = this.Gua.ShenShas.filter(ss => ss.Name == name)
-        if(xk.length > 0){
-            return xk[0].Result.join('')
-        }else{
-            return '';
+    get XunKong(){
+        if(!this.xunkong){
+            let xks = this.Gua.ShenShas.filter(ss => ss.Name == '旬空')
+            let zhis = xks[0].Result.map(z => Zhi(z))
+            this.xunkong = []
+            for(let z of zhis){
+                this.xunkong.push({
+                    name: z.Name,
+                    color: 'black',
+                    index: z.Index
+                })
+            }
         }
+
+        return this.xunkong
     }
 
     showSetting() {
@@ -303,6 +333,93 @@ export class GuaView{
     changeQuestion(txt: string){
         this.Info.question = txt;
     }
+    
+    caigua(index){
+        let chong = (x, y) => {
+            return ((x - y + 12) % 12) == 6
+        }
+        
+        let he = (x, y) => {
+            return ((x + y) == 13) || ((x + y) == 1)
+        }
+
+        for(let line of this.ShenShas) {
+            for(let ss of line){
+                if(ss.name == null)continue
+
+                for (let idx = 0; idx < 2; idx++) {
+                    if (index == -1) {
+                        ss.color[idx] = 'black'
+                    } else if (chong(ss.index[idx], index) == true) {
+                        ss.color[idx] = 'red'
+                    } else if (he(ss.index[idx], index) == true) {
+                        ss.color[idx] = 'green'
+                    } else if (ss.index[idx] == index) {
+                        ss.color[idx] = 'blue'
+                    } else {
+                        ss.color[idx] = 'black'
+                    }
+                }
+            }
+        }
+
+        let riyue = [this.Yue, this.Ri].concat(this.XunKong)
+        for(let f of riyue){
+            if(index == -1){
+                f.color = 'black'
+            }else if(chong(f.index % 12, index) == true){
+                f.color = 'red'
+            }else if(he(f.index % 12, index) == true){
+                f.color = 'green'
+            }else if (f.index % 12 == index){
+                f.color = 'blue'
+            }else{
+                f.color = 'black'
+            }
+        }
+        
+        for(let f of this.Fuyaos){
+            if(index == -1){
+                f.color = 'lightgrey'
+            }else if(chong(f.index, index) == true){
+                f.color = 'red'
+            }else if(he(f.index, index) == true){
+                f.color = 'green'
+            }else if (f.index == index){
+                f.color = 'blue'
+            }else{
+                f.color = 'lightgrey'
+            }
+        }
+        
+        for(let f of this.Benyaos){
+            if(index == -1){
+                f.color = 'black'
+            }else if(chong(f.index, index) == true){
+                f.color = 'red'
+            }else if(he(f.index, index) == true){
+                f.color = 'green'
+            }else if (f.index == index){
+                f.color = 'blue'
+            }else{
+                f.color = 'black'
+            }
+        }
+        
+        for(let f of this.Bianyaos){
+            if(index == -1){
+                f.color = 'black'
+            }else if(chong(f.index, index) == true){
+                f.color = 'red'
+            }else if(he(f.index, index) == true){
+                f.color = 'green'
+            }else if (f.index == index){
+                f.color = 'blue'
+            }else{
+                f.color = 'black'
+            }
+        }
+    }
 
     ngOnInit(){
         let params: Object;
@@ -312,9 +429,10 @@ export class GuaView{
             params =  this.initdata
         }
 
-
         this.onInitParse(params);
         this.onInitBaseInfo(params);
+        this.simpleShow = this.glsetting.GetSetting('gua-simple') == true ? 's' : 'f'
+        this.Tips = ''
 
         let ben = params['gua'][0]
         let bian = params['gua'][1]
@@ -330,6 +448,13 @@ export class GuaView{
                                ${time.getHours()}时
                                ${time.getMinutes()}分`
             this.Gua = new Gua(time, null, null, ben, bian)
+
+            let tydate = new TYDate(time)
+            if(tydate.JQtime){
+                //console.log(tydate.JQtime)
+                let items = tydate.JQtime.split(':')
+                this.Tips = `提示：当日${items[0]}时${items[1]}分换月令。`
+            }
         }
 
         this.shenshaColumnCount = this.glsetting.GetSetting('gua-shensha')
@@ -367,6 +492,17 @@ export class GuaView{
         }
     }
 
+    changeShenShaSetting(value){
+        this.shenshaColumnCount = parseInt(value.toString()) + 4
+    }
+
+    showInfo(){
+        let msg = `<div>点击爻位激活彩卦</div><br>
+        <div>点击卦宫恢复颜色</div>`
+
+        this.glsetting.Notify(msg, 1)
+    }
+
     private tran(txt): string{
         return this.translate.transform(txt, [this.glsetting.lang])
     }
@@ -396,4 +532,13 @@ export class GuaView{
         this.Info.question = params['question'] ? params['question'] : ''
         this.Info.type = GuaView.types[parseInt(params['type'])]
     }
+}
+
+interface guayao {
+    Text: string,
+    Shen?: string,
+    Img?: string,
+    info: string,
+    index: number,
+    color: string
 }

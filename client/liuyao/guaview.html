@@ -3,7 +3,10 @@
         <a class="ui teal ribbon label" (click)="showSetting()">
             {{title | tran:glsetting.lang}}
         </a>
-        {{Yue.Name | tran:glsetting.lang}}月 {{Ri.Name | tran:glsetting.lang}}日
+        {{Yue.name | tran:glsetting.lang}}月 {{Ri.name | tran:glsetting.lang}}日
+        <a class="ui top right attached icon basic label" (click)="showInfo()">
+            <i class="info icon"></i>
+        </a>
     </div>
 
     <div class="ui fluid accordion question" style="margin-bottom: 5px">
@@ -29,92 +32,56 @@
         <div class="column" *ngFor="#ss of sslist;"
              [style.padding-top]="row > 0 ? 0 : null"
              style="padding-left: 0px;padding-bottom: 0px;padding-right:0;margin-right: -10px">
-            {{ss.name | tran:glsetting.lang}}
+            <div *ngIf="ss.name != null">
+                [{{ss.name | tran:glsetting.lang}} -
+                  <span [style.color]='ss.color[0]'>{{ss.text[0] | tran:glsetting.lang}}</span>
+                  <span [style.color]='ss.color[1]'>{{ss.text[1] | tran:glsetting.lang}}</span>]
+            </div>
+
         </div>
     </div>
 
     <div class="ui grid" style="margin-left: 5px;">
         <div class="four wide column" style="padding: 0"></div>
-        <div class="five wide column gua mean"
+        <div class="six wide column gua mean"
+             [style.color]='Yue.color'
              [attr.data-content]="Yue.NaYin"
              style="padding-left: 0px;padding-right: 0px;padding-bottom: 0px;">
-            {{Yue.Name | tran:glsetting.lang}}月
+            {{Yue.name | tran:glsetting.lang}}月
         </div>
-        <div class="seven wide column gua mean"
+        <div class="six wide column gua mean"
              [attr.data-content]="Ri.NaYin"
              style="padding-left: 0px;padding-right: 0px;padding-bottom: 0px;">
-            {{Ri.Name | tran:glsetting.lang}}日&nbsp;
-            (旬空: {{GetShenSha('旬空') | tran:glsetting.lang}})
+            <span [style.color]='Ri.color'>
+                {{Ri.name | tran:glsetting.lang}}日
+            </span>
+            &nbsp;
+            (旬空:
+            <span [style.color]='XunKong[0].color'>{{XunKong[0].name | tran:glsetting.lang}}</span>
+            <span [style.color]='XunKong[1].color'>{{XunKong[1].name | tran:glsetting.lang}}</span>
+            )
         </div>
     </div>
 
     <div class="ui grid" style="margin-left: 5px;margin-top: 10px;">
         <div class="four wide column"
-             style="padding-left: 0px;padding-right: 0px;">
+             style="padding-left: 0px;padding-right: 0px;"
+              (click)="caigua(-1)">
             {{GuaGong | tran:glsetting.lang}}
         </div>
-        <div class="five wide column gua mean"
+        <div class="six wide column gua mean"
              style="padding-left: 0px;padding-right: 0px;"
              [attr.data-title]="Bengua.title"
              [attr.data-content]="Bengua.content">
             {{Bengua.text | tran:glsetting.lang}}
         </div>
-        <div class="one wide column"></div>
-        <div class="five wide column gua mean"
+        <div class="six wide column gua mean"
              style="padding-left: 0px;padding-right: 0px;"
              [attr.data-title]="Biangua.title"
              [attr.data-content]="Biangua.content">
             {{Biangua.text | tran:glsetting.lang}}
         </div>
     </div>
-
-    <!--<div *ngFor="#i of [5,4,3,2,1,0]" class="ui grid" id="gua-region">
-        <div class="four wide column" *ngIf="showArrow">
-            <div class="ui grid">
-                <div class="six wide column"
-                     style="padding-left:3px;padding-top: 0;padding-right: 0;padding-bottom: 0">
-                    {{Shen6[i]| tran:glsetting.lang}}
-                </div>
-                <div class="ten wide column gua mean"
-                     [attr.data-content]="Fuyaos[i].info"
-                     style="padding:0;color: grey">
-                    {{Fuyaos[i].Text | tran:glsetting.lang}}
-                </div>
-            </div>
-        </div>
-        <div class="five wide column" *ngIf="showArrow == false">
-            <div class="ui grid">
-                <div class="six wide column"
-                     style="padding-left:3px;padding-top: 0;padding-right: 0;padding-bottom: 0">
-                    {{Shen6[i]| tran:glsetting.lang}}
-                </div>
-                <div class="ten wide column gua mean"
-                     [attr.data-content]="Fuyaos[i].info"
-                     style="padding:0;color: grey">
-                    {{Fuyaos[i].Text | tran:glsetting.lang}}
-                </div>
-            </div>
-        </div>
-
-        <div class="six wide column gua mean"
-             [attr.data-content]="Benyaos[i].info"
-             style="padding:0;">
-            {{Benyaos[i].Text | tran:glsetting.lang}}
-            <img [src]="Benyaos[i].Img">
-            {{Benyaos[i].ShiYing | tran:glsetting.lang}}
-        </div>
-        <div class="column" *ngIf="showArrow"
-             style="padding:0;font-weight: bolder">
-            <img [src]="ShiYing[i]">
-        </div>
-        <div class="five wide column gua mean"
-             *ngIf="HasBianGua"
-             [attr.data-content]="Bianyaos[i].info"
-             style="padding:0;">
-            {{Bianyaos[i].Text | tran:glsetting.lang}}
-            <img [src]="Bianyaos[i].Img">
-        </div>
-    </div>-->
     
     <table class="ui unstackable compact table" style="padding:0; margin:0" id="gua-table">
         <tbody>
@@ -122,60 +89,65 @@
                 <td style="padding-left:0;padding-right:0;border-collapse:collapse">
                     {{Shen6[i]| tran}}
                 </td>
-                <td style="padding-left:3px;padding-right:3px;text-align:center;color:lightgrey">
-                    <div class="gua mean" [attr.data-content]="Fuyaos[i].info">
+                <td style="padding-left:3px;padding-right:3px;text-align:center;">
+                    <span class="gua mean" 
+                        [attr.data-content]="Fuyaos[i].info"
+                        [style.color]='Fuyaos[i].color'
+                        (click)="caigua(Fuyaos[i].index)">
                         {{Fuyaos[i].Text | tran}}
-                    </div>
+                    </span>
                 </td>
-                <td style="padding-left:0;padding-right:0;"
-                    class="gua mean"
-                    [attr.data-content]="Benyaos[i].info">
-                    {{Benyaos[i].Text | tran}}
+                <td style="padding-left:0;padding-right:0;">
+                    <span class="gua mean"
+                         [attr.data-content]="Benyaos[i].info" 
+                         [style.color]='Benyaos[i].color'
+                         (click)="caigua(Benyaos[i].index)">
+                        {{Benyaos[i].Text | tran}}
+                    </span>
                     <img [src]="Benyaos[i].Img">
                     {{Benyaos[i].ShiYing | tran}}
                 </td>
                 <td *ngIf="showArrow" style="padding-left:0;padding-right:0;text-align:center">
                     <img [src]="ShiYing[i]" width="16">
                 </td>
-                <td *ngIf="HasBianGua" style="padding-left:0;padding-right:0;margin-right: -10px"
-                    class="gua mean"
-                    [attr.data-content]="Bianyaos[i].info">
-                    {{Bianyaos[i].Text | tran}}
+                <td *ngIf="HasBianGua" style="padding-left:0;padding-right:0;margin-right: -10px">
+                    <span class="gua mean"
+                        [attr.data-content]="Bianyaos[i].info"
+                        [style.color]='Bianyaos[i].color'
+                        (click)="caigua(Bianyaos[i].index)">
+                        {{Bianyaos[i].Text | tran}}
+                    </span>
                     <img [src]="Bianyaos[i].Img">
                 </td>
             </tr>
         </tbody>
     </table>
+
+    <div class="ui message" *ngIf="Tips != ''">
+        {{Tips | tran:glsetting.lang}}
+    </div>
 </div>
 
 <div class="ui attached segment transition hidden gua setting">
     <div class="ui form">
-        <div class="two fields">
+        <div class="fields">
             <div class="inline field">
-                <label>{{'每行显示神煞数:' | tran:glsetting.lang}}</label>
-                <select class="ui fluid dropdown"
-                        [(ngModel)]="shenshaColumnCount">
-                    <option value="4">四</option>
-                    <option value="5">五</option>
-                    <option value="6">六</option>
-                    <option value="7">七</option>
-                </select>
+                <label>{{'每行神煞:' | tran:glsetting.lang}}</label>
+                <sm-select [Options]="'四 五 六 七'"
+                           [Value]="shenshaColumnCount - 4"
+                           (Value)="changeShenShaSetting($event)"></sm-select>
             </div>
             <div class="inline field">
-                <label>{{'卦爻显示方式:' | tran:glsetting.lang}}</label>
-                <select class="ui fluid dropdown"
-                        [(ngModel)]="simpleShow">
-                    <option value="f">{{'全排' | tran:glsetting.lang}}</option>
-                    <option value="s">{{'简排' | tran:glsetting.lang}}</option>
-                </select>
+                <label>{{'卦爻:' | tran:glsetting.lang}}</label>
+                <sm-select [Options]="'全排 简排'"
+                           [Value]="simpleShow == 'f' ? 0 : 1"
+                           (Value)="simpleShow = ($event == 0 ? 'f' : 's')"></sm-select>
             </div>
-        </div>
 
-        <div class="two fields">
             <div class="inline field">
                 <div class="ui checkbox">
                     <input type="checkbox" [(ngModel)]="showArrow">
-                    <label>{{'显示变爻箭头' | tran:glsetting.lang}}</label>
+                    <label>{{'变爻箭头' | tran:glsetting.lang}}</label>
                 </div>
             </div>
         </div>

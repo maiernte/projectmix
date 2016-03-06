@@ -2,24 +2,27 @@
 /// <reference path="../../typings/book.d.ts" />
 
 import {Component, Inject, NgZone} from 'angular2/core'
-import {NgFor} from 'angular2/common'
+import {NgFor, NgIf} from 'angular2/common'
 import {Router, RouteParams} from 'angular2/router'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from 'client/globalsetting'
 
+import {TYSqlite} from 'client/books/tysqlite'
 
 import {LocalRecords, LocalBooks} from 'collections/books'
 
 declare var jQuery;
 declare var CouchDB: any;
 declare var Mongo;
+declare var Camera;
+declare var navigator: any;
 
 @Component({
     selector: "book-market",
     pipes:[TranslatePipe],
     templateUrl: "client/books/bookmarket.html",
-    directives: [NgFor]
+    directives: [NgFor, NgIf]
 })
 export class BookMarket{
     private books: Array<BookView>;
@@ -35,6 +38,10 @@ export class BookMarket{
     
     get Books(){
         return this.books;
+    }
+
+    get IsCordova(){
+        return this.glsetting.IsCordova
     }
     
     showMenu(hide) {
@@ -124,6 +131,84 @@ export class BookMarket{
         LocalBooks.update({_id: bookid}, {$set:{readed: Date.now()}})
         this.router.parent.navigate(['./BookContent', {id: bookid}])
     }
+
+    importBook(){
+        if(this.glsetting.IsCordova){
+            navigator['camera'].getPicture((data) => {
+                let db = new TYSqlite(data)
+                this.convertBook(db)
+
+            }, function (err) {
+                if (err != "Selection cancelled.") {
+                    this.glsetting.Notify('读取文件失败', -1)
+                }
+            },{
+                quality: 50,
+                destinationType: Camera.DestinationType.DATA_URL,
+                sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
+            });
+        }else{
+            jQuery("#import-book-btn").trigger('click')
+        }
+    }
+
+    importBookWeb(event){
+        //let f = event.srcElement.files[0];
+        let f = event.target.files[0]
+        let r = new FileReader();
+        r.onload = (evt) => {
+            console.log(r)
+            let db = new TYSqlite(r.result)
+            //let db = new TYSqlite(evt.target.result)
+            this.convertBook(db)
+        }
+
+        if(!f){
+            console.log("!f")
+            return
+        }else{
+            //r.readAsDataURL(f);
+            r.readAsArrayBuffer(f)
+        }
+    }
+
+    private convertBook(db: TYSqlite){
+        if(db.BookType == 'mix'){
+            let bkid = db.Bookid
+            let foundbook = LocalBooks.findOne({_id: bkid})
+            if(!!foundbook){
+                let msg = '书集已经存在。再次导入会覆盖原有书集的内容。确定要导入吗？'
+                this.glsetting.Confirm('导入书集', msg, () => {
+                    LocalRecords.remove({book: bkid})
+                    LocalBooks.remove({_id: bkid})
+
+                    this.doimport(db)
+                }, null)
+            }else{
+                this.doimport(db)
+            }
+        }else{
+            this.doimport(db)
+        }
+    }
+
+    private doimport(db: TYSqlite){
+        //console.log('convertBook', db)
+        db.Import().then(() => {
+            this.books = []
+            let bkmanager = this.glsetting.BookManager
+            let bks = bkmanager.MyBooks;
+            for(let bk of bks){
+                this.books.push(new BookView(bk))
+            }
+
+            this.glsetting.Notify("成功导入书集!", 1)
+            db.Close()
+        }).catch(err => {
+            this.glsetting.Alert('导入书集出错', err.toString())
+            db.Close()
+        })
+    }
     
     private loadBooks(){
         if(this.glsetting.Signed == false){
@@ -151,6 +236,7 @@ export class BookMarket{
             
             this.ngZone.run(() => {
                 this.Loading = false;
+                this.glsetting.Alert("拉取在线书集", "现只下载所有书集的基本信息, 打开书集后,还需点击'云同步'才能拉取具体案例.")
             })
         })
     }

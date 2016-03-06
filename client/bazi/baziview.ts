@@ -2,7 +2,7 @@
 /// <reference path="../../typings/global.d.ts" />
 /// <reference path="../../typings/book.d.ts" />
 
-import {Component, Inject, Input, ElementRef, AfterViewInit} from 'angular2/core'
+import {Component, Inject, Input, ElementRef, AfterViewInit, EventEmitter} from 'angular2/core'
 import {NgFor} from 'angular2/common'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
@@ -13,14 +13,17 @@ import {LandMaps} from "../../lib/lunar/landmaps";
 import {Bazi, BaziYun} from '../../lib/base/bazi'
 import {GanZhi} from "../../lib/base/ganzhi";
 
+import {SemanticSelect} from 'client/allgemein/directives/smselect'
+
 declare var jQuery:any;
 declare var alertify;
 
 @Component({
     selector: 'baziview',
     templateUrl: 'client/bazi/baziview.html',
+    outputs:['onshowyear'],
     pipes: [TranslatePipe],
-    directives: [NgFor]
+    directives: [NgFor, SemanticSelect]
 })
 
 export class BaziView{
@@ -35,6 +38,8 @@ export class BaziView{
     private shenshas: Array<Object>;
     private liunian: Array<Object>;
     private initParams: Object;
+
+    onshowyear = new EventEmitter();
 
     @Input() initdata:string
     Info = {
@@ -118,15 +123,17 @@ export class BaziView{
 
         let endDate = this.Bazi.DaYun[0].Start;
 
-        let befor = {Title: '起运前 ', Liunian: null}
+        let befor = {Title: '起运前 ', Liunian: null, Index: -1}
         befor.Liunian = this.Bazi.CalcLiuNian(this.Bazi.Birthday.getFullYear(), endDate.getFullYear())
         this.liunian.push(befor);
 
+        let index = 0
         for(let dy of this.Bazi.DaYun){
             let timeInfo = dy.Start.toChinaString(false);
 
             let obj = {
                 Title: dy.GZ.Name + '运 (' + timeInfo + ')',
+                Index: index++,
                 Liunian: this.Bazi.CalcLiuNian(dy.Start.getFullYear(), dy.End.getFullYear())
             }
 
@@ -231,13 +238,33 @@ export class BaziView{
         }
     }
 
-    showYuanJu(){
+    showYuanJu(dayunindex){
         let y = this.Bazi.Y
         let m = this.Bazi.M
         let d = this.Bazi.D
         let t = this.Bazi.T
 
         let gender = this.Info.Gender
+        let dayun = {DaYun: ['', '', '', '', ''], NaYin: '', ShenSha: ''}
+        if(dayunindex >= 0){
+            let dy = this.DaYun[dayunindex]
+            let infos = [
+                '大运: ',
+                '(' + dy.GZ.Shen10Gan[1] + ')',
+                dy.GZ.Gan.Name + dy.GZ.Zhi.Name,
+                '(' + dy.GZ.Shen10Zhi[1] + ')',
+                ' | ' + dy.GZ.ChangSheng
+            ]
+
+            if(!dy.ShenSha){
+                let ss = this.Bazi.CalcShenSha(dy.GZ)
+                dy.ShenSha = ss == '' ? '无' : ss;
+            }
+
+            dayun.DaYun = infos
+            dayun.NaYin = '纳音: ' + dy.GZ.NaYin
+            dayun.ShenSha = '神煞: ' + dy.ShenSha
+        }
 
         let dom = `
             <table class='ui unstackable compact table' style="background-color:transparent;padding:0; margin:0;border-color: transparent">
@@ -271,32 +298,51 @@ export class BaziView{
                     </td>
                 </tr>
             </table>
+            <div class="ui items" style="padding-top: 0;margin-top: 0;text-align: left">
+                <div>
+                    <span>${dayun.DaYun[0]}</span>
+                    <span style="color: gray">${dayun.DaYun[1]}</span>
+                    <span style="font-weight: bold">${dayun.DaYun[2]}</span>
+                    <span style="color: gray">${dayun.DaYun[3]}</span>
+                    <span>${dayun.DaYun[4]}</span>
+                </div>
+                <div>${dayun.NaYin}</div>
+                <div>${dayun.ShenSha}</div>
+            </div>
         `
 
-        alertify.set('notifier','position', 'top-right');
+        alertify.set('notifier','position', 'top-left');
         alertify.notify(dom, "warning", 0)
+    }
+
+    changeShenShaSetting(value){
+        this.shenshaColumnCount = parseInt(value.toString()) + 4
+    }
+
+    showYearInfo(year){
+        this.onshowyear.emit(year)
     }
 
     private paiBazi(params){
         //let params = JSON.parse(this.initdata)
-
-        console.log(params)
-
         var date = params['birthday']
         if(typeof params['birthday'] == 'string'){
-            date = new Date(params['birthday']);
+            date = this.glsetting.ParseDate(params['birthday'])
+            //date = new Date(params['birthday']);
+            //this.glsetting.Confirm("dd", date, null, null)
         }
 
         this.Info.Name = params['name'];
-        this.Info.Birthday = date.toChinaString(true);
+
         this.Info.Place = params['land'] + ' ' + params['city']
         if(params['code']){
             let timeoff = LandMaps.CalcTimeOff(params['code'])
             date = new Date(date.getTime() + timeoff * 60 * 1000)
         }
-        
+
         let tydate =new TYDate(date)
         let nl = tydate.NLmonthFullName + tydate.NLdate
+        this.Info.Birthday = date.toChinaString()
         this.Info.Birthday +=  `(农历 ${nl})`
 
         this.Info.SolarTime = date.toChinaString(true);
