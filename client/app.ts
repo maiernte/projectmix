@@ -66,7 +66,7 @@ class HuaheApp {
     glsetting: GlobalSetting;
 
     emitterPaipan: EventEmitter<any>;
-    private testtime = new Date('2016-06-30')
+    private testtime;
     
     constructor(@Inject(Router) router: Router,
                 @Inject(Location) location: Location,
@@ -95,11 +95,15 @@ class HuaheApp {
             jQuery(document).find('.ui.labeled.sidebar').sidebar('toggle');
         }, false);
 
+        this.testtime = this.glsetting.ParseDate("2016-06-30")
         if(Date.now() >= this.testtime.getTime() && this.glsetting.IsCordova){
             alertify.alert('版本过期', '此测试版本已经到期!请更换新的版本',
                 () => {this.Exit()})
                 .set('labels', {ok:'好的'});
         }
+    }
+
+    ngAfterViewInit(){
     }
 
     get iOS(){

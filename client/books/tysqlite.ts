@@ -112,7 +112,7 @@ export class TYSqlite{
                 if(rd[0] == 1){
                     this.bookname = rd[1]
                 }else if(rd[0] == 2){
-                    this.created = new Date(Date.parse(rd[1].toString()))
+                    this.created = this.ParseDate(rd[1].toString())
                 }else if(rd[0] == 3){
                     this.author = rd[1]
                 }else if(rd[0] == 7){
@@ -303,7 +303,7 @@ export class TYSqlite{
     }
 
     private ParseDate(text: string){
-        let res = new Date(text)
+        let res = new Date(Date.parse(text))
         if(res.toString() != 'Invalid Date'){
             return res;
         }

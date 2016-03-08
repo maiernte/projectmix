@@ -441,7 +441,7 @@ export class GuaView{
             this.Info.time = `${riyue[0]}月 ${riyue[1]}日`
             this.Gua = new Gua(null, riyue[0], riyue[1], ben, bian)
         }else{
-            let time = new Date(params['time'])
+            let time = this.glsetting.ParseDate(params['time'])
             this.Info.time = `${time.getFullYear()}年
                                ${time.getMonth() + 1}月
                                ${time.getDate()}日
@@ -475,7 +475,7 @@ export class GuaView{
 
         return {
             gua: {
-                time: new Date(params['time']),
+                time: this.glsetting.ParseDate(params['time']),
                 yueri: [this.Gua.Yue.Name, this.Gua.Ri.Name],
                 ben: this.Gua.Ben.Name,
                 bian: this.Gua.Bian.Name,
@@ -513,7 +513,7 @@ export class GuaView{
                 let items = params['time'].split(',')
                 params['time'] = items;
             } else {
-                let date = new Date(params['time'])
+                let date = this.glsetting.ParseDate(params['time'])
                 date.getMinutes()
                 params['time'] = date;
             }

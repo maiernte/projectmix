@@ -198,7 +198,7 @@ export class BaziView{
     Recalc(hours: number){
         if(typeof this.initParams['birthday'] == 'string'){
             let text = this.initParams['birthday']
-            this.initParams['birthday'] = new Date(text);
+            this.initParams['birthday'] = this.glsetting.ParseDate(text)
         }
         
         let milisecondes = hours * 60 * 60 * 1000;

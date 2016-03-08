@@ -229,7 +229,8 @@ export class PaiBazi{
     }
 
     paiBazi(){
-        let date = new Date(this.Input.Date)
+        let date = this.glsetting.ParseDate(this.Input.Date)
+        console.log('pai bazi', this.Input.Date, date)
         if(this.TimeModel == false){
             // 农历时间
             date = this.searchNL()

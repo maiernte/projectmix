@@ -36,8 +36,12 @@ export class SemanticSelect{
 
     get UseOrigin(){
         let isandroid = navigator.userAgent.match(/Android/i)
-        //isandroid = []
-        return isandroid && this.Grouped;
+        /*if(isandroid){
+            return this.Grouped || this.Options.Items.length > 4;
+        }*/
+
+        return isandroid;
+        //return isandroid && this.Grouped;
     }
 
     ngOnInit(){
@@ -52,7 +56,7 @@ export class SemanticSelect{
             this.buildOptions()
         }
 
-        if(this.UseOrigin){
+        if(this.UseOrigin && this.Grouped){
             this.convertOptions()
         }
 
@@ -74,7 +78,7 @@ export class SemanticSelect{
                 }*/
 
                 this.valueChanged.emit(value)
-                //console.log('change selected', value, text, $choice)
+                console.log('change selected', value, text, $choice)
             }
         })
     }
@@ -87,7 +91,7 @@ export class SemanticSelect{
         }
 
         if(changes['Options']){
-            if(this.UseOrigin){
+            if(this.UseOrigin && this.Grouped){
                 this.convertOptions();
             }
             
@@ -103,6 +107,11 @@ export class SemanticSelect{
     changeValue(event){
         let value = event.srcElement['value']
         this.valueChanged.emit(value)
+    }
+
+    userchange(value, text){
+        console.log("user change")
+        this.Selected = {Value: value, Text: text}
     }
 
     private getItem(value: any): tyitem{

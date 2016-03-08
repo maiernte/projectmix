@@ -10,11 +10,11 @@
         </div>
     </div>
 
-    <div class="inline field">
+    <!--<div class="inline field">
         <sm-select [Options]="jiazioptions"
                    [Value]="Seletcted"
                    (Value)="Seletcted = $event"></sm-select>
-    </div>
+    </div>-->
 
     <div style="margin-bottom: 10px">Selected Item: {{Seletcted}}</div>
 
@@ -22,18 +22,19 @@
 
     <br>
 
-    <sm-select [Options]="guaoptions"
+    <!--<sm-select [Options]="guaoptions"
                [Value]="SeletcedGua"
-               (Value)="SeletcedGua = $event"></sm-select>
+               (Value)="SeletcedGua = $event"></sm-select>-->
 
     <div style="margin-bottom: 10px">Selected Gua: {{SeletcedGua}}</div>
 
-    <sm-select [Options]="'简体 正体'"></sm-select>
+    <!--<sm-select [Options]="'简体 正体'"></sm-select>
 
-    <sm-select [Options]="'jiazi-full'"></sm-select>
+    <sm-select [Options]="'jiazi-full'"></sm-select>-->
 
     <ty-editor [Content]="'      '"
                (onsave)="editorSaved($event)"></ty-editor>
 
     <input type="file" name="" (change)="loadExternSqlite($event)"/>
+
 </div>

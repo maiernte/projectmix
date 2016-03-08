@@ -261,7 +261,7 @@ export  class GlobalSetting{
     }
 
     ParseDate(text: string){
-        let res = new Date(text)
+        let res = new Date(Date.parse(text))
         if(res.toString() != 'Invalid Date'){
             return res;
         }

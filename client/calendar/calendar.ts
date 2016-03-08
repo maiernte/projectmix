@@ -72,8 +72,6 @@ export class CalendarView {
         this.initWeeks(date.getFullYear(), date.getMonth() + 1, date.getDate());
         this.inited = true;
 
-        let d = new Date(Date.parse('2015-10-24'))
-        console.log(d.toString())
     };
     
     get SelectedDate(): string{
@@ -87,8 +85,8 @@ export class CalendarView {
     
         this.selectedDate = value;
 
-        //let d = Date.fromText(value)
-        let d = new Date(Date.parse(value))
+        let d = this.glsetting.ParseDate(value)
+        //console.log("selected date", value, d)
         if(d.getFullYear() != this.Year || d.getMonth() + 1 != this.Month || d.getDate() != this.Date){
             this.initWeeks(d.getFullYear(), d.getMonth() + 1, d.getDate());
         }

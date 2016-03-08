@@ -43,7 +43,7 @@ export class PailiuyaoTime{
         if(this.GanZhiModel === true){
             return [this.InputTime['Yue'], this.InputTime['Ri']];
         }else{
-            let date = new Date(this.InputTime['Date'])
+            let date = this.glsetting.ParseDate(this.InputTime['Date'])
             //let time = this.InputTime.Time.split(':')
             //let houre = parseInt(time[0])
             //let minute = parseInt(time[1])

@@ -10,6 +10,7 @@
             <span class="text">{{gp.Name | tran:glsetting.lang}}</span>
             <div class="right menu">
                 <div class="item" *ngFor="#i of gp.Items"
+                     (click)="userchange(i.Value, i.Text)"
                     [attr.data-value]="i.Value">
                     {{i.Text | tran:glsetting.lang}}
                 </div>

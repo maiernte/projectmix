@@ -8,7 +8,7 @@ App.info({
     author: '鎏金天涯',
     email: 'mai.yongfeng@googlemail.com',
     website: 'http://huaheweb.eu-gb.mybluemix.net',
-    version: '0.0.2'
+    version: '0.0.3'
 });
 
 // Set up resources such as icons and launch screens.
@@ -41,6 +41,6 @@ App.launchScreens({
 App.setPreference('HideKeyboardFormAccessoryBar', true);
 //App.setPreference('AllowInlineMediaPlayback', true);
 
-// 17 = Version 4.2 19 = 4.4 15 = 4.0
-App.setPreference('android-targetSdkVersion', '19');
-App.setPreference('android-minSdkVersion', '14');
+// 17 = Version 4.2 19 = 4.4 15 = 4.0 21 = 5.0
+App.setPreference('android-targetSdkVersion', '21');
+App.setPreference('android-minSdkVersion', '19');

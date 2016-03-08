@@ -1,6 +1,6 @@
 /// <reference path="../../../typings/angular2-meteor.d.ts" />
 
-import {Component, Inject} from 'angular2/core'
+import {Component, Inject, ElementRef} from 'angular2/core'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
@@ -8,6 +8,7 @@ import {SemanticSelect, tyitem, tyoption} from './smselect'
 import {TYEditor} from './texteditor'
 
 import {TYSqlite} from 'client/books/tysqlite'
+import ElementRef = ng.ElementRef;
 
 declare var jQuery:any;
 
@@ -30,7 +31,8 @@ export class Demo{
 
     SeletcedGua: any
 
-    constructor(@Inject(GlobalSetting) public glsetting: GlobalSetting){
+    constructor(@Inject(GlobalSetting) public glsetting: GlobalSetting,
+    private rootElement: ElementRef){
 
     }
 
@@ -89,7 +91,9 @@ export class Demo{
     }
 
     ngAfterViewInit(){
-
+        jQuery(this.rootElement.nativeElement)
+            .find('.ui.dropdown')
+            .dropdown()
     }
 
     valueChanged(){
@@ -105,12 +109,20 @@ export class Demo{
         var f = event.srcElement.files[0];
         var r = new FileReader();
         r.onload = () => {
-            let db = new TYSqlite(r.result)
-
-            this.glsetting.Alert('gua file', db.BookType)
+            console.log('load...')
+            this.glsetting.Alert("aa", "bb")
+            //let db = new TYSqlite(r.result)
+            //this.glsetting.Alert('gua file', db.BookType)
         }
 
-        r.readAsArrayBuffer(f);
-        //r.readAsDataURL(f);
+        //r.readAsArrayBuffer(f);
+        r.readAsDataURL(f);
     }
+
+    dosometrick(){
+        console.log("trigger selector")
+        this.glsetting.Notify("trigger selector", -1)
+        //jQuery("#hiddenselector").trigger('click')
+    }
+
 }
