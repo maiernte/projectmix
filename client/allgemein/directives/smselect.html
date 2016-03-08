@@ -1,6 +1,5 @@
 <div class="ui dropdown semantic"
-     *ngIf="!UseOrigin"
-     [class.scrolling]="!Grouped">
+     *ngIf="!UseOrigin">
     <!--<div class="default text">{{Selected.Text | tran:glsetting.lang}}</div>-->
     <span class="text">{{Selected.Text | tran:glsetting.lang}}</span>
     <i class="dropdown icon"></i>
@@ -10,14 +9,13 @@
             <span class="text">{{gp.Name | tran:glsetting.lang}}</span>
             <div class="right menu">
                 <div class="item" *ngFor="#i of gp.Items"
-                     (click)="userchange(i.Value, i.Text)"
                     [attr.data-value]="i.Value">
                     {{i.Text | tran:glsetting.lang}}
                 </div>
             </div>
         </div>
     </div>
-    <div class="menu" *ngIf="!Grouped">
+    <div class="menu" *ngIf="!Grouped" style="max-height: 200px">
         <div class="item" *ngFor="#i of Options.Items"
              [attr.data-value]="i.Value">
             {{i.Text | tran:glsetting.lang}}
@@ -25,7 +23,7 @@
     </div>
 </div>
 
-<select class="ui dropdown"
+<!--<select class="ui dropdown"
         *ngIf="UseOrigin"
         (change)="changeValue($event)">
     <div class="default text">{{Selected.Text | tran:glsetting.lang}}</div>
@@ -34,4 +32,29 @@
             [disabled]="i.Value == null">
         {{i.Text | tran:glsetting.lang}}
     </option>
-</select>
+</select>-->
+
+<span *ngIf="UseOrigin" (click)="showModal()">
+    <span class="default text">{{Selected.Text | tran:glsetting.lang}}</span>
+    <i class="dropdown icon"></i>
+</span>
+<div class="ui small modal" *ngIf="UseOrigin">
+    <div class="content">
+        <div class="ui selection list" style="height:300px;overflow-y:auto">
+            <div class="ui" *ngFor="#i of Options.Items"
+                 (click)="activeItem = i"
+                 [class.divider]="i.Value == null"
+                 [class.item]="i.Value != null">
+                {{i.Text | tran:glsetting.lang}}
+            </div>
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui cancel small button">
+            {{'取消' | tran:glsetting.lang}}
+        </div>
+        <div class="ui approve small button">
+            {{'确定' | tran:glsetting.lang}}
+        </div>
+    </div>
+</div>

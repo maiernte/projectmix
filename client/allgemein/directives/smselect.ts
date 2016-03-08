@@ -20,10 +20,14 @@ export class SemanticSelect{
     Value: any;
     valueChanged = new EventEmitter();
     Selected: tyitem;
+    activeItem: tyitem;
 
     SimpleOptions: string;
     private inited = false
     private tran: TranslatePipe
+    private domModal
+
+
 
     constructor(private rootElement: ElementRef,
                 @Inject(GlobalSetting) public glsetting:GlobalSetting){
@@ -35,13 +39,17 @@ export class SemanticSelect{
     }
 
     get UseOrigin(){
-        let isandroid = navigator.userAgent.match(/Android/i)
-        /*if(isandroid){
-            return this.Grouped || this.Options.Items.length > 4;
-        }*/
-
-        return isandroid;
-        //return isandroid && this.Grouped;
+        if(this.glsetting.IsCordova){
+            if(this.Grouped){
+                let isandroid = navigator.userAgent.match(/Android/i)
+                return isandroid;
+            }else{
+                let longoption = this.Options.Items && this.Options.Items.length > 5
+                return longoption;
+            }
+        }else{
+            return false;
+        }
     }
 
     ngOnInit(){
@@ -104,14 +112,24 @@ export class SemanticSelect{
         }
     }
 
-    changeValue(event){
-        let value = event.srcElement['value']
-        this.valueChanged.emit(value)
-    }
+    showModal(){
+        this.activeItem = this.Selected
+        this.domModal = (this.domModal || jQuery(this.rootElement.nativeElement)
+            .find('.ui.small.modal'))
+        this.domModal.modal({
+            closable  : false,
+            onDeny    : () => {
+                return true;
+            },
+            onApprove : () => {
+                let value = this.activeItem.Value
+                let text = this.activeItem.Text
 
-    userchange(value, text){
-        console.log("user change")
-        this.Selected = {Value: value, Text: text}
+                this.domModal.modal('hide')
+                this.Selected = {Value: value, Text: text}
+                this.valueChanged.emit(value)
+            }
+        }).modal('show')
     }
 
     private getItem(value: any): tyitem{
