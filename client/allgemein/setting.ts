@@ -129,10 +129,10 @@ export class AppSetting{
         let f = event.target.files[0]
         let r = new FileReader();
         r.onload = (evt) => {
-            console.log('bookloaded')
-            //let db = new TYSqlite(r.result)
+            //console.log('bookloaded')
+            let db = new TYSqlite(r.result)
             //let db = new TYSqlite(evt.target.result)
-            //this.convertBook(db)
+            this.convertBook(db)
         }
 
         if(!f){

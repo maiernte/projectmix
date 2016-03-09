@@ -26,12 +26,22 @@ export class SemanticSelect{
     private inited = false
     private tran: TranslatePipe
     private domModal
-
-
+    private domSelect
 
     constructor(private rootElement: ElementRef,
                 @Inject(GlobalSetting) public glsetting:GlobalSetting){
         //this.tran = new TranslatePipe()
+    }
+    
+    ngOnDestroy() {
+        //console.log("SemanticSelect destroy", this.domModal, this.domSelect)
+        if(this.domModal){
+            this.domModal.remove()
+        }
+        
+        if(this.domSelect){
+            this.domSelect.remove()
+        }
     }
 
     get Grouped(){
@@ -78,12 +88,10 @@ export class SemanticSelect{
     }
 
     ngAfterViewInit(){
-        jQuery(this.rootElement.nativeElement).find('.ui.dropdown.semantic').dropdown({
+        this.domSelect = jQuery(this.rootElement.nativeElement).find('.ui.dropdown.semantic')
+        this.domSelect.dropdown({
             onChange: (value, text, $choice)=>{
                 this.Selected = {Value: value, Text: text}
-                /*if(typeof value == "string"){
-                    value = this.tran.transform(value, false)
-                }*/
 
                 this.valueChanged.emit(value)
                 console.log('change selected', value, text, $choice)

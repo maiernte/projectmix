@@ -18,7 +18,6 @@ import {TYUploader} from 'lib/qiniu/tyuploader'
 import {TYEditor} from 'client/allgemein/directives/texteditor'
 
 declare var jQuery;
-declare var MediumEditor;
 declare var QiniuUploader;
 declare var alertify;
 

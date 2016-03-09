@@ -62,15 +62,26 @@ export class TYEditor{
             console.log("destroy quill")
             this.quill.destroy();
             this.quill = null;
-
         }
+        
+        let domBar = jQuery(this.rootElement.nativeElement).find('#quill-toolbar')
+        let domEditor = jQuery(this.rootElement.nativeElement).find('#quill-editor-container')
+        
+        if(domBar){
+            domBar.remove()
+        }
+        
+        if(domEditor){
+            domEditor.remove()
+        }
+        
     }
 
     ngOnChanges(changes: {[propName: string]: SimpleChange}) {
         if(this.inited == false)return;
 
         if(changes['Content']){
-
+            this.setContent(this.Content)
         }
     }
 
@@ -84,7 +95,10 @@ export class TYEditor{
     }
 
     private setContent(html){
-        if(!html || html == '')return
+        if(!html || html == ''){
+            this.quill.setHTML('<div></div>')
+        }
+        
         this.quill.setHTML(html)
     }
 }

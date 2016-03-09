@@ -167,8 +167,8 @@ export class BookMarket{
             console.log("!f")
             return
         }else{
-            //r.readAsDataURL(f);
-            r.readAsArrayBuffer(f)
+            r.readAsDataURL(f);
+            //r.readAsArrayBuffer(f)
         }
     }
 

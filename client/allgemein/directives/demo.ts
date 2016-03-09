@@ -8,7 +8,6 @@ import {SemanticSelect, tyitem, tyoption} from './smselect'
 import {TYEditor} from './texteditor'
 
 import {TYSqlite} from 'client/books/tysqlite'
-import ElementRef = ng.ElementRef;
 
 declare var jQuery:any;
 

@@ -19,8 +19,8 @@ export class TYSqlite{
 
     constructor(data){
         try{
-            //let buffer = this.convertDataURIToBinary(data)
-            var buffer = new Uint8Array(data);
+            let buffer = this.convertDataURIToBinary(data)
+            //var buffer = new Uint8Array(data);
             this.db =  new SQL.Database(buffer);
             this.parseBaseInfo();
             this.valid = true
@@ -235,7 +235,7 @@ export class TYSqlite{
 
             if(rd[7].length < 3 || rd[8].length < 3){
                 counter--
-                continue
+                continue;
             }
 
             /*let create = new Date(Date.parse(rd[1]))
@@ -309,7 +309,7 @@ export class TYSqlite{
         }
 
         if(!text || text == ''){
-            return 'Invalid Date'
+            return null
         }
 
         let item = text.split(' ')

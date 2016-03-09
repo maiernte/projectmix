@@ -1,5 +1,6 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 /// <reference path="../../typings/book.d.ts" />
+/// <reference path="../../typings/global.d.ts" />
 
 import {Component, Inject, Input, ElementRef, AfterViewInit, NgZone} from 'angular2/core'
 import {NgFor} from 'angular2/common'
@@ -471,11 +472,13 @@ export class GuaView{
             ques = '问念'
         }
         
+        
         let params = JSON.parse(this.initdata)
+        let time = this.glsetting.ParseDate(params['time'])
 
         return {
             gua: {
-                time: this.glsetting.ParseDate(params['time']),
+                time: time ? time : null,
                 yueri: [this.Gua.Yue.Name, this.Gua.Ri.Name],
                 ben: this.Gua.Ben.Name,
                 bian: this.Gua.Bian.Name,

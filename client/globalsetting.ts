@@ -265,6 +265,10 @@ export  class GlobalSetting{
         if(res.toString() != 'Invalid Date'){
             return res;
         }
+        
+        if(!text || text == '' || typeof text != 'string'){
+            return null
+        }
 
         let item = text.split(' ')
         let date = item[0].split('-')

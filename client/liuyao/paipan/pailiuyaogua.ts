@@ -78,8 +78,10 @@ export class PaiLiuyaoGua{
         }
     }
     
+    private domHelp 
+    
     ngOnInit(){
-        let domGuaName = jQuery('#paigua-yao-name')
+        /*let domGuaName = jQuery('#paigua-yao-name')
         this.GuaGongOrder = domGuaName.hasClass('guagong') ? true : false;
         this.guayaoModel = domGuaName.hasClass('hidden') ? true : false;
 
@@ -88,14 +90,27 @@ export class PaiLiuyaoGua{
         }else{
             this.bengua = '坤为地'
             this.biangua = '坤为地'
-        }
+        }*/
 
-        jQuery(this.rootElement.nativeElement)
+        this.GuaGongOrder = false
+        this.guayaoModel = false
+        this.bengua = '坤为地'
+        this.biangua = '坤为地'
+        
+        this.domHelp = jQuery(this.rootElement.nativeElement)
             .find('.paigua.help')
-            .popup({
+        
+        this.domHelp.popup({
                 on:'click',
                 position : 'bottom left'
             });
+    }
+    
+    ngOnDestroy() {
+        /*console.log("pailiuyaogua destroy")
+        if(this.domHelp){
+            this.domHelp.remove()
+        }*/
     }
     
     initGuaNames(guagong:boolean) {
