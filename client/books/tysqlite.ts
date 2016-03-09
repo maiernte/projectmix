@@ -1,4 +1,5 @@
 /// <reference path="../../typings/global.d.ts" />
+/// <reference path="../../typings/meteor/meteor.d.ts" />
 
 import {LocalRecords, LocalBooks} from 'collections/books'
 import {TYLunar} from '../../lib/lunar/tylunar'
@@ -132,13 +133,16 @@ export class TYSqlite{
 
     private createbook(): any{
         let promise = new Promise((resolve, reject) => {
+            
+            let name = (this.bookname || '')
+            name = (name == '') ? '旧案例' : name
 
             let doc = {
                 name: this.bookname,
                 description: (this.description || ''),
                 icon: null,
                 author: this.author,
-                owner: Meteor.userId(),
+                owner: Session.get('userid'),
                 readpermission: 0,
                 writepermission: 0,
                 created: this.created ? this.created.getTime() : Date.now(),
@@ -173,7 +177,7 @@ export class TYSqlite{
 
     private importBazi(bookid, callback){
         let rds = this.db.exec("SELECT * FROM t_guali");
-        let owner = Meteor.userId()
+        let owner = Session.get('userid')
 
         let recordcount = rds[0]['values'].length
         let counter = recordcount
@@ -226,7 +230,7 @@ export class TYSqlite{
 
     private importGua(bookid, callback){
         let rds = this.db.exec("SELECT * FROM t_guali");
-        let owner = Meteor.userId()
+        let owner = Session.get('userid')
 
         let recordcount = rds[0]['values'].length
         let counter = recordcount

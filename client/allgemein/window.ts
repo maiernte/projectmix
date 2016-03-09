@@ -32,7 +32,6 @@ declare var jQuery:any;
 })
 
 export class TyWindow {
-	elementRef: ElementRef;
 	onclosing = new EventEmitter();
 	afterSave = new EventEmitter();
 	
@@ -50,8 +49,7 @@ export class TyWindow {
 
 	IsReady: boolean;
 	
-	constructor(elementRef: ElementRef, @Inject(GlobalSetting) glsetting: GlobalSetting){
-		this.elementRef = elementRef;
+	constructor(private rootElement: ElementRef, @Inject(GlobalSetting) glsetting: GlobalSetting){
 		this.glsetting = glsetting;
 		this.wide = false; 
 	}
@@ -119,7 +117,7 @@ export class TyWindow {
 		if(this.baziview) record = this.baziview.exportAsRecord()
 		
 		record.book = book._id;
-		record.owner = Meteor.userId();
+		record.owner = Session.get('userid');
 
 		LocalRecords.insert(record, (err, id) => {
 			if(err){
@@ -144,4 +142,10 @@ export class TyWindow {
 	ngAfterViewInit(){
 		this.IsReady = true;
 	}
+	
+	ngOnDestroy() {
+		/*let domRoot = jQuery(this.rootElement.nativeElement).find(".box")
+		console.log('window destroy', domRoot)
+		domRoot.remove()*/
+    }
 }

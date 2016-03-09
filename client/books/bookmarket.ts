@@ -276,9 +276,9 @@ class BookView{
     get Editable(){
         if(this.book.cloud == false) return true
     
-        if(!Meteor.userId()) return false;
+        if(!Session.get('userid')) return false;
         
-        return this.book.owner == Meteor.userId();
+        return this.book.owner == Session.get('userid');
     }
     
     get Created(){

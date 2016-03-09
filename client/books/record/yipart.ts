@@ -80,9 +80,7 @@ export class YixuePart{
         this.editmodel = value;
 
         if(value == false){
-            console.log("set description to display")
             let domDesc = jQuery(this.rootElement.nativeElement).find('.editable.description')
-            //let domDesc = jQuery('.editable.description')
             domDesc.html(this.Description)
         }else{
 
@@ -396,7 +394,7 @@ export class YixuePart{
                     let bk =this.record.BookId
                     let rd = this.record.Id
                     let name = this.glsetting.RandomStr(5)
-                    let uid = Meteor.userId()
+                    let uid = Session.get('userid')
 
                     var key = `uid-${uid}/bk-${bk}/rd-${rd}/${name}.${endung}`
                     return key;

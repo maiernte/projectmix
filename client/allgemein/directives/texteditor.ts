@@ -59,22 +59,10 @@ export class TYEditor{
 
     ngOnDestroy(){
         if(!!this.quill){
-            console.log("destroy quill")
+            //console.log("destroy quill")
             this.quill.destroy();
             this.quill = null;
         }
-        
-        let domBar = jQuery(this.rootElement.nativeElement).find('#quill-toolbar')
-        let domEditor = jQuery(this.rootElement.nativeElement).find('#quill-editor-container')
-        
-        if(domBar){
-            domBar.remove()
-        }
-        
-        if(domEditor){
-            domEditor.remove()
-        }
-        
     }
 
     ngOnChanges(changes: {[propName: string]: SimpleChange}) {

@@ -151,7 +151,7 @@ export class RecordHelper{
 
     RemoveImage(key: string): any{
         let del = {
-            user: Meteor.userId(),
+            user: Session.get('userid'),
             bk: this.BookId,
             rd: this.Id,
             key: key

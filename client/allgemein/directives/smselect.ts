@@ -51,11 +51,12 @@ export class SemanticSelect{
     get UseOrigin(){
         if(this.glsetting.IsCordova){
             if(this.Grouped){
-                let isandroid = navigator.userAgent.match(/Android/i)
-                return isandroid;
+                //let isandroid = navigator.userAgent.match(/Android/i)
+                //return isandroid;
+                return true
             }else{
                 let longoption = this.Options.Items && this.Options.Items.length > 5
-                return longoption;
+                return longoption == true;
             }
         }else{
             return false;
@@ -94,7 +95,7 @@ export class SemanticSelect{
                 this.Selected = {Value: value, Text: text}
 
                 this.valueChanged.emit(value)
-                console.log('change selected', value, text, $choice)
+                //console.log('change selected', value, text, $choice)
             }
         })
     }

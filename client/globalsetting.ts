@@ -33,6 +33,8 @@ export  class GlobalSetting{
     private language: boolean; // 是否使用繁体字
     private translator: TranslatePipe;
     private books: Array<Book>;
+    private signed = false
+    private isCordova
 
     Clipboard: Object
     BookManager: Bookmanager;
@@ -53,14 +55,20 @@ export  class GlobalSetting{
                 this.SignIn(user, pw)
             }
         }
+        
+        Session.set('userid', null)
     }
     
     get Signed(){
-        return !!Meteor.user()
+        return this.signed
     }
     
     get IsCordova(){
-        return Meteor.isCordova;
+        if(this.isCordova == null || this.isCordova == undefined){
+            this.isCordova = Meteor.isCordova;
+        }
+        
+        return this.isCordova;
     }
     
     get Ios(){
@@ -200,6 +208,8 @@ export  class GlobalSetting{
                     if(err){
                         reject(err)
                     }else{
+                        this.signed = true
+                        Session.set('userid', Meteor.userId())
                         resolve(true)
                     }
                 })
@@ -217,6 +227,8 @@ export  class GlobalSetting{
                 }else{
                     //this.GetSetting('autosignin')
                     this.SetValue('autosignin', false)
+                    this.signed = false
+                    Session.set('userid', null)
                     resolve(true)
                 }
             })

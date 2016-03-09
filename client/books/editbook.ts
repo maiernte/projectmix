@@ -177,7 +177,7 @@ export class BookEditor{
             description: this.Desc,
             icon: null,
             author: this.Author,
-            owner: Meteor.userId(),
+            owner: Session.get('userid'),
             readpermission: 0,
             writepermission: 0,
             created: Date.now(),

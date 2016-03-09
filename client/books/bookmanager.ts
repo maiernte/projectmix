@@ -76,7 +76,7 @@ export class Bookmanager{
 
             if(book.cloud == false){
                 book.cloud = true;
-                book.owner = Meteor.userId();
+                book.owner = Session.get('userid');
 
                 Books.insert(book, (err, id) => {
                     if(err){
@@ -85,7 +85,7 @@ export class Bookmanager{
                         LocalBooks.update({_id:bookid}, {
                             $set: {
                                 cloud: true,
-                                owner: Meteor.userId()
+                                owner: Session.get('userid')
                             }
                         })
 

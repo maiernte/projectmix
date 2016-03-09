@@ -92,7 +92,7 @@ export class UerProfile{
             return;
         }
 
-        Meteor.call('sendVerificationEmail', Meteor.userId(), this.Email, (err, response) => {
+        Meteor.call('sendVerificationEmail', Session.get('userid'), this.Email, (err, response) => {
             if(!err){
                 console.log('email is sended!')
                 this.glsetting.Notify('验证邮件已经发送到您的注册邮箱中！', 1)
@@ -158,7 +158,7 @@ export class UerProfile{
     private updateProfile(nickname: string, moto: string): any{
         let promise = new Promise((resolve, reject) => {
             Meteor.users.update(
-                {_id: Meteor.userId()},
+                {_id: Session.get('userid')},
                 {$set: {'profile.nickname': nickname, 'profile.moto': moto}},
                 (err, res) => {
                     if(err){
@@ -179,7 +179,7 @@ export class UerProfile{
             return;
         }
 
-        Meteor.call('changeMail', Meteor.userId(), newmail, (err, res) => {
+        Meteor.call('changeMail', Session.get('userid'), newmail, (err, res) => {
             if(err){
                 this.glsetting.Alert("更改邮箱失败", err.toString())
             }else{
@@ -190,7 +190,7 @@ export class UerProfile{
 
     removeImage(key: string): any{
         let del = {
-            user: Meteor.userId(),
+            user: Session.get('userid'),
             bk: null,
             rd: null,
             key: key
@@ -250,7 +250,7 @@ export class UerProfile{
                     let oldicon = (Meteor.user().profile || {}).icon
 
                     Meteor.users.update(
-                        {_id: Meteor.userId()},
+                        {_id: Session.get('userid')},
                         {$set: {'profile.icon': icon.key}},
                         (err, res) => {
                             console.log("update profile : ", err, res)
@@ -274,7 +274,7 @@ export class UerProfile{
                     // 该配置必须要在 unique_names: false , save_key: false 时才生效
                     let item = file.name.split('.')
                     let endung = item[item.length - 1]
-                    let uid = Meteor.userId()
+                    let uid = Session.get('userid')
                     let name = this.glsetting.RandomStr(5)
                     var key = `uid-${uid}/icon/${name}.${endung}`
                     return key;
