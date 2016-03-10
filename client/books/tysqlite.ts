@@ -20,6 +20,7 @@ export class TYSqlite{
 
     constructor(data){
         try{
+            //console.log('data', data)
             let buffer = this.convertDataURIToBinary(data)
             //var buffer = new Uint8Array(data);
             this.db =  new SQL.Database(buffer);
@@ -254,9 +255,7 @@ export class TYSqlite{
             let description = this.parseDescription(rd[10])
             let yueri = [rd[4], rd[5]]
 
-            if(time.toString() == 'Invalid Date'){
-                time = null
-            }else{
+            if(time != null){
                 time = time.formate('datetime')
             }
 

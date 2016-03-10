@@ -1,4 +1,5 @@
 
+App.accessRule("blob:*");
 App.accessRule("*");
 
 App.info({

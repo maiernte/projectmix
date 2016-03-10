@@ -55,7 +55,7 @@ export  class GlobalSetting{
                 this.SignIn(user, pw)
             }
         }
-        
+
         Session.set('userid', null)
     }
     

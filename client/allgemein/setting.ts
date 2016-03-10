@@ -126,22 +126,21 @@ export class AppSetting{
     }
 
     ImportBook(event){
-        let f = event.target.files[0]
-        let r = new FileReader();
-        r.onload = (evt) => {
-            //console.log('bookloaded')
-            let db = new TYSqlite(r.result)
-            //let db = new TYSqlite(evt.target.result)
-            this.convertBook(db)
-        }
+        if(Meteor.isClient){
+            let f = event.target.files[0]
+            let r = new FileReader();
+            r.onload = (evt) => {
+                let db = new TYSqlite(r.result)
+                this.convertBook(db)
+            }
 
-        if(!f){
-            console.log("!f")
-            return
-        }else{
-            console.log("read file")
-            //r.readAsArrayBuffer(f)
-            r.readAsDataURL(f)
+            if(!f){
+                console.log("!f")
+                return
+            }else{
+                console.log("read file")
+                r.readAsDataURL(f)
+            }
         }
     }
 

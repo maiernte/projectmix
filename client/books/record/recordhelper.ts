@@ -1,4 +1,6 @@
 /// <reference path="../../../typings/book.d.ts" />
+/// <reference path="../../../typings/meteor/meteor.d.ts" />
+
 import {LocalRecords, BkRecords} from 'collections/books'
 import {DelImages} from 'collections/admin'
 

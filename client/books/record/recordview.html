@@ -1,28 +1,30 @@
-<div class="ui top attached segment"
-     style="text-align: center" >
-    <a class="ui basic top left attached large label" style="margin-bottom: 0"
-       (click)="goBack()">
-        <i class="angle left icon"></i>
-        {{'返回' | tran:glsetting.lang}}
-    </a>
-    
-    {{'书名: ' + Bookname | tran:glsetting.lang}}
-    
-    <a class="ui basic top right attached large label"
-       style="margin-bottom: 0"
-       (click)="synchronCloud()">
-        <i class="cloud icon" [class.teal]="IsCloud"></i>
-        {{'云同步' | tran:glsetting.lang}}
-    </a>
-</div>
-<div class="ui segment" *ngIf="Record == null">
-    <div class="ui active inverted dimmer">
-        <div class="ui text loader">{{'加载' | tran:glsetting.lang}}</div>
+<div style="min-height: 100vh">
+    <div class="ui top attached segment"
+         style="text-align: center;" >
+        <a class="ui basic top left attached large label" style="margin-bottom: 0"
+           (click)="goBack()">
+            <i class="angle left icon"></i>
+            {{'返回' | tran:glsetting.lang}}
+        </a>
+
+        {{'书名: ' + Bookname | tran:glsetting.lang}}
+
+        <a class="ui basic top right attached large label"
+           style="margin-bottom: 0"
+           (click)="synchronCloud()">
+            <i class="cloud icon" [class.teal]="IsCloud"></i>
+            {{'云同步' | tran:glsetting.lang}}
+        </a>
     </div>
-    <p>{{'正在加载数据, 请耐心等候...' | tran:glsetting.lang}}</p>
+    <div class="ui segment" *ngIf="Record == null">
+        <div class="ui active inverted dimmer">
+            <div class="ui text loader">{{'加载' | tran:glsetting.lang}}</div>
+        </div>
+        <p>{{'正在加载数据, 请耐心等候...' | tran:glsetting.lang}}</p>
+    </div>
+    <yixue-part [record]="Record" *ngIf="Record != null" #yipart>
+        <guaview *ngIf='IsGua' [initdata]="YiData"></guaview>
+        <baziview *ngIf='!IsGua' [initdata]="YiData"
+                  (onshowyear)="yipart.stickContent($event)"></baziview>
+    </yixue-part>
 </div>
-<yixue-part [record]="Record" *ngIf="Record != null" #yipart>
-    <guaview *ngIf='IsGua' [initdata]="YiData"></guaview>
-    <baziview *ngIf='!IsGua' [initdata]="YiData"
-              (onshowyear)="yipart.stickContent($event)"></baziview>
-</yixue-part>
