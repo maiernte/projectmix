@@ -9,6 +9,7 @@ import {LocalRecords, LocalBooks} from 'collections/books'
 import {SemanticSelect} from './directives/smselect'
 
 import {TYSqlite} from 'client/books/tysqlite'
+import {PageComponent} from 'client/allgemein/pagecomponent'
 
 declare var jQuery:any;
 
@@ -19,7 +20,7 @@ declare var jQuery:any;
     directives: [SemanticSelect]
 })
 
-export class AppSetting{
+export class AppSetting extends PageComponent{
     private twlang: number
     private guaShenSha: number
     private guaSimple: number
@@ -29,6 +30,7 @@ export class AppSetting{
 
     glsetting:GlobalSetting;
     constructor(@Inject(GlobalSetting) glsetting: GlobalSetting){
+        super()
         this.glsetting = glsetting;
     }
 
@@ -93,13 +95,13 @@ export class AppSetting{
         this.glsetting.SetValue('gua-arrow', this.guaArrow == 0)
     }
 
-    showMenu(hide){
+    /*showMenu(hide){
         if(hide === true){
             jQuery(document).find('.ui.labeled.sidebar').sidebar('hide')
         }else{
             jQuery(document).find('.ui.labeled.sidebar').sidebar('toggle');
         }
-    }
+    }*/
 
     ngOnInit(){
         this.twlang = this.glsetting.lang ? 1 : 0;
