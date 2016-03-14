@@ -14,8 +14,11 @@ App.info({
 
 // Set up resources such as icons and launch screens.
 App.icons({
-    'iphone': 'resources/android/icon-48-mdpi.png',
-    'iphone_2x': 'resources/android/icon-96-xhdpi.png',
+    'iphone': 'resources/ios/icon-36.png',
+    'iphone_2x': 'resources/ios/icon-72.png',
+    'iphone_3x': 'resources/ios/icon-96.png',
+    'ipad': 'resources/ios/icon-48.png',
+    'ipad_2x': 'resources/ios/icon-96.png',
 
     'android_ldpi': 'resources/android/icon-36-ldpi.png',
     'android_mdpi': 'resources/android/icon-48-mdpi.png',
@@ -26,6 +29,14 @@ App.icons({
 App.launchScreens({
     'iphone': 'resources/huahe_screen.png',
     'iphone_2x': 'resources/huahe_screen.png',
+    'iphone5': 'resources/huahe_screen.png',
+    'iphone6': 'resources/huahe_screen.png',
+    'iphone6p_portrait': 'resources/huahe_screen.png',
+    'iphone6p_landscape': 'resources/huahe_screen.png',
+    'ipad_portrait': 'resources/huahe_screen.png',
+    'ipad_portrait_2x': 'resources/huahe_screen.png',
+    'ipad_landscape': 'resources/huahe_screen.png',
+    'ipad_landscape_2x': 'resources/huahe_screen.png',
 
     'android_ldpi_portrait': 'resources/huahe_screen.png',
     'android_ldpi_landscape': 'resources/huahe_screen.png',

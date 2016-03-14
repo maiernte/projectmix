@@ -44,7 +44,7 @@
                     <div class="item"
                         [class.active]='ActiveYao == 5' 
                         [class.red]='ActiveYao == 5'
-                        (click)='ActiveYao = 5'>
+                        (click)='changeYao(5)'>
                         <div>
                             上爻
                             <img [src]="Symbols[SetedYaos[5]]"/>
@@ -53,7 +53,7 @@
                     <div class="item"
                         [class.active]='ActiveYao == 4' 
                         [class.red]='ActiveYao == 4'
-                        (click)='ActiveYao = 4'>
+                        (click)='changeYao(4)'>
                         <div>
                             五爻
                             <img [src]="Symbols[SetedYaos[4]]"/>
@@ -62,7 +62,7 @@
                     <div class="item"
                         [class.active]='ActiveYao == 3' 
                         [class.red]='ActiveYao == 3'
-                        (click)='ActiveYao = 3'>
+                        (click)='changeYao(3)'>
                         <div>
                             四爻
                             <img [src]="Symbols[SetedYaos[3]]"/>
@@ -71,7 +71,7 @@
                     <div class="item"
                         [class.active]='ActiveYao == 2' 
                         [class.red]='ActiveYao == 2'
-                        (click)='ActiveYao = 2'>
+                        (click)='changeYao(2)'>
                         <div>
                             三爻
                             <img [src]="Symbols[SetedYaos[2]]"/>
@@ -80,7 +80,7 @@
                     <div class="item"
                         [class.active]='ActiveYao == 1' 
                         [class.red]='ActiveYao == 1'
-                        (click)='ActiveYao = 1'>
+                        (click)='changeYao(1)'>
                         <div>
                             二爻
                             <img [src]="Symbols[SetedYaos[1]]"/>
@@ -89,7 +89,7 @@
                     <div class="item" 
                         [class.active]='ActiveYao == 0' 
                         [class.red]='ActiveYao == 0'
-                        (click)='ActiveYao = 0'>
+                        (click)='changeYao(0)'>
                         <div>
                             初爻
                             <img [src]="Symbols[SetedYaos[0]]"/>

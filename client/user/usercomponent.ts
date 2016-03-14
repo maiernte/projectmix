@@ -67,7 +67,7 @@ export class UserComponent{
             })*/
             setTimeout(() => {
                 this.router.navigate(['Profile'])
-            }, 1000)
+            }, 500)
         }
     }
 }

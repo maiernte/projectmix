@@ -55,16 +55,18 @@ export class BookContent{
         
         this.pageSize = this.glsetting.PageSize;
 
-        //document.addEventListener("backbutton", this.onBackButton, false);
+        document.addEventListener("backbutton", this.onBackButton, false);
     }
 
     ngOnDestroy(){
-        //document.removeEventListener("backbutton", this.onBackButton, false);
+        document.removeEventListener("backbutton", this.onBackButton, false);
     }
 
-    /*private onBackButton = (evt: Event) => {
-        this.goBack()
-    }*/
+    private onBackButton = (evt: Event) => {
+        this.ngZone.run(() => {
+            this.goBack()
+        })
+    }
     
     get BookName(){
         return this.bookname;
@@ -205,6 +207,10 @@ export class BookContent{
     }
     
     syncRecord(rd: RecordHelper){
+        if(this.glsetting.ConnectMeteor() == false){
+            return
+        }
+
         let msg = '将此单个记录的内容与云端数据同步？'
         this.glsetting.Confirm("数据同步", msg, () => {
             rd.Loading = true
@@ -239,6 +245,10 @@ export class BookContent{
     }
     
     synchronCloud(){
+        if(this.glsetting.ConnectMeteor() == false){
+            return
+        }
+
         this.glsetting.Confirm("数据同步", '是否将整本书集的内容与云端数据同步？', () => {
             this.cloudData().then(rds => {
                 return this.download(rds)

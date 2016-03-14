@@ -1,6 +1,6 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 
-import {Component, Inject} from 'angular2/core'
+import {Component, Inject, ChangeDetectionStrategy} from 'angular2/core'
 import {NgFor} from 'angular2/common'
 import {Router} from 'angular2/router'
 
@@ -22,6 +22,7 @@ declare var jQuery:any;
     selector: 'pailiuyao',
     pipes: [TranslatePipe],
     templateUrl: 'client/liuyao/paiLiuyao.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     directives: [NgFor, PailiuyaoTime, PaiLiuyaoGua, PailiuyaoLeading, LeadingYao, PailiuyaoCoins]
 })
 

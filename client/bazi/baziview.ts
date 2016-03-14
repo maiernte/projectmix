@@ -2,7 +2,13 @@
 /// <reference path="../../typings/global.d.ts" />
 /// <reference path="../../typings/book.d.ts" />
 
-import {Component, Inject, Input, ElementRef, AfterViewInit, EventEmitter} from 'angular2/core'
+import {Component,
+    Inject,
+    Input,
+    ElementRef,
+    AfterViewInit,
+    EventEmitter,
+    ChangeDetectionStrategy} from 'angular2/core'
 import {NgFor} from 'angular2/common'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
@@ -23,6 +29,7 @@ declare var alertify;
     templateUrl: 'client/bazi/baziview.html',
     outputs:['onshowyear'],
     pipes: [TranslatePipe],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     directives: [NgFor, SemanticSelect]
 })
 

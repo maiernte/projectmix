@@ -1,8 +1,6 @@
 /// <reference path="../typings/meteor/meteor.d.ts" />
 /// <reference path="../typings/book.d.ts" />
 
-
-import DatePipe = ng.DatePipe;
 declare var jQuery;
 declare var html2canvas;
 declare var Promise;
@@ -25,6 +23,7 @@ export  class GlobalSetting{
         {Name: 'modified', Value: Date.now()},
         {Name: 'username', Value: ''},
         {Name: 'password', Value: ''},
+        {Name: 'userid', Value: ''},
         {Name: 'autosignin', Value: false},
         {Name: 'book-pagerd', Value: 4},
         {Name: 'gua-arrow', Value: true}
@@ -46,17 +45,16 @@ export  class GlobalSetting{
         
         TranslatePipe.setLanguage(this.lang)
 
-        let autosignin = this.GetSetting('autosignin')
-        if(autosignin) {
-            let user = this.GetSetting('username').toString()
-            let pw = this.GetSetting('password').toString();
+        let user = this.GetSetting('username').toString()
+        let pw = this.GetSetting('password').toString();
+        let userid = this.GetSetting('userid').toString();
 
-            if(!this.Signed){
-                this.SignIn(user, pw)
-            }
-        }
+        Session.set('userid', userid == '' ? null : userid)
+        console.log("glsetting init", user, pw, userid)
 
-        Session.set('userid', null)
+        /*this.SignIn(user, pw).catch(err => {
+            console.log("login error", err.toString())
+        })*/
     }
     
     get Signed(){
@@ -178,7 +176,13 @@ export  class GlobalSetting{
         title = (title || '华鹤易学')
         message = this.translator.transform(message, null)
         title = this.translator.transform(title, null)
-        alertify.alert(title, message).set('labels', {ok:'好的'});
+        //alertify.alert(title, message).set({'labels': {ok:'好的'}, 'transition': 'zoom'});
+        alertify.alert().setting({
+            title: title,
+            message: message,
+            labels: '好的',
+            transition: 'zoom'
+        }).show()
     }
     
     Confirm(title, message, onok, oncancel){
@@ -198,18 +202,67 @@ export  class GlobalSetting{
         }).set('labels', {ok:oktext, cancel:canceltext});
     }
 
+    ConnectMeteor(): boolean {
+        let status = Meteor.status();
+        if(status['connected'] == false){
+            let count = 0
+            let id = Meteor.setInterval(() => {
+                //status = Meteor.status();
+                console.log(status)
+
+                if(status['connected'] == true){
+                    this.Alert('成功连接服务器', '您现在可以进行云数据操作. 但为了减少负荷, 将在20分钟后自动转为离线状态.')
+                    Meteor.clearInterval(id)
+                    return
+                }
+
+                if(++count > 6){
+                    this.Alert('连接服务器', '看来暂时连不上, 请稍后再试!')
+                    Meteor.clearInterval(id)
+                    return
+                }
+            }, 20 * 1000)
+
+            alertify.alert().setting({
+                title: '连接服务器',
+                message: `<div class="ui active inverted dimmer">
+                            <div class="ui text loader">正在连接...请等待两分钟</div>
+                          </div>`,
+                closable: false,
+                transition: 'zoom',
+            }).show()
+
+            return false
+        }else{
+            return true;
+        }
+    }
+
     SignIn(user: string, pw: string): any{
         let promise = new Promise((resolve, reject) => {
             if(user == '' || pw == '' || !user || !pw){
                 reject('用户名或者密码错误！')
             }else{
+                let connectErr = this.ConnectMeteor()
+                if(this.ConnectMeteor() == false){
+                    reject(new Error())
+                    return
+                }
+
+                console.log("try signin ", user, pw)
                 Meteor.loginWithPassword(user, pw, err => {
                     console.log('sign in err: ', err)
                     if(err){
                         reject(err)
                     }else{
                         this.signed = true
+                        this.SetValue('username', user)
+                        this.SetValue('password', pw)
+                        this.SetValue('userid', Meteor.userId())
+
                         Session.set('userid', Meteor.userId())
+                        Session.set('username', user)
+                        Session.set('password', pw)
                         resolve(true)
                     }
                 })
@@ -228,7 +281,12 @@ export  class GlobalSetting{
                     //this.GetSetting('autosignin')
                     this.SetValue('autosignin', false)
                     this.signed = false
+                    this.SetValue('password', '')
+                    this.SetValue('userid', '')
+
                     Session.set('userid', null)
+                    Session.set('username', '')
+                    Session.set('password', '')
                     resolve(true)
                 }
             })

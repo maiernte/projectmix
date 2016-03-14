@@ -41,16 +41,18 @@ export class RecordView{
                 private routeParams: RouteParams,
                 private ngZone: NgZone,
                 @Inject(GlobalSetting) public glsetting:GlobalSetting) {
-        //document.addEventListener("backbutton", this.onBackButton, false);
+        document.addEventListener("backbutton", this.onBackButton, false);
     }
     
     ngOnDestroy(){
-        //document.removeEventListener("backbutton", this.onBackButton, false);
+        document.removeEventListener("backbutton", this.onBackButton, false);
     }
 
-    /*private onBackButton = (evt: Event) => {
-        this.goBack()
-    }*/
+    private onBackButton = (evt: Event) => {
+        this.ngZone.run(() => {
+            this.goBack()
+        })
+    }
 
     ngOnInit(){
         this.bookid = this.routeParams.params['bid']
@@ -89,6 +91,10 @@ export class RecordView{
     }
     
     synchronCloud(){
+        if(this.glsetting.ConnectMeteor() == false){
+            return
+        }
+
         if(this.yixuepart){
             this.yixuepart.syncRecord()
         }

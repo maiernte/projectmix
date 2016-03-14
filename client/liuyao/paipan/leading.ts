@@ -6,7 +6,8 @@ import {Component,
         AfterContentInit, 
         Output, 
         EventEmitter,
-        ElementRef} from 'angular2/core'
+        ElementRef,
+        NgZone} from 'angular2/core'
 
 import {Router} from 'angular2/router'
 
@@ -46,18 +47,21 @@ export class PailiuyaoLeading{
 
     constructor(@Inject(GlobalSetting) public glsetting:GlobalSetting,
                 private router: Router,
-                private rootElement: ElementRef) {
+                private rootElement: ElementRef,
+                private ngZone: NgZone) {
 
-        //document.addEventListener("backbutton", this.onBackButton, false);
+        document.addEventListener("backbutton", this.onBackButton, false);
     }
 
     ngOnDestroy(){
-        //document.removeEventListener("backbutton", this.onBackButton, false);
+        document.removeEventListener("backbutton", this.onBackButton, false);
     }
 
-    /*private onBackButton = (evt:Event) => {
-        this.goBack()
-    }*/
+    private onBackButton = (evt:Event) => {
+        this.ngZone.run(() => {
+            this.goBack()
+        })
+    }
     
     goBack(){
         this.router.parent.navigate(['./Paigua'])

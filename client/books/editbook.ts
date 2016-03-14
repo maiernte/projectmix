@@ -42,16 +42,19 @@ export class BookEditor{
                 private rootElement: ElementRef,
                 private ngZone: NgZone,
                 @Inject(GlobalSetting) public glsetting:GlobalSetting) {
-        //document.addEventListener("backbutton", this.onBackButton, false);
+        document.addEventListener("backbutton", this.onBackButton, false);
     }
     
-    ngOnDestroy(){
-        //document.removeEventListener("backbutton", this.onBackButton, false);
+    ngOnDestroy() {
+        document.removeEventListener("backbutton", this.onBackButton, false);
     }
 
-    /*private onBackButton = (evt: Event) => {
-        this.goBack()
-    }*/
+    private onBackButton = (evt: Event) => {
+        //console.log("editbook", evt)
+        this.ngZone.run(() => {
+            this.goBack()
+        })
+    }
     
     get IsCloud(){
         return this.book ? this.book.cloud : false
@@ -84,6 +87,9 @@ export class BookEditor{
                   .closest('.message')
                   .transition('fade');
             });
+    }
+
+    ngAfterViewInit(){
     }
 
     goBack(){

@@ -2,7 +2,13 @@
 /// <reference path="../../typings/book.d.ts" />
 /// <reference path="../../typings/global.d.ts" />
 
-import {Component, Inject, Input, ElementRef, AfterViewInit, NgZone} from 'angular2/core'
+import {Component,
+    Inject,
+    Input,
+    ElementRef,
+    AfterViewInit,
+    NgZone,
+    ChangeDetectionStrategy} from 'angular2/core'
 import {NgFor} from 'angular2/common'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
@@ -21,6 +27,7 @@ declare var jQuery:any;
     templateUrl: 'client/liuyao/guaview.html',
     pipes: [TranslatePipe],
     directives: [NgFor, SemanticSelect],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     styles: [`
         .ui.table{
             border-color: transparent;
@@ -56,9 +63,9 @@ export class GuaView{
     private bianyaos: Array<guayao>;
     private shiying: Array<string>;
     private shenshas: Array<Object>;
-    private yue: {name: string, color: string, index: number}
-    private ri: {name: string, color: string, index: number}
-    private xunkong: Array<{name: string, color: string, index: number}>
+    private yue: {name: string, color: string, index: number, info: string}
+    private ri: {name: string, color: string, index: number, info: string}
+    private xunkong: Array<{name: string, color: string, index: number, info: string}>
 
     private translate = new TranslatePipe();
 
@@ -69,12 +76,23 @@ export class GuaView{
     }
 
     get Yue(){
-        this.yue = (this.yue || {name: this.Gua.Yue.Name, color: 'black', index: this.Gua.Yue.Index})
+        this.yue = (this.yue || {
+            name: this.Gua.Yue.Name,
+            color: 'black',
+            index: this.Gua.Yue.Index,
+            info: this.Gua.Yue.NaYin
+        })
+
         return this.yue
     }
 
     get Ri(){
-        this.ri = (this.ri || {name: this.Gua.Ri.Name, color: 'black', index: this.Gua.Ri.Index})
+        this.ri = (this.ri || {
+            name: this.Gua.Ri.Name,
+            color: 'black',
+            index: this.Gua.Ri.Index,
+            info: this.Gua.Ri.NaYin
+        })
         return this.ri
     }
 
@@ -317,7 +335,8 @@ export class GuaView{
                 this.xunkong.push({
                     name: z.Name,
                     color: 'black',
-                    index: z.Index
+                    index: z.Index,
+                    info: ''
                 })
             }
         }
@@ -336,6 +355,8 @@ export class GuaView{
     }
     
     caigua(index){
+        index = index % 12
+
         let chong = (x, y) => {
             return ((x - y + 12) % 12) == 6
         }

@@ -35,7 +35,10 @@
 </select>-->
 
 <span *ngIf="UseOrigin" (click)="showModal()">
-    <span class="default text">{{Selected.Text | tran:glsetting.lang}}</span>
+    <!--<span class="default text">{{Selected.Text | tran:glsetting.lang}}</span>-->
+    <span class="default text">
+        {{Selected.Text | tran:glsetting.lang}}
+    </span>
     <i class="dropdown icon"></i>
 </span>
 <div class="ui small modal" *ngIf="UseOrigin">

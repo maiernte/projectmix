@@ -59,9 +59,9 @@ export class UserLogin{
 
         this.Loging = true
         this.glsetting.SignIn(this.Username.trim(), this.Password).then(res => {
-            this.glsetting.SetValue('username', this.SaveUsername ? this.Username : '')
+            /*this.glsetting.SetValue('username', this.SaveUsername ? this.Username : '')
             this.glsetting.SetValue('password', this.AutoSignIn ? this.Password : '')
-            this.glsetting.SetValue('autosignin', this.AutoSignIn)
+            this.glsetting.SetValue('autosignin', this.AutoSignIn)*/
 
             this.ngZone.run(() => {
                 this.Loging = false;
@@ -73,8 +73,9 @@ export class UserLogin{
                 this.Loging = false;
             })
 
-            let msg = err.error == 403 ? '用户名或密码不正确.' : err.message;
-            this.glsetting.Alert("登录失败", msg)
+            if(err.error == 403){
+                this.glsetting.Alert("登录失败", '用户名或密码不正确.')
+            }
         })
     }
 

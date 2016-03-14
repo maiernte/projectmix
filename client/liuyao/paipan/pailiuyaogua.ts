@@ -81,21 +81,18 @@ export class PaiLiuyaoGua{
     private domHelp 
     
     ngOnInit(){
-        /*let domGuaName = jQuery('#paigua-yao-name')
-        this.GuaGongOrder = domGuaName.hasClass('guagong') ? true : false;
+        let domGuaName = jQuery('#paigua-yao-name')
+        //this.GuaGongOrder = domGuaName.hasClass('guagong') ? true : false;
+        this.GuaGongOrder = false
         this.guayaoModel = domGuaName.hasClass('hidden') ? true : false;
 
-        if(this.GuayaoModel === true){
-
-        }else{
-            this.bengua = '坤为地'
-            this.biangua = '坤为地'
-        }*/
-
-        this.GuaGongOrder = false
-        this.guayaoModel = false
         this.bengua = '坤为地'
         this.biangua = '坤为地'
+
+        /*this.GuaGongOrder = false
+        this.guayaoModel = false
+        this.bengua = '坤为地'
+        this.biangua = '坤为地'*/
         
         this.domHelp = jQuery(this.rootElement.nativeElement)
             .find('.paigua.help')
@@ -118,6 +115,15 @@ export class PaiLiuyaoGua{
             this.initGuaNamesShang();
         } else {
             this.initGuaNamesGong();
+        }
+    }
+
+    changeYao(idx: number){
+        this.ActiveYao = idx;
+        if(this.SetedYaos[idx] == 4){
+            this.SetedYaos[idx] = 0
+        }else{
+            this.SetedYaos[idx] = (this.SetedYaos[idx] + 1) % 4
         }
     }
     

@@ -2,7 +2,7 @@
 /// <reference path="../../typings/moment-node.d.ts" />
 /// <reference path="../../typings/global.d.ts" />
 
-import {Component, Inject, ElementRef} from 'angular2/core'
+import {Component, Inject, ElementRef, ChangeDetectionStrategy} from 'angular2/core'
 import {NgFor} from 'angular2/common'
 import {Router} from 'angular2/router'
 
@@ -23,6 +23,7 @@ declare var moment;
     selector: 'paibazi',
     templateUrl: 'client/bazi/paiBazi.html',
     pipes:[TranslatePipe],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     directives: [NgFor, SemanticSelect]
 })
 

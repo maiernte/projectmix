@@ -1,6 +1,6 @@
 /// <reference path="../../../typings/angular2-meteor.d.ts" />
 
-import {Component, Inject, ElementRef} from 'angular2/core'
+import {Component, Inject, ElementRef, ChangeDetectionStrategy} from 'angular2/core'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
@@ -16,6 +16,7 @@ declare var jQuery:any;
     pipes:[TranslatePipe],
     directives: [SemanticSelect, TYEditor],
     templateUrl: 'client/allgemein/directives/demo.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class Demo{
@@ -40,6 +41,7 @@ export class Demo{
     }
 
     get Gender() {
+        console.log("get gender", this.gender)
         return this.gender
     }
 
@@ -95,13 +97,14 @@ export class Demo{
             .dropdown()
     }
 
-    valueChanged(){
-        let tmp = {Items: []}
+    valueChanged(): boolean{
+        /*let tmp = {Items: []}
         tmp.Items.push({Value: 0, Text: "庚午"})
         tmp.Items.push({Value: 1, Text: "丙午"})
         tmp.Items.push({Value: 2, Text: "壬戌"})
 
-        this.jiazioptions = tmp;
+        this.jiazioptions = tmp;*/
+        return true
     }
 
     loadExternSqlite(event){

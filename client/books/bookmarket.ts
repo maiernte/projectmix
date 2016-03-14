@@ -1,7 +1,7 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 /// <reference path="../../typings/book.d.ts" />
 
-import {Component, Inject, NgZone} from 'angular2/core'
+import {Component, Inject, NgZone, OnInit} from 'angular2/core'
 import {NgFor, NgIf} from 'angular2/common'
 import {Router, RouteParams} from 'angular2/router'
 
@@ -24,7 +24,7 @@ declare var navigator: any;
     templateUrl: "client/books/bookmarket.html",
     directives: [NgFor, NgIf]
 })
-export class BookMarket{
+export class BookMarket implements OnInit{
     private books: Array<BookView>;
 
     Market = 'private'
@@ -34,6 +34,7 @@ export class BookMarket{
                 private routeParams: RouteParams,
                 private ngZone: NgZone,
                 @Inject(GlobalSetting) public glsetting:GlobalSetting) {
+        console.log('Bookmarket constructor')
     }
     
     get Books(){
@@ -55,7 +56,7 @@ export class BookMarket{
     ngOnInit() {
         let hideMenu = true;
         this.showMenu(hideMenu);
-        
+
         this.books = []
         let bkmanager = this.glsetting.BookManager
         let bks = bkmanager.MyBooks;
@@ -72,8 +73,6 @@ export class BookMarket{
                 this.Loading = false;
             })
         }
-
-        console.log('ngOnInit bookmarket')
     }
     
     pushCloud(book: BookView){
@@ -118,7 +117,6 @@ export class BookMarket{
     }
     
     editBook(book: BookView){
-        console.log(this.glsetting.Signed)
         if(book){
             this.router.parent.navigate(['./EditBook', {id: book.Id}])
         }else{
@@ -212,8 +210,16 @@ export class BookMarket{
     
     private loadBooks(){
         if(this.glsetting.Signed == false){
-            this.glsetting.Alert("拉取在线书集", "您还没有登录，无法拉取在线书集。")
-            return
+            let userid = Session.get('userid')
+            if(userid == null){
+                this.glsetting.Alert("拉取在线书集", "您还没有登录，无法拉取在线书集。")
+                return
+            }else{
+                console.log('connect meteor')
+                if(this.glsetting.ConnectMeteor() == false){
+                    return
+                }
+            }
         }
     
         this.books = []

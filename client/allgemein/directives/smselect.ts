@@ -1,6 +1,13 @@
 /// <reference path="../../../typings/angular2-meteor.d.ts" />
 
-import {Component, Inject, ElementRef, Input, Output, EventEmitter, SimpleChange} from 'angular2/core'
+import {Component,
+    Inject,
+    ElementRef,
+    Input,
+    Output,
+    EventEmitter,
+    SimpleChange,
+    ChangeDetectionStrategy} from 'angular2/core'
 import {NgFor, NgIf} from 'angular2/common'
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
@@ -14,6 +21,7 @@ declare var jQuery
     inputs: ['Value', 'Options'],
     outputs:['valueChanged: Value'],
     templateUrl: 'client/allgemein/directives/smselect.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SemanticSelect{
     Options: tyoption;
@@ -45,10 +53,12 @@ export class SemanticSelect{
     }
 
     get Grouped(){
+        //console.log("get Grouped")
         return !!this.Options.Groups;
     }
 
     get UseOrigin(){
+        //console.log("get UseOrigin")
         if(this.glsetting.IsCordova){
             if(this.Grouped){
                 //let isandroid = navigator.userAgent.match(/Android/i)

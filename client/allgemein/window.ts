@@ -92,7 +92,9 @@ export class TyWindow {
 	private modalEle;
 	
 	showSaveModal(ele){
-		if(!this.glsetting.Signed || !this.books || this.books.length == 0){
+		let userid = Session.get('userid');
+
+		if(!userid || !this.books || this.books.length == 0){
 			this.glsetting.Alert('保存记录', '您还没有登录， 或者还没有创建书集。无法保存卦例/命例。')
 			return
 		}

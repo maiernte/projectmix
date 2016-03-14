@@ -87,13 +87,23 @@ class HuaheApp {
             this.glsetting.Notify('deviceready....', 1)
         }, false);*/
 
-        document.addEventListener("backbutton", () => {
-            this.glsetting.Notify("本软件暂时不支持硬件返回按钮", -1)
+        document.addEventListener("backbutton", (evt: Event) => {
+            let pathhandled = ['editbook:id', 'book:id', 'bkrecord:bid:rid', 'leading']
+            let path = window.location['hash'].toString()
+            for(let h of pathhandled){
+                if(path.indexOf(h) > 0){
+                    console.log('it will be handled otherwhere')
+                    return
+                }
+            }
+
+            this.glsetting.Notify("暂不支持历史导航, 请使用左上角菜单键", -1)
         }, false);
 
-        document.addEventListener("menubutton", () => {
+        /*document.addEventListener("menubutton", () => {
+            console.log('menubutton')
             jQuery(document).find('.ui.labeled.sidebar').sidebar('toggle');
-        }, false);
+        }, false);*/
 
         this.testtime = this.glsetting.ParseDate("2016-06-30")
         if(Date.now() >= this.testtime.getTime() && this.glsetting.IsCordova){
@@ -120,3 +130,10 @@ class HuaheApp {
 }
 
 bootstrap(HuaheApp, [ROUTER_PROVIDERS, provide(LocationStrategy, { useClass: HashLocationStrategy }), GlobalSetting]);
+
+Meteor.startup(function() {
+    if(Meteor.isCordova){
+        console.log("disconnet")
+        Meteor.disconnect();
+    }
+})
