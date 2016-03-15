@@ -1,4 +1,4 @@
-<div style="min-height: 100vh">
+<div [style.min-height.px]="WinHeight">
     <div class="ui top attached segment"
          style="text-align: center" >
         <a class="ui basic top left attached large label"
@@ -103,7 +103,7 @@
                     </div>
                 </div>
                 <div class='ui submit buttons'>
-                    <button class="ui button" (click)="GoBack()">
+                    <button class="ui button" (click)="GoStep1()">
                         {{'重新开始' | tran:glsetting.lang}}
                     </button>
                     <div class="ui submit button" 
@@ -162,14 +162,14 @@
                 </div>
             </div>
 
-            <button class="ui primary button" (click)="GoBack()">
+            <button class="ui primary button" (click)="GoStep1()">
                 {{'重新开始' | tran:glsetting.lang}}
             </button>
         </div>
         <div id="pagua-step-4" class='transition hidden'>
             <!--<ng-content></ng-content>-->
             <pailiuyao-leadingyao (onfinished)="NextStep()"
-                                  (oncancel)="GoBack($event)">
+                                  (oncancel)="GoStep1($event)">
                 <pailiuyao-coins [cointype]="0" [yao]="0"></pailiuyao-coins>
             </pailiuyao-leadingyao>
         </div>
@@ -178,7 +178,7 @@
             <button class="ui button" (click)="paiGua()" style="margin-top: 10px">
                 {{'排六爻卦' | tran:glsetting.lang}}
             </button>
-            <button class="ui button" (click)="GoBack()" style="margin-top: 10px">
+            <button class="ui button" (click)="GoStep1()" style="margin-top: 10px">
                 {{'重新开始' | tran:glsetting.lang}}
             </button>
         </div>

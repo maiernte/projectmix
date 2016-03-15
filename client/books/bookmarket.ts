@@ -11,6 +11,7 @@ import {GlobalSetting} from 'client/globalsetting'
 import {TYSqlite} from 'client/books/tysqlite'
 
 import {LocalRecords, LocalBooks} from 'collections/books'
+import {PageComponent} from 'client/allgemein/pagecomponent'
 
 declare var jQuery;
 declare var CouchDB: any;
@@ -24,7 +25,7 @@ declare var navigator: any;
     templateUrl: "client/books/bookmarket.html",
     directives: [NgFor, NgIf]
 })
-export class BookMarket implements OnInit{
+export class BookMarket extends PageComponent{
     private books: Array<BookView>;
 
     Market = 'private'
@@ -34,7 +35,7 @@ export class BookMarket implements OnInit{
                 private routeParams: RouteParams,
                 private ngZone: NgZone,
                 @Inject(GlobalSetting) public glsetting:GlobalSetting) {
-        console.log('Bookmarket constructor')
+        super()
     }
     
     get Books(){
@@ -44,14 +45,6 @@ export class BookMarket implements OnInit{
     get IsCordova(){
         return this.glsetting.IsCordova
     }
-    
-    showMenu(hide) {
-        if(hide === true){
-            jQuery(document).find('.ui.labeled.sidebar').sidebar('hide')
-        }else{
-            jQuery(document).find('.ui.labeled.sidebar').sidebar('toggle');
-        }
-    } 
     
     ngOnInit() {
         let hideMenu = true;

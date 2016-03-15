@@ -15,6 +15,7 @@ import {GanZhi} from '../../lib/base/ganzhi'
 import {TYLunar, TYDate} from '../../lib/lunar/tylunar'
 
 import {SemanticSelect, tyoption} from 'client/allgemein/directives/smselect'
+import {PageComponent} from 'client/allgemein/pagecomponent'
 
 declare var jQuery:any;
 declare var moment;
@@ -27,7 +28,7 @@ declare var moment;
     directives: [NgFor, SemanticSelect]
 })
 
-export class PaiBazi{
+export class PaiBazi extends PageComponent {
     emitter = PaipanEmitter.get(PaipanEmitter.Paipan);
     
     private gongliModel = true
@@ -73,15 +74,8 @@ export class PaiBazi{
     constructor(@Inject(GlobalSetting) glsetting:GlobalSetting,
                 private router: Router, 
                 private rootElement: ElementRef) {
+        super()
         this.glsetting = glsetting;
-    }
-    
-    showMenu(hide){
-        if(hide === true){
-            jQuery(document).find('.ui.labeled.sidebar').sidebar('hide')
-        }else{
-            jQuery(document).find('.ui.labeled.sidebar').sidebar('toggle');
-        }
     }
 
     get Land(){

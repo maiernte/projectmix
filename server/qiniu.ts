@@ -1,9 +1,10 @@
-import {LogDB} from 'server/tylogger'
+import {LogDB, LogDebug} from 'lib/tylogger'
 
 declare var QiniuSDK
+declare var Meteor
 
 function onUploaded(res){
-    console.log("image uploaded", res)
+    LogDebug("image uploaded", res)
 }
 
 var bucket = {
@@ -13,8 +14,8 @@ var bucket = {
 }
 
 var config = {
-    'ak': 'kgKHm-NUFC3oXhlCvKq7HZbZdFGVwGwMCQLeiEwr',  // 必填 <ACCESS_KEY>
-    'sk': 'IUyzYMCPA3MMoTkQvfhzxi4hy07UEfGiVdFFWLSJ',  // 必填 <SECRET_KEY>
+    'ak': Meteor.settings.qiniu.ak,  // 必填 <ACCESS_KEY>
+    'sk': Meteor.settings.qiniu.sk,  // 必填 <SECRET_KEY>
     'callbackRoute': 'qiniu_callback',
     'buckets' : []
 }
@@ -36,9 +37,9 @@ export function initQiniu(){
 
         // 应用配置
         qiniu.init();
-        console.log('qiniu inited !')
+        LogDebug('qiniu inited !')
     }catch(err){
         LogDB(err.toString(), 'initQiniu', 'server')
-        console.log('init qiniu error: ', err)
+        LogDebug('init qiniu error: ', err)
     }
 }

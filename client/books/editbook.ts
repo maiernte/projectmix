@@ -15,6 +15,7 @@ import {LocalBooks, LocalRecords} from 'collections/books'
 import {PaipanEmitter} from 'client/allgemein/paipanermitter'
 
 import {saveAs} from 'client/lib/FileSaver'
+import {NavComponent} from 'client/allgemein/pagecomponent'
 
 declare var jQuery;
 declare var SQL
@@ -26,7 +27,7 @@ declare var SQL
     directives: [FORM_DIRECTIVES, NgIf]
 })
 
-export class BookEditor{
+export class BookEditor extends NavComponent{
     emitterBack = PaipanEmitter.get(PaipanEmitter.BackButton);
 
     private book: Book;
@@ -37,23 +38,13 @@ export class BookEditor{
 
     Loaded = false;
 
-    constructor(private router: Router,
+    constructor(router: Router,
+                ngZone: NgZone,
                 private routeParams: RouteParams,
                 private rootElement: ElementRef,
-                private ngZone: NgZone,
                 @Inject(GlobalSetting) public glsetting:GlobalSetting) {
-        document.addEventListener("backbutton", this.onBackButton, false);
-    }
-    
-    ngOnDestroy() {
-        document.removeEventListener("backbutton", this.onBackButton, false);
-    }
-
-    private onBackButton = (evt: Event) => {
-        //console.log("editbook", evt)
-        this.ngZone.run(() => {
-            this.goBack()
-        })
+        super(router, ngZone)
+        this.parentUrl = ['./List']
     }
     
     get IsCloud(){
@@ -71,7 +62,7 @@ export class BookEditor{
             this.Name = this.book.name;
             this.Desc = this.book.description;
             this.Author = this.book.author;
-            this.Modified = this.toChina(new Date(this.book.modified))
+            this.Modified = (new Date(this.book.modified)).toChinaString(true)
         }else{
             this.Name = ''
             this.Desc = ''
@@ -90,10 +81,6 @@ export class BookEditor{
     }
 
     ngAfterViewInit(){
-    }
-
-    goBack(){
-        this.router.parent.navigate(['./List']);
     }
     
     saveBook(){
@@ -226,10 +213,5 @@ export class BookEditor{
                 jQuery('.positive.editbook.message').transition('fade')
             }
         })
-    }
-    
-    private toChina(d: Date): string{
-        let res = d.getFullYear() + "年" + (d.getMonth() + 1) + "月" + d.getDate() + "日 " + d.getHours() + "时" + d.getMinutes() + "分";
-        return res;
     }
 }

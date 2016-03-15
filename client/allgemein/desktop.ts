@@ -13,6 +13,7 @@ import {CompassView} from '../compass/compass'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
+import {PageComponent} from 'client/allgemein/pagecomponent'
 
 declare var jQuery:any;
 declare var alertify;
@@ -24,13 +25,14 @@ declare var alertify;
     pipes: [TranslatePipe],
 })
 
-export class Desktop{
+export class Desktop extends PageComponent{
     private static frameList: Array<Object>;
     private static showTips: boolean;
     
     constructor(private router: Router,
                 private routeParams: RouteParams,
                 @Inject(GlobalSetting) public glsetting: GlobalSetting){
+        super()
     }
     
     get ShowTips(){
@@ -48,14 +50,6 @@ export class Desktop{
     
     get FrameList(){
         return Desktop.frameList;
-    }
-    
-    showMenu(hide){
-        if(hide === true){
-            jQuery(document).find('.ui.labeled.sidebar').sidebar('hide')
-        }else{
-            jQuery(document).find('.ui.labeled.sidebar').sidebar('toggle');
-        }
     }
     
     addWindow(type){
@@ -101,8 +95,6 @@ export class Desktop{
         
         let hideMenu = true;
         this.showMenu(hideMenu);
-        
-        //Desktop.AddFrame(this.routeParams.params, this.glsetting.GUID)
         
         if(this.ShowTips){
             let title = '欢迎使用华鹤易学移动平台'

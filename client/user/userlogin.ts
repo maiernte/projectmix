@@ -5,6 +5,7 @@ import {Router, RouteParams} from 'angular2/router'
 
 import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
+import {PageComponent} from 'client/allgemein/pagecomponent'
 
 declare var jQuery:any;
 
@@ -14,7 +15,7 @@ declare var jQuery:any;
     pipes: [TranslatePipe],
     directives: [NgIf]
 })
-export class UserLogin{
+export class UserLogin extends PageComponent{
 
     Username = ''
     Password = ''
@@ -30,6 +31,7 @@ export class UserLogin{
                 private ngZone: NgZone,
                 private rootElement: ElementRef,
                 @Inject(GlobalSetting) public glsetting: GlobalSetting){
+        super()
     }
 
     changeView(inId, outId, effect){
@@ -45,6 +47,9 @@ export class UserLogin{
     ngOnInit(){
         this.Username = this.glsetting.GetSetting('username').toString()
         this.Password = this.glsetting.GetSetting('password').toString()
+        
+        let hideMenu = true;
+        this.showMenu(hideMenu);
     }
 
     ngAfterViewInit(){

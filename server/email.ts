@@ -1,4 +1,4 @@
-import {LogDB} from 'server/tylogger'
+import {LogDB, LogDebug} from 'lib/tylogger'
 
 declare var Meteor;
 declare var Accounts;
@@ -95,7 +95,7 @@ export function changeEmail(uid, mail){
         var oldmail = _.find(user.emails || [],
             function (e) { return e.address; });
         let address = (oldmail || {}).address;
-        console.log(address, mail)
+        LogDebug(address, mail)
         if(address && address == mail){
             return 'mail is unchanged'
         }
@@ -119,7 +119,7 @@ export function verificationMail(uid, address): Object{
         var user = Meteor.users.findOne({_id: uid});
         if (!user){
             //throw new Error("Can't find user");
-            console.log('Cannot find user')
+            LogDebug('Cannot find user')
             return null
         }
     
@@ -134,7 +134,7 @@ export function verificationMail(uid, address): Object{
         // make sure we have a valid address
         if (!address || !_.contains(_.pluck(user.emails || [], 'address'), address)){
             //throw new Error("No such email address for user.");
-            console.log('no email')
+            LogDebug('no email')
             return null
         }
     

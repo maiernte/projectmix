@@ -1,4 +1,4 @@
-<div class="ui to attached segment" style="min-height: 100vh">
+<div class="ui to attached segment" [style.min-height.px]="WinHeight">
     <div class="ui segment" *ngIf="Loging">
         <div class="ui active inverted dimmer">
             <div class="ui text loader">{{'用户登录' | tran:glsetting.lang}}</div>

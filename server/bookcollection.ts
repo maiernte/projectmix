@@ -1,6 +1,6 @@
 import {Books, LocalRecords, BkRecords} from 'collections/books'
 import {UserImages, DelImages} from  'collections/admin'
-import {LogDB} from 'server/tylogger'
+import {LogDB} from 'lib/tylogger'
 
 declare var Meteor;
 declare var Counts;

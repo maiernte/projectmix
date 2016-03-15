@@ -1,0 +1,15 @@
+{
+    "public": {
+        "Debug": true
+    },
+    
+    "mail": {
+        "apiKey": "key-f1c82d8c2b8c0ab791faf1e1819d8f33",
+        "domain": "sandboxdbf0d92981a346b1b8a136edfeeedd3e.mailgun.org"
+    },
+    
+    "qiniu": {
+        "ak": "kgKHm-NUFC3oXhlCvKq7HZbZdFGVwGwMCQLeiEwr",
+        "sk": "IUyzYMCPA3MMoTkQvfhzxi4hy07UEfGiVdFFWLSJ"
+    }
+}

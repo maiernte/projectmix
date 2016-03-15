@@ -19,6 +19,8 @@ import {PaipanEmitter} from 'client/allgemein/paipanermitter'
 import {LeadingYao} from "./leadingyaos";
 import {PailiuyaoCoins} from './coins'
 
+import {NavComponent} from 'client/allgemein/pagecomponent'
+
 declare var jQuery:any;
 declare var Promise:any;
 
@@ -29,7 +31,7 @@ declare var Promise:any;
     directives: [LeadingYao, PailiuyaoCoins]
 })
 
-export class PailiuyaoLeading{
+export class PailiuyaoLeading extends NavComponent{
     emitter = PaipanEmitter.get(PaipanEmitter.Paipan);
     emitterBack = PaipanEmitter.get(PaipanEmitter.BackButton);
     
@@ -45,26 +47,12 @@ export class PailiuyaoLeading{
     
     @Output() onfinished = new EventEmitter();
 
-    constructor(@Inject(GlobalSetting) public glsetting:GlobalSetting,
-                private router: Router,
-                private rootElement: ElementRef,
-                private ngZone: NgZone) {
-
-        document.addEventListener("backbutton", this.onBackButton, false);
-    }
-
-    ngOnDestroy(){
-        document.removeEventListener("backbutton", this.onBackButton, false);
-    }
-
-    private onBackButton = (evt:Event) => {
-        this.ngZone.run(() => {
-            this.goBack()
-        })
-    }
-    
-    goBack(){
-        this.router.parent.navigate(['./Paigua'])
+    constructor(router: Router,
+                ngZone: NgZone,
+                @Inject(GlobalSetting) public glsetting:GlobalSetting,
+                private rootElement: ElementRef) {
+        super(router, ngZone)
+        this.parentUrl = ['./Paigua']
     }
 
     get Result(){
@@ -87,7 +75,7 @@ export class PailiuyaoLeading{
         this.showAnimate(stepOut, stepIn)
     }
 
-    GoBack(){
+    GoStep1(){
         let stepOut = "pagua-step-" + this.CurrentStep;
         this.CurrentStep = 1;
         this.DeskChecked = false;
@@ -143,6 +131,6 @@ export class PailiuyaoLeading{
     }
 
     ngAfterViewInit() {
-       console.log('step4', this.step4)
+       //console.log('step4', this.step4)
     }
 }

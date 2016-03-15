@@ -95,14 +95,6 @@ export class AppSetting extends PageComponent{
         this.glsetting.SetValue('gua-arrow', this.guaArrow == 0)
     }
 
-    /*showMenu(hide){
-        if(hide === true){
-            jQuery(document).find('.ui.labeled.sidebar').sidebar('hide')
-        }else{
-            jQuery(document).find('.ui.labeled.sidebar').sidebar('toggle');
-        }
-    }*/
-
     ngOnInit(){
         this.twlang = this.glsetting.lang ? 1 : 0;
         this.guaShenSha = parseInt(this.glsetting.GetSetting('gua-shensha').toString()) - 4;

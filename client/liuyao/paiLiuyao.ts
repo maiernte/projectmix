@@ -16,6 +16,8 @@ import {PailiuyaoLeading} from './paipan/leading'
 import {LeadingYao} from './paipan/leadingyaos'
 import {PailiuyaoCoins} from './paipan/coins'
 
+import {PageComponent} from 'client/allgemein/pagecomponent'
+
 declare var jQuery:any;
 
 @Component({
@@ -26,7 +28,7 @@ declare var jQuery:any;
     directives: [NgFor, PailiuyaoTime, PaiLiuyaoGua, PailiuyaoLeading, LeadingYao, PailiuyaoCoins]
 })
 
-export class PaiLiuyao {
+export class PaiLiuyao extends PageComponent {
     emitter = PaipanEmitter.get(PaipanEmitter.Paipan);
     
     inputModel:string = 'manuel';
@@ -35,6 +37,7 @@ export class PaiLiuyao {
     private router: Router;
     glsetting:GlobalSetting;
     constructor(@Inject(GlobalSetting) glsetting:GlobalSetting, router: Router) {
+        super()
         this.glsetting = glsetting;
         this.router = router;
     }
@@ -45,14 +48,6 @@ export class PaiLiuyao {
     
     set InputModel(value){
         this.inputModel  = value
-    }
-
-    showMenu(hide) {
-        if(hide === true){
-            jQuery(document).find('.ui.labeled.sidebar').sidebar('hide')
-        }else{
-            jQuery(document).find('.ui.labeled.sidebar').sidebar('toggle');
-        }
     }
 
     ngOnInit() {

@@ -1,4 +1,5 @@
 /// <reference path="../typings/angular2-meteor.d.ts" />
+/// <reference path="../typings/global.d.ts" />
 
 import {enableProdMode} from 'angular2/core';
 enableProdMode();
@@ -38,6 +39,8 @@ import {ResetPassword} from 'client/user/resetpassword'
 
 import {PaipanEmitter} from 'client/allgemein/paipanermitter'
 
+import {WindowResized} from 'client/allgemein/pagecomponent'
+
 declare var jQuery;
 declare var alertify;
 declare var Promise;
@@ -75,6 +78,8 @@ class HuaheApp {
         this.location = location;
         this.glsetting = glsetting;
         
+        window.onresize = WindowResized
+        
         
         this.emitterPaipan = PaipanEmitter.get(PaipanEmitter.Paipan);
         this.emitterPaipan.subscribe(data => {
@@ -92,7 +97,7 @@ class HuaheApp {
             let path = window.location['hash'].toString()
             for(let h of pathhandled){
                 if(path.indexOf(h) > 0){
-                    console.log('it will be handled otherwhere')
+                    Log('it will be handled otherwhere')
                     return
                 }
             }
@@ -111,6 +116,8 @@ class HuaheApp {
                 () => {this.Exit()})
                 .set('labels', {ok:'好的'});
         }
+        
+        Log("app start", 2)
     }
 
     ngAfterViewInit(){
@@ -133,7 +140,7 @@ bootstrap(HuaheApp, [ROUTER_PROVIDERS, provide(LocationStrategy, { useClass: Has
 
 Meteor.startup(function() {
     if(Meteor.isCordova){
-        console.log("disconnet")
+        Log("disconnet")
         Meteor.disconnect();
     }
 })

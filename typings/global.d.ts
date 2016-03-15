@@ -1,5 +1,7 @@
 
 interface Date {
-    toChinaString(flag: boolean): string;
+    toChinaString(full: boolean): string;
     formate(flag: string): string;
 }
+
+function Log(...res: any[]): any

@@ -6,7 +6,7 @@ import {BkRecords} from 'collections/books'
 import {UserImages} from 'collections/admin'
 import {initQiniu} from "./qiniu"
 
-import {LogDB} from 'server/tylogger'
+import {LogDB, LogDebug} from 'lib/tylogger'
 
 declare var Meteor;
 declare var Mailgun;
@@ -14,17 +14,22 @@ declare var Accounts;
 declare var process;
 
 Meteor.startup(function(){
+    //process.env.COUCHDB_URL = Meteor.settings.couchdb
+    //process.env.MONGO_URL = Meteor.settings.mongodb
+    
     initQiniu()
-    console.log("baseurl", process.env.ROOT_URL)
+    LogDebug("baseurl", process.env.ROOT_URL)
 
-    Meteor.onConnection(function(evt) {
-        console.log('onConnection  : ' + evt.clientAddress)
-    })
+    /*if(Meteor.settings.public.Debug){
+        Meteor.onConnection(function(evt) {
+            LogDebug('onConnection  : ' + evt.clientAddress)
+        })
+    }*/
     
     var options = {
-            apiKey: 'key-f1c82d8c2b8c0ab791faf1e1819d8f33',
-            domain: 'sandboxdbf0d92981a346b1b8a136edfeeedd3e.mailgun.org'
-        }
+        apiKey: Meteor.settings.mail.apiKey,
+        domain: Meteor.settings.mail.domain
+    }
         
     var NigerianPrinceGun = new Mailgun(options);
         
@@ -40,7 +45,7 @@ Meteor.startup(function(){
             }, 5 * 1000);
         }catch(err){
             LogDB(err.toString(), options, 'onCreateUser')
-            console.log(err)
+            LogDebug(err)
         }
         
         if (options.profile){
@@ -75,7 +80,7 @@ Meteor.startup(function(){
                 
                 let mailbody = sendResetPasswordEmail(user._id, email)
                 NigerianPrinceGun.send(mailbody)
-                console.log('reset password email is sended.')
+                LogDebug('reset password email is sended.')
                 return null
             }catch(err){
                 LogDB(err.toString(), email, this.userId)
