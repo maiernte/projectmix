@@ -34,8 +34,8 @@ export class BookMarket extends PageComponent{
     constructor(private router: Router,
                 private routeParams: RouteParams,
                 private ngZone: NgZone,
-                @Inject(GlobalSetting) public glsetting:GlobalSetting) {
-        super()
+                @Inject(GlobalSetting) glsetting:GlobalSetting) {
+        super(glsetting)
     }
     
     get Books(){

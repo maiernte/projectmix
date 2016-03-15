@@ -35,10 +35,9 @@ export class PaiLiuyao extends PageComponent {
     question: string;
 
     private router: Router;
-    glsetting:GlobalSetting;
+
     constructor(@Inject(GlobalSetting) glsetting:GlobalSetting, router: Router) {
-        super()
-        this.glsetting = glsetting;
+        super(glsetting)
         this.router = router;
     }
     

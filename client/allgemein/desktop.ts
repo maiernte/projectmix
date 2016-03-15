@@ -31,8 +31,8 @@ export class Desktop extends PageComponent{
     
     constructor(private router: Router,
                 private routeParams: RouteParams,
-                @Inject(GlobalSetting) public glsetting: GlobalSetting){
-        super()
+                @Inject(GlobalSetting) glsetting: GlobalSetting){
+        super(glsetting)
     }
     
     get ShowTips(){

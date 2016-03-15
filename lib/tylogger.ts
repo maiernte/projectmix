@@ -29,7 +29,7 @@ export function LogDB(message:string, data: Object, uid:string){
 }
 
 export function LogDebug(title: string, ...rest: any[]){
-    var Debug = Meteor.settings.public.Debug
+    var Debug = Meteor.settings.public ? Meteor.settings.public.Debug : false
     if(Debug == true){
         console.log((title || 'debug: '), rest);
     }

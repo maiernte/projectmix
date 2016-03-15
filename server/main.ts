@@ -14,21 +14,12 @@ declare var Accounts;
 declare var process;
 
 Meteor.startup(function(){
-    //process.env.COUCHDB_URL = Meteor.settings.couchdb
-    //process.env.MONGO_URL = Meteor.settings.mongodb
-    
     initQiniu()
     LogDebug("baseurl", process.env.ROOT_URL)
-
-    /*if(Meteor.settings.public.Debug){
-        Meteor.onConnection(function(evt) {
-            LogDebug('onConnection  : ' + evt.clientAddress)
-        })
-    }*/
     
     var options = {
-        apiKey: Meteor.settings.mail.apiKey,
-        domain: Meteor.settings.mail.domain
+        apiKey: "key-f1c82d8c2b8c0ab791faf1e1819d8f33",
+        domain: "sandboxdbf0d92981a346b1b8a136edfeeedd3e.mailgun.org"
     }
         
     var NigerianPrinceGun = new Mailgun(options);

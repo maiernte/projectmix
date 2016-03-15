@@ -70,12 +70,10 @@ export class PaiBazi extends PageComponent {
 
     NlSearch:Object;
 
-    glsetting:GlobalSetting;
     constructor(@Inject(GlobalSetting) glsetting:GlobalSetting,
                 private router: Router, 
                 private rootElement: ElementRef) {
-        super()
-        this.glsetting = glsetting;
+        super(glsetting)
     }
 
     get Land(){

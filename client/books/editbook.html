@@ -1,75 +1,77 @@
-
-<div class="ui top attached segment"
-     style="text-align: center" >
-    <a class="ui basic top left attached large label" style="margin-bottom: 0"
-       (click)="goBack()">
-        <i class="angle left icon"></i>
-        {{'返回' | tran:glsetting.lang}}
-    </a>
-    {{'书集详细信息' | tran:glsetting.lang}}
-    <!--<a class="ui basic top right attached large label" 
+<div [style.min-height.px]="WinHeight">
+    <div class="ui top attached segment"
+         style="text-align: center">
+        <a class="ui basic top left attached large label" style="margin-bottom: 0"
+           (click)="goBack()">
+            <i class="angle left icon"></i>
+            {{'返回' | tran:glsetting.lang}}
+        </a>
+        {{'书集详细信息' | tran:glsetting.lang}}
+        <!--<a class="ui basic top right attached large label"
         style="margin-bottom: 0"
         (click)="saveBook()">
         <i class="save icon"></i>
         {{'保存' | tran:glsetting.lang}}
     </a>-->
-</div>
-<div class="ui attached segment">
-    <div class="ui hidden positive editbook message">
-      <i class="close icon"></i>
-      <div class="header">
-        {{'操作成功' | tran:glsetting.lang}}
-      </div>
-      <p>{{'修改内容已经成功保存。' | tran:glsetting.lang}}</p>
     </div>
-    <div class="ui hidden negative editbook message">
-      <i class="close icon"></i>
-      <div class="header">
-        {{'操作失败' | tran:glsetting.lang}}
-      </div>
-      <p>{{'修改内容无法被保存。' | tran:glsetting.lang}}</p>
-    </div>
+    <div class="ui attached segment">
+        <div class="ui hidden positive editbook message">
+            <i class="close icon"></i>
+            <div class="header">
+                {{'操作成功' | tran:glsetting.lang}}
+            </div>
+            <p>{{'修改内容已经成功保存。' | tran:glsetting.lang}}</p>
+        </div>
+        <div class="ui hidden negative editbook message">
+            <i class="close icon"></i>
+            <div class="header">
+                {{'操作失败' | tran:glsetting.lang}}
+            </div>
+            <p>{{'修改内容无法被保存。' | tran:glsetting.lang}}</p>
+        </div>
 
-    <div class="ui segment" *ngIf="!Loaded">
-        <div class="ui active inverted dimmer">
-            <div class="ui text loader">{{'加载' | tran:glsetting.lang}}</div>
+        <div class="ui segment" *ngIf="!Loaded">
+            <div class="ui active inverted dimmer">
+                <div class="ui text loader">{{'加载' | tran:glsetting.lang}}</div>
+            </div>
+            <p>{{'正在加载数据, 请耐心等候...' | tran:glsetting.lang}}</p>
         </div>
-        <p>{{'正在加载数据, 请耐心等候...' | tran:glsetting.lang}}</p>
-    </div>
-    <div class="ui form" *ngIf="Loaded">
-        <div class="inline field">
-            <label>{{'书名：' | tran:glsetting.lang}}</label>
-            <input type="text" placeholder="书名" [(ngModel)]="Name">
-        </div>
-        <div class="inline field">
-            <label>{{'作者：' | tran:glsetting.lang}}</label>
-            <input type="text" placeholder="作者" [(ngModel)]="Author">
-        </div>
-        <div class="field">
-            <label>{{'简介：' | tran:glsetting.lang}}</label>
-            <input type="text" placeholder="简介" [(ngModel)]="Desc">
-        </div>
-        <div class="inline field">
-            <label>{{'更新时间：' | tran:glsetting.lang}}</label>
-            {{Modified}}
-        </div>
-        
-        <div class="ui buttons">
-            <button class="ui primary tiny button" (click)="saveBook()">
-                {{'保存' | tran:glsetting.lang}}
-            </button>
-            <button class="ui primary tiny button" (click)="cleanLocal()"
-                [class.disabled]="IsNew">
-                {{'清空' | tran:glsetting.lang}}
-            </button>
-            <button class="ui primary tiny button" (click)="exportBook()"
-                    [class.disabled]="IsNew">
-                {{'导出' | tran:glsetting.lang}}
-            </button>
-            <button class="ui primary tiny button" (click)="pushCloud()" 
-                [class.disabled]="IsNew">
-                {{'推送云端' | tran:glsetting.lang}}
-            </button>
+        <div class="ui form" *ngIf="Loaded">
+            <div class="inline field">
+                <label>{{'书名：' | tran:glsetting.lang}}</label>
+                <input type="text" placeholder="书名" [(ngModel)]="Name">
+            </div>
+            <div class="inline field">
+                <label>{{'作者：' | tran:glsetting.lang}}</label>
+                <input type="text" placeholder="作者" [(ngModel)]="Author">
+            </div>
+            <div class="field">
+                <label>{{'简介：' | tran:glsetting.lang}}</label>
+                <input type="text" placeholder="简介" [(ngModel)]="Desc">
+            </div>
+            <div class="inline field">
+                <label>{{'更新时间：' | tran:glsetting.lang}}</label>
+                {{Modified}}
+            </div>
+
+            <div class="ui buttons">
+                <button class="ui primary tiny button" (click)="saveBook()">
+                    {{'保存' | tran:glsetting.lang}}
+                </button>
+                <button class="ui primary tiny button" (click)="cleanLocal()"
+                        [class.disabled]="IsNew">
+                    {{'清空' | tran:glsetting.lang}}
+                </button>
+                <button class="ui primary tiny button" (click)="exportBook()"
+                        [class.disabled]="IsNew">
+                    {{'导出' | tran:glsetting.lang}}
+                </button>
+                <button class="ui primary tiny button" (click)="pushCloud()"
+                        [class.disabled]="IsNew">
+                    {{'推送云端' | tran:glsetting.lang}}
+                </button>
+            </div>
         </div>
     </div>
 </div>
+

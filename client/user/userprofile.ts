@@ -9,7 +9,6 @@ import {TranslatePipe} from 'client/allgemein/translatePipe'
 import {GlobalSetting} from  'client/globalsetting'
 
 import {UserImages, DelImages} from  'collections/admin'
-import {PageComponent} from 'client/allgemein/pagecomponent'
 
 declare var Promise: any;
 declare var jQuery: any
@@ -20,7 +19,7 @@ declare var QiniuUploader;
     pipes: [TranslatePipe],
     directives: [NgIf],
 })
-export class UerProfile extends PageComponent{
+export class UerProfile{
     private static groupDef = ['注册用户', '贵宾', '华鹤同门', '易学老师', '管理员']
     private profile: Object;
     private static iconurl = 'http://7xqidf.com1.z0.glb.clouddn.com'
@@ -48,7 +47,6 @@ export class UerProfile extends PageComponent{
                 private rootElement: ElementRef,
                 private ngZone: NgZone,
                 @Inject(GlobalSetting) public glsetting: GlobalSetting){
-        super()
     }
 
     get EditModel(){

@@ -3,6 +3,7 @@
 
 import {NgZone} from 'angular2/core'
 import {Router} from 'angular2/router'
+import {GlobalSetting} from  'client/globalsetting'
 
 declare var jQuery
 
@@ -14,12 +15,34 @@ export function WindowResized(){
 export abstract class PageComponent{
     public static winheight = window.innerHeight
 
-    constructor(){
+    private existApp = false
+    private timeoutid = null
 
+    constructor(public glsetting: GlobalSetting){
+        document.addEventListener("backbutton", this.onBackButton, false);
     }
 
     ngOnDestroy(){
         console.log("PageComponent destroy")
+        document.removeEventListener("backbutton", this.onBackButton, false);
+        if(this.timeoutid != null){
+            Meteor.clearTimeout(this.timeoutid)
+            this.timeoutid = null
+        }
+    }
+
+    onBackButton = (evt: Event) => {
+        if(this.existApp == true){
+            this.glsetting.Exit()
+        }else{
+            this.existApp = true
+            this.timeoutid = Meteor.setTimeout(() => {
+                this.existApp = false
+                this.timeoutid = null
+            }, 5 * 1000)
+
+            this.glsetting.Notify("再按一次退出软件", -1)
+        }
     }
 
     get WinHeight() {

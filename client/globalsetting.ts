@@ -207,21 +207,19 @@ export  class GlobalSetting{
         if(status['connected'] == false){
             let count = 0
             let id = Meteor.setInterval(() => {
-                //status = Meteor.status();
-                console.log(status)
-
+                console.log(count, status)
                 if(status['connected'] == true){
-                    this.Alert('成功连接服务器', '您现在可以进行云数据操作. 但为了减少负荷, 将在20分钟后自动转为离线状态.')
+                    this.Alert('成功连接服务器', '您现在可以进行云数据操作.')
                     Meteor.clearInterval(id)
                     return
                 }
 
-                if(++count > 6){
+                if(++count > 60){
                     this.Alert('连接服务器', '看来暂时连不上, 请稍后再试!')
                     Meteor.clearInterval(id)
                     return
                 }
-            }, 20 * 1000)
+            }, 2 * 1000)
 
             alertify.alert().setting({
                 title: '连接服务器',

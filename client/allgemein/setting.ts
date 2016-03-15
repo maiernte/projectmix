@@ -28,10 +28,8 @@ export class AppSetting extends PageComponent{
     private bookpagerd: number;
     private guaArrow: number;
 
-    glsetting:GlobalSetting;
     constructor(@Inject(GlobalSetting) glsetting: GlobalSetting){
-        super()
-        this.glsetting = glsetting;
+        super(glsetting)
     }
 
     get IsCordova(){

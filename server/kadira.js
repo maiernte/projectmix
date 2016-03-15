@@ -1,7 +1,8 @@
 //import {Debug, logdebug} from 'lib/debugdef'
 
 Meteor.startup(function() {
-    var Debug = Meteor.settings.public.Debug
+    var Debug = Meteor.settings.public ?
+        Meteor.settings.public.Debug : false
     
     if(Debug){
         Kadira.connect('4qWZxRSWd7LGWnWMm', 'cc838a0a-2ff7-4f9c-954f-b8f49b62eed9');

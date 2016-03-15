@@ -16,6 +16,7 @@ import {MeteorComponent} from 'angular2-meteor';
 import {PaginationService, PaginatePipe, PaginationControlsCpm} from 'ng2-pagination';
 
 import {PaipanEmitter} from 'client/allgemein/paipanermitter'
+import {NavComponent} from 'client/allgemein/pagecomponent'
 
 declare var jQuery;
 declare var Promise;
@@ -28,7 +29,7 @@ declare var CouchDB: any;
     directives: [NgFor, NgIf, PaginationControlsCpm],
     viewProviders: [PaginationService]
 })
-export class BookContent{
+export class BookContent extends NavComponent{
     emitterBack = PaipanEmitter.get(PaipanEmitter.BackButton);
 
     private bookid: string;
@@ -47,27 +48,17 @@ export class BookContent{
 	selectedbook = null;
     recordsort = '创建时间'
     
-    constructor(private router: Router,
+    constructor(router: Router,
+                ngZone: NgZone,
                 private routeParams: RouteParams,
                 private rootElement: ElementRef,
-                private ngZone: NgZone,
                 @Inject(GlobalSetting) public glsetting:GlobalSetting) {
-        
+        super(router, ngZone)
+        this.parentUrl = ['./List']
+
         this.pageSize = this.glsetting.PageSize;
-
-        document.addEventListener("backbutton", this.onBackButton, false);
     }
 
-    ngOnDestroy(){
-        document.removeEventListener("backbutton", this.onBackButton, false);
-    }
-
-    private onBackButton = (evt: Event) => {
-        this.ngZone.run(() => {
-            this.goBack()
-        })
-    }
-    
     get BookName(){
         return this.bookname;
     }
@@ -114,11 +105,7 @@ export class BookContent{
             this.loadContent(null)
         })
     }
-    
-    goBack(){
-        this.router.parent.navigate(['./List']);
-    }
-    
+
     dosearch(evt){
         let searchText = evt.srcElement.value
         if(!!searchText && searchText != ''){

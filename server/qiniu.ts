@@ -14,8 +14,8 @@ var bucket = {
 }
 
 var config = {
-    'ak': Meteor.settings.qiniu.ak,  // 必填 <ACCESS_KEY>
-    'sk': Meteor.settings.qiniu.sk,  // 必填 <SECRET_KEY>
+    'ak': "kgKHm-NUFC3oXhlCvKq7HZbZdFGVwGwMCQLeiEwr",  // 必填 <ACCESS_KEY>
+    'sk': "IUyzYMCPA3MMoTkQvfhzxi4hy07UEfGiVdFFWLSJ",  // 必填 <SECRET_KEY>
     'callbackRoute': 'qiniu_callback',
     'buckets' : []
 }

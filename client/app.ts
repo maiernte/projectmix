@@ -87,29 +87,6 @@ class HuaheApp {
             this.router.navigate(['/Desktop'])
         })
 
-        /*document.addEventListener("deviceready", () => {
-            console.log('deviceready....')
-            this.glsetting.Notify('deviceready....', 1)
-        }, false);*/
-
-        document.addEventListener("backbutton", (evt: Event) => {
-            let pathhandled = ['editbook:id', 'book:id', 'bkrecord:bid:rid', 'leading']
-            let path = window.location['hash'].toString()
-            for(let h of pathhandled){
-                if(path.indexOf(h) > 0){
-                    Log('it will be handled otherwhere')
-                    return
-                }
-            }
-
-            this.glsetting.Notify("暂不支持历史导航, 请使用左上角菜单键", -1)
-        }, false);
-
-        /*document.addEventListener("menubutton", () => {
-            console.log('menubutton')
-            jQuery(document).find('.ui.labeled.sidebar').sidebar('toggle');
-        }, false);*/
-
         this.testtime = this.glsetting.ParseDate("2016-06-30")
         if(Date.now() >= this.testtime.getTime() && this.glsetting.IsCordova){
             alertify.alert('版本过期', '此测试版本已经到期!请更换新的版本',
@@ -117,7 +94,7 @@ class HuaheApp {
                 .set('labels', {ok:'好的'});
         }
         
-        Log("app start", 2)
+        Log("app start")
     }
 
     ngAfterViewInit(){
@@ -140,7 +117,15 @@ bootstrap(HuaheApp, [ROUTER_PROVIDERS, provide(LocationStrategy, { useClass: Has
 
 Meteor.startup(function() {
     if(Meteor.isCordova){
-        Log("disconnet")
-        Meteor.disconnect();
+        //Log("disconnet")
+        //Meteor.disconnect();
+
+        Meteor._reload.onMigrate(function() {
+            console.log("call _reload")
+            let debug = (Meteor.settings.public || {Debug: false}).Debug
+            return [debug ? true : false];
+        });
     }
 })
+
+

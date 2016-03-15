@@ -8,6 +8,7 @@ import {SemanticSelect, tyitem, tyoption} from './smselect'
 import {TYEditor} from './texteditor'
 
 import {TYSqlite} from 'client/books/tysqlite'
+import {PageComponent} from 'client/allgemein/pagecomponent'
 
 declare var jQuery:any;
 
@@ -19,7 +20,7 @@ declare var jQuery:any;
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class Demo{
+export class Demo extends PageComponent{
     private gender = 0
     State = 'AL'
     StateX = 'AK'
@@ -31,9 +32,9 @@ export class Demo{
 
     SeletcedGua: any
 
-    constructor(@Inject(GlobalSetting) public glsetting: GlobalSetting,
-    private rootElement: ElementRef){
-
+    constructor(@Inject(GlobalSetting) glsetting: GlobalSetting,
+                private rootElement: ElementRef){
+        super(glsetting)
     }
 
     get IsAndroid(){
@@ -83,14 +84,6 @@ export class Demo{
         this.SeletcedGua = 1
     }
 
-    showMenu(hide) {
-        if(hide === true){
-            jQuery(document).find('.ui.labeled.sidebar').sidebar('hide')
-        }else{
-            jQuery(document).find('.ui.labeled.sidebar').sidebar('toggle');
-        }
-    }
-
     ngAfterViewInit(){
         jQuery(this.rootElement.nativeElement)
             .find('.ui.dropdown')
@@ -126,5 +119,4 @@ export class Demo{
         this.glsetting.Notify("trigger selector", -1)
         //jQuery("#hiddenselector").trigger('click')
     }
-
 }
