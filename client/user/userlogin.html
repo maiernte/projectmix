@@ -12,7 +12,7 @@
         <p>{{'正在发送邮件, 请耐心等候...' | tran:glsetting.lang}}</p>
     </div>
 
-    <div class="ui form" id="login-normalform" *ngIf="Loging == false">
+    <div class="ui large form" id="login-normalform" *ngIf="Loging == false">
         <div class="inline field">
             <label>帐号：</label>
             <input type="text" placeholder="您的用户名或邮箱"
@@ -62,7 +62,7 @@
             </button>
             <input type="text" placeholder="yourmail@mail.com" [(ngModel)]='Email'>
         </div>
-        <div class="ui form" style="margin-top: 10px">
+        <div class="ui large form" style="margin-top: 10px">
             <div class="field">
                 <label>{{'没有登记注册邮箱？请向管理员求助。' | tran:glsetting.lang}}</label>
                     <textarea class='report admin'>

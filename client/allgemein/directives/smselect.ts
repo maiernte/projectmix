@@ -24,6 +24,8 @@ declare var jQuery
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SemanticSelect{
+    private  static fontsizes = ['smaller', 'small' , 'medium', 'large', 'larger']
+
     Options: tyoption;
     Value: any;
     valueChanged = new EventEmitter();
@@ -71,6 +73,12 @@ export class SemanticSelect{
         }else{
             return false;
         }
+    }
+
+    get FontSize(){
+        /*let idx = this.glsetting.FontSize;
+        return SemanticSelect.fontsizes[idx];*/
+        return "medium"
     }
 
     ngOnInit(){

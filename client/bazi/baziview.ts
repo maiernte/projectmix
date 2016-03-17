@@ -77,6 +77,11 @@ export class BaziView{
         this.glsetting = glsetting;
     }
 
+    get FontSize(){
+        let idx = this.glsetting.FontSize;
+        return GlobalSetting.fontsizes[idx];
+    }
+
     calcTitle(gz: GanZhi): string{
         console.log('calcTitle')
         return gz.NaYin;

@@ -1,4 +1,4 @@
-<div class='ui attached basic segment'>
+<div class='ui attached basic segment' [style.font-size]="FontSize">
     <div>
         <a class="ui teal ribbon label" (click)="showSetting()">
             {{title | tran:glsetting.lang}}
@@ -132,7 +132,7 @@
 </div>
 
 <div class="ui attached segment transition hidden gua setting">
-    <div class="ui form">
+    <div class="ui large form">
         <div class="fields">
             <div class="inline field">
                 <label>{{'每行神煞:' | tran:glsetting.lang}}</label>

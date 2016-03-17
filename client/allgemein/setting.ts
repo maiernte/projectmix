@@ -93,6 +93,15 @@ export class AppSetting extends PageComponent{
         this.glsetting.SetValue('gua-arrow', this.guaArrow == 0)
     }
 
+    get FontSize(): number{
+        let fz = this.glsetting.FontSize
+        return fz
+    }
+
+    set FontSize(value: number){
+        this.glsetting.FontSize = value
+    }
+
     ngOnInit(){
         this.twlang = this.glsetting.lang ? 1 : 0;
         this.guaShenSha = parseInt(this.glsetting.GetSetting('gua-shensha').toString()) - 4;

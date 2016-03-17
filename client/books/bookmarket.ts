@@ -124,7 +124,34 @@ export class BookMarket extends PageComponent{
     }
 
     importBook(){
-        if(this.glsetting.IsCordova){
+        window.plugins.mfilechooser.open([],  (uri) =>{
+            uri = "file://" + uri
+            //console.log('url', uri)
+
+            window.resolveLocalFileSystemURL(uri, (fs) => {
+                //console.log('file entry', fs);
+                fs.file((file) => {
+                    console.log('file => ', file);
+                    var reader = new FileReader();
+                    reader.onloadend = (evt) => {
+                        console.log("Read as data URL");
+                        //console.log(reader.result);
+                    };
+
+                    reader.readAsText(file);
+                }, (evt) => {
+                    console.log('fs.file', evt.target.error.code);
+                });
+            },
+            (evt) =>{
+                console.log('resolveLocalFileSystemURL', evt.target.error.code);
+            })
+
+        }, (error) => {
+            this.glsetting.Alert("导入出错", error.message)
+        });
+
+        /*if(this.glsetting.IsCordova){
             navigator['camera'].getPicture((data) => {
                 let db = new TYSqlite(data)
                 this.convertBook(db)
@@ -140,7 +167,7 @@ export class BookMarket extends PageComponent{
             });
         }else{
             jQuery("#import-book-btn").trigger('click')
-        }
+        }*/
     }
 
     importBookWeb(event){
@@ -151,7 +178,7 @@ export class BookMarket extends PageComponent{
             console.log(r)
             let db = new TYSqlite(r.result)
             //let db = new TYSqlite(evt.target.result)
-            this.convertBook(db)
+            //this.convertBook(db)
         }
 
         if(!f){

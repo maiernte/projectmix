@@ -8,7 +8,8 @@ import {Component,
         Inject,
         provide,
         AfterViewInit, 
-        EventEmitter} from 'angular2/core';
+        EventEmitter,
+        ElementRef, ChangeDetectionStrategy} from 'angular2/core';
         
 import {FORM_DIRECTIVES, NgIf} from  'angular2/common'
 
@@ -73,7 +74,8 @@ class HuaheApp {
     
     constructor(@Inject(Router) router: Router,
                 @Inject(Location) location: Location,
-                @Inject(GlobalSetting) glsetting: GlobalSetting){
+                @Inject(GlobalSetting) glsetting: GlobalSetting,
+                private rootElement: ElementRef){
         this.router = router;
         this.location = location;
         this.glsetting = glsetting;
@@ -93,8 +95,13 @@ class HuaheApp {
                 () => {this.Exit()})
                 .set('labels', {ok:'好的'});
         }
-        
-        Log("app start")
+
+        /*var size = jQuery(this.rootElement.nativeElement).css('font-size');
+        console.log('font size', size)
+
+        let md = new MobileDetect(window.navigator.userAgent);
+        Log("app start", md, md.is('tablet'),
+            md.phone(), md.os(), md.mobile(), md.is("android"))*/
     }
 
     ngAfterViewInit(){
@@ -108,6 +115,11 @@ class HuaheApp {
         return this.glsetting.Android && this.glsetting.IsCordova
     }
 
+    get FontSize(){
+        let idx = this.glsetting.FontSize;
+        return GlobalSetting.fontsizes[idx];
+    }
+
     Exit(){
         this.glsetting.Exit();
     }
@@ -119,6 +131,7 @@ Meteor.startup(function() {
     if(Meteor.isCordova){
         //Log("disconnet")
         //Meteor.disconnect();
+        //MobileAccessibility.usePreferredTextZoom(false);
 
         Meteor._reload.onMigrate(function() {
             console.log("call _reload")

@@ -34,13 +34,13 @@
                         {{'网址:' | tran}}<a href="http://www.32233.cn">www.32233.cn</a>
                     </di>
                     <div>
-                        {{'版本:' | tran}} 0.0.4
+                        {{'版本:' | tran}} 0.0.4 (2016.03.16)
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="item ui form">
+        <div class="item ui large form">
             <div class="inline field">
                 <label>{{'语言: ' | tran:glsetting.lang}}</label>
                 <sm-select [Options]="'简体 正体'"
@@ -49,7 +49,16 @@
             </div>
         </div>
 
-        <div class="item ui form">
+        <div class="item ui large form">
+            <div class="inline field">
+                <label>{{'字体大小: ' | tran:glsetting.lang}}</label>
+                <sm-select [Options]="'特小 小 中 大 特大'"
+                           [Value]="FontSize"
+                           (Value)="FontSize = $event"></sm-select>
+            </div>
+        </div>
+
+        <div class="item ui large form">
             <div class="inline field">
                 <label>{{'六爻盘每行神煞数: ' | tran:glsetting.lang}}</label>
                 <sm-select [Options]="'四 五 六 七'"
@@ -58,7 +67,7 @@
             </div>
         </div>
 
-        <div class="item ui form">
+        <div class="item ui large form">
             <div class="inline field">
                 <label>{{'六爻盘显示方式: ' | tran:glsetting.lang}}</label>
                 <sm-select [Options]="'全排 简排'"
@@ -67,7 +76,7 @@
             </div>
         </div>
 
-        <div class="item ui form">
+        <div class="item ui large form">
             <div class="inline field">
                 <label>{{'六爻变爻箭头: ' | tran:glsetting.lang}}</label>
                 <sm-select [Options]="'显示 隐藏'"
@@ -76,7 +85,7 @@
             </div>
         </div>
 
-        <div class="item ui form">
+        <div class="item ui large form">
             <div class="inline field">
                 <label>{{'八字盘每行神煞数: ' | tran:glsetting.lang}}</label>
                 <sm-select [Options]="'四 五 六 七'"
@@ -85,20 +94,20 @@
             </div>
         </div>
 
-        <div class="item ui form">
+        <div class="item ui large form">
             <div class="inline field">
                 <label>{{'书集每页记录: ' | tran:glsetting.lang}}</label>
                 <input type="number" min="5" step="1" max="50" [(ngModel)]="BookPageRD"/>
             </div>
         </div>
 
-        <div class="item ui form">
+        <div class="item ui large form">
             <div class="inline field">
                 <label>{{'导入书集:' | tran:glsetting.lang}}</label>
                 <input type="file" (change)="ImportBook($event)">
             </div>
         </div>
-        <div class="item ui form">
+        <div class="item ui large form">
             <div class="inline field">
                 <label>{{'本地数据:' | tran:glsetting.lang}}</label>
                 <button class="ui tiny primary button" (click)="ClearLocalDB()">

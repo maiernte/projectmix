@@ -21,7 +21,7 @@
     </div>
 
     <div [hidden]="Panel != 'paipan'">
-        <div class="ui form" style="margin-top: 10px">
+        <div class="ui large form" style="margin-top: 10px">
             <div class="inline field">
                 <!--<label>{{'姓名: ' | tran:glsetting.lang}}</label>
                 <input type="text" placeholder="请输入命主姓名"
@@ -69,7 +69,7 @@
                 </div>
             </div>
             
-            <div class="ui small form" style="margin-bottom: 10px;margin-top: 10px">
+            <div class="ui large form" style="margin-bottom: 10px;margin-top: 10px">
                 <h5 class="ui dividing header">{{'出生时间: ' | tran:glsetting.lang}}
                     <div class="ui toggle checkbox">
                         <input type="checkbox" [(ngModel)]="TimeModel">
@@ -140,7 +140,7 @@
                 
             </div>
 
-            <div class="field" style="margin-top: 10px">
+            <div class="field" style="margin-top: 20px">
 
                 <div class="ui checkbox">
                     <input type="checkbox" [(ngModel)]="Solar">
@@ -159,7 +159,7 @@
 
     </div>
     <div [hidden]="Panel != 'calc'">
-        <div class="ui form" style="margin-top: 10px">
+        <div class="ui large form" style="margin-top: 10px">
             <div class="fields">
                 <div class=" field">
                     <label>年</label>
@@ -203,7 +203,7 @@
                 </button>
             </div>
 
-            <div class="ui form" style="margin-top: 15px"
+            <div class="ui large form" style="margin-top: 15px"
                  *ngIf="CalcSet.Result != null">
                 <div class="field">
                     <label>{{'结果: ' | tran:glsetting.lang}}</label>

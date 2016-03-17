@@ -1,4 +1,4 @@
-<div class="ui attached segment">
+<div class="ui attached segment" [style.font-size]="FontSize">
     <div>
         <a class="ui blue ribbon label" (click)="showSetting()">
             {{Info.Title | tran:glsetting.lang}}
@@ -92,7 +92,7 @@
                 <div class="column" *ngFor="#ss of ssbazi"
                      [style.padding-top]="ss.First ? null : 0"
                      [style.padding-bottom]="ss.Last ? null : 0"
-                     style="padding-left: 0px;padding-right: 0px;">
+                     style="padding-left: 0px;padding-right: 0px;margin-right: -10px">
                     <span *ngIf="ss.Empty == false">{{ss.Text | tran:glsetting.lang}}</span>
                     <s *ngIf="ss.Empty">{{ss.Text | tran:glsetting.lang}}</s>
                 </div>
@@ -121,15 +121,15 @@
             </div>
             <div class="ui items" style="padding-top: 0;margin-top: 0;color: ">
                 <div class="item">
-                    <label>{{'起始: ' | tran:glsetting.lang}}</label>
+                    {{'起始: ' | tran:glsetting.lang}}
                     {{DaYunDetail.Time | tran:glsetting.lang}}
                 </div>
                 <div class="item">
-                    <label>{{'纳音: ' | tran:glsetting.lang}}</label>
+                    {{'纳音: ' | tran:glsetting.lang}}
                     {{DaYunDetail.NaYin | tran:glsetting.lang}}
                 </div>
                 <div class="item">
-                    <label>{{'神煞: ' | tran:glsetting.lang}}</label>
+                    {{'神煞: ' | tran:glsetting.lang}}
                     {{DaYunDetail.ShenSha | tran:glsetting.lang}}
                 </div>
             </div>
@@ -209,7 +209,7 @@
     </div>
 </div>
 <div class="ui attached segment transition hidden bazi setting">
-    <div class="ui form">
+    <div class="ui large form">
         <div class="two fields">
             <div class="inline field">
                 <label>{{'每行显示神煞数:' | tran:glsetting.lang}}</label>

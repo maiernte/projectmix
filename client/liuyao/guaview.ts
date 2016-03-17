@@ -75,6 +75,11 @@ export class GuaView{
         this.showArrow = this.glsetting.GetSetting('gua-arrow')
     }
 
+    get FontSize(){
+        let idx = this.glsetting.FontSize;
+        return GlobalSetting.fontsizes[idx];
+    }
+
     get Yue(){
         this.yue = (this.yue || {
             name: this.Gua.Yue.Name,

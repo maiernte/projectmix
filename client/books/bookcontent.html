@@ -69,7 +69,7 @@
         <div class="ui items" *ngIf="Loaded">
             <div class="middle aligned item" style="padding-top: 0;"
                  *ngFor="#rd of Records | paginate:{currentPage: 1, itemsPerPage: pageSize, totalItems: sumItems}">
-                <div class="content">
+                <div class="content" style="padding-top: 0">
                     <div class="meta">
                         <input type="checkbox" [(ngModel)]="rd.Checked">
                         {{rd.Detail}}
@@ -79,12 +79,15 @@
                         <a class="ui mini blue circular label" *ngIf="!rd.IsGua">八字</a>
                         {{rd.Question}}
                         <button class="ui right floated basic icon button"
+                                (click)="senDesktop(rd)">
+                            <i class="home icon"></i>
+                        </button>
+                        <button class="ui right floated basic icon button"
                                 (click)="openRecord(rd)">
-                            <i class="chevron right icon"></i>
+                            <i class="book icon"></i>
                         </button>
                     </div>
                     <div class="extra">
-                        {{'创建：' | tran:glsetting.lang}}
                         {{rd.Created}}
                         <i class="bookmark icon" [class.green]="rd.Feed"></i>
                         <i class="cloud icon" *ngIf="!rd.Loading" [class.green]="rd.IsCloud" (click)="syncRecord(rd)"></i>
@@ -101,7 +104,7 @@
     <div class="ui modal copy record">
         <div class="header">{{'复制记录' | tran:glsetting.lang}}</div>
         <div class="content">
-            <div class="ui form">
+            <div class="ui large form">
                 <div class="grouped fields">
                     <label>{{'选择一本书集：' | tran}}</label>
                     <div class="field" *ngFor="#bk of books"

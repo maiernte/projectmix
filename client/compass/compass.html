@@ -105,12 +105,14 @@
                 {{'流年飞星' | tran:glsetting.lang}}
             </div>
             <div class="content" *ngIf="PanType == 'f'">
-                <div class="ui form">
-                    <div class="two fields">
+                <div class="ui large form">
+                    <div class="fields">
                         <div class="inline field">
-                            <label>{{'流年' | tran:glsetting.lang}}</label>
-                            <input type="number" min="2000" max="2030"
-                                   [(ngModel)]="SelectedYear">
+                            <div class="ui transparent input">
+                                <label>{{'流年' | tran:glsetting.lang}}</label>
+                                <input type="number" min="2000" max="2030"
+                                       [(ngModel)]="SelectedYear">
+                            </div>
                         </div>
                         <div class="inline field">
                             <div class="ui checkbox">
@@ -329,10 +331,10 @@
                 </g>
 
                 <g>
-                    <line x1="500" y1="50" x2="500" y2="90" style="stroke-width:2;stroke:black" />
-                    <line x1="490" y1="75" x2="500" y2="50" style="stroke-width:2;stroke:black" />
-                    <line x1="510" y1="75" x2="500" y2="50" style="stroke-width:2;stroke:black" />
-                    <text x="485" y="120" style="font-weight:bold;font-size:30px;">北</text>
+                    <line x1="500" y1="50" x2="500" y2="90" style="stroke-width:2;stroke:red" />
+                    <line x1="490" y1="75" x2="500" y2="50" style="stroke-width:2;stroke:red" />
+                    <line x1="510" y1="75" x2="500" y2="50" style="stroke-width:2;stroke:red" />
+                    <text x="485" y="120" fill="red" style="font-weight:bold;font-size:30px;">北</text>
                 </g>
             </g>
 

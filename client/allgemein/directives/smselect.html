@@ -1,5 +1,6 @@
 <div class="ui dropdown semantic"
-     *ngIf="!UseOrigin">
+     *ngIf="!UseOrigin"
+     [style.font-size]="FontSize">
     <!--<div class="default text">{{Selected.Text | tran:glsetting.lang}}</div>-->
     <span class="text">{{Selected.Text | tran:glsetting.lang}}</span>
     <i class="dropdown icon"></i>
@@ -34,14 +35,14 @@
     </option>
 </select>-->
 
-<span *ngIf="UseOrigin" (click)="showModal()">
+<span *ngIf="UseOrigin" (click)="showModal()" [style.font-size]="FontSize">
     <!--<span class="default text">{{Selected.Text | tran:glsetting.lang}}</span>-->
     <span class="default text">
         {{Selected.Text | tran:glsetting.lang}}
     </span>
     <i class="dropdown icon"></i>
 </span>
-<div class="ui small modal" *ngIf="UseOrigin">
+<div class="ui small modal" *ngIf="UseOrigin" [style.font-size]="FontSize">
     <div class="content">
         <div class="ui selection list" style="height:300px;overflow-y:auto">
             <div class="ui" *ngFor="#i of Options.Items"

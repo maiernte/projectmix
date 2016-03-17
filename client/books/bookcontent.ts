@@ -30,7 +30,7 @@ declare var CouchDB: any;
     viewProviders: [PaginationService]
 })
 export class BookContent extends NavComponent{
-    emitterBack = PaipanEmitter.get(PaipanEmitter.BackButton);
+    emitterPaipan = PaipanEmitter.get(PaipanEmitter.Paipan);
 
     private bookid: string;
     private bookname: string;
@@ -191,6 +191,11 @@ export class BookContent extends NavComponent{
 
     openRecord(rd: RecordHelper){
         this.router.parent.navigate(['./BookRecord', {bid: this.bookid, rid: rd.Id}])
+    }
+
+    senDesktop(rd: RecordHelper){
+        let params = rd.RouteParams
+        this.emitterPaipan.emit(params)
     }
     
     syncRecord(rd: RecordHelper){

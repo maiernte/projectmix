@@ -49,9 +49,10 @@ export class TyWindow {
 
 	IsReady: boolean;
 	
-	constructor(private rootElement: ElementRef, @Inject(GlobalSetting) glsetting: GlobalSetting){
+	constructor(private rootElement: ElementRef,
+				@Inject(GlobalSetting) glsetting: GlobalSetting){
 		this.glsetting = glsetting;
-		this.wide = false; 
+		this.wide = false;
 	}
 	
 	get CanSave(){

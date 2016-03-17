@@ -13,32 +13,39 @@ import {TranslatePipe} from './allgemein/translatePipe'
 import {Bookmanager} from 'client/books/bookmanager'
 
 export  class GlobalSetting{
-    private setting = [
-        {Name: 'lang', Value: true},
-        {Name: 'gua-shensha', Value: 5},
-        {Name: 'gua-simple', Value: false},
-        {Name: 'bazi-shensha', Value: 5},
-        {Name: 'desktop-tip', Value: true},
-        {Name: 'created', Value: Date.now()},
-        {Name: 'modified', Value: Date.now()},
-        {Name: 'username', Value: ''},
-        {Name: 'password', Value: ''},
-        {Name: 'userid', Value: ''},
-        {Name: 'autosignin', Value: false},
-        {Name: 'book-pagerd', Value: 4},
-        {Name: 'gua-arrow', Value: true}
-    ]
+    private setting: Array<{Name: string, Value: any}>
 
     private language: boolean; // 是否使用繁体字
     private translator: TranslatePipe;
     private books: Array<Book>;
     private signed = false
     private isCordova
+    private fontzize
+
+    public  static fontsizes = ['smaller', 'small' , 'medium', 'large', 'larger']
 
     Clipboard: Object
     BookManager: Bookmanager;
 
     constructor(){
+        this.setting = [
+            {Name: 'lang', Value: true},
+            {Name: 'gua-shensha', Value: 5},
+            {Name: 'gua-simple', Value: false},
+            {Name: 'bazi-shensha', Value: 5},
+            {Name: 'desktop-tip', Value: true},
+            {Name: 'created', Value: Date.now()},
+            {Name: 'modified', Value: Date.now()},
+            {Name: 'username', Value: ''},
+            {Name: 'password', Value: ''},
+            {Name: 'userid', Value: ''},
+            {Name: 'autosignin', Value: false},
+            {Name: 'book-pagerd', Value: 4},
+            {Name: 'gua-arrow', Value: true},
+            {Name: 'font-size', Value: 1}
+        ]
+
+
         this.initSetting();
         this.translator = new TranslatePipe();
         this.BookManager = new Bookmanager();
@@ -50,7 +57,7 @@ export  class GlobalSetting{
         let userid = this.GetSetting('userid').toString();
 
         Session.set('userid', userid == '' ? null : userid)
-        console.log("glsetting init", user, pw, userid)
+        //console.log("glsetting init", user, pw, userid)
 
         /*this.SignIn(user, pw).catch(err => {
             console.log("login error", err.toString())
@@ -87,6 +94,20 @@ export  class GlobalSetting{
         }
 
         return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    }
+
+    get FontSize(){
+        if(!this.fontzize){
+            this.fontzize = this.GetSetting("font-size")
+            console.log('get setting fontsize', this.fontzize)
+        }
+
+        return parseInt(this.fontzize.toString())
+    }
+
+    set FontSize(value){
+        this.SetValue("font-size", value)
+        this.fontzize = value
     }
 
     // 是否使用繁体字

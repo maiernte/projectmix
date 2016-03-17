@@ -36,7 +36,7 @@
             </div>
             <p>{{'正在加载数据, 请耐心等候...' | tran:glsetting.lang}}</p>
         </div>
-        <div class="ui form" *ngIf="Loaded">
+        <div class="ui large form" *ngIf="Loaded">
             <div class="inline field">
                 <label>{{'书名：' | tran:glsetting.lang}}</label>
                 <input type="text" placeholder="书名" [(ngModel)]="Name">

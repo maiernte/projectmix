@@ -1,4 +1,4 @@
-<div class="ui small form">
+<div class="ui large form">
     <h5 class="ui dividing header">{{'卦爻: ' | tran:glsetting.lang}}
         <div class="ui toggle checkbox">
             <input type="checkbox" [(ngModel)]="GuayaoModel">
@@ -17,6 +17,12 @@
             </div>
         </div>-->
 
+        <div class='inline field'>
+            <sm-select [Options]="'上卦排序 卦宫排序'"
+                       [Value]="GuaGongOrder ? 1 : 0"
+                       (Value)="GuaGongOrder = ($event == 1)"></sm-select>
+        </div>
+
         <div class="fields">
             <div class="inline field">
                 <label>{{'本卦' | tran:glsetting.lang}}</label>
@@ -30,11 +36,7 @@
                            [Value]="biangua"
                            (Value)="biangua = $event"></sm-select>
             </div>
-            <div class='inline field'>
-                <sm-select [Options]="'上卦排序 卦宫排序'"
-                           [Value]="GuaGongOrder ? 1 : 0"
-                           (Value)="GuaGongOrder = ($event == 1)"></sm-select>
-            </div>
+
         </div>
     </div>
     <div id='paigua-yao-symb' class='transition hidden'>
