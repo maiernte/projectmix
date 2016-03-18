@@ -18,7 +18,7 @@
             {{'云同步' | tran:glsetting.lang}}
         </a>
     </div>
-    <div class="ui attached segment" style="padding: 0">
+    <div class="ui attached segment" style="padding: 0" id="conntent-tool-bar">
         <div class="ui buttons">
             <!--<div class="ui icon button"
                  [class.disabled]="!IsCloud"
@@ -58,7 +58,8 @@
             <i class="search icon"></i>
         </div>
     </div>
-    <div class="ui attached segment">
+    <div class="ui attached segment" 
+         [style.height.px]="ContentHeight + 70">
         <div class="ui segment" *ngIf="!Loaded">
             <div class="ui active inverted dimmer">
                 <div class="ui text loader">{{'加载' | tran:glsetting.lang}}</div>
@@ -66,8 +67,12 @@
             <p>{{'正在加载数据, 请耐心等候...' | tran:glsetting.lang}}</p>
         </div>
 
-        <div class="ui items" *ngIf="Loaded">
-            <div class="middle aligned item" style="padding-top: 0;"
+        <div class="ui items" *ngIf="Loaded" 
+            style="overflow-y: scroll"
+            [style.height.px]="ContentHeight"
+            id="record-content">
+            <div class="middle aligned item" 
+                style="padding-top: 0;"
                  *ngFor="#rd of Records | paginate:{currentPage: 1, itemsPerPage: pageSize, totalItems: sumItems}">
                 <div class="content" style="padding-top: 0">
                     <div class="meta">
@@ -96,9 +101,14 @@
                     </div>
                 </div>
             </div>
-
-            <pagination-controls (change)="onPageChanged($event.page)"></pagination-controls>
         </div>
+        <pagination-controls 
+            (change)="onPageChanged($event.page)"
+            style="position:fixed;bottom:0;padding:5px;font-size:large"
+            id="paginationbar">
+        </pagination-controls>
+        
+        <!--<div id="fake-bottom" style="position:fixed;bottom:0px;">footer</div>-->
     </div>
     
     <div class="ui modal copy record">

@@ -16,6 +16,7 @@ import {GuaView} from 'client/liuyao/guaview'
 import {BaziView} from 'client/bazi/baziview'
 
 import {PaipanEmitter} from 'client/allgemein/paipanermitter'
+import {NavComponent} from 'client/allgemein/pagecomponent'
 
 declare var jQuery;
 declare var Promise;
@@ -27,7 +28,7 @@ declare var Promise;
     directives: [YixuePart, GuaView, BaziView, NgIf]
 })
 
-export class RecordView{
+export class RecordView extends NavComponent{
     emitterBack = PaipanEmitter.get(PaipanEmitter.BackButton);
 
     private bookid = ''
@@ -37,14 +38,16 @@ export class RecordView{
     
     @ViewChild(YixuePart) yixuepart: YixuePart;
 
-    constructor(private router: Router,
+    constructor(router: Router,
+                ngZone: NgZone,
                 private routeParams: RouteParams,
-                private ngZone: NgZone,
                 @Inject(GlobalSetting) public glsetting:GlobalSetting) {
-        document.addEventListener("backbutton", this.onBackButton, false);
+        super(router, ngZone)
+        //this.parentUrl = ['./BookContent', {id: this.bookid}]
+        //document.addEventListener("backbutton", this.onBackButton, false);
     }
     
-    ngOnDestroy(){
+    /*ngOnDestroy(){
         document.removeEventListener("backbutton", this.onBackButton, false);
     }
 
@@ -52,10 +55,24 @@ export class RecordView{
         this.ngZone.run(() => {
             this.goBack()
         })
+    }*/
+    
+    goBack(){
+        if(this.yixuepart.EditModel == true){
+            let msg = "编辑模式下的数据还没有保存。此时返回书集目录会使数据丢失。您确定放弃保存吗？"
+            this.glsetting.Confirm("保存更改", msg, () => {
+                super.goBack()
+                //this.router.parent.navigate(['./BookContent', {id: this.bookid}]);
+            }, null)
+        }else{
+            super.goBack()
+            //this.router.parent.navigate(['./BookContent', {id: this.bookid}]);
+        }
     }
 
     ngOnInit(){
         this.bookid = this.routeParams.params['bid']
+        this.parentUrl = ['./BookContent', {id: this.bookid}]
         this.recordid = this.routeParams.params['rid']
         let book = LocalBooks.findOne({_id: this.bookid})
         this.bookname = book.name
@@ -100,14 +117,5 @@ export class RecordView{
         }
     }
 
-    goBack(){
-        if(this.yixuepart.EditModel == true){
-            let msg = "编辑模式下的数据还没有保存。此时返回书集目录会使数据丢失。您确定放弃保存吗？"
-            this.glsetting.Confirm("保存更改", msg, () => {
-                this.router.parent.navigate(['./BookContent', {id: this.bookid}]);
-            }, null)
-        }else{
-            this.router.parent.navigate(['./BookContent', {id: this.bookid}]);
-        }
-    }
+    
 }

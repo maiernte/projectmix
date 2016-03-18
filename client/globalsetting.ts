@@ -6,6 +6,7 @@ declare var html2canvas;
 declare var Promise;
 declare var SemanticModal;
 declare var alertify;
+declare var MobileDetect;
 
 import {saveAs} from './lib/FileSaver'
 import {TranslatePipe} from './allgemein/translatePipe'
@@ -20,7 +21,7 @@ export  class GlobalSetting{
     private books: Array<Book>;
     private signed = false
     private isCordova
-    private fontzize
+    private fontsize
 
     public  static fontsizes = ['smaller', 'small' , 'medium', 'large', 'larger']
 
@@ -42,7 +43,7 @@ export  class GlobalSetting{
             {Name: 'autosignin', Value: false},
             {Name: 'book-pagerd', Value: 4},
             {Name: 'gua-arrow', Value: true},
-            {Name: 'font-size', Value: 1}
+            {Name: 'font-size', Value: -1}
         ]
 
 
@@ -97,17 +98,21 @@ export  class GlobalSetting{
     }
 
     get FontSize(){
-        if(!this.fontzize){
-            this.fontzize = this.GetSetting("font-size")
-            console.log('get setting fontsize', this.fontzize)
+        if(!this.fontsize){
+            this.fontsize = this.GetSetting("font-size")
+            console.log('get setting fontsize', this.fontsize)
+            if(this.fontsize == -1){
+                let md = new MobileDetect(window.navigator.userAgent);
+                this.fontsize = md.is('tablet') ? 2 : 1
+            }
         }
 
-        return parseInt(this.fontzize.toString())
+        return parseInt(this.fontsize.toString())
     }
 
     set FontSize(value){
         this.SetValue("font-size", value)
-        this.fontzize = value
+        this.fontsize = value
     }
 
     // 是否使用繁体字

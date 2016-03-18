@@ -7,6 +7,36 @@ import {GlobalSetting} from  'client/globalsetting'
 
 declare var jQuery
 
+function getPosition(el){
+    var xPos = 0;
+    var yPos = 0;
+    var hPos = 0;
+    
+    while (el) {
+        if (el.tagName == "BODY") {
+          // deal with browser quirks with body/window/document and page scroll
+          var xScroll = el.scrollLeft || document.documentElement.scrollLeft;
+          var yScroll = el.scrollTop || document.documentElement.scrollTop;
+        
+          xPos += (el.offsetLeft - xScroll + el.clientLeft);
+          yPos += (el.offsetTop - yScroll + el.clientTop);
+        } else {
+          // for all other non-BODY elements
+          xPos += (el.offsetLeft - el.scrollLeft + el.clientLeft);
+          yPos += (el.offsetTop - el.scrollTop + el.clientTop);
+          
+          hPos = el.scrollHeight
+        }
+        
+        el = el.offsetParent;
+    }
+    
+    return {
+        x: xPos,
+        y: yPos
+    };
+}
+
 export function WindowResized(){
     PageComponent.winheight = window.innerHeight
     NavComponent.winheight = window.innerHeight
@@ -23,7 +53,7 @@ export abstract class PageComponent{
     }
 
     ngOnDestroy(){
-        console.log("PageComponent destroy")
+        //console.log("PageComponent destroy")
         document.removeEventListener("backbutton", this.onBackButton, false);
         if(this.timeoutid != null){
             Meteor.clearTimeout(this.timeoutid)
@@ -58,6 +88,10 @@ export abstract class PageComponent{
             jQuery(document).find('.ui.labeled.sidebar').sidebar('toggle');
         }
     }
+    
+    GetElePosition(ele){
+        return getPosition(ele)
+    }
 }
 
 export abstract class NavComponent{
@@ -69,7 +103,7 @@ export abstract class NavComponent{
     }
     
     ngOnDestroy(){
-        Log("NavComponent destroy")
+        //Log("NavComponent destroy")
         document.removeEventListener("backbutton", this.onBackButton, false);
     }
     
@@ -86,5 +120,9 @@ export abstract class NavComponent{
     goBack(){
         Log('navBack', this.parentUrl)
         this.router.parent.navigate(this.parentUrl)
+    }
+    
+    GetElePosition(ele){
+        return getPosition(ele)
     }
 }

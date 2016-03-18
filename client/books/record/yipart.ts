@@ -40,6 +40,7 @@ export class YixuePart{
     
     private uploadErr = null
     private qiniuUploader;
+    private contentheight: number
 
     @ContentChild(GuaView) guaview: GuaView;
     @ContentChild(BaziView) baziview: BaziView;
@@ -132,7 +133,12 @@ export class YixuePart{
     get QuestionT(){
         return this.IsGua ? "问念: " : "命主: "
     }
-
+    
+    get ContentHeight(){
+        let height = (this.contentheight || window.innerHeight)
+        console.log("yipart height", height)
+        return height
+    }
 
     copyLink(link: string){
         YixuePart.copyLink = link
@@ -257,6 +263,11 @@ export class YixuePart{
             this.initQiNiuBook();
             this.AllowQiniu = true;
         }
+        
+        let dom = jQuery(this.rootElement.nativeElement)
+        let pos = this.getPosition(dom[0])
+        this.contentheight = window.innerHeight - pos.y - 10
+        console.log("pos", pos)
     }
 
     editorSaved(content){
@@ -419,5 +430,35 @@ export class YixuePart{
         }).catch(err => {
             this.glsetting.Alert('更新数据失败', err.toString())
         });
+    }
+    
+    private getPosition(el){
+        var xPos = 0;
+        var yPos = 0;
+        var hPos = 0;
+        
+        while (el) {
+            if (el.tagName == "BODY") {
+              // deal with browser quirks with body/window/document and page scroll
+              var xScroll = el.scrollLeft || document.documentElement.scrollLeft;
+              var yScroll = el.scrollTop || document.documentElement.scrollTop;
+            
+              xPos += (el.offsetLeft - xScroll + el.clientLeft);
+              yPos += (el.offsetTop - yScroll + el.clientTop);
+            } else {
+              // for all other non-BODY elements
+              xPos += (el.offsetLeft - el.scrollLeft + el.clientLeft);
+              yPos += (el.offsetTop - el.scrollTop + el.clientTop);
+              
+              hPos = el.scrollHeight
+            }
+            
+            el = el.offsetParent;
+        }
+        
+        return {
+            x: xPos,
+            y: yPos
+        };
     }
 }

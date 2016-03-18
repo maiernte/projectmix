@@ -101,6 +101,11 @@ export class AppSetting extends PageComponent{
     set FontSize(value: number){
         this.glsetting.FontSize = value
     }
+    
+    get FontSizeDisp(){
+        let idx = this.glsetting.FontSize;
+        return GlobalSetting.fontsizes[idx];
+    }
 
     ngOnInit(){
         this.twlang = this.glsetting.lang ? 1 : 0;

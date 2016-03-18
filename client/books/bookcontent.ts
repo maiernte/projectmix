@@ -37,6 +37,7 @@ export class BookContent extends NavComponent{
     private showgua = true
     private showbazi = true
     private rdviews: Array<RecordHelper>;
+    private contentheight: number
 
     Loaded = false;
     pageSize: number = 15;
@@ -104,6 +105,22 @@ export class BookContent extends NavComponent{
         this.ngZone.run(() => {
             this.loadContent(null)
         })
+    }
+    
+    get ContentHeight(){
+        return (this.contentheight || this.WinHeight)
+    }
+    
+    ngAfterViewInit(){
+        //console.log("win height", this.WinHeight)
+        //let dom  = jQuery('#paginationbar')
+        let content = jQuery(this.rootElement.nativeElement).find("#record-content")
+        let posContent = this.GetElePosition(content[0])
+        
+        let pagination = jQuery(this.rootElement.nativeElement).find("#paginationbar")
+        let posPagination = this.GetElePosition(pagination[0])
+        
+        this.contentheight = posPagination.y - posContent.y
     }
 
     dosearch(evt){
