@@ -1,5 +1,6 @@
 /// <reference path="../typings/meteor/meteor.d.ts" />
 /// <reference path="../typings/book.d.ts" />
+/// <reference path="../typings/global.d.ts" />
 
 declare var jQuery;
 declare var html2canvas;
@@ -21,6 +22,7 @@ export  class GlobalSetting{
     private books: Array<Book>;
     private signed = false
     private isCordova
+    private isphone
     private fontsize
 
     public  static fontsizes = ['smaller', 'small' , 'medium', 'large', 'larger']
@@ -63,6 +65,9 @@ export  class GlobalSetting{
         /*this.SignIn(user, pw).catch(err => {
             console.log("login error", err.toString())
         })*/
+
+        let md = new MobileDetect(window.navigator.userAgent);
+        this.isphone = !!md.phone()
     }
     
     get Signed(){
@@ -87,6 +92,10 @@ export  class GlobalSetting{
         return android;
     }
 
+    get Phone(){
+        return this.isphone
+    }
+
     get GUID() {
         function s4() {
             return Math.floor((1 + Math.random()) * 0x10000)
@@ -100,7 +109,6 @@ export  class GlobalSetting{
     get FontSize(){
         if(!this.fontsize){
             this.fontsize = this.GetSetting("font-size")
-            console.log('get setting fontsize', this.fontsize)
             if(this.fontsize == -1){
                 let md = new MobileDetect(window.navigator.userAgent);
                 this.fontsize = md.is('tablet') ? 2 : 1
@@ -172,7 +180,7 @@ export  class GlobalSetting{
 
     SaveCanva2Disk(canva, fileName: string){
         if(this.IsCordova){
-            console.log('cordova save canvas to disk')
+            Log('cordova save canvas to disk')
             window['canvas2ImagePlugin'].saveImageDataToLibrary(
                 function (msg) {
                     //console.log(msg);
@@ -233,7 +241,7 @@ export  class GlobalSetting{
         if(status['connected'] == false){
             let count = 0
             let id = Meteor.setInterval(() => {
-                console.log(count, status)
+
                 if(status['connected'] == true){
                     this.Alert('成功连接服务器', '您现在可以进行云数据操作.')
                     Meteor.clearInterval(id)
@@ -273,9 +281,9 @@ export  class GlobalSetting{
                     return
                 }
 
-                console.log("try signin ", user, pw)
+                Log("try signin ", user, pw)
                 Meteor.loginWithPassword(user, pw, err => {
-                    console.log('sign in err: ', err)
+                    Log('sign in err: ', err)
                     if(err){
                         reject(err)
                     }else{
@@ -320,7 +328,7 @@ export  class GlobalSetting{
     }
 
     RegistUser(name: string, email: string, pw: string, profile: Object): any{
-        console.log('profile', profile)
+        Log('profile', profile)
         let promise = new Promise((resolve, reject) => {
             Accounts.createUser({
                 username: name,
@@ -384,7 +392,7 @@ export  class GlobalSetting{
         if(this.IsCordova){
             navigator['app'].exitApp();
         }else {
-            console.log("Exit", navigator)
+            Log("Exit", navigator)
         }
     }
 

@@ -1,4 +1,6 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
+/// <reference path="../../typings/global.d.ts" />
+
 import {Component,
         Inject,
         ElementRef,
@@ -220,7 +222,6 @@ export class CompassView{
                 this.changeOpacity(0.0)
             }
 
-            console.log(f)
             r.readAsDataURL(f);
         }
     }
@@ -243,7 +244,7 @@ export class CompassView{
             this.Needle.Angle = (0 - heading.magneticHeading + 360) % 360
             this.Needle.Value = Math.floor(heading.magneticHeading * 100) / 100
         }, (err) => {
-            console.log('getCurrentHeading Error',err);
+            Log('getCurrentHeading Error',err);
         });
 
         this.Needle.Id = navigator['compass']
@@ -268,7 +269,7 @@ export class CompassView{
                 //this.Needle.Angle = ziel
                 this.Rotation = ziel
             }, (err) => {
-                console.log(err);
+                Log(err);
             }, options);
     }
 

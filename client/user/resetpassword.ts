@@ -1,4 +1,5 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
+/// <reference path="../../typings/global.d.ts" />
 
 import {Component, Inject, NgZone} from 'angular2/core'
 
@@ -26,9 +27,9 @@ export class ResetPassword{
     
     ngOnInit(){
         this.token = this.routeParams.params['tk']
-        console.log(this.token)
+        Log(this.token)
         Meteor.logout(err => {
-            console.log('logout:', err)
+            Log('logout:', err)
         })
     }
     

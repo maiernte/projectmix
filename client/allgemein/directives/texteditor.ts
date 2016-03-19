@@ -1,4 +1,5 @@
 /// <reference path="../../../typings/angular2-meteor.d.ts" />
+/// <reference path="../../../typings/global.d.ts" />
 
 import {Component, Inject, ElementRef, Input, Output, EventEmitter, SimpleChange} from 'angular2/core'
 import {NgFor, NgIf} from 'angular2/common'

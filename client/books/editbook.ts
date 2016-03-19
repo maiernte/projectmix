@@ -186,7 +186,7 @@ export class BookEditor extends NavComponent{
                 jQuery('.positive.editbook.message').transition('fade')
                 this.ngZone.run(() => {
                     this.book = LocalBooks.findOne({_id: id})
-                    console.log("saveBook", id)
+                    Log("saveBook", id)
                 })
             }
         });

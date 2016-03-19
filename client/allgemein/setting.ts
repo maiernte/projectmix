@@ -1,4 +1,5 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
+/// <reference path="../../typings/global.d.ts" />
 import {Component, Inject} from 'angular2/core'
 import {NgFor} from 'angular2/common'
 
@@ -127,7 +128,7 @@ export class AppSetting extends PageComponent{
             LocalRecords.clear();
             LocalBooks.clear();
         }, () => {
-            console.log("cancel")
+            Log("cancel")
         })
     }
 
@@ -141,10 +142,8 @@ export class AppSetting extends PageComponent{
             }
 
             if(!f){
-                console.log("!f")
                 return
             }else{
-                console.log("read file")
                 r.readAsDataURL(f)
             }
         }

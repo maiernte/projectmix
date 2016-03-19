@@ -1,4 +1,5 @@
 /// <reference path="../../../typings/angular2-meteor.d.ts" />
+/// <reference path="../../../typings/global.d.ts" />
 import {Component, Inject, EventEmitter, Output, ContentChild} from 'angular2/core'
 
 import {TranslatePipe} from '../../allgemein/translatePipe'
@@ -74,7 +75,7 @@ export class LeadingYao{
     }
 
     NextStep(){
-        console.log("step 4 finished")
+        Log("step 4 finished")
         this.onfinished.next('step 4');
     }
 

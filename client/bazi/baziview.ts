@@ -83,7 +83,6 @@ export class BaziView{
     }
 
     calcTitle(gz: GanZhi): string{
-        console.log('calcTitle')
         return gz.NaYin;
     }
 

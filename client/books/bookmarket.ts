@@ -1,5 +1,6 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 /// <reference path="../../typings/book.d.ts" />
+/// <reference path="../../typings/global.d.ts" />
 
 import {Component, Inject, NgZone, OnInit} from 'angular2/core'
 import {NgFor, NgIf} from 'angular2/common'
@@ -81,7 +82,7 @@ export class BookMarket extends PageComponent{
             let bkmanager = this.glsetting.BookManager;
             bkmanager.UploadBook(book.Id)
                 .then((res) => {
-                    console.log('Upload result', res)
+                    Log('Upload result', res)
                     if(res == true){
                         book.IsCloud = true
                     }else{
@@ -100,7 +101,7 @@ export class BookMarket extends PageComponent{
                     if(!err){
                         this.ngZone.run(() => {
                             this.books = this.books.filter(bk => bk.Id != book.Id)
-                            console.log('this.books', this.books)
+                            Log('this.books', this.books)
                         })
                     }else{
                         this.glsetting.Alert("删除书集失败", err.toString())
@@ -126,25 +127,22 @@ export class BookMarket extends PageComponent{
     importBook(){
         window.plugins.mfilechooser.open([],  (uri) =>{
             uri = "file://" + uri
-            //console.log('url', uri)
 
             window.resolveLocalFileSystemURL(uri, (fs) => {
-                //console.log('file entry', fs);
+
                 fs.file((file) => {
-                    console.log('file => ', file);
+
                     var reader = new FileReader();
                     reader.onloadend = (evt) => {
-                        console.log("Read as data URL");
-                        //console.log(reader.result);
                     };
 
                     reader.readAsText(file);
                 }, (evt) => {
-                    console.log('fs.file', evt.target.error.code);
+                    Log('fs.file', evt.target.error.code);
                 });
             },
             (evt) =>{
-                console.log('resolveLocalFileSystemURL', evt.target.error.code);
+                Log('resolveLocalFileSystemURL', evt.target.error.code);
             })
 
         }, (error) => {
@@ -175,18 +173,14 @@ export class BookMarket extends PageComponent{
         let f = event.target.files[0]
         let r = new FileReader();
         r.onload = (evt) => {
-            console.log(r)
             let db = new TYSqlite(r.result)
-            //let db = new TYSqlite(evt.target.result)
-            //this.convertBook(db)
+            this.convertBook(db)
         }
 
         if(!f){
-            console.log("!f")
             return
         }else{
             r.readAsDataURL(f);
-            //r.readAsArrayBuffer(f)
         }
     }
 
@@ -235,7 +229,6 @@ export class BookMarket extends PageComponent{
                 this.glsetting.Alert("拉取在线书集", "您还没有登录，无法拉取在线书集。")
                 return
             }else{
-                console.log('connect meteor')
                 if(this.glsetting.ConnectMeteor() == false){
                     return
                 }

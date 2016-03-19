@@ -1,5 +1,6 @@
 /// <reference path="../../typings/meteor/meteor.d.ts" />
 /// <reference path="../../typings/book.d.ts" />
+/// <reference path="../../typings/global.d.ts" />
 
 import {Books, BkRecords, LocalBooks, LocalRecords} from 'collections/books'
 

@@ -120,7 +120,6 @@ export class CalendarView {
 
     // 显示设置窗口
     showSetting(){
-        console.log('calendar view: call from parent click')
     }
 
     searchNL(){
@@ -133,7 +132,7 @@ export class CalendarView {
             m = m * (-1);
             leap = '闰'
         }
-console.log('search ..', y , m, d)
+
         let res = TYLunar.SearchNongli(y, m, d);
         if(res != null){
             let year = res.getFullYear();
@@ -142,7 +141,6 @@ console.log('search ..', y , m, d)
 
             this.NlSearch['Result'] = res.formate('date')
             this.NlSearch['ResultTX'] = year + '年 ' + month + '月 ' + date + '日'
-            console.log(this.NlSearch['Result'])
         }else{
             this.NlSearch['ResultTX'] = '找不到农历 '
                 + this.NlSearch['Year'] + '年 '

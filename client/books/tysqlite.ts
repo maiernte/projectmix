@@ -1,5 +1,6 @@
 /// <reference path="../../typings/global.d.ts" />
 /// <reference path="../../typings/meteor/meteor.d.ts" />
+/// <reference path="../../typings/global.d.ts" />
 
 import {LocalRecords, LocalBooks} from 'collections/books'
 import {TYLunar} from '../../lib/lunar/tylunar'
@@ -128,7 +129,7 @@ export class TYSqlite{
                 }
             }
         }catch(err){
-            console.log(err)
+            Log(err)
         }
     }
 
@@ -222,7 +223,7 @@ export class TYSqlite{
             LocalRecords.insert(doc, (err, id) => {
                 counter--
                 if(counter == 0){
-                    console.log('import record finished')
+                    Log('import record finished')
                     callback(null)
                 }
             })
@@ -281,7 +282,7 @@ export class TYSqlite{
             LocalRecords.insert(doc, (err, id) => {
                 counter--
                 if(counter == 0){
-                    console.log('import record finished')
+                    Log('import record finished')
                     callback(null)
                 }
             })
@@ -298,7 +299,7 @@ export class TYSqlite{
             LocalRecords.insert(doc, (err, id)=>{
                 counter--
                 if(counter == 0){
-                    console.log('import record finished')
+                    Log('import record finished')
                     callback(null)
                 }
             })

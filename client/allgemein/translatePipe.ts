@@ -1,4 +1,5 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
+/// <reference path="../../typings/global.d.ts" />
 
 import {Pipe} from 'angular2/core'
 
@@ -46,7 +47,7 @@ export class TranslatePipe{
     }
 
     transback(text, params){
-        console.log('params', params)
+        Log('params', params)
         if(!text){
             return ''
         }
@@ -58,12 +59,12 @@ export class TranslatePipe{
             tw = TranslatePipe.tradional
         }
 
-        console.log('tw', tw, typeof tw)
+        Log('tw', tw, typeof tw)
         if(tw == true){
-            console.log('s2t')
+            Log('s2t')
             return typeof text == 'string' ? TranslatePipe.s2t(text) : text.toString();
         }else{
-            console.log('t2s')
+            Log('t2s')
             return typeof text == 'string' ? TranslatePipe.t2s(text) :text.toString();
         }
     }

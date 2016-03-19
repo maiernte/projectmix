@@ -1,4 +1,6 @@
 /// <reference path="../../../typings/angular2-meteor.d.ts" />
+/// <reference path="../../../typings/global.d.ts" />
+
 import {Component, Input} from 'angular2/core'
 import {FORM_DIRECTIVES} from 'angular2/common'
 

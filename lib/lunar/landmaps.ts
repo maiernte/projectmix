@@ -1,4 +1,4 @@
-
+/// <reference path="../../typings/global.d.ts" />
 
 export class LandMaps{
     private static JWv = new Array(
@@ -66,7 +66,7 @@ export class LandMaps{
             
             
         }catch(err){
-            console.log(err)
+            Log(err)
         }
     }
     

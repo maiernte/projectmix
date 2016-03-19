@@ -1,4 +1,5 @@
 /// <reference path="../../../typings/angular2-meteor.d.ts" />
+/// <reference path="../../../typings/global.d.ts" />
 import {Component, Inject, ElementRef} from 'angular2/core'
 import {NgFor} from 'angular2/common'
 import {TranslatePipe} from 'client/allgemein/translatePipe'
@@ -160,8 +161,6 @@ export class PaiLiuyaoGua{
                 gp.Items.push({Value: gua.Name, Text: gua.Name});
             };
         }
-
-        console.log(this.GuaOptions)
     }
     
     private showAnimate(outId: string, inId: string){

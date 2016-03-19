@@ -1,7 +1,13 @@
 /// <reference path="../../../typings/angular2-meteor.d.ts" />
 /// <reference path="../../../typings/book.d.ts" />
 
-import {Component, Inject, ContentChild, Input, ElementRef, NgZone} from 'angular2/core'
+import {Component,
+    Inject,
+    ContentChild,
+    Input,
+    ElementRef,
+    NgZone,
+    ChangeDetectionStrategy} from 'angular2/core'
 import {NgIf} from 'angular2/common'
 import {Router, RouteParams} from 'angular2/router'
 
@@ -25,6 +31,7 @@ declare var alertify;
     selector: "yixue-part",
     pipes:[TranslatePipe],
     templateUrl: "client/books/record/yipart.html",
+    changeDetection: ChangeDetectionStrategy.OnPush,
     directives: [TYEditor, NgIf]
 })
 export class YixuePart{
@@ -71,6 +78,10 @@ export class YixuePart{
         }
         
         this.editmodel = false
+    }
+
+    get IsPhone(){
+        return this.glsetting.Phone
     }
 
     get EditModel(){
@@ -135,8 +146,11 @@ export class YixuePart{
     }
     
     get ContentHeight(){
+        if(this.IsPhone){
+            return null;
+        }
+
         let height = (this.contentheight || window.innerHeight)
-        console.log("yipart height", height)
         return height
     }
 
@@ -163,13 +177,13 @@ export class YixuePart{
                 .then(() => {
                     this.ngZone.run(() => {
                         this.links = this.record.Links
-                        console.log('insert links to record', this.Links)
+                        Log('insert links to record', this.Links)
                     })
                 }).catch(err => {
                     this.glsetting.Alert("添加外链失败", err.toString())
                 })
         }, () => {
-            console.log("cancel")
+            Log("cancel")
         }).set('labels', {ok:oktext, cancel:canceltext});
         
         return
@@ -178,7 +192,7 @@ export class YixuePart{
     removeLink(link){
         if(link.extr == false){
             // 内链图片
-            console.log('remove image ', link.key)
+            Log('remove image ', link.key)
             this.record.RemoveImage(link.key)
                 .then(() => {
                     this.ngZone.run(() => {
@@ -188,7 +202,7 @@ export class YixuePart{
                 this.glsetting.Alert("删除内链失败", err.toString())
             })
         }else{
-            console.log('remove link ', link)
+            Log('remove link ', link)
             this.record.RemoveLink(link.url)
                 .then(() => {
                     this.ngZone.run(() => {
@@ -267,7 +281,6 @@ export class YixuePart{
         let dom = jQuery(this.rootElement.nativeElement)
         let pos = this.getPosition(dom[0])
         this.contentheight = window.innerHeight - pos.y - 10
-        console.log("pos", pos)
     }
 
     editorSaved(content){
@@ -275,7 +288,7 @@ export class YixuePart{
             this.Description = content
             this.saveChanging();
         }else{
-            console.log("user cancel")
+            Log("user cancel")
             this.Question = (this.record.Question || '')
             this.FeedBack = (this.record.FeedText || '')
         }
@@ -303,7 +316,7 @@ export class YixuePart{
 
         if(this.qiniuUploader.Inited == false){
             this.qiniuUploader.Init().then(() => {
-                console.log('init qiniu uploader', this.qiniuUploader)
+                Log('init qiniu uploader', this.qiniuUploader)
             })
         }
     }
@@ -320,7 +333,7 @@ export class YixuePart{
 
         let end = this.Description.indexOf('#', start + 1)
         end = end < 0 ? this.Description.length - 1 : end
-        console.log('start', start, end)
+
         let dom = this.Description.substring(start, end)
         dom = `${dom}`
 
@@ -360,7 +373,7 @@ export class YixuePart{
                         throw Error('cancel')
                     }
 
-                    console.log('add image file to ', this.record.Question, this.record.Id)
+                    Log('add image file to ', this.record.Question, this.record.Id)
                     this.setprogress(0)
                 },
 
@@ -371,14 +384,14 @@ export class YixuePart{
                 },
 
                 'UploadProgress': (up, file) => {
-                    console.log('progress...')
+                    Log('progress...')
                     this.setprogress(10)
                 },
 
                 'FileUploaded': (up, file, info) => {
                     let pic = JSON.parse(info)
                     this.record.InsertImage(pic.key)
-                    console.log('update images of', this.record.Question, this.record.Id)
+                    Log('update images of', this.record.Question, this.record.Id)
                 },
                 'Error': (up, err, errTip) => {
                     this.uploadErr = err
@@ -389,7 +402,7 @@ export class YixuePart{
                         if(this.uploadErr){
                             this.glsetting.Alert('上传失败', this.uploadErr.toString())
                         }else {
-                            console.log('upload completed', this.record.Id)
+                            Log('upload completed', this.record.Id)
                             this.ngZone.run(() => {
                                 this.UpLoading = false;
                                 this.images = this.record.Images
@@ -417,7 +430,7 @@ export class YixuePart{
             this.qiniuUploader = new TYUploader(settings)
             this.qiniuUploader.Init()
         }catch(err){
-            console.log('init qiniu err:', err)
+            Log('init qiniu err:', err)
             this.qiniuUploader = null
         }
     }

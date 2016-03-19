@@ -1,5 +1,6 @@
 /// <reference path="../../../typings/book.d.ts" />
 /// <reference path="../../../typings/meteor/meteor.d.ts" />
+/// <reference path="../../../typings/global.d.ts" />
 
 import {LocalRecords, BkRecords} from 'collections/books'
 import {DelImages} from 'collections/admin'
@@ -161,7 +162,7 @@ export class RecordHelper{
 
         let promise = new Promise((resolve, reject) => {
             DelImages.insert(del, (errqiniu) => {
-                console.log('insert to DelImge')
+                Log('insert to DelImge')
                 if(!errqiniu){
                     this.rd.img = this.rd.img.filter(k => k != key)
                     LocalRecords.update(this.rd._id,

@@ -1,4 +1,5 @@
 /// <reference path="../../../typings/angular2-meteor.d.ts" />
+/// <reference path="../../../typings/global.d.ts" />
 
 import {Component, Inject, ElementRef, ChangeDetectionStrategy} from 'angular2/core'
 
@@ -42,13 +43,13 @@ export class Demo extends PageComponent{
     }
 
     get Gender() {
-        console.log("get gender", this.gender)
+        Log("get gender", this.gender)
         return this.gender
     }
 
     set Gender(value){
         this.gender = value;
-        console.log('set gender', value)
+        Log('set gender', value)
     }
 
     get Seletcted(){
@@ -56,7 +57,7 @@ export class Demo extends PageComponent{
     }
 
     set Seletcted(value){
-        console.log('set selected', value)
+        Log('set selected', value)
         this.selected = value
     }
 
@@ -104,7 +105,7 @@ export class Demo extends PageComponent{
         var f = event.srcElement.files[0];
         var r = new FileReader();
         r.onload = () => {
-            console.log('load...')
+            Log('load...')
             this.glsetting.Alert("aa", "bb")
             //let db = new TYSqlite(r.result)
             //this.glsetting.Alert('gua file', db.BookType)
@@ -115,7 +116,7 @@ export class Demo extends PageComponent{
     }
 
     dosometrick(){
-        console.log("trigger selector")
+        Log("trigger selector")
         this.glsetting.Notify("trigger selector", -1)
         //jQuery("#hiddenselector").trigger('click')
     }

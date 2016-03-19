@@ -1,6 +1,6 @@
 {
     "public": {
-        "Debug": true
+        "Debug": false
     },
     
     "mail": {

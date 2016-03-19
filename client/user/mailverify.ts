@@ -1,4 +1,5 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
+/// <reference path="../../typings/global.d.ts" />
 
 import {Component, Inject} from 'angular2/core'
 
@@ -28,7 +29,7 @@ export class MailVerified{
     verify(para){
         Accounts.verifyEmail(para, (err) => {
             if(err){
-                console.log('verify....', err)
+                Log('verify....', err)
                 this.showSuccess('verify-failed')
             }else{
                 this.showSuccess('verify-successed')

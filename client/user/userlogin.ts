@@ -1,4 +1,5 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
+/// <reference path="../../typings/global.d.ts" />
 import {Component, Inject, ElementRef, NgZone} from 'angular2/core'
 import {NgIf} from 'angular2/common'
 import {Router, RouteParams} from 'angular2/router'

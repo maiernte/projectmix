@@ -223,7 +223,7 @@ export class PaiBazi extends PageComponent {
 
     paiBazi(){
         let date = this.glsetting.ParseDate(this.Input.Date)
-        console.log('pai bazi', this.Input.Date, date)
+        Log('pai bazi', this.Input.Date, date)
         if(this.TimeModel == false){
             // 农历时间
             date = this.searchNL()

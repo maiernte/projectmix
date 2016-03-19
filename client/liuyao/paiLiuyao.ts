@@ -1,4 +1,5 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
+/// <reference path="../../typings/global.d.ts" />
 
 import {Component, Inject, ChangeDetectionStrategy} from 'angular2/core'
 import {NgFor} from 'angular2/common'

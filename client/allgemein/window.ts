@@ -1,5 +1,6 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 /// <reference path="../../typings/book.d.ts" />
+/// <reference path="../../typings/global.d.ts" />
 
 import {Component,
 		ElementRef,
@@ -73,7 +74,7 @@ export class TyWindow {
 			if(this.guaview) this.guaview.showSetting();
 			if(this.baziview) this.baziview.showSetting();
 		}catch(err){
-			console.log('showSetting Error', err)
+			Log('showSetting Error', err)
 		} 
 	}
 
@@ -105,8 +106,8 @@ export class TyWindow {
 			.modal({
 				closable  : false,
 				onApprove : () => {
-			      //this.saveTo(this.selectedbook)
-			      console.log('onApprove')
+			      	//this.saveTo(this.selectedbook)
+					Log('onApprove')
 			    }
 			}).modal('show')
 	}

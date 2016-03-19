@@ -1,3 +1,5 @@
+/// <reference path="../../typings/global.d.ts" />
+
 declare var Qiniu;
 declare var Meteor;
 declare var Promise;
@@ -34,7 +36,7 @@ export class TYUploader{
     }
 
     Destroy(){
-        console.log('destroy uploader')
+        Log('destroy uploader')
         this.uploader.destroy()
     }
 

@@ -1,5 +1,6 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 /// <reference path="../../typings/book.d.ts" />
+/// <reference path="../../typings/global.d.ts" />
 
 import {Component, Inject, ElementRef, NgZone} from 'angular2/core'
 import {Router, RouteParams} from 'angular2/router'
@@ -93,10 +94,10 @@ export class UerProfile{
 
         Meteor.call('sendVerificationEmail', Session.get('userid'), this.Email, (err, response) => {
             if(!err){
-                console.log('email is sended!')
+                Log('email is sended!')
                 this.glsetting.Notify('验证邮件已经发送到您的注册邮箱中！', 1)
             }else{
-                console.log('Error : ', err)
+                Log('Error : ', err)
             }
         })
     }
@@ -146,7 +147,6 @@ export class UerProfile{
     logout(){
         this.glsetting.SignOut().then(() => {
             this.ngZone.run(() => {
-                console.log('log out')
                 this.router.parent.navigate(['Login'])
             })
         }).catch(err => {
@@ -163,7 +163,7 @@ export class UerProfile{
                     if(err){
                         reject(err)
                     }else{
-                        console.log("update profile successed!")
+                        Log("update profile successed!")
                         resolve(true)
                     }
                 });
@@ -182,7 +182,7 @@ export class UerProfile{
             if(err){
                 this.glsetting.Alert("更改邮箱失败", err.toString())
             }else{
-                console.log('change mail successed:', res)
+                Log('change mail successed:', res)
             }
         })
     }
@@ -197,7 +197,7 @@ export class UerProfile{
 
         let promise = new Promise((resolve, reject) => {
             DelImages.insert(del, (errqiniu) => {
-                console.log('insert to DelImge')
+                Log('insert to DelImge')
                 if(!errqiniu){
                 }else{
                     reject(errqiniu)
@@ -252,7 +252,7 @@ export class UerProfile{
                         {_id: Session.get('userid')},
                         {$set: {'profile.icon': icon.key}},
                         (err, res) => {
-                            console.log("update profile : ", err, res)
+                            Log("update profile : ", err, res)
                         });
 
                     if(oldicon && oldicon != ''){
@@ -260,7 +260,7 @@ export class UerProfile{
                     }
                 },
                 'Error': function(up, err, errTip) {
-                    console.log('upload error', err, errTip)
+                    Log('upload error', err, errTip)
                 },
                 'UploadComplete': () => {
                     this.ngZone.run(() => {
@@ -287,7 +287,7 @@ export class UerProfile{
             uploader.settings.unique_names = false
             uploader.init();
         }catch(err){
-            console.log('init qiniu err:', err)
+            Log('init qiniu err:', err)
         }
     }
 

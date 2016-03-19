@@ -1,6 +1,7 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
 /// <reference path="../../typings/book.d.ts" />
 /// <reference path="../../typings/ng2-pagination.d.ts" />
+/// <reference path="../../typings/global.d.ts" />
 
 import {Component, Inject, NgZone, ElementRef} from 'angular2/core'
 import {NgFor, NgIf} from 'angular2/common'
@@ -167,7 +168,7 @@ export class BookContent extends NavComponent{
         }
 
         if(move == true){
-            console.log('remove record')
+            Log('remove record')
             for(let rd of rds){
                 rd.Remove()
             }
@@ -199,7 +200,7 @@ export class BookContent extends NavComponent{
             
             Promise.all(promises).then(() => {
                 this.ngZone.run(() => {
-                    console.log('alle record sind gelöscht!')
+                    Log('alle record sind gelöscht!')
                     this.loadContent(null);
                 })
             })
@@ -243,7 +244,7 @@ export class BookContent extends NavComponent{
             let idx = this.curPage.get() + (1 + page)
             let pages = Math.ceil(this.sumItems / this.pageSize)
             if(idx < 1 || idx > pages){
-                console.log('index out of range', idx)
+                Log('index out of range', idx)
                 return;
             }else{
                 page = idx;
@@ -262,7 +263,7 @@ export class BookContent extends NavComponent{
             this.cloudData().then(rds => {
                 return this.download(rds)
             }).then(ids => {
-                console.log("need to upload", ids)
+                Log("need to upload", ids)
                 return this.upload(ids)
             }).then(up => {
                 if(up == true){
@@ -286,9 +287,9 @@ export class BookContent extends NavComponent{
 
     sortcontent(flag){
         if(flag == this.recordsort){
-            console.log("no need to sort", flag, this.recordsort)
+            Log("no need to sort", flag, this.recordsort)
         }else{
-            console.log("sort", flag, this.recordsort)
+            Log("sort", flag, this.recordsort)
             this.ngZone.run(() => {
                 this.recordsort = flag
                 this.loadContent(null)
@@ -369,8 +370,8 @@ export class BookContent extends NavComponent{
             .find(selector,
                   {fields: {description: 0, img: 0, link: 0}, sort: {created: 'desc'}})
             .fetch()
-            
-        console.log(records.map(rd => rd.question))
+
+        Log(records.map(rd => rd.question))
     }
 
     private buildRecordView(records){
@@ -426,7 +427,7 @@ export class BookContent extends NavComponent{
                 }else if(lcd.modified == crd.modified){
                     ids = ids.filter(i => i != lcd._id)
                 }else{
-                    console.log('?', lcd, crd)
+                    Log('?', lcd, crd)
                 }
             }
 
@@ -447,7 +448,7 @@ export class BookContent extends NavComponent{
             for(let id of ids){
                 let lrd = LocalRecords.findOne({_id: id})
                 if(!lrd){
-                    console.log('en.... not good', id)
+                    Log('en.... not good', id)
                     continue;
                 }
                 

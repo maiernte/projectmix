@@ -89,12 +89,15 @@ class HuaheApp {
             this.router.navigate(['/Desktop'])
         })
 
-        this.testtime = this.glsetting.ParseDate("2016-06-30")
-        if(Date.now() >= this.testtime.getTime() && this.glsetting.IsCordova){
-            alertify.alert('版本过期', '此测试版本已经到期!请更换新的版本',
-                () => {this.Exit()})
-                .set('labels', {ok:'好的'});
-        }
+        /*let debug = (Meteor.settings.public || {Debug: false}).Debug
+        if(debug == true){
+            this.testtime = this.glsetting.ParseDate("2016-06-30")
+            if(Date.now() >= this.testtime.getTime() && this.glsetting.IsCordova){
+                alertify.alert('版本过期', '此测试版本已经到期!请更换新的版本',
+                    () => {this.Exit()})
+                    .set('labels', {ok:'好的'});
+            }
+        }*/
 
         /*var size = jQuery(this.rootElement.nativeElement).css('font-size');
         console.log('font size', size)
@@ -131,7 +134,6 @@ Meteor.startup(function() {
     if(Meteor.isCordova){
         //Log("disconnet")
         //Meteor.disconnect();
-        //MobileAccessibility.usePreferredTextZoom(false);
 
         Meteor._reload.onMigrate(function() {
             console.log("call _reload")
