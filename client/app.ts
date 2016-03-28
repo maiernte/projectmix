@@ -50,7 +50,7 @@ declare var Promise;
     selector: 'app',
     templateUrl: 'client/app.html',
     directives: [ROUTER_DIRECTIVES, NgIf],
-    pipes: [TranslatePipe],
+    pipes: [TranslatePipe]
 })
 @RouteConfig([
     {path: '/', as: 'Desktop', component: Desktop},
@@ -108,6 +108,7 @@ class HuaheApp {
     }
 
     ngAfterViewInit(){
+        //console.log('App ViewInited' + (new Date(Date.now())).toString())
     }
 
     get iOS(){
@@ -123,6 +124,10 @@ class HuaheApp {
         return GlobalSetting.fontsizes[idx];
     }
 
+    get MinHeight(){
+        return window.innerHeight
+    }
+
     Exit(){
         this.glsetting.Exit();
     }
@@ -130,15 +135,22 @@ class HuaheApp {
 
 bootstrap(HuaheApp, [ROUTER_PROVIDERS, provide(LocationStrategy, { useClass: HashLocationStrategy }), GlobalSetting]);
 
+
+
 Meteor.startup(function() {
     if(Meteor.isCordova){
         //Log("disconnet")
         //Meteor.disconnect();
+        //SplashScreen.Show()
+        GlobalSetting.LaunchScreenHandel = LaunchScreen.hold();
+        navigator.splashscreen.show()
+
+
 
         Meteor._reload.onMigrate(function() {
             console.log("call _reload")
-            let debug = (Meteor.settings.public || {Debug: false}).Debug
-            return [debug ? true : false];
+            let debug = (Meteor.settings && Meteor.settings.public) ? Meteor.settings.public.Debug :  false;
+            return [debug == true ? true : false];
         });
     }
 })

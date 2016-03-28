@@ -188,6 +188,10 @@ export class PaiBazi extends PageComponent {
         this.Input.HH = time.getHours();
         this.Input.MM = time.getMinutes();
 
+        let radiobutton = jQuery(this.rootElement.nativeElement).find("#radio-man")
+        Log('gender man ', radiobutton[0].checked)
+        this.Input.Gender = radiobutton[0].checked ? 'm' : 'f'
+
         this.Solar = true;
         this.CalcSet.Y = '甲子';
         this.CalcSet.D = '甲子';
@@ -202,9 +206,13 @@ export class PaiBazi extends PageComponent {
             Date: 0,
             Leap: false,
         }
+
+        let domTime = jQuery(this.rootElement.nativeElement).find('#bazi-time-gl')
+        this.gongliModel = domTime.hasClass('hidden') ? false : true;
     }
 
     ngAfterViewInit(){
+
     }
 
     calcNextTime(direction: number){

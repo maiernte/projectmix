@@ -24,6 +24,9 @@ declare var alertify;
     templateUrl: 'client/allgemein/desktop.html',
     directives: [TyWindow, NgFor, CalendarView, GuaView, CompassView, BaziView],
     pipes: [TranslatePipe],
+    styles: [`
+        background-color: blue
+    `]
 })
 
 export class Desktop extends PageComponent{
@@ -106,6 +109,19 @@ export class Desktop extends PageComponent{
                 Desktop.showTips = true;
             });
         }
+    }
+
+    ngAfterViewInit(){
+        //console.log('Desktop ViewInited' + (new Date(Date.now())).toString())
+        //console.log('Handel', GlobalSetting.LaunchScreenHandel)
+        setTimeout(()=>{
+            if(GlobalSetting.LaunchScreenHandel){
+                GlobalSetting.LaunchScreenHandel.release();
+                GlobalSetting.LaunchScreenHandel = null
+                console.log("releas splash screen")
+            }
+        }, 1000)
+
     }
     
     static AddFrame(params, guid){

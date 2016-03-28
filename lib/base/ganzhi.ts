@@ -165,16 +165,16 @@ function initZhis(){
 
     zhis.push(new tyZhi(0, '子', [9]));
     zhis.push(new tyZhi(1, '丑', [9, 7, 5]));
-    zhis.push(new tyZhi(2, '寅', [0, 2, 4]));
+    zhis.push(new tyZhi(2, '寅', [0, 2, 5]));
     zhis.push(new tyZhi(3, '卯', [1]));
     zhis.push(new tyZhi(4, '辰', [1, 4, 9]));
     zhis.push(new tyZhi(5, '巳', [2, 4, 6]));
-    zhis.push(new tyZhi(6, '午', [3, 5]));
+    zhis.push(new tyZhi(6, '午', [3]));
     zhis.push(new tyZhi(7, '未', [1, 3, 5]));
-    zhis.push(new tyZhi(8, '申', [4, 6, 8]));
+    zhis.push(new tyZhi(8, '申', [5, 6, 8]));
     zhis.push(new tyZhi(9, '酉', [7]));
     zhis.push(new tyZhi(10, '戌',[3, 4, 7]));
-    zhis.push(new tyZhi(11, '亥',[0, 8]));
+    zhis.push(new tyZhi(11, '亥',[0, 4, 8]));
 }
 
 export function Gan(para): tyGan{

@@ -477,7 +477,7 @@ export class GuaView{
             this.Gua = new Gua(time, null, null, ben, bian)
 
             let tydate = new TYDate(time)
-            if(tydate.JQtime){
+            if(tydate.JQtime && tydate.date.getDate() < 10){
                 //console.log(tydate.JQtime)
                 let items = tydate.JQtime.split(':')
                 this.Tips = `提示：当日${items[0]}时${items[1]}分换月令。`

@@ -9,7 +9,7 @@ App.info({
     author: '鎏金天涯',
     email: 'mai.yongfeng@googlemail.com',
     website: 'http://huaheweb.eu-gb.mybluemix.net',
-    version: '0.0.4'
+    version: '1.0.0'
 });
 
 // Set up resources such as icons and launch screens.
@@ -20,10 +20,10 @@ App.icons({
     'ipad':      'resources/ios/icon/Icon-76.png',
     'ipad_2x':   'resources/ios/icon/Icon-76@2x.png',
 
-    'android_ldpi':  'resources/android/icon/icon-ldpi.png',
-    'android_mdpi':  'resources/android/icon/icon-mdpi.png',
-    'android_hdpi':  'resources/android/icon/icon-hdpi.png',
-    'android_xhdpi': 'resources/android/icon/icon-xhdpi.png'
+    'android_ldpi':  'resources/android/icon/mipmap-ldpi/ic_launcher.png',
+    'android_mdpi':  'resources/android/icon/mipmap-mdpi/ic_launcher.png',
+    'android_hdpi':  'resources/android/icon/mipmap-hdpi/ic_launcher.png',
+    'android_xhdpi': 'resources/android/icon/mipmap-xhdpi/ic_launcher.png'
 });
 
 App.launchScreens({
@@ -49,10 +49,12 @@ App.launchScreens({
 });
 
 // Set PhoneGap/Cordova preferences
-//App.setPreference('BackgroundColor', '0xff0000ff');
+//App.setPreference('BackgroundColor', '0xff00ffff');
 App.setPreference('HideKeyboardFormAccessoryBar', true);
+App.setPreference('AutoHideSplashScreen', false)
 //App.setPreference('AllowInlineMediaPlayback', true);
 
 // 17 = Version 4.2 19 = 4.4 15 = 4.0 21 = 5.0
 App.setPreference('android-targetSdkVersion', '21');
 App.setPreference('android-minSdkVersion', '19');
+App.setPreference("SplashScreenDelay", 90000);

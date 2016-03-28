@@ -1,5 +1,6 @@
-<div class="ui dropdown semantic"
+<div class="ui scrolling dropdown semantic"
      *ngIf="!UseOrigin"
+     [class.scrolling]="!Grouped"
      [style.font-size]="FontSize">
     <!--<div class="default text">{{Selected.Text | tran:glsetting.lang}}</div>-->
     <span class="text">{{Selected.Text | tran:glsetting.lang}}</span>

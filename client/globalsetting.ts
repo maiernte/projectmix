@@ -25,10 +25,12 @@ export  class GlobalSetting{
     private isphone
     private fontsize
 
-    public  static fontsizes = ['smaller', 'small' , 'medium', 'large', 'larger']
+    public  static fontsizes = [null, 'smaller', 'small' , 'medium', 'large']
 
     Clipboard: Object
     BookManager: Bookmanager;
+
+    public static LaunchScreenHandel = null
 
     constructor(){
         this.setting = [
@@ -45,7 +47,7 @@ export  class GlobalSetting{
             {Name: 'autosignin', Value: false},
             {Name: 'book-pagerd', Value: 4},
             {Name: 'gua-arrow', Value: true},
-            {Name: 'font-size', Value: -1}
+            {Name: 'font-size', Value: 0}
         ]
 
 
@@ -237,6 +239,14 @@ export  class GlobalSetting{
     }
 
     ConnectMeteor(): boolean {
+        if(Meteor.isCordova){
+            Log('internet', navigator.onLine, navigator.connection, Connection.NONE)
+            if(navigator.connection.type == Connection.NONE){
+                this.Notify("现在检测不到网络, 无法登录和进行云操作!", -1)
+                return false
+            }
+        }
+
         let status = Meteor.status();
         if(status['connected'] == false){
             let count = 0

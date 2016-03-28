@@ -1,4 +1,6 @@
-<div class='ui attached basic segment' [style.font-size]="FontSize">
+<div class='ui attached basic segment'
+     style="background-color: white"
+     [style.font-size]="FontSize">
     <div>
         <a class="ui teal ribbon label" (click)="showSetting()">
             {{title | tran:glsetting.lang}}
@@ -28,7 +30,7 @@
     </div>
 
     <div class="ui equal width grid" *ngFor="#sslist of ShenShas; #row=index"
-         style="margin-left: 5px;">
+         style="margin-left: 3px;">
         <div class="column" *ngFor="#ss of sslist;"
              [style.padding-top]="row > 0 ? 0 : null"
              style="padding-left: 0px;padding-bottom: 0px;padding-right:0;">
@@ -86,7 +88,9 @@
         </div>
     </div>
     
-    <table class="ui unstackable compact table" style="padding:0; margin:0" id="gua-table">
+    <table class="ui unstackable compact table"
+           style="padding:0;margin:0;background-color:white"
+           id="gua-table">
         <tbody>
             <tr *ngFor="#i of [5,4,3,2,1,0]">
                 <td style="padding-left:0;padding-right:0;border-collapse:collapse">
