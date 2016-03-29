@@ -1,6 +1,7 @@
 import {GanZhi} from './ganzhi'
 import {TYLunar} from 'lib/lunar/tylunar'
 import {ShenSha} from "./shensha";
+import {TYDate} from "../lunar/tylunar";
 
 enum YunType {DaYun, LiuNian, XiaoYun}
 
@@ -46,7 +47,7 @@ export class Bazi{
     private shenshas: Array<ShenSha>
     private dayun: Array<BaziYun>
 
-    constructor(public Birthday: Date, public Gender: string){
+    constructor(public Birthday: Date, public Gender: string, public fakeYue: boolean){
 
         this.bazi = TYLunar.calcBazi(this.Birthday.getFullYear(),
                                     this.Birthday.getMonth() + 1,
@@ -58,6 +59,19 @@ export class Bazi{
         this.bazi['M'].Base = this.bazi['D'];
         this.bazi['D'].Base = this.bazi['D'];
         this.bazi['T'].Base = this.bazi['D'];
+
+        let tydate = new TYDate(Birthday)
+        let hanyue = tydate.JQtime && tydate.date.getDate() < 10
+        if(fakeYue == true && hanyue == true){
+            let yue = new GanZhi((this.bazi['M'].Index - 1 + 60) % 60)
+            this.bazi['M'] = yue
+            this.bazi['M'].Base = this.bazi['D'];
+            if(yue.Index % 12 == 2){
+                let nian = new GanZhi((this.bazi['Y'].Index - 1 + 60) % 60)
+                this.bazi['Y'] = nian
+                this.bazi['Y'].Base = this.bazi['D'];
+            }
+        }
 
         this.initShenSha();
         this.initDaYun();

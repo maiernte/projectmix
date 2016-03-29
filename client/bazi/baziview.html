@@ -32,15 +32,15 @@
     <div class="ui grid yuanju">
         <div class="two wide column">
             <div>&nbsp;</div>
-            <h4 style="padding: 0;margin: 0;font-weight: bold">{{Info.Gender | tran:glsetting.lang}}</h4>
+            <div style="padding: 0;margin: 0;font-weight: bold">{{Info.Gender | tran:glsetting.lang}}</div>
         </div>
         <div *ngFor="#zhu of Main" class="three wide column bazi mean"
              [attr.data-title]="zhu.NaYin"
              [attr.data-content]="CalcShenSha(zhu)"
              style="text-align: center;">
             <div style="color: gray">{{zhu.Shen10Gan[0] | tran:glsetting.lang}}</div>
-            <h4 style="padding: 0;margin: 0;font-weight: bold">{{zhu.Gan.Name | tran:glsetting.lang}}</h4>
-            <h4 style="padding: 0;margin: 0;font-weight: bold">{{zhu.Zhi.Name | tran:glsetting.lang}}</h4>
+            <div style="padding: 0;margin: 0;font-weight: bold">{{zhu.Gan.Name | tran:glsetting.lang}}</div>
+            <div style="padding: 0;margin: 0;font-weight: bold">{{zhu.Zhi.Name | tran:glsetting.lang}}</div>
             <div style="color: gray">{{zhu.Shen10Zhi[0] | tran:glsetting.lang}}</div>
         </div>
     </div>
@@ -218,6 +218,12 @@
                 <sm-select [Options]="'四 五 六 七'"
                            [Value]="shenshaColumnCount - 4"
                            (Value)="changeShenShaSetting($event)"></sm-select>
+            </div>
+            <div class="inline field">
+                <label>{{'月柱:' | tran:glsetting.lang}}</label>
+                <sm-select [Options]="'默认月柱 备用月柱'"
+                           [Value]="YueZhu"
+                           (Value)="YueZhu = $event"></sm-select>
             </div>
         </div>
 

@@ -45,6 +45,7 @@ export class BaziView{
     private shenshas: Array<Object>;
     private liunian: Array<Object>;
     private initParams: Object;
+    private yuezhu = 0
 
     onshowyear = new EventEmitter();
 
@@ -80,6 +81,16 @@ export class BaziView{
     get FontSize(){
         let idx = this.glsetting.FontSize;
         return GlobalSetting.fontsizes[idx];
+    }
+
+    get YueZhu(){
+        return this.yuezhu;
+    }
+
+    set YueZhu(value){
+        this.yuezhu = parseFloat(value.toString())
+        console.log('set YueZhu', value)
+        this.paiBazi(this.initParams);
     }
 
     calcTitle(gz: GanZhi): string{
@@ -357,7 +368,7 @@ export class BaziView{
         this.Info.Birthday +=  `(农历 ${nl})`
 
         this.Info.SolarTime = date.toChinaString(true);
-        this.Bazi = new Bazi(date, params['gender'])
+        this.Bazi = new Bazi(date, params['gender'], this.yuezhu == 1)
         this.Info.Title = this.Bazi.Y.Name + ' / ' +
                             this.Bazi.M.Name + ' / ' +
                             this.Bazi.D.Name + ' / ' +
@@ -376,6 +387,13 @@ export class BaziView{
         
         this.shenshas = null
         this.liunian = null
+
+        if(tydate.JQtime && tydate.date.getDate() < 10){
+            //console.log(tydate.JQtime)
+            let items = tydate.JQtime.split(':')
+            let tips = `提示：当日${items[0]}时${items[1]}分换月。可在功能区按需求更改备用月柱。`
+            this.glsetting.Notify(tips, -1)
+        }
     }
 
     private initMingJu(){
