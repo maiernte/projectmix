@@ -189,7 +189,7 @@ export class PaiBazi extends PageComponent {
         this.Input.MM = time.getMinutes();
 
         let radiobutton = jQuery(this.rootElement.nativeElement).find("#radio-man")
-        Log('gender man ', radiobutton[0].checked)
+        //Log('gender man ', radiobutton[0].checked)
         this.Input.Gender = radiobutton[0].checked ? 'm' : 'f'
 
         this.Solar = true;
@@ -231,7 +231,7 @@ export class PaiBazi extends PageComponent {
 
     paiBazi(){
         let date = this.glsetting.ParseDate(this.Input.Date)
-        Log('pai bazi', this.Input.Date, date)
+        //Log('pai bazi', this.Input.Date, date)
         if(this.TimeModel == false){
             // 农历时间
             date = this.searchNL()

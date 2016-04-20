@@ -260,6 +260,13 @@ export class BaziView{
         }
     }
 
+    showInfo(){
+        let msg = `<div>凡遇换月令时日的八字</div><br>
+        <div>可在功能区换选备用月令</div>`
+
+        this.glsetting.Notify(msg, 1)
+    }
+
     showYuanJu(dayunindex){
         let y = this.Bazi.Y
         let m = this.Bazi.M

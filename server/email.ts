@@ -5,7 +5,7 @@ declare var Accounts;
 declare var _;
 declare var process;
 
-var baseurl = (process.env.ROOT_URL || "https://huahe.eu-gb.mybluemix.net")
+var baseurl = (process.env.ROOT_URL || "http://huaheweb.eu-gb.mybluemix.net")
 baseurl = baseurl.endsWith('/') ? baseurl + '#/' : baseurl + '/#/'
 
 function validateEmail(email) {

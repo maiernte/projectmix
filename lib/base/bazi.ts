@@ -66,7 +66,7 @@ export class Bazi{
             let yue = new GanZhi((this.bazi['M'].Index - 1 + 60) % 60)
             this.bazi['M'] = yue
             this.bazi['M'].Base = this.bazi['D'];
-            if(yue.Index % 12 == 2){
+            if(yue.Index % 12 == 1){
                 let nian = new GanZhi((this.bazi['Y'].Index - 1 + 60) % 60)
                 this.bazi['Y'] = nian
                 this.bazi['Y'].Base = this.bazi['D'];

@@ -37,7 +37,7 @@ export function initQiniu(){
 
         // 应用配置
         qiniu.init();
-        LogDebug('qiniu inited !')
+        console.log('qiniu inited !')
     }catch(err){
         LogDB(err.toString(), 'initQiniu', 'server')
         LogDebug('init qiniu error: ', err)

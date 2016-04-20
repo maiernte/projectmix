@@ -15,7 +15,7 @@ declare var process;
 
 Meteor.startup(function(){
     initQiniu()
-    LogDebug("baseurl", process.env.ROOT_URL)
+    console.log("baseurl " + process.env.ROOT_URL)
     
     var options = {
         apiKey: "key-f1c82d8c2b8c0ab791faf1e1819d8f33",
